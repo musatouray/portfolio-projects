@@ -18,3 +18,7 @@ nul
 **/.pbi/localSettings.json
 **/.pbi/editorSettings.json
 **/.pbi/cache.abf
+
+# Power BI review notes (working documents)
+**/report/POWERBI_REVIEW.md
+**/report/POWERBI_REVIEW_REFACTORS.md

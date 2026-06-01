@@ -2522,10 +2522,10 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Landing Page Light' =
+	measure 'Landing Page Light' = ```
 			
 			-- =============================================================================
-			-- Live KPI values (identical to the dark version)
+			-- Live KPI values (identical to the dark version) 
 			-- =============================================================================
 			VAR __Revenue          = [Total Revenue]
 			VAR __RevenueShort     = [Revenue Format Large]
@@ -2685,6 +2685,7 @@ table _Measures
 			lpi();lpd();window.addEventListener('resize',lpi);
 			</script>
 			</div>"
+			```
 		displayFolder: 15_Landing Page
 		lineageTag: f2d7dde3-02e7-48f8-9bcd-a1b401761b0a
 
