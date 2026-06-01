@@ -117,7 +117,7 @@ Review the YAML for:
 ### Step 7: Compile & Validate
 
 ```bash
-cd ecommerce-retail-analytics/dbt
+cd dbt
 uv run dbt compile --select <model_name>
 ```
 

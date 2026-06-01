@@ -1,15 +1,15 @@
 # VS Code settings (contains credentials)
-.vscode/
+**/.vscode/
 
 # Claude Code - ignore local settings, track workflow files
-.claude/settings.local.json
-.claude/todos.local.json
+**/.claude/settings.local.json
+**/.claude/todos.local.json
 
 # Logs
-logs/
+**/logs/
 
 # dbt artifacts (version-specific lock file)
-ecommerce-retail-analytics/dbt/package-lock.yml
+**/dbt/package-lock.yml
 
 # Windows artifacts
 nul

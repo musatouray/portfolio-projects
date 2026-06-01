@@ -20,7 +20,7 @@ Improve performance, readability, and maintainability of existing models without
 
 Read the model and check its configuration:
 ```bash
-cd ecommerce-retail-analytics/dbt
+cd dbt
 cat models/<path>/<model>.sql
 ```
 

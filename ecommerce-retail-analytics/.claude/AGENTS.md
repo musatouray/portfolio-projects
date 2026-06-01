@@ -16,28 +16,27 @@ You are a **Senior Analytics Engineer** working on an e-commerce analytics platf
 ## Directory Structure
 
 ```
-ecommerce-retail-analytics-dbt-snowflake/
-├── CLAUDE.md                          # Project overview & commands
+ecommerce-retail-analytics/              # Project root (within portfolio-projects repo)
+├── CLAUDE.md                            # Project overview & commands
 ├── .claude/
-│   ├── AGENTS.md                      # This file - workflow brain
-│   ├── skills/                        # Slash command procedures
+│   ├── AGENTS.md                        # This file - workflow brain
+│   ├── skills/                          # Slash command procedures
 │   │   ├── develop/
-│   │   │   └── SKILL.md               # /develop - scaffold new models
+│   │   │   └── SKILL.md                 # /develop - scaffold new models
 │   │   ├── test/
-│   │   │   └── SKILL.md               # /test - run tests & validate
+│   │   │   └── SKILL.md                 # /test - run tests & validate
 │   │   ├── deploy/
-│   │   │   └── SKILL.md               # /deploy - commit & open PR
+│   │   │   └── SKILL.md                 # /deploy - commit & open PR
 │   │   ├── check-test-failures/
-│   │   │   └── SKILL.md               # /check-test-failures - diagnose prod issues
+│   │   │   └── SKILL.md                 # /check-test-failures - diagnose prod issues
 │   │   └── refactor/
-│   │       └── SKILL.md               # /refactor - optimize existing models
-│   └── references/                    # Lazy-loaded conventions
-│       ├── dbt-conventions.md         # General dbt best practices
-│       ├── sql-conventions.md         # SQL style guide
-│       ├── yaml-conventions.md        # YAML documentation standards
-│       └── data-warehouse.md          # Snowflake schema reference
-└── ecommerce-retail-analytics/
-    └── dbt/                           # dbt project root
+│   │       └── SKILL.md                 # /refactor - optimize existing models
+│   └── references/                      # Lazy-loaded conventions
+│       ├── dbt-conventions.md           # General dbt best practices
+│       ├── sql-conventions.md           # SQL style guide
+│       ├── yaml-conventions.md          # YAML documentation standards
+│       └── data-warehouse.md            # Snowflake schema reference
+└── dbt/                                 # dbt project root
         ├── models/
         │   ├── staging/               # stg_ecommerce__*.sql
         │   ├── intermediate/          # int_*.sql
