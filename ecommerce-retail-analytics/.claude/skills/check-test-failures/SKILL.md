@@ -33,7 +33,7 @@ gh run view <run-id> --log-failed
 Or check dbt artifacts:
 
 ```bash
-cd ecommerce-retail-analytics/dbt
+cd dbt
 source ../.env 2>/dev/null || export $(grep -v '^#' ../.env | xargs)
 uv run dbt test --target prod --store-failures
 ```

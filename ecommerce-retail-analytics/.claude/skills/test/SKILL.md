@@ -20,7 +20,7 @@ Validate model changes through dbt tests, spot-checks, and lineage impact analys
 Build the specific model and its tests:
 
 ```bash
-cd ecommerce-retail-analytics/dbt
+cd dbt
 source ../.env 2>/dev/null || export $(grep -v '^#' ../.env | xargs)
 uv run dbt build --select <model_name>
 ```

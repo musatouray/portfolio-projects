@@ -37,8 +37,8 @@ This project uses a **2-database medallion architecture** for environment isolat
 ## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/musatouray/ecommerce-retail-analytics-dbt-snowflake.git
-cd ecommerce-retail-analytics-dbt-snowflake/ecommerce-retail-analytics
+git clone https://github.com/musatouray/portfolio-projects.git
+cd portfolio-projects/ecommerce-retail-analytics
 ```
 
 ## 2. Install Python 3.12 and Dependencies

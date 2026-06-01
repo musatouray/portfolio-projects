@@ -2645,8 +2645,8 @@ table _Measures
 			<div style=""width:0;height:1px;background:linear-gradient(90deg,#0078D4,transparent);margin:28px 0;animation:pplExpand .9s 1.5s forwards;""></div>
 			<div style=""font-size:16px;color:#605E5C;line-height:1.9;max-width:580px;opacity:0;animation:pplFade .7s 1.7s forwards;font-weight:400;"">A complete ecommerce marketplace analysis &mdash; from order placement to customer segmentation, cohort &amp; churn, funnel, market basket and customer lifetime value. Engineered on dbt + Snowflake + Docker + AWS S3 + Power BI.</div>
 			<div style=""display:flex;gap:14px;margin-top:3rem;opacity:0;animation:pplFade .7s 2s forwards;"">
-			<div style=""padding:14px 30px;background:linear-gradient(135deg,#0078D4,#106EBE);color:#fff;font-size:13px;font-weight:600;letter-spacing:0.5px;border-radius:6px;cursor:pointer;box-shadow:0 6px 20px rgba(0,120,212,0.3);"">Enter Dashboard &rarr;</div>
-			<div style=""padding:14px 30px;background:#FFFFFF;color:#201F1E;font-size:13px;font-weight:600;letter-spacing:0.5px;border-radius:6px;border:1px solid rgba(0,120,212,0.3);cursor:pointer;box-shadow:0 2px 8px rgba(0,120,212,0.06);"">View Repository</div>
+			<div style=""padding:14px 30px;background:linear-gradient(135deg,#0078D4,#106EBE);color:#fff;font-size:13px;font-weight:600;letter-spacing:0.5px;border-radius:6px;cursor:pointer;box-shadow:0 6px 20px rgba(0,120,212,0.3);"">View Dashboard &rarr;</div>
+			<div style=""padding:14px 30px;background:#FFFFFF;color:#201F1E;font-size:13px;font-weight:600;letter-spacing:0.5px;border-radius:6px;border:1px solid rgba(0,120,212,0.3);cursor:pointer;box-shadow:0 2px 8px rgba(0,120,212,0.06);"">Visit Repository</div>
 			</div></div>
 			<div style=""display:flex;flex-direction:column;gap:14px;opacity:0;animation:pplSlide .8s 1.3s forwards;"">
 			<div style=""display:grid;grid-template-columns:1fr 1fr;gap:14px;"">

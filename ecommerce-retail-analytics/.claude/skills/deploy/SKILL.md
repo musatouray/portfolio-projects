@@ -46,13 +46,13 @@ Stage specific files (preferred over `git add -A`):
 
 ```bash
 # Stage SQL files
-git add ecommerce-retail-analytics/dbt/models/<path>/<model>.sql
+git add dbt/models/<path>/<model>.sql
 
 # Stage YAML files
-git add ecommerce-retail-analytics/dbt/models/<path>/_*_models.yml
+git add dbt/models/<path>/_*_models.yml
 
 # Stage any modified macros
-git add ecommerce-retail-analytics/dbt/macros/<macro>.sql
+git add dbt/macros/<macro>.sql
 ```
 
 ### Step 4: Create Commit
