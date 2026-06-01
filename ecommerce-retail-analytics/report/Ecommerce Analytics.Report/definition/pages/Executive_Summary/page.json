@@ -56,5 +56,37 @@
         }
       }
     ]
-  }
+  },
+  "visualInteractions": [
+    {
+      "source": "2058e3a30867de374f20",
+      "target": "50d89d139c5021b1309f",
+      "type": "DataFilter"
+    },
+    {
+      "source": "50d89d139c5021b1309f",
+      "target": "2058e3a30867de374f20",
+      "type": "NoFilter"
+    },
+    {
+      "source": "dc5c13a2dd4b4c2e19b7",
+      "target": "ff79f8ede68abbf12a7e",
+      "type": "NoFilter"
+    },
+    {
+      "source": "dc5c13a2dd4b4c2e19b7",
+      "target": "f6520bad0bdf1c2316e8",
+      "type": "NoFilter"
+    },
+    {
+      "source": "dc5c13a2dd4b4c2e19b7",
+      "target": "eaacad606c00ce767bd2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "dc5c13a2dd4b4c2e19b7",
+      "target": "586bea69ead09663a920",
+      "type": "NoFilter"
+    }
+  ]
 }

@@ -7,7 +7,7 @@
     "z": 4000,
     "height": 171.35563409772357,
     "width": 219.98358431464513,
-    "tabOrder": 9000
+    "tabOrder": 4000
   },
   "visual": {
     "visualType": "card",
@@ -56,23 +56,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "3c99a5d794496dbda7fa",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Geo Avg Review"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

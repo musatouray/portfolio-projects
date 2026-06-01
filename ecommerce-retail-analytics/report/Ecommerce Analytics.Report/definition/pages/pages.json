@@ -1,16 +1,18 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.1.0/schema.json",
   "pageOrder": [
+    "0a468b2ebc5b5db8ddd0",
     "9ebae341b465b91b82ff",
     "rfm_segmentation_page",
     "clv_page",
     "cohort_retention_page",
     "churn_risk_page",
     "funnel_analysis_page",
-    "product_performance_page",
     "market_basket_page",
+    "product_performance_page",
     "geographic_insights_page",
     "time_trends_page"
   ],
-  "activePageName": "time_trends_page"
+  "activePageName": "0a468b2ebc5b5db8ddd0",
+  "landingPageName": "0a468b2ebc5b5db8ddd0"
 }

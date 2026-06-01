@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "retention_curve",
   "position": {
     "x": 32.4186334779477,
@@ -7,7 +7,7 @@
     "z": 5000,
     "height": 248.89636342317294,
     "width": 1362.7404144123018,
-    "tabOrder": 5000
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "lineChart",

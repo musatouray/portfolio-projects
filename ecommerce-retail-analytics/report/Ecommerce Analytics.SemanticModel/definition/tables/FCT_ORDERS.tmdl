@@ -38,7 +38,7 @@ table FCT_ORDERS
 	column APPROVAL_DATE_KEY
 		dataType: double
 		lineageTag: 0d0f3a9c-9589-4593-b9ca-93f849eee367
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: APPROVAL_DATE_KEY
 
 		annotation SummarizationSetBy = Automatic
@@ -48,7 +48,7 @@ table FCT_ORDERS
 	column DELIVERY_DATE_KEY
 		dataType: double
 		lineageTag: e4a4fc2f-e179-4582-8547-9829bdc773d9
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: DELIVERY_DATE_KEY
 
 		annotation SummarizationSetBy = Automatic
@@ -58,7 +58,7 @@ table FCT_ORDERS
 	column ESTIMATED_DELIVERY_DATE_KEY
 		dataType: double
 		lineageTag: e5df83e2-7ada-4999-b836-c571513ccbe6
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ESTIMATED_DELIVERY_DATE_KEY
 
 		annotation SummarizationSetBy = Automatic
@@ -76,7 +76,7 @@ table FCT_ORDERS
 	column DELIVERY_DAYS
 		dataType: double
 		lineageTag: cd42f331-3a40-42c9-b606-5d01ee70b4ed
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: DELIVERY_DAYS
 
 		annotation SummarizationSetBy = Automatic
@@ -86,7 +86,7 @@ table FCT_ORDERS
 	column FULFILLMENT_DAYS
 		dataType: double
 		lineageTag: dc51586b-7cf7-4695-96cb-12b729ea98dc
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: FULFILLMENT_DAYS
 
 		annotation SummarizationSetBy = Automatic
@@ -96,7 +96,7 @@ table FCT_ORDERS
 	column SHIPPING_TRANSIT_DAYS
 		dataType: double
 		lineageTag: 93bbae7a-3768-44cd-88f6-e6da238abb07
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: SHIPPING_TRANSIT_DAYS
 
 		annotation SummarizationSetBy = Automatic
@@ -115,7 +115,7 @@ table FCT_ORDERS
 	column TOTAL_PRICE
 		dataType: double
 		lineageTag: 98a630fb-5b18-4b60-8428-75c33c7397b0
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_PRICE
 
 		annotation SummarizationSetBy = Automatic
@@ -125,7 +125,7 @@ table FCT_ORDERS
 	column TOTAL_FREIGHT_VALUE
 		dataType: double
 		lineageTag: d52982e4-ff6f-436b-898d-eb12b4227580
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_FREIGHT_VALUE
 
 		annotation SummarizationSetBy = Automatic
@@ -135,7 +135,7 @@ table FCT_ORDERS
 	column GROSS_ORDER_VALUE
 		dataType: double
 		lineageTag: da681881-a182-4864-824f-93484eafbbde
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: GROSS_ORDER_VALUE
 
 		annotation SummarizationSetBy = Automatic
@@ -145,7 +145,7 @@ table FCT_ORDERS
 	column PAYMENT_COUNT
 		dataType: double
 		lineageTag: 49ff3acf-7354-47ef-8d5a-a3f1425c1c49
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: PAYMENT_COUNT
 
 		annotation SummarizationSetBy = Automatic
@@ -155,7 +155,7 @@ table FCT_ORDERS
 	column TOTAL_PAYMENT_VALUE
 		dataType: double
 		lineageTag: f0b22108-b161-42ea-9f83-7045385fdd6f
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_PAYMENT_VALUE
 
 		annotation SummarizationSetBy = Automatic
@@ -165,7 +165,7 @@ table FCT_ORDERS
 	column REVIEW_COUNT
 		dataType: double
 		lineageTag: ef1ef2f3-f3fc-484e-acc7-4114f56eddcc
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: REVIEW_COUNT
 
 		annotation SummarizationSetBy = Automatic
@@ -175,7 +175,7 @@ table FCT_ORDERS
 	column REVIEW_SCORE
 		dataType: double
 		lineageTag: ab770784-d218-4f60-ab57-1213f0b3be9b
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: REVIEW_SCORE
 
 		annotation SummarizationSetBy = Automatic

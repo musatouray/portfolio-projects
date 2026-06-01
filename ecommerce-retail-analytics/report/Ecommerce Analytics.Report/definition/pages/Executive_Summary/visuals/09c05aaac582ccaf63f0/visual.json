@@ -1,0 +1,15 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "09c05aaac582ccaf63f0",
+  "position": {
+    "x": 30.363424400628517,
+    "y": 416.91317350093772,
+    "z": 1000,
+    "height": 338.66896446854884,
+    "width": 1229.718688225455
+  },
+  "visualGroup": {
+    "displayName": "Grp Selected Metric",
+    "groupMode": "ScaleMode"
+  }
+}

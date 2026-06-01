@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "conversion_trend",
   "position": {
     "x": 24.313975108460777,
@@ -7,7 +7,7 @@
     "z": 0,
     "height": 378.60332668888924,
     "width": 1171.70203856011,
-    "tabOrder": 10000
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "columnChart",
@@ -106,51 +106,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "fe1fafaa1699fc57f64f",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Orders Delivered"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "4ffa87c3d92e71700294",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Orders Canceled"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "71eb54783cddaf595976",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DIM_DATES"
-              }
-            },
-            "Property": "MONTH_YEAR"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

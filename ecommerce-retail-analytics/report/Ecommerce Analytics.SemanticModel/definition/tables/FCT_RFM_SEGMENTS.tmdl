@@ -20,7 +20,7 @@ table FCT_RFM_SEGMENTS
 	column RECENCY
 		dataType: double
 		lineageTag: 0c1edf57-f2b4-4b53-a273-e76cc8a63aa4
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: RECENCY
 
 		annotation SummarizationSetBy = Automatic
@@ -30,7 +30,7 @@ table FCT_RFM_SEGMENTS
 	column FREQUENCY
 		dataType: double
 		lineageTag: 44b433f9-1909-45f5-abd4-73f60757707f
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: FREQUENCY
 
 		annotation SummarizationSetBy = Automatic
@@ -40,7 +40,7 @@ table FCT_RFM_SEGMENTS
 	column MONETARY
 		dataType: double
 		lineageTag: 2e79d41e-c2b6-4ce1-aedf-eaa88b2281d8
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: MONETARY
 
 		annotation SummarizationSetBy = Automatic
@@ -50,7 +50,7 @@ table FCT_RFM_SEGMENTS
 	column R_SCORE
 		dataType: double
 		lineageTag: ff68920f-034e-4c63-8491-6a6ab8dae151
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: R_SCORE
 
 		annotation SummarizationSetBy = Automatic
@@ -60,7 +60,7 @@ table FCT_RFM_SEGMENTS
 	column F_SCORE
 		dataType: double
 		lineageTag: d5dee23b-64f7-482c-89ad-621d16da7ffc
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: F_SCORE
 
 		annotation SummarizationSetBy = Automatic
@@ -70,7 +70,7 @@ table FCT_RFM_SEGMENTS
 	column M_SCORE
 		dataType: double
 		lineageTag: 478d0f75-6885-47a3-8163-040cbd22c5f2
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: M_SCORE
 
 		annotation SummarizationSetBy = Automatic

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.2.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
   "themeCollection": {
     "baseTheme": {
       "name": "Fluent2-CY26SU04",
@@ -68,6 +68,56 @@
           "name": "E-Commerce Analytics.json",
           "path": "E-Commerce Analytics.json",
           "type": "CustomTheme"
+        },
+        {
+          "name": "Filter_Blue49857769185702905.png",
+          "path": "Filter_Blue49857769185702905.png",
+          "type": "Image"
+        },
+        {
+          "name": "Filter_Blue971168401278887.png",
+          "path": "Filter_Blue971168401278887.png",
+          "type": "Image"
+        },
+        {
+          "name": "Filter_Grey8922756142565182.png",
+          "path": "Filter_Grey8922756142565182.png",
+          "type": "Image"
+        },
+        {
+          "name": "Filter6302317244178767.svg",
+          "path": "Filter6302317244178767.svg",
+          "type": "Image"
+        },
+        {
+          "name": "Home_Blue27902773023977856.png",
+          "path": "Home_Blue27902773023977856.png",
+          "type": "Image"
+        },
+        {
+          "name": "Home_Grey3856372172756902.png",
+          "path": "Home_Grey3856372172756902.png",
+          "type": "Image"
+        },
+        {
+          "name": "Home_Grey6264064519770804.png",
+          "path": "Home_Grey6264064519770804.png",
+          "type": "Image"
+        },
+        {
+          "name": "Notification_Blue8202859362174061.png",
+          "path": "Notification_Blue8202859362174061.png",
+          "type": "Image"
+        },
+        {
+          "name": "Notification_Grey08685470757856628.png",
+          "path": "Notification_Grey08685470757856628.png",
+          "type": "Image"
+        },
+        {
+          "name": "Notification22144491582886972.svg",
+          "path": "Notification22144491582886972.svg",
+          "type": "Image"
         }
       ]
     }

@@ -14,26 +14,11 @@ relationship AutoDetected_59831859-835c-4a47-b009-3d78dc2b6c92
 	fromColumn: FCT_COHORT_RETENTION.COHORT_KEY
 	toColumn: DIM_COHORTS.COHORT_KEY
 
-relationship AutoDetected_96f7f05e-86eb-4c63-b9d5-d595c70b066c
-	fromColumn: FCT_ORDER_ITEMS.CUSTOMER_KEY
-	toColumn: DIM_CUSTOMERS.CUSTOMER_KEY
-
-relationship AutoDetected_7c0ff1e5-df64-4526-a719-8b94a789fd4a
-	fromColumn: FCT_ORDERS.CUSTOMER_KEY
-	toColumn: DIM_CUSTOMERS.CUSTOMER_KEY
-
 relationship AutoDetected_20f9703f-0f4b-4947-8a54-ded515e438c4
 	isActive: false
 	crossFilteringBehavior: bothDirections
 	fromCardinality: one
 	fromColumn: FCT_CHURN_RISK.CUSTOMER_UNIQUE_ID
-	toColumn: DIM_CUSTOMERS.CUSTOMER_UNIQUE_ID
-
-relationship AutoDetected_25468067-2f06-453f-925e-7b9a0715cdb6
-	isActive: false
-	crossFilteringBehavior: bothDirections
-	fromCardinality: one
-	fromColumn: FCT_CLV_CUSTOMER.CUSTOMER_UNIQUE_ID
 	toColumn: DIM_CUSTOMERS.CUSTOMER_UNIQUE_ID
 
 relationship AutoDetected_2dd453c4-8850-4ae2-ac02-9c4dca31bd50
@@ -63,7 +48,6 @@ relationship AutoDetected_09c05bdc-ad68-4426-b317-7b3098a030f6
 	toColumn: DIM_SELLERS.SELLER_KEY
 
 relationship AutoDetected_8b61e5eb-a417-458a-811a-7e7cb4436348
-	isActive: false
 	fromColumn: FCT_ORDER_ITEMS.ORDER_ID
 	toColumn: FCT_ORDERS.ORDER_ID
 
@@ -76,13 +60,22 @@ relationship 2d7872ae-530c-6898-8ef9-0c9566077e24
 	fromColumn: FCT_ORDERS.DELIVERY_DATE_KEY
 	toColumn: DIM_DATES.DATE_KEY
 
-relationship 8552228a-d076-0ee4-5198-28083929bc1a
-	fromColumn: FCT_ORDER_ITEMS.ORDER_DATE_KEY
-	toColumn: DIM_DATES.DATE_KEY
-
 relationship 1700d365-d45b-070f-e9ce-79bacb820ce7
 	crossFilteringBehavior: bothDirections
 	fromCardinality: one
 	fromColumn: DIM_DATES.DATE_KEY
 	toColumn: FCT_ORDERS_FUNNEL.DATE_KEY
+
+relationship d9594cdf-72cd-af06-8fb4-6173abdd5fd4
+	fromColumn: 'Param: Date Granularity'.ID
+	toColumn: 'TBL Date Granularity'.ID
+
+relationship d5055622-1df6-3534-7c7b-f66d6677f095
+	fromColumn: FCT_ORDERS.CUSTOMER_KEY
+	toColumn: DIM_CUSTOMERS.CUSTOMER_KEY
+
+relationship bfadbd16-31c9-3fda-04f9-82fd28c8fe46
+	isActive: false
+	fromColumn: FCT_ORDER_ITEMS.ORDER_DATE_KEY
+	toColumn: DIM_DATES.DATE_KEY
 

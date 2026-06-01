@@ -7,7 +7,7 @@
     "z": 5000,
     "height": 171.35563409772357,
     "width": 219.98358431464513,
-    "tabOrder": 6000
+    "tabOrder": 1000
   },
   "visual": {
     "visualType": "card",
@@ -56,23 +56,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "504d58de22a4ebe3c960",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Total States"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

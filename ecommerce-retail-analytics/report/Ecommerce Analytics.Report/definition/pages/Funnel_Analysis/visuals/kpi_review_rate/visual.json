@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "kpi_review_rate",
   "position": {
     "x": 731.73486993081963,
@@ -7,7 +7,7 @@
     "z": 5000,
     "height": 153.9885090202516,
     "width": 219.98358431464513,
-    "tabOrder": 8000
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "card",

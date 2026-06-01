@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "5800d2375e12bd0a896a",
+  "position": {
+    "x": 30.363424400628517,
+    "y": 784.77773835470623,
+    "z": 500,
+    "height": 267.43169952861274,
+    "width": 1229.718688225455,
+    "tabOrder": 15010
+  },
+  "visualGroup": {
+    "displayName": "Grp RFM Segment",
+    "groupMode": "ScaleMode"
+  }
+}

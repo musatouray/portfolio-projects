@@ -20,7 +20,7 @@ table FCT_CATEGORY_PERFORMANCE
 	column MONTH_DATE_KEY
 		dataType: double
 		lineageTag: 627e93c7-cb15-4767-ba07-a10340a61300
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: MONTH_DATE_KEY
 
 		annotation SummarizationSetBy = Automatic
@@ -30,7 +30,7 @@ table FCT_CATEGORY_PERFORMANCE
 	column TOTAL_ITEMS_SOLD
 		dataType: double
 		lineageTag: be5a6532-34c5-4a74-9d0a-c758dff37642
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_ITEMS_SOLD
 
 		annotation SummarizationSetBy = Automatic
@@ -40,7 +40,7 @@ table FCT_CATEGORY_PERFORMANCE
 	column TOTAL_ORDERS
 		dataType: double
 		lineageTag: a25013ca-7693-4eb0-a68f-883fb3f82912
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -50,7 +50,7 @@ table FCT_CATEGORY_PERFORMANCE
 	column TOTAL_PRICE
 		dataType: double
 		lineageTag: d02d9a92-4d33-401e-a293-110fe2d69a7d
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_PRICE
 
 		annotation SummarizationSetBy = Automatic
@@ -60,7 +60,7 @@ table FCT_CATEGORY_PERFORMANCE
 	column TOTAL_FREIGHT
 		dataType: double
 		lineageTag: 65ccd58f-e4bc-4e1a-812d-60bb4dd2ec84
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_FREIGHT
 
 		annotation SummarizationSetBy = Automatic
@@ -70,7 +70,7 @@ table FCT_CATEGORY_PERFORMANCE
 	column TOTAL_REVENUE
 		dataType: double
 		lineageTag: 2a3890df-638c-4e3e-879e-aa42a1d767e0
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -80,7 +80,7 @@ table FCT_CATEGORY_PERFORMANCE
 	column AVERAGE_ITEM_VALUE
 		dataType: double
 		lineageTag: 91cd3e7e-05e2-4459-9147-96ec900c25c6
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AVERAGE_ITEM_VALUE
 
 		annotation SummarizationSetBy = Automatic
