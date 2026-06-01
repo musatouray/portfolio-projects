@@ -41,7 +41,7 @@ table FCT_ORDERS_FUNNEL
 	column ORDERS_PLACED
 		dataType: double
 		lineageTag: 601fa27a-1ee4-44e2-916c-a1e11a8cef03
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ORDERS_PLACED
 
 		annotation SummarizationSetBy = Automatic
@@ -51,7 +51,7 @@ table FCT_ORDERS_FUNNEL
 	column ORDERS_APPROVED
 		dataType: double
 		lineageTag: 986ed5df-a28b-428e-ae69-14348594c049
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ORDERS_APPROVED
 
 		annotation SummarizationSetBy = Automatic
@@ -61,7 +61,7 @@ table FCT_ORDERS_FUNNEL
 	column ORDERS_SHIPPED
 		dataType: double
 		lineageTag: 2d8fc1da-b6c6-46d9-a92a-d9561041de1d
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ORDERS_SHIPPED
 
 		annotation SummarizationSetBy = Automatic
@@ -71,7 +71,7 @@ table FCT_ORDERS_FUNNEL
 	column ORDERS_DELIVERED
 		dataType: double
 		lineageTag: dfa7f11f-3665-4816-9c06-420dd9c77df4
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ORDERS_DELIVERED
 
 		annotation SummarizationSetBy = Automatic
@@ -81,7 +81,7 @@ table FCT_ORDERS_FUNNEL
 	column ORDERS_REVIEWED
 		dataType: double
 		lineageTag: f556208d-91e0-4164-8ce8-a1fcc1cfdead
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ORDERS_REVIEWED
 
 		annotation SummarizationSetBy = Automatic
@@ -91,7 +91,7 @@ table FCT_ORDERS_FUNNEL
 	column ORDERS_CANCELED
 		dataType: double
 		lineageTag: e48059ef-6d15-40dd-8532-2d59337d2c42
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ORDERS_CANCELED
 
 		annotation SummarizationSetBy = Automatic
@@ -101,7 +101,7 @@ table FCT_ORDERS_FUNNEL
 	column ORDERS_UNAVAILABLE
 		dataType: double
 		lineageTag: 98cdd8b6-e637-4507-8eb3-80eec7418d07
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ORDERS_UNAVAILABLE
 
 		annotation SummarizationSetBy = Automatic
@@ -111,7 +111,7 @@ table FCT_ORDERS_FUNNEL
 	column DROPPED_BEFORE_APPROVAL
 		dataType: double
 		lineageTag: 91b3c968-4570-4a8c-9485-e947c4b36e73
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: DROPPED_BEFORE_APPROVAL
 
 		annotation SummarizationSetBy = Automatic
@@ -121,7 +121,7 @@ table FCT_ORDERS_FUNNEL
 	column DROPPED_BEFORE_SHIPPING
 		dataType: double
 		lineageTag: 3dc87c1e-869d-4c82-b19b-2552551e4dc7
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: DROPPED_BEFORE_SHIPPING
 
 		annotation SummarizationSetBy = Automatic
@@ -131,7 +131,7 @@ table FCT_ORDERS_FUNNEL
 	column DROPPED_BEFORE_DELIVERY
 		dataType: double
 		lineageTag: c738e84d-af91-4980-a7c6-8afe9d0d159b
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: DROPPED_BEFORE_DELIVERY
 
 		annotation SummarizationSetBy = Automatic
@@ -141,7 +141,7 @@ table FCT_ORDERS_FUNNEL
 	column DROPPED_BEFORE_REVIEW
 		dataType: double
 		lineageTag: c69517d7-9c63-4d3d-8fac-026f39b06680
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: DROPPED_BEFORE_REVIEW
 
 		annotation SummarizationSetBy = Automatic
@@ -151,7 +151,7 @@ table FCT_ORDERS_FUNNEL
 	column PLACED_TO_APPROVED_PCT
 		dataType: double
 		lineageTag: 10b5ad42-fbfe-46e6-b1be-9a5a68bb2408
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: PLACED_TO_APPROVED_PCT
 
 		annotation SummarizationSetBy = Automatic
@@ -161,7 +161,7 @@ table FCT_ORDERS_FUNNEL
 	column APPROVED_TO_SHIPPED_PCT
 		dataType: double
 		lineageTag: dd5d32df-fefa-4076-9bf2-67bc4167c424
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: APPROVED_TO_SHIPPED_PCT
 
 		annotation SummarizationSetBy = Automatic
@@ -171,7 +171,7 @@ table FCT_ORDERS_FUNNEL
 	column SHIPPED_TO_DELIVERED_PCT
 		dataType: double
 		lineageTag: 166c803a-8631-4ab8-9a6d-c8f5b66739cc
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: SHIPPED_TO_DELIVERED_PCT
 
 		annotation SummarizationSetBy = Automatic
@@ -181,7 +181,7 @@ table FCT_ORDERS_FUNNEL
 	column DELIVERED_TO_REVIEWED_PCT
 		dataType: double
 		lineageTag: c9321349-d6b2-48c2-9703-df084957469a
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: DELIVERED_TO_REVIEWED_PCT
 
 		annotation SummarizationSetBy = Automatic
@@ -191,7 +191,7 @@ table FCT_ORDERS_FUNNEL
 	column OVERALL_DELIVERY_RATE
 		dataType: double
 		lineageTag: 4c422d79-3f21-47c3-ba23-11f559325a8d
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: OVERALL_DELIVERY_RATE
 
 		annotation SummarizationSetBy = Automatic
@@ -201,7 +201,7 @@ table FCT_ORDERS_FUNNEL
 	column OVERALL_REVIEW_RATE
 		dataType: double
 		lineageTag: 2f05fba3-391e-4cb4-8fd0-2b815fa2127b
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: OVERALL_REVIEW_RATE
 
 		annotation SummarizationSetBy = Automatic
@@ -211,7 +211,7 @@ table FCT_ORDERS_FUNNEL
 	column CANCELLATION_RATE
 		dataType: double
 		lineageTag: 5f89309b-f167-49d5-96b8-d8b546f35089
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: CANCELLATION_RATE
 
 		annotation SummarizationSetBy = Automatic
@@ -221,7 +221,7 @@ table FCT_ORDERS_FUNNEL
 	column UNAVAILABILITY_RATE
 		dataType: double
 		lineageTag: 2969fa8c-be49-4879-91ab-2df3cfd27f61
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: UNAVAILABILITY_RATE
 
 		annotation SummarizationSetBy = Automatic
@@ -231,7 +231,7 @@ table FCT_ORDERS_FUNNEL
 	column AVG_ORDER_VALUE
 		dataType: double
 		lineageTag: 48b1a75e-7742-48ac-a1e1-d8e0cf6326d9
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AVG_ORDER_VALUE
 
 		annotation SummarizationSetBy = Automatic
@@ -241,7 +241,7 @@ table FCT_ORDERS_FUNNEL
 	column AVG_DAYS_TO_APPROVAL
 		dataType: double
 		lineageTag: 8f3341f7-7839-4fdb-a7a2-1b73f5f645d7
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AVG_DAYS_TO_APPROVAL
 
 		annotation SummarizationSetBy = Automatic
@@ -251,7 +251,7 @@ table FCT_ORDERS_FUNNEL
 	column AVG_DAYS_TO_SHIP
 		dataType: double
 		lineageTag: 126f5e20-fe07-45f3-a906-71be4733d969
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AVG_DAYS_TO_SHIP
 
 		annotation SummarizationSetBy = Automatic
@@ -261,7 +261,7 @@ table FCT_ORDERS_FUNNEL
 	column AVG_DAYS_IN_TRANSIT
 		dataType: double
 		lineageTag: 97ee7a3b-a29d-46f0-a3c2-69adc35c4148
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AVG_DAYS_IN_TRANSIT
 
 		annotation SummarizationSetBy = Automatic
@@ -271,7 +271,7 @@ table FCT_ORDERS_FUNNEL
 	column AVG_DAYS_TO_DELIVERY
 		dataType: double
 		lineageTag: 3c5ddfdd-355d-4a7d-9ec0-5e032e452d8a
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AVG_DAYS_TO_DELIVERY
 
 		annotation SummarizationSetBy = Automatic

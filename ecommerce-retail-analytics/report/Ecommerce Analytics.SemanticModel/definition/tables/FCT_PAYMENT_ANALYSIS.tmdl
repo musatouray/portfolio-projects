@@ -20,7 +20,7 @@ table FCT_PAYMENT_ANALYSIS
 	column MONTH_DATE_KEY
 		dataType: double
 		lineageTag: 3251c0a9-7674-47ed-9f67-f61dee18b9ea
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: MONTH_DATE_KEY
 
 		annotation SummarizationSetBy = Automatic
@@ -30,7 +30,7 @@ table FCT_PAYMENT_ANALYSIS
 	column TOTAL_TRANSACTIONS
 		dataType: double
 		lineageTag: 88663810-5017-459f-b2dd-2fa2785d68c9
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_TRANSACTIONS
 
 		annotation SummarizationSetBy = Automatic
@@ -40,7 +40,7 @@ table FCT_PAYMENT_ANALYSIS
 	column TOTAL_ORDERS
 		dataType: double
 		lineageTag: 2a46feb2-4e1e-4d6a-942a-9a98d7ee31be
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -50,7 +50,7 @@ table FCT_PAYMENT_ANALYSIS
 	column TOTAL_PAYMENT_VALUE
 		dataType: double
 		lineageTag: 8573afab-3613-4252-a008-a1b105dd3738
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_PAYMENT_VALUE
 
 		annotation SummarizationSetBy = Automatic
@@ -60,7 +60,7 @@ table FCT_PAYMENT_ANALYSIS
 	column AVERAGE_PAYMENT_VALUE
 		dataType: double
 		lineageTag: 7dbb00e3-d6cc-4b5d-b571-8916ffcde2d4
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AVERAGE_PAYMENT_VALUE
 
 		annotation SummarizationSetBy = Automatic
@@ -70,7 +70,7 @@ table FCT_PAYMENT_ANALYSIS
 	column AVERAGE_INSTALLMENTS
 		dataType: double
 		lineageTag: e0570316-5bfa-4c58-bb3e-4a0786c78357
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AVERAGE_INSTALLMENTS
 
 		annotation SummarizationSetBy = Automatic
@@ -80,7 +80,7 @@ table FCT_PAYMENT_ANALYSIS
 	column MAX_INSTALLMENTS
 		dataType: double
 		lineageTag: d250753d-beb0-472b-b9c8-1ef92383f778
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: MAX_INSTALLMENTS
 
 		annotation SummarizationSetBy = Automatic
@@ -90,7 +90,7 @@ table FCT_PAYMENT_ANALYSIS
 	column REVENUE_PER_ORDER
 		dataType: double
 		lineageTag: 20769858-42b0-47d4-9480-60ca802ab55b
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: REVENUE_PER_ORDER
 
 		annotation SummarizationSetBy = Automatic

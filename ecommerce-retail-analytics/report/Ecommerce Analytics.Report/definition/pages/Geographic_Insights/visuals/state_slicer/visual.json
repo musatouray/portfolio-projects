@@ -4,10 +4,10 @@
   "position": {
     "x": 1500.5196066935794,
     "y": 112.30740883431884,
-    "z": 8000,
+    "z": 7000,
     "height": 96.098092095344981,
     "width": 395.97045176636124,
-    "tabOrder": 5000
+    "tabOrder": 0
   },
   "visual": {
     "visualType": "slicer",
@@ -65,23 +65,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "82675e1bb952b54957a0",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "FCT_GEO_PERFORMANCE"
-              }
-            },
-            "Property": "STATE"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

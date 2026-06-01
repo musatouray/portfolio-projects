@@ -4,7 +4,7 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 356,
+        "x": 0,
         "y": 0
       },
       "nodes": [
@@ -257,6 +257,67 @@
             "width": 234
           },
           "zIndex": 17
+        },
+        {
+          "location": {
+            "x": 3258.2078327898894,
+            "y": 441.87294536297088
+          },
+          "nodeIndex": "Param: Date Granularity",
+          "nodeLineageTag": "5d57ac8c-7267-4dbc-a5d3-e0a4d9202ed7",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3542.2078327898894,
+            "y": 417.87294536297088
+          },
+          "nodeIndex": "TBL Date Granularity",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3826.2078327898894,
+            "y": 453.87294536297088
+          },
+          "nodeIndex": "CG Custom Periods",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4110.2078327898889,
+            "y": 453.87294536297088
+          },
+          "nodeIndex": "CG Selected Metric",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4394.2078327898889,
+            "y": 417.87294536297088
+          },
+          "nodeIndex": "Top/Bottom Selector",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
@@ -265,8 +326,250 @@
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,
       "tablesLocked": false
+    },
+    {
+      "ordinal": 1,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 829.20000076293945,
+            "y": 199
+          },
+          "nodeIndex": "Param: Date Granularity",
+          "nodeLineageTag": "5d57ac8c-7267-4dbc-a5d3-e0a4d9202ed7",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 261.20000076293945,
+            "y": 198
+          },
+          "nodeIndex": "TBL Date Granularity",
+          "nodeLineageTag": "93a32270-f729-4bec-82d7-d63f62d9b863",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Param: Date Granularity",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 2,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 164.20000076293945,
+            "y": 0
+          },
+          "nodeIndex": "DIM_DATES",
+          "nodeLineageTag": "b4cf66a4-55c7-458b-be19-6f24ccc2c2e6",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 624.20000076293945,
+            "y": 0
+          },
+          "nodeIndex": "DIM_CUSTOMERS",
+          "nodeLineageTag": "b5f7505e-a37a-47d9-bfd1-99a4d36404b2",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1103.2000007629395,
+            "y": 0
+          },
+          "nodeIndex": "DIM_COHORTS",
+          "nodeLineageTag": "58eefc92-76e0-4c4b-a158-cc4511b059ac",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1309.2000007629395,
+            "y": 398
+          },
+          "nodeIndex": "FCT_COHORT_RETENTION",
+          "nodeLineageTag": "202dd212-ce20-40d4-a849-593f800ab56b",
+          "size": {
+            "height": 104,
+            "width": 267
+          },
+          "zIndex": 7,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 956.20000076293945,
+            "y": 406
+          },
+          "nodeIndex": "FCT_CLV_CUSTOMER",
+          "nodeLineageTag": "b544e3f2-4033-4220-a741-c0e080343fc5",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 4,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 79.200000762939453,
+            "y": 398
+          },
+          "nodeIndex": "FCT_ORDERS",
+          "nodeLineageTag": "75a2ace9-4107-4c92-8e4e-a8d4733f9e84",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 574.20000076293945,
+            "y": 440
+          },
+          "nodeIndex": "FCT_ORDER_ITEMS",
+          "nodeLineageTag": "0e4f458f-0dfd-4cf5-bd7e-68cdfbb34b61",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 969.20000076293945,
+            "y": 519
+          },
+          "nodeIndex": "FCT_RFM_SEGMENTS",
+          "nodeLineageTag": "5d5cd826-5672-4bef-93ed-7b84e9a2a9ee",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 8
+        }
+      ],
+      "name": "Customers",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 3,
+      "scrollPosition": {
+        "x": 0,
+        "y": 2
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 406.20000076293945,
+            "y": 0
+          },
+          "nodeIndex": "DIM_DATES",
+          "nodeLineageTag": "b4cf66a4-55c7-458b-be19-6f24ccc2c2e6",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 853.20000076293945,
+            "y": 12
+          },
+          "nodeIndex": "DIM_PRODUCTS",
+          "nodeLineageTag": "d13f411b-6e61-4583-af51-62ff5350c900",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 414.20000076293945,
+            "y": 449
+          },
+          "nodeIndex": "FCT_ORDERS",
+          "nodeLineageTag": "75a2ace9-4107-4c92-8e4e-a8d4733f9e84",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 879.20000076293945,
+            "y": 447
+          },
+          "nodeIndex": "FCT_ORDER_ITEMS",
+          "nodeLineageTag": "0e4f458f-0dfd-4cf5-bd7e-68cdfbb34b61",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1324.2000007629395,
+            "y": 460
+          },
+          "nodeIndex": "FCT_PARETO_PRODUCTS",
+          "nodeLineageTag": "bd3ba747-2729-475d-98b5-e389110b86f5",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Products",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
     }
   ],
-  "selectedDiagram": "All tables",
+  "selectedDiagram": "Products",
   "defaultDiagram": "All tables"
 }

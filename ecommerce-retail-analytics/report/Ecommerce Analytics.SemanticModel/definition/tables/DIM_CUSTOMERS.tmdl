@@ -51,7 +51,7 @@ table DIM_CUSTOMERS
 
 	column FIRST_ORDER_DATE
 		dataType: dateTime
-		formatString: Long Date
+		formatString: Short Date
 		lineageTag: 3935a727-fefa-4e29-b05d-98643c1e4871
 		summarizeBy: none
 		sourceColumn: FIRST_ORDER_DATE
@@ -62,7 +62,7 @@ table DIM_CUSTOMERS
 
 	column LAST_ORDER_DATE
 		dataType: dateTime
-		formatString: Long Date
+		formatString: Short Date
 		lineageTag: 1f3d2f7d-06cc-4811-8bda-7c46a546e69b
 		summarizeBy: none
 		sourceColumn: LAST_ORDER_DATE
@@ -74,7 +74,7 @@ table DIM_CUSTOMERS
 	column TOTAL_ORDERS
 		dataType: double
 		lineageTag: 62a42c6e-d064-4fef-bbfb-95b37fcb0d22
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -84,7 +84,7 @@ table DIM_CUSTOMERS
 	column TOTAL_REVENUE
 		dataType: double
 		lineageTag: 117477d7-7931-49ca-a867-f136f64e3686
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -94,7 +94,7 @@ table DIM_CUSTOMERS
 	column AVERAGE_ORDER_VALUE
 		dataType: double
 		lineageTag: e7d4a9f0-a798-4ac0-ac67-09c51df9a5ee
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AVERAGE_ORDER_VALUE
 
 		annotation SummarizationSetBy = Automatic
@@ -104,7 +104,7 @@ table DIM_CUSTOMERS
 	column TOTAL_REVIEWS
 		dataType: double
 		lineageTag: e769cebe-cf6a-4eb7-9b95-2a9bfaf871ff
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_REVIEWS
 
 		annotation SummarizationSetBy = Automatic
@@ -114,7 +114,7 @@ table DIM_CUSTOMERS
 	column AVERAGE_RATING
 		dataType: double
 		lineageTag: 29fbde39-dba7-4bd7-9ca2-d7d5aac5ecc4
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AVERAGE_RATING
 
 		annotation SummarizationSetBy = Automatic
@@ -124,7 +124,7 @@ table DIM_CUSTOMERS
 	column DAYS_SINCE_LAST_ORDER
 		dataType: double
 		lineageTag: ee643be9-2d2c-4a27-a943-39afa84e29ed
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: DAYS_SINCE_LAST_ORDER
 
 		annotation SummarizationSetBy = Automatic
@@ -134,7 +134,7 @@ table DIM_CUSTOMERS
 	column CUSTOMER_TENURE_DAYS
 		dataType: double
 		lineageTag: a4bde415-3e25-44e0-bb18-459a614c1805
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: CUSTOMER_TENURE_DAYS
 
 		annotation SummarizationSetBy = Automatic

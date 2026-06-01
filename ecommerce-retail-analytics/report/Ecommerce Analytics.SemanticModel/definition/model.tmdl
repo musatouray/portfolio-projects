@@ -1,6 +1,7 @@
 model Model
 	culture: en-US
 	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
 	sourceQueryCulture: en-US
 	dataAccessOptions
 		legacyRedirects
@@ -10,7 +11,7 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_QueryOrder = ["DIM_COHORTS","DIM_CUSTOMERS","DIM_DATES","DIM_PRODUCTS","DIM_SELLERS","FCT_CATEGORY_PERFORMANCE","FCT_CHURN_RISK","FCT_CLV_CUSTOMER","FCT_COHORT_RETENTION","FCT_DAILY_REVENUE_TIME_SERIES","FCT_GEO_PERFORMANCE","FCT_MARKET_BASKET","FCT_ORDER_ITEMS","FCT_ORDERS","FCT_ORDERS_FUNNEL","FCT_PARETO_PRODUCTS","FCT_PAYMENT_ANALYSIS","FCT_RFM_SEGMENTS"]
 
-annotation PBI_ProTooling = ["DevMode"]
+annotation PBI_ProTooling = ["DevMode","CalcGroup","TMDLView_Desktop","DaxQueryView_Desktop"]
 
 ref table DIM_COHORTS
 ref table DIM_CUSTOMERS
@@ -31,6 +32,11 @@ ref table FCT_PARETO_PRODUCTS
 ref table FCT_PAYMENT_ANALYSIS
 ref table FCT_RFM_SEGMENTS
 ref table _Measures
+ref table 'Param: Date Granularity'
+ref table 'TBL Date Granularity'
+ref table 'CG Selected Metric'
+ref table 'CG Custom Periods'
+ref table 'Top/Bottom Selector'
 
 ref cultureInfo en-US
 

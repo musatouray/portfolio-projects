@@ -56,23 +56,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "fc3853b9b886615a8f62",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Top 20% Revenue %"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

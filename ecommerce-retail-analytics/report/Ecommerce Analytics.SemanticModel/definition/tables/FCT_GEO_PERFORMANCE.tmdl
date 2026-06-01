@@ -20,7 +20,7 @@ table FCT_GEO_PERFORMANCE
 	column MONTH_DATE_KEY
 		dataType: double
 		lineageTag: f3554d49-a943-44fb-a688-a3d741364287
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: MONTH_DATE_KEY
 
 		annotation SummarizationSetBy = Automatic
@@ -30,7 +30,7 @@ table FCT_GEO_PERFORMANCE
 	column TOTAL_ORDERS
 		dataType: double
 		lineageTag: 7e629e95-8020-4923-a903-4ce71a0f40a8
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -40,7 +40,7 @@ table FCT_GEO_PERFORMANCE
 	column DELIVERED_ORDERS
 		dataType: double
 		lineageTag: 32c5ab6f-b969-4124-bb3c-511303c60c2c
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: DELIVERED_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -50,7 +50,7 @@ table FCT_GEO_PERFORMANCE
 	column CANCELED_ORDERS
 		dataType: double
 		lineageTag: 27ee728c-e84c-472c-97ec-e3270354e2fc
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: CANCELED_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -60,7 +60,7 @@ table FCT_GEO_PERFORMANCE
 	column UNIQUE_CITIES
 		dataType: double
 		lineageTag: 438e5bc8-59d6-4f67-be18-80cb96699914
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: UNIQUE_CITIES
 
 		annotation SummarizationSetBy = Automatic
@@ -70,7 +70,7 @@ table FCT_GEO_PERFORMANCE
 	column TOTAL_PRICE
 		dataType: double
 		lineageTag: b18b7075-ac78-4fba-a45e-fe0b4f4098a6
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_PRICE
 
 		annotation SummarizationSetBy = Automatic
@@ -80,7 +80,7 @@ table FCT_GEO_PERFORMANCE
 	column TOTAL_FREIGHT
 		dataType: double
 		lineageTag: 6923b803-42e6-42cf-beae-14535f3177f4
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_FREIGHT
 
 		annotation SummarizationSetBy = Automatic
@@ -90,7 +90,7 @@ table FCT_GEO_PERFORMANCE
 	column TOTAL_REVENUE
 		dataType: double
 		lineageTag: 97598003-2990-4d48-89ce-819a4e902b33
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -100,7 +100,7 @@ table FCT_GEO_PERFORMANCE
 	column TOTAL_PAYMENT_VALUE
 		dataType: double
 		lineageTag: 386b2f43-16c6-4dc6-a587-9a33860887ac
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_PAYMENT_VALUE
 
 		annotation SummarizationSetBy = Automatic
@@ -110,7 +110,7 @@ table FCT_GEO_PERFORMANCE
 	column AVERAGE_ORDER_VALUE
 		dataType: double
 		lineageTag: b4c1ebb6-6165-49cd-ba26-b0623b6ca5ab
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AVERAGE_ORDER_VALUE
 
 		annotation SummarizationSetBy = Automatic
@@ -120,7 +120,7 @@ table FCT_GEO_PERFORMANCE
 	column TOTAL_REVIEWS
 		dataType: double
 		lineageTag: 3e449423-1e41-4741-8bde-cc99565c8de2
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_REVIEWS
 
 		annotation SummarizationSetBy = Automatic
@@ -130,7 +130,7 @@ table FCT_GEO_PERFORMANCE
 	column AVERAGE_REVIEW_SCORE
 		dataType: double
 		lineageTag: e88e127a-90a2-4365-a0e9-46ede54c5f5f
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AVERAGE_REVIEW_SCORE
 
 		annotation SummarizationSetBy = Automatic

@@ -1,0 +1,285 @@
+table 'CG Custom Periods'
+	lineageTag: 4458ecfb-9fdd-49ed-97c6-ed32bb804cf3
+
+	calculationGroup
+		precedence: 10
+
+		calculationItem Custom =
+				
+				VAR __IsDimDateFiltered = CALCULATE(ISFILTERED(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES[DATE]))
+				VAR __StartDate = CALCULATE(MIN(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES))
+				VAR __EndDate = CALCULATE(MAX(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES))
+				
+				RETURN
+				SWITCH(
+				    TRUE(),
+				    ISSELECTEDMEASURE([Start and End Dates]), [Start and End Dates],
+				    __IsDimDateFiltered, SELECTEDMEASURE(),
+				    CALCULATE(
+				        SELECTEDMEASURE(),
+				        REMOVEFILTERS(DIM_DATES),
+				        DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate),
+				        KEEPFILTERS(VALUES(DIM_DATES[DATE]))
+				    )
+				)
+
+		calculationItem 'Current Week' = ```
+				
+				VAR __IsDimDateFiltered = CALCULATE(ISFILTERED(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES[DATE]))
+				VAR __LastDate = CALCULATE(MAX(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES)) 
+				VAR __StartDate = __LastDate - WEEKDAY(__LastDate, 2) + 1 // Monday is start of the week
+				
+				RETURN 
+				    SWITCH( 
+				        TRUE(), 
+				        ISSELECTEDMEASURE([Start and End Dates]), [Start and End Dates],
+				        __IsDimDateFiltered, SELECTEDMEASURE(), 
+				        
+				        CALCULATE( 
+				            SELECTEDMEASURE(), 
+				            REMOVEFILTERS(DIM_DATES), 
+				            DATESBETWEEN(DIM_DATES[DATE], __StartDate, __LastDate),
+				            KEEPFILTERS(VALUES(DIM_DATES[DATE])) 
+				        ) 
+				    )
+				```
+
+		calculationItem 'Last Week' = ```
+				
+				VAR __IsDimDateFiltered = CALCULATE(ISFILTERED(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES[DATE]))
+				VAR __LastDate = CALCULATE(MAX(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES)) 
+				VAR __startOfWeek = __LastDate - WEEKDAY(__LastDate, 2) + 1 // Monday is start of the week
+				VAR __StartDate = __startOfWeek - 7
+				VAR __EndDate = __startOfWeek - 1
+				
+				RETURN 
+				    SWITCH( 
+				        TRUE(), 
+				        ISSELECTEDMEASURE([Start and End Dates]), [Start and End Dates],
+				        __IsDimDateFiltered, SELECTEDMEASURE(), 
+				        
+				        CALCULATE( 
+				            SELECTEDMEASURE(), 
+				            REMOVEFILTERS(DIM_DATES), 
+				            DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate),
+				            KEEPFILTERS(VALUES(DIM_DATES[DATE])) 
+				        ) 
+				    )
+				```
+
+		calculationItem 'Last 4 Weeks' = ```
+				
+				VAR __IsDimDateFiltered = CALCULATE(ISFILTERED(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES[DATE]))
+				VAR __LastDate = CALCULATE(MAX(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES)) 
+				VAR __startOfWeek = __LastDate - WEEKDAY(__LastDate, 2) + 1 // Monday is start of the week
+				VAR __StartDate = __startOfWeek - 28
+				VAR __EndDate = __startOfWeek - 1
+				
+				RETURN 
+				    SWITCH( 
+				        TRUE(), 
+				        ISSELECTEDMEASURE([Start and End Dates]), [Start and End Dates],
+				        __IsDimDateFiltered, SELECTEDMEASURE(), 
+				        
+				        CALCULATE( 
+				            SELECTEDMEASURE(), 
+				            REMOVEFILTERS(DIM_DATES), 
+				            DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate),
+				            KEEPFILTERS(VALUES(DIM_DATES[DATE])) 
+				        ) 
+				    )
+				```
+
+		calculationItem MTD = ```
+				
+				VAR __IsDimDateFiltered = CALCULATE(ISFILTERED(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES[DATE]))
+				VAR __EndDate = CALCULATE(MAX(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES)) 
+				VAR __StartDate = DATE(YEAR(__EndDate), MONTH(__EndDate), 1)
+				
+				RETURN 
+				    SWITCH( 
+				        TRUE(), 
+				        ISSELECTEDMEASURE([Start and End Dates]), [Start and End Dates],
+				        __IsDimDateFiltered, SELECTEDMEASURE(), 
+				        
+				        CALCULATE( 
+				            SELECTEDMEASURE(), 
+				            REMOVEFILTERS(DIM_DATES), 
+				            DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate),
+				            KEEPFILTERS(VALUES(DIM_DATES[DATE])) 
+				        ) 
+				    )
+				```
+
+		calculationItem 'Last Month' =
+				
+				VAR __IsDimDateFiltered = CALCULATE(ISFILTERED(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES[DATE]))
+				VAR __LastDate = CALCULATE(MAX(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES))
+				VAR __ShiftedDate = EDATE(__LastDate, -1)
+				VAR __StartDate = DATE(YEAR(__ShiftedDate), MONTH(__ShiftedDate), 1)
+				VAR __EndDate = EOMONTH(__LastDate, -1)
+				
+				RETURN
+				SWITCH(
+				    TRUE(),
+				    ISSELECTEDMEASURE([Start and End Dates]), [Start and End Dates],
+				    __IsDimDateFiltered, SELECTEDMEASURE(),
+				    CALCULATE(
+				        SELECTEDMEASURE(),
+				         REMOVEFILTERS(DIM_DATES),
+				        DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate),
+				        KEEPFILTERS(VALUES(DIM_DATES[DATE]))
+				    )
+				)
+
+		calculationItem QTD =
+				
+				VAR __IsDimDateFiltered = CALCULATE(ISFILTERED(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES[DATE]))
+				VAR __LastDate = CALCULATE(MAX(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES))
+				VAR __StartDate = DATE(YEAR(__LastDate), (QUARTER(__LastDate) - 1) * 3 + 1, 1)
+				
+				RETURN
+				SWITCH(
+				    TRUE(),
+				    ISSELECTEDMEASURE([Start and End Dates]), [Start and End Dates],
+				    __IsDimDateFiltered, SELECTEDMEASURE(),
+				    CALCULATE(
+				        SELECTEDMEASURE(),
+				        --REMOVEFILTERS(DIM_DATES),
+				        DATESBETWEEN(DIM_DATES[DATE], __StartDate, __LastDate),
+				        KEEPFILTERS(VALUES(DIM_DATES[DATE]))
+				    )
+				)
+
+		calculationItem 'Last Quarter' =
+				
+				VAR __IsDimDateFiltered = CALCULATE(ISFILTERED(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES[DATE]))
+				VAR __LastDate = CALCULATE(MAX(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES))
+				VAR __StartDate = DATE(YEAR(__LastDate), (QUARTER(__LastDate) - 2) * 3 + 1, 1)
+				VAR __EndDate = EOMONTH(DATE(YEAR(__LastDate), (QUARTER(__LastDate) - 2) * 3 + 1, 1), 2)
+				
+				RETURN
+				SWITCH(
+				    TRUE(),
+				    ISSELECTEDMEASURE([Start and End Dates]), [Start and End Dates],
+				    __IsDimDateFiltered, SELECTEDMEASURE(),
+				    CALCULATE(
+				        SELECTEDMEASURE(),
+				        --REMOVEFILTERS(DIM_DATES),
+				        DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate),
+				        KEEPFILTERS(VALUES(DIM_DATES[DATE]))
+				    )
+				)
+
+		calculationItem 'Last 6 Months' =
+				
+				VAR __IsDimDateFiltered = CALCULATE(ISFILTERED(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES[DATE]))
+				VAR __LastDate = CALCULATE(MAX(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES))
+				
+				RETURN
+				SWITCH(
+				    TRUE(),
+				    ISSELECTEDMEASURE([Start and End Dates]), [Start and End Dates],
+				    __IsDimDateFiltered, SELECTEDMEASURE(),
+				    CALCULATE(
+				        SELECTEDMEASURE(),
+				        --REMOVEFILTERS(DIM_DATES),
+						DATESINPERIOD(DIM_DATES[DATE], __LastDate, -6, MONTH),
+				        KEEPFILTERS(VALUES(DIM_DATES[DATE]))
+				    )
+				)
+
+		calculationItem 'Last 12 Months' =
+				
+				VAR __IsDimDateFiltered = CALCULATE(ISFILTERED(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES[DATE]))
+				VAR __LastDate = CALCULATE(MAX(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES))
+				
+				RETURN
+				SWITCH(
+				    TRUE(),
+				    ISSELECTEDMEASURE([Start and End Dates]), [Start and End Dates],
+				    __IsDimDateFiltered, SELECTEDMEASURE(),
+				    CALCULATE(
+				        SELECTEDMEASURE(),
+				       --REMOVEFILTERS(DIM_DATES),
+						DATESINPERIOD(DIM_DATES[DATE], __LastDate, -12, MONTH),
+				        KEEPFILTERS(VALUES(DIM_DATES[DATE]))
+				    )
+				)
+
+		calculationItem YTD =
+				
+				VAR __IsDimDateFiltered = CALCULATE(ISFILTERED(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES[DATE]))
+				VAR __LastDate = CALCULATE(MAX(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES))
+				VAR __StartDate = DATE(YEAR(__LastDate), 1, 1)
+				
+				RETURN
+				SWITCH(
+				    TRUE(),
+				    ISSELECTEDMEASURE([Start and End Dates]), [Start and End Dates],
+				    __IsDimDateFiltered, SELECTEDMEASURE(),
+				    CALCULATE(
+				        SELECTEDMEASURE(),
+				        --REMOVEFILTERS(DIM_DATES),
+				        DATESBETWEEN(DIM_DATES[DATE], __StartDate, __LastDate),
+				        KEEPFILTERS(VALUES(DIM_DATES[DATE]))
+				    )
+				)
+
+		calculationItem 'Last Year' =
+				
+				VAR __IsDimDateFiltered = CALCULATE(ISFILTERED(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES[DATE]))
+				VAR __LastDate = CALCULATE(MAX(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES))
+				VAR __StartDate = DATE(YEAR(__LastDate) - 1, 1, 1)
+				VAR __EndDate = DATE(YEAR(__StartDate), 12, 31)
+				
+				RETURN
+				SWITCH(
+				    TRUE(),
+				    ISSELECTEDMEASURE([Start and End Dates]), [Start and End Dates],
+				    __IsDimDateFiltered, SELECTEDMEASURE(),
+				    CALCULATE(
+				        SELECTEDMEASURE(),
+				        --REMOVEFILTERS(DIM_DATES),
+				        DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate),
+				        KEEPFILTERS(VALUES(DIM_DATES[DATE]))
+				    )
+				)
+
+		calculationItem 'All Time' =
+				
+				VAR __IsDimDateFiltered = CALCULATE(ISFILTERED(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES[DATE]))
+				VAR __StartDate = CALCULATE(MIN(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES))
+				VAR __EndDate = CALCULATE(MAX(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES))
+				
+				RETURN
+				SWITCH(
+				    TRUE(),
+				    ISSELECTEDMEASURE([Start and End Dates]), [Start and End Dates],
+				    __IsDimDateFiltered, SELECTEDMEASURE(),
+				    CALCULATE(
+				        SELECTEDMEASURE(),
+				        --REMOVEFILTERS(DIM_DATES),
+				        DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate),
+				        KEEPFILTERS(VALUES(DIM_DATES[DATE]))
+				    )
+				)
+
+	column Period
+		dataType: string
+		lineageTag: d934106d-c954-4c33-a7d5-ebeefc7421e3
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordinal
+		dataType: int64
+		formatString: 0
+		lineageTag: a6fac01f-0530-46d5-8264-0bc42561b464
+		summarizeBy: none
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = User
+

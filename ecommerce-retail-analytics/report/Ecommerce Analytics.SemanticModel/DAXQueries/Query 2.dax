@@ -1,0 +1,9 @@
+DEFINE
+	FUNCTION TimeIntelligence.PY = (
+		__BaseMeasure: MEASUREREF
+	) =>
+	
+	CALCULATE(
+		__BaseMeasure,
+		SAMEPERIODLASTYEAR(DIM_DATES[DATE])
+	)

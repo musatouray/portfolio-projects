@@ -1,0 +1,112 @@
+createOrReplace
+
+	ref table _Measures
+
+		/// Revenue YoY background color using UDF color function with 90% transparency
+		measure 'Revenue YoY Background Color' = ```
+				
+				// Using UDF color function with 90% transparency
+				Color.YoYGrowthPct([Revenue YoY %], 90) 
+				```
+			displayFolder: _Viz Helpers\_Color
+			lineageTag: fbb6dae0-7936-4409-a3cf-9dc70c010af3
+
+			annotation PBI_FormatHint = {"isText":true}
+
+		/// Revenue YoY font color using UDF color function with 0% transparency
+		measure 'Revenue YoY Font Color' = ```
+				
+				// Using UDF color function with 0% transparency
+				Color.YoYGrowthPct([Revenue YoY %], 0) 
+				
+				```
+			displayFolder: _Viz Helpers\_Color
+			lineageTag: 836359c6-cea0-476f-ba67-353adb77f623
+
+			annotation PBI_FormatHint = {"isText":true}
+
+		/// Orders YoY font color using UDF color function with 0% transparency
+		measure 'Orders YoY Font Color' = ```
+				
+				// Using UDF color function with 0% transparency
+				Color.YoYGrowthPct([Orders YoY %], 0) 
+				
+				```
+			displayFolder: _Viz Helpers\_Color
+			lineageTag: 43de0e15-f144-4d87-adab-a3ef586edcea
+
+			annotation PBI_FormatHint = {"isText":true}
+
+		/// Orders YoY background color using UDF color function with 90% transparency
+		measure 'Orders YoY Background Color' = ```
+				
+				// Using UDF color function with 90% transparency
+				Color.YoYGrowthPct([Orders YoY %], 90) 
+				```
+			displayFolder: _Viz Helpers\_Color
+			lineageTag: 13beae78-c811-4df3-b158-b15b67c1ffaa
+
+			annotation PBI_FormatHint = {"isText":true}
+
+		/// Avg Order Value (AOV) YoY font color using UDF color function with 0% transparency
+		measure 'AOV YoY Font Color' = ```
+				
+				// Using UDF color function with 0% transparency
+				Color.YoYGrowthPct([AOV YoY %], 0) 
+				
+				```
+			displayFolder: _Viz Helpers\_Color
+
+			annotation PBI_FormatHint = {"isText":true}
+
+		/// Avg Order Value (AOV) YoY background color using UDF color function with 90% transparency
+		measure 'AOV YoY Background Color' = ```
+				
+				// Using UDF color function with 90% transparency
+				Color.YoYGrowthPct([AOV YoY %], 90) 
+				```
+			displayFolder: _Viz Helpers\_Color
+
+			annotation PBI_FormatHint = {"isText":true}
+
+		/// Avg Review Score YoY font color using UDF color function with 0% transparency
+		measure 'Avg Review Score YoY Font Color' = ```
+				
+				// Using UDF color function with 0% transparency
+				Color.YoYGrowthPct([Avg Review Score YoY %], 0) 
+				
+				```
+			displayFolder: _Viz Helpers\_Color
+
+			annotation PBI_FormatHint = {"isText":true}
+
+		/// Avg Review Score YoY background color using UDF color function with 90% transparency
+		measure 'Avg Review Score YoY Background Color' = ```
+				
+				// Using UDF color function with 90% transparency
+				Color.YoYGrowthPct([Avg Review Score YoY %], 90) 
+				```
+			displayFolder: _Viz Helpers\_Color
+
+			annotation PBI_FormatHint = {"isText":true}
+
+		/// On Time Delivery YoY font color using UDF color function with 0% transparency
+		measure 'On Time Delivery YoY Font Color' = ```
+				
+				// Using UDF color function with 0% transparency
+				Color.YoYGrowthPct([On Time Delivery YoY %], 0) 
+				
+				```
+			displayFolder: _Viz Helpers\_Color
+
+			annotation PBI_FormatHint = {"isText":true}
+
+		/// On Time Delivery YoY background color using UDF color function with 90% transparency
+		measure 'On Time Delivery YoY Background Color' = ```
+				
+				// Using UDF color function with 90% transparency
+				Color.YoYGrowthPct([On Time Delivery YoY %], 90) 
+				```
+			displayFolder: _Viz Helpers\_Color
+
+			annotation PBI_FormatHint = {"isText":true}

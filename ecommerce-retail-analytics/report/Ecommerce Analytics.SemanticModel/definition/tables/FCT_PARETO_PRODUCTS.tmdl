@@ -28,7 +28,7 @@ table FCT_PARETO_PRODUCTS
 	column TOTAL_ORDERS
 		dataType: double
 		lineageTag: 89908d34-9626-4483-bd11-a5ef2efe255e
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -38,7 +38,7 @@ table FCT_PARETO_PRODUCTS
 	column TOTAL_REVENUE
 		dataType: double
 		lineageTag: 8ff7e484-b48e-469a-9848-db6af7de79de
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -48,7 +48,7 @@ table FCT_PARETO_PRODUCTS
 	column REVENUE_RANK
 		dataType: double
 		lineageTag: 8038a971-ada5-4c05-b6c5-fc60ee300321
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: REVENUE_RANK
 
 		annotation SummarizationSetBy = Automatic
@@ -58,7 +58,7 @@ table FCT_PARETO_PRODUCTS
 	column CUMULATIVE_REVENUE
 		dataType: double
 		lineageTag: f4880d73-617e-4308-af11-e6a0d0b3f00d
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: CUMULATIVE_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -68,7 +68,7 @@ table FCT_PARETO_PRODUCTS
 	column CUMULATIVE_REVENUE_PCT
 		dataType: double
 		lineageTag: 1bd14154-f5d5-4f07-8b24-64d9ea66913f
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: CUMULATIVE_REVENUE_PCT
 
 		annotation SummarizationSetBy = Automatic
@@ -78,7 +78,7 @@ table FCT_PARETO_PRODUCTS
 	column CUMULATIVE_PRODUCT_PCT
 		dataType: double
 		lineageTag: de0e2cfc-5cd9-4253-9827-406a8f65b4c4
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: CUMULATIVE_PRODUCT_PCT
 
 		annotation SummarizationSetBy = Automatic

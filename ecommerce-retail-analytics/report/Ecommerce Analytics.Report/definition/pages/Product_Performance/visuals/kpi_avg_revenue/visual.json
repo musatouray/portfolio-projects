@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "kpi_avg_revenue",
   "position": {
     "x": 1001.5042128008845,
@@ -7,7 +7,7 @@
     "z": 3000,
     "height": 167.8822090822292,
     "width": 219.98358431464513,
-    "tabOrder": 5000
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "card",
@@ -56,23 +56,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "cc2d74af71effabea71c",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Avg Revenue per Product"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

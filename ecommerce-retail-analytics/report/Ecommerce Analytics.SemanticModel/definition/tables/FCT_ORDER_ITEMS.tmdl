@@ -20,10 +20,10 @@ table FCT_ORDER_ITEMS
 	column ORDER_ITEM_ID
 		dataType: double
 		lineageTag: d921a3cc-1654-4d25-b006-003304af1213
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: ORDER_ITEM_ID
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
@@ -64,7 +64,7 @@ table FCT_ORDER_ITEMS
 	column DELIVERY_DATE_KEY
 		dataType: double
 		lineageTag: 60b64be3-8929-4e0d-be7a-75cc15f211b1
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: DELIVERY_DATE_KEY
 
 		annotation SummarizationSetBy = Automatic
@@ -90,7 +90,7 @@ table FCT_ORDER_ITEMS
 	column ITEM_PRICE
 		dataType: double
 		lineageTag: e2a76e35-c94e-4b92-ba73-8fd8240cbbd0
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ITEM_PRICE
 
 		annotation SummarizationSetBy = Automatic
@@ -100,7 +100,7 @@ table FCT_ORDER_ITEMS
 	column ITEM_FREIGHT
 		dataType: double
 		lineageTag: ff9a123d-6527-4b7d-a886-a97eebd9e1da
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ITEM_FREIGHT
 
 		annotation SummarizationSetBy = Automatic
@@ -110,7 +110,7 @@ table FCT_ORDER_ITEMS
 	column ITEM_TOTAL
 		dataType: double
 		lineageTag: 896c1e02-dd3c-4fdc-80a4-bfc52f30dc59
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ITEM_TOTAL
 
 		annotation SummarizationSetBy = Automatic

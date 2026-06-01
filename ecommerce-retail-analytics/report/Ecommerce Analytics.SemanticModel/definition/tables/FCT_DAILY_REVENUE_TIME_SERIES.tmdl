@@ -63,7 +63,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column TOTAL_ORDERS
 		dataType: double
 		lineageTag: b29de278-327e-4519-90c3-1fed22817c59
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -73,7 +73,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column DELIVERED_ORDERS
 		dataType: double
 		lineageTag: 082c8b6d-baf3-43d5-9954-4e497c66ce18
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: DELIVERED_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -83,7 +83,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column CANCELED_ORDERS
 		dataType: double
 		lineageTag: 9ca173a0-8591-423c-8542-9389d415d66a
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: CANCELED_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -93,7 +93,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column TOTAL_REVENUE
 		dataType: double
 		lineageTag: 73cf7c1c-1828-40db-88d2-50b1eaf60de2
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -103,7 +103,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column TOTAL_FREIGHT
 		dataType: double
 		lineageTag: 028eaf7d-11cb-49cf-acbf-2bcbd0419b06
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_FREIGHT
 
 		annotation SummarizationSetBy = Automatic
@@ -113,7 +113,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column GROSS_REVENUE
 		dataType: double
 		lineageTag: 7ee1dc87-a0e9-4631-bbcb-b85f84563046
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: GROSS_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -123,7 +123,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column AVERAGE_ORDER_VALUE
 		dataType: double
 		lineageTag: e96b3bd7-5c30-4858-9c2a-d9a5811e9178
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AVERAGE_ORDER_VALUE
 
 		annotation SummarizationSetBy = Automatic
@@ -133,7 +133,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column TOTAL_REVIEWS
 		dataType: double
 		lineageTag: 84b08115-f055-49a9-89b2-3299c93ccbb6
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_REVIEWS
 
 		annotation SummarizationSetBy = Automatic
@@ -143,7 +143,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column AVG_REVIEW_SCORE
 		dataType: double
 		lineageTag: 20b8f9da-9c2f-4b0e-b15c-171b18913001
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AVG_REVIEW_SCORE
 
 		annotation SummarizationSetBy = Automatic
@@ -153,7 +153,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column ORDERS_PREV_WEEK
 		dataType: double
 		lineageTag: e9e17a20-985e-4c1d-a543-6a37d7835ff9
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ORDERS_PREV_WEEK
 
 		annotation SummarizationSetBy = Automatic
@@ -163,7 +163,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column REVENUE_PREV_WEEK
 		dataType: double
 		lineageTag: f29d732f-1973-48bf-8210-c476a06d0e08
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: REVENUE_PREV_WEEK
 
 		annotation SummarizationSetBy = Automatic
@@ -173,7 +173,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column ORDERS_PREV_MONTH
 		dataType: double
 		lineageTag: f0c2c24c-950d-4333-93a4-e08edaba4bb8
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ORDERS_PREV_MONTH
 
 		annotation SummarizationSetBy = Automatic
@@ -183,7 +183,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column REVENUE_PREV_MONTH
 		dataType: double
 		lineageTag: 81f25fbe-53e1-4eaa-b5e4-4151408c3849
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: REVENUE_PREV_MONTH
 
 		annotation SummarizationSetBy = Automatic
@@ -193,7 +193,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column ORDERS_PREV_YEAR
 		dataType: double
 		lineageTag: b88975ba-c87e-4296-bd9a-859199ec5f9f
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ORDERS_PREV_YEAR
 
 		annotation SummarizationSetBy = Automatic
@@ -203,7 +203,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column REVENUE_PREV_YEAR
 		dataType: double
 		lineageTag: dc857ac0-9e11-4208-a9d2-9c5a38b31e31
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: REVENUE_PREV_YEAR
 
 		annotation SummarizationSetBy = Automatic
@@ -213,7 +213,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column ROLLING_AVG_ORDERS_7D
 		dataType: double
 		lineageTag: 65711610-8783-46ff-859b-4bdf7a486c4a
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ROLLING_AVG_ORDERS_7D
 
 		annotation SummarizationSetBy = Automatic
@@ -223,7 +223,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column ROLLING_AVG_REVENUE_7D
 		dataType: double
 		lineageTag: cded8496-49a3-4533-8cd9-2f32538ab047
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ROLLING_AVG_REVENUE_7D
 
 		annotation SummarizationSetBy = Automatic
@@ -233,7 +233,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column ROLLING_AVG_ORDERS_28D
 		dataType: double
 		lineageTag: 61e6f67a-4631-41e2-badd-03fe24eeb047
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ROLLING_AVG_ORDERS_28D
 
 		annotation SummarizationSetBy = Automatic
@@ -243,7 +243,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column ROLLING_AVG_REVENUE_28D
 		dataType: double
 		lineageTag: bdc24df2-6de5-4981-b8dc-52fe149947ce
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ROLLING_AVG_REVENUE_28D
 
 		annotation SummarizationSetBy = Automatic
@@ -253,7 +253,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column ROLLING_AVG_ORDERS_90D
 		dataType: double
 		lineageTag: b206bdef-6d17-42b4-9998-121edb210721
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ROLLING_AVG_ORDERS_90D
 
 		annotation SummarizationSetBy = Automatic
@@ -263,7 +263,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column ROLLING_AVG_REVENUE_90D
 		dataType: double
 		lineageTag: a45b3a9c-d7a5-4eb7-bfb5-0c4a5eadeaf5
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ROLLING_AVG_REVENUE_90D
 
 		annotation SummarizationSetBy = Automatic
@@ -273,7 +273,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column ROLLING_AVG_ORDERS_365D
 		dataType: double
 		lineageTag: 3b17e635-cdd9-4649-8784-7f436cb486b3
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ROLLING_AVG_ORDERS_365D
 
 		annotation SummarizationSetBy = Automatic
@@ -283,7 +283,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column ROLLING_AVG_REVENUE_365D
 		dataType: double
 		lineageTag: fcf20592-1e85-4388-afc3-9a35ba37bc32
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ROLLING_AVG_REVENUE_365D
 
 		annotation SummarizationSetBy = Automatic
@@ -293,7 +293,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column CUMULATIVE_ORDERS
 		dataType: double
 		lineageTag: f303eecc-1575-4d85-882b-72f85f243049
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: CUMULATIVE_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -303,7 +303,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column CUMULATIVE_REVENUE
 		dataType: double
 		lineageTag: 149434a5-0985-48b9-a066-cb3e0ce1fc7a
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: CUMULATIVE_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -313,7 +313,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column YTD_ORDERS
 		dataType: double
 		lineageTag: 73088044-7fd6-428c-9dfa-712e50b9bf2b
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: YTD_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -323,7 +323,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column YTD_REVENUE
 		dataType: double
 		lineageTag: f059d4e1-6011-43a5-a6f0-d0c52eb8d1fc
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: YTD_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -333,7 +333,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column QTD_ORDERS
 		dataType: double
 		lineageTag: bb31614b-5643-41a1-b6ff-a8e6b67bb7df
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: QTD_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -343,7 +343,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column QTD_REVENUE
 		dataType: double
 		lineageTag: 7a32cae7-df9b-4872-8f7f-c003fd1f9c05
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: QTD_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -353,7 +353,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column MTD_ORDERS
 		dataType: double
 		lineageTag: b2b28868-8f41-4c9f-be03-e52796c6dcd1
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: MTD_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -363,7 +363,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column MTD_REVENUE
 		dataType: double
 		lineageTag: 965a224e-4e01-426a-8338-bfaf0ab220cf
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: MTD_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -373,7 +373,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column WTD_ORDERS
 		dataType: double
 		lineageTag: 72a5a0d8-29b5-4182-be89-9281f415402b
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: WTD_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -383,7 +383,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column WTD_REVENUE
 		dataType: double
 		lineageTag: 993bff33-9d1b-40c2-946e-2c9b45f9f91d
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: WTD_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -393,7 +393,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column ORDER_GROWTH_WOW_PCT
 		dataType: double
 		lineageTag: 49bf3bc0-635f-4db4-a5bf-bd9505d83a90
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ORDER_GROWTH_WOW_PCT
 
 		annotation SummarizationSetBy = Automatic
@@ -403,7 +403,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column REVENUE_GROWTH_WOW_PCT
 		dataType: double
 		lineageTag: 754d82dd-3250-42bc-9568-6d8e4f53145c
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: REVENUE_GROWTH_WOW_PCT
 
 		annotation SummarizationSetBy = Automatic
@@ -413,7 +413,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column ORDER_GROWTH_MOM_PCT
 		dataType: double
 		lineageTag: 33bd307b-7298-494d-b7fa-dbbc79ed278e
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ORDER_GROWTH_MOM_PCT
 
 		annotation SummarizationSetBy = Automatic
@@ -423,7 +423,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column REVENUE_GROWTH_MOM_PCT
 		dataType: double
 		lineageTag: 5c99e674-6479-413f-832b-deacc7e1dce2
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: REVENUE_GROWTH_MOM_PCT
 
 		annotation SummarizationSetBy = Automatic
@@ -433,7 +433,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column ORDER_GROWTH_YOY_PCT
 		dataType: double
 		lineageTag: 5c9a32b8-3a42-4845-aa11-f503dc63f0ed
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ORDER_GROWTH_YOY_PCT
 
 		annotation SummarizationSetBy = Automatic
@@ -443,7 +443,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column REVENUE_GROWTH_YOY_PCT
 		dataType: double
 		lineageTag: 04580438-b69c-43eb-8ee5-d210c6a3ac82
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: REVENUE_GROWTH_YOY_PCT
 
 		annotation SummarizationSetBy = Automatic
@@ -453,7 +453,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column AOV_PREV_WEEK
 		dataType: double
 		lineageTag: cc371fd1-c829-4409-ba6f-d584d7acd1dc
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AOV_PREV_WEEK
 
 		annotation SummarizationSetBy = Automatic
@@ -463,7 +463,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column AOV_PREV_MONTH
 		dataType: double
 		lineageTag: 5507ac93-fe53-43ee-aeb0-79b31f889219
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AOV_PREV_MONTH
 
 		annotation SummarizationSetBy = Automatic
@@ -473,7 +473,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column AOV_PREV_YEAR
 		dataType: double
 		lineageTag: 7346daba-1cff-4ae3-bd2f-0d207d89b34c
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AOV_PREV_YEAR
 
 		annotation SummarizationSetBy = Automatic
@@ -483,7 +483,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column ROLLING_AVG_AOV_7D
 		dataType: double
 		lineageTag: 92a06cce-65a9-4e98-b410-8b801e26c9a5
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ROLLING_AVG_AOV_7D
 
 		annotation SummarizationSetBy = Automatic
@@ -493,7 +493,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column ROLLING_AVG_AOV_28D
 		dataType: double
 		lineageTag: 0e296853-3652-4882-946a-fdd102d8d27a
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ROLLING_AVG_AOV_28D
 
 		annotation SummarizationSetBy = Automatic
@@ -503,7 +503,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column ROLLING_AVG_AOV_90D
 		dataType: double
 		lineageTag: de0323d3-d232-4051-ae02-4516b4ee774d
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ROLLING_AVG_AOV_90D
 
 		annotation SummarizationSetBy = Automatic
@@ -513,7 +513,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column ROLLING_AVG_AOV_365D
 		dataType: double
 		lineageTag: 9d6d666b-9268-44fe-b1ca-bb629ebb68b9
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ROLLING_AVG_AOV_365D
 
 		annotation SummarizationSetBy = Automatic
@@ -523,7 +523,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column CUMULATIVE_AOV
 		dataType: double
 		lineageTag: dec7087f-d17c-485d-a85c-4b07ad1b9533
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: CUMULATIVE_AOV
 
 		annotation SummarizationSetBy = Automatic
@@ -533,7 +533,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column YTD_AOV
 		dataType: double
 		lineageTag: 0b97ddeb-7191-44c3-a304-c0648640f0a7
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: YTD_AOV
 
 		annotation SummarizationSetBy = Automatic
@@ -543,7 +543,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column QTD_AOV
 		dataType: double
 		lineageTag: e8b8f715-f0e8-44f2-a7cc-23851cf4487c
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: QTD_AOV
 
 		annotation SummarizationSetBy = Automatic
@@ -553,7 +553,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column MTD_AOV
 		dataType: double
 		lineageTag: df194c37-ec7d-472d-a13a-067b54333286
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: MTD_AOV
 
 		annotation SummarizationSetBy = Automatic
@@ -563,7 +563,7 @@ table FCT_DAILY_REVENUE_TIME_SERIES
 	column WTD_AOV
 		dataType: double
 		lineageTag: c5e3a479-4a4b-4fcb-b6ff-a8deab21e5a5
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: WTD_AOV
 
 		annotation SummarizationSetBy = Automatic

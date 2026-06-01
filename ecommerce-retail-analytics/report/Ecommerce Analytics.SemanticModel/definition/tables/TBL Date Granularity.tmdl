@@ -1,0 +1,68 @@
+table 'TBL Date Granularity'
+	lineageTag: 93a32270-f729-4bec-82d7-d63f62d9b863
+
+	column ID
+		isHidden
+		formatString: 0
+		lineageTag: d45508a4-4c08-4e41-a715-1a61c18c75f2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [ID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		lineageTag: 268ca73d-a84c-4935-b203-bda917d3310b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dsiplay Name'
+		lineageTag: 2c1ad973-9593-4828-9dcc-a20af7cc81b1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Dsiplay Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Name Short'
+		lineageTag: 4e2bc12e-d347-47a6-a650-b1c4ad8fe9fc
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Name Short]
+		sortByColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Name General'
+		lineageTag: 328f1614-4f92-4cff-9610-dc0d3132a2bd
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Name General]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'TBL Date Granularity' = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE(
+				    "ID", INTEGER,
+				    "Name", STRING,
+				    "Dsiplay Name", STRING,
+				    "Name Short", STRING,
+				    "Name General", STRING,
+				    {
+				        {1, "Daily", "Daily", "D", "Day"}, 
+				        {2, "Weekly", "Weekly", "W", "Week"},
+				        {3, "Monthly", "Monthly", "M", "Month"},
+				        {4,  "Quarterly", "Quarterly", "Q", "Quarter"},
+				        {5, "Yearly", "Yearly", "Y", "Year"}
+				    }
+				)
+				```
+
+	annotation PBI_Id = bf2d89100f144008a459e666bf3ab324
+

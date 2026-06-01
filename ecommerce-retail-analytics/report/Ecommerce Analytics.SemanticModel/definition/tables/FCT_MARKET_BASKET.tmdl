@@ -44,7 +44,7 @@ table FCT_MARKET_BASKET
 	column PAIR_COUNT
 		dataType: double
 		lineageTag: 21055157-b651-43e1-835c-9836b681ec8c
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: PAIR_COUNT
 
 		annotation SummarizationSetBy = Automatic
@@ -54,7 +54,7 @@ table FCT_MARKET_BASKET
 	column PRODUCT_A_ORDER_COUNT
 		dataType: double
 		lineageTag: b2589798-2f37-435a-bad1-c739a9200337
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: PRODUCT_A_ORDER_COUNT
 
 		annotation SummarizationSetBy = Automatic
@@ -64,7 +64,7 @@ table FCT_MARKET_BASKET
 	column PRODUCT_B_ORDER_COUNT
 		dataType: double
 		lineageTag: e6249191-c1b7-428f-b6ef-71d5c308cb1e
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: PRODUCT_B_ORDER_COUNT
 
 		annotation SummarizationSetBy = Automatic
@@ -74,7 +74,7 @@ table FCT_MARKET_BASKET
 	column SUPPORT_PCT
 		dataType: double
 		lineageTag: 866c72ff-bb6e-4ff9-ba45-0cfd0f5592dc
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: SUPPORT_PCT
 
 		annotation SummarizationSetBy = Automatic
@@ -84,7 +84,7 @@ table FCT_MARKET_BASKET
 	column CONFIDENCE_A_TO_B_PCT
 		dataType: double
 		lineageTag: 55d925f5-a510-4d90-8204-dd75eca36cee
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: CONFIDENCE_A_TO_B_PCT
 
 		annotation SummarizationSetBy = Automatic
@@ -94,7 +94,7 @@ table FCT_MARKET_BASKET
 	column CONFIDENCE_B_TO_A_PCT
 		dataType: double
 		lineageTag: c839357c-48c8-4b58-b8ee-4f6f6c6aefa5
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: CONFIDENCE_B_TO_A_PCT
 
 		annotation SummarizationSetBy = Automatic
@@ -104,7 +104,7 @@ table FCT_MARKET_BASKET
 	column LIFT
 		dataType: double
 		lineageTag: e7d83753-bd41-49ba-973f-d1b584afbd26
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: LIFT
 
 		annotation SummarizationSetBy = Automatic

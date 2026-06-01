@@ -75,37 +75,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "f83c6960a3fe0bef197e",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "FCT_PARETO_PRODUCTS"
-              }
-            },
-            "Property": "PARETO_SEGMENT"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "75480ab5caa8fc3b522c",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Product Revenue"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

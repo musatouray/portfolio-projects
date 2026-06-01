@@ -1,10 +1,10 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "days_inactive",
   "position": {
     "x": 620,
     "y": 324,
-    "z": 3000,
+    "z": 2000,
     "height": 280,
     "width": 576,
     "tabOrder": 6000

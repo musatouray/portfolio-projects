@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "cohort_size",
   "position": {
     "x": 1395.1590478902494,
@@ -7,7 +7,7 @@
     "z": 0,
     "height": 219.98358431464513,
     "width": 456.17648536826414,
-    "tabOrder": 6000
+    "tabOrder": 7000
   },
   "visual": {
     "visualType": "barChart",

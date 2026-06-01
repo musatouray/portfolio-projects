@@ -1,13 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "revenue_trend",
   "position": {
-    "x": 40,
-    "y": 348,
-    "z": 8000,
-    "height": 320,
-    "width": 1100,
-    "tabOrder": 8000
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "height": 338.66896446854884,
+    "width": 1229.718688225455
   },
   "visual": {
     "visualType": "lineChart",
@@ -23,11 +22,11 @@
                       "Entity": "DIM_DATES"
                     }
                   },
-                  "Property": "MONTH_YEAR"
+                  "Property": "DATE"
                 }
               },
-              "queryRef": "DIM_DATES.MONTH_YEAR",
-              "nativeQueryRef": "MONTH_YEAR",
+              "queryRef": "DIM_DATES.DATE",
+              "nativeQueryRef": "DATE",
               "active": true
             }
           ]
@@ -42,11 +41,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Revenue"
+                  "Property": "Blank"
                 }
               },
-              "queryRef": "_Measures.Total Revenue",
-              "nativeQueryRef": "Total Revenue"
+              "queryRef": "_Measures.Blank",
+              "nativeQueryRef": "Blank"
             }
           ]
         }
@@ -69,6 +68,74 @@
         ]
       }
     },
+    "objects": {
+      "lineStyles": [
+        {
+          "properties": {
+            "lineChartType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'linear'"
+                }
+              }
+            },
+            "showMarker": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "areaShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "axisType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Scalar'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dataPoint": [
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "90D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "gridlineShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "visualContainerObjects": {
       "title": [
         {
@@ -82,8 +149,13 @@
             },
             "text": {
               "expr": {
-                "Literal": {
-                  "Value": "'Revenue Trend'"
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Selected Metric Title"
                 }
               }
             }
@@ -96,7 +168,19 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Executive Summary Title"
                 }
               }
             }
@@ -133,8 +217,54 @@
             }
           }
         }
+      ],
+      "divider": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "parentGroupName": "09c05aaac582ccaf63f0",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "e9c742aee42ab49417cb",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Blank"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "3cb9b6e4fff35fab4293",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DIM_DATES"
+              }
+            },
+            "Property": "DATE"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }

@@ -28,7 +28,7 @@ table FCT_CLV_CUSTOMER
 	column TOTAL_ORDERS
 		dataType: double
 		lineageTag: 869dd246-cc31-4f94-a1d9-31e2d741f1f4
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -38,7 +38,7 @@ table FCT_CLV_CUSTOMER
 	column AVERAGE_ORDER_VALUE
 		dataType: double
 		lineageTag: 9648e2a3-2bd8-4b13-bd98-f47213016533
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AVERAGE_ORDER_VALUE
 
 		annotation SummarizationSetBy = Automatic
@@ -48,7 +48,7 @@ table FCT_CLV_CUSTOMER
 	column HISTORICAL_CLV
 		dataType: double
 		lineageTag: 99a53efa-95a4-41b3-974e-1c2a47a2faa8
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: HISTORICAL_CLV
 
 		annotation SummarizationSetBy = Automatic
@@ -58,7 +58,7 @@ table FCT_CLV_CUSTOMER
 	column EXPECTED_LTV
 		dataType: double
 		lineageTag: c9d53e0e-94f4-4dd3-8f44-5e369038dd93
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: EXPECTED_LTV
 
 		annotation SummarizationSetBy = Automatic
@@ -68,7 +68,7 @@ table FCT_CLV_CUSTOMER
 	column PREDICTED_LTV
 		dataType: double
 		lineageTag: 7e9172a2-4ee9-4e1b-8731-f287e6b72122
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: PREDICTED_LTV
 
 		annotation SummarizationSetBy = Automatic
@@ -78,7 +78,7 @@ table FCT_CLV_CUSTOMER
 	column VALUE_VS_COHORT
 		dataType: double
 		lineageTag: e33f08e8-9849-49b0-ad39-242603d1401d
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: VALUE_VS_COHORT
 
 		annotation SummarizationSetBy = Automatic
@@ -88,7 +88,7 @@ table FCT_CLV_CUSTOMER
 	column CLV_SCORE
 		dataType: double
 		lineageTag: c3d8f316-5da3-40c5-ae1e-35ce1abdf2a1
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: CLV_SCORE
 
 		annotation SummarizationSetBy = Automatic
@@ -98,7 +98,7 @@ table FCT_CLV_CUSTOMER
 	column CLV_DECILE
 		dataType: double
 		lineageTag: 92d5c40e-176b-4065-8e10-c1265376e458
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: CLV_DECILE
 
 		annotation SummarizationSetBy = Automatic

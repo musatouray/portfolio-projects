@@ -39,7 +39,7 @@ table FCT_CHURN_RISK
 	column TOTAL_ORDERS
 		dataType: double
 		lineageTag: 723a82fa-507d-41dc-a1e6-2a52fc427b47
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -49,7 +49,7 @@ table FCT_CHURN_RISK
 	column TOTAL_REVENUE
 		dataType: double
 		lineageTag: b50641c3-84f8-4a70-ab82-501ebfeff694
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -59,7 +59,7 @@ table FCT_CHURN_RISK
 	column AVERAGE_RATING
 		dataType: double
 		lineageTag: daf11b19-1763-42f3-b529-a5b6e1b63f1f
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AVERAGE_RATING
 
 		annotation SummarizationSetBy = Automatic
@@ -69,7 +69,7 @@ table FCT_CHURN_RISK
 	column DAYS_SINCE_LAST_ORDER
 		dataType: double
 		lineageTag: 912ddf4f-37de-4234-96a0-4ca515b3a4cb
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: DAYS_SINCE_LAST_ORDER
 
 		annotation SummarizationSetBy = Automatic
@@ -104,7 +104,7 @@ table FCT_CHURN_RISK
 	column CHURN_RISK_SCORE
 		dataType: double
 		lineageTag: 382a5622-7340-4940-b1a4-a2aba52b06c0
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: CHURN_RISK_SCORE
 
 		annotation SummarizationSetBy = Automatic

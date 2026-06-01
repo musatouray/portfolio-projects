@@ -34,7 +34,7 @@ table DIM_COHORTS
 	column COHORT_YEAR
 		dataType: double
 		lineageTag: 9dbb0837-728d-4326-98aa-68489338cc2b
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: COHORT_YEAR
 
 		annotation SummarizationSetBy = Automatic
@@ -52,7 +52,7 @@ table DIM_COHORTS
 	column COHORT_SIZE
 		dataType: double
 		lineageTag: 64c545f6-19ae-4ae8-b150-e7b2d63e3117
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: COHORT_SIZE
 
 		annotation SummarizationSetBy = Automatic
@@ -62,7 +62,7 @@ table DIM_COHORTS
 	column TOTAL_COHORT_ORDERS
 		dataType: double
 		lineageTag: 6997a3c0-1095-493d-adf7-95181372d2f7
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_COHORT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -72,7 +72,7 @@ table DIM_COHORTS
 	column TOTAL_COHORT_REVENUE
 		dataType: double
 		lineageTag: 89dcc374-b79d-4068-8bf1-4ee76a4eaad5
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_COHORT_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -82,7 +82,7 @@ table DIM_COHORTS
 	column AVG_ORDER_VALUE
 		dataType: double
 		lineageTag: b0f8125d-f56f-4c55-b18b-ec4e759251b1
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AVG_ORDER_VALUE
 
 		annotation SummarizationSetBy = Automatic
@@ -92,7 +92,7 @@ table DIM_COHORTS
 	column AVG_CUSTOMER_VALUE
 		dataType: double
 		lineageTag: f00f1883-0153-4c97-b7dd-abc630de3ee7
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: AVG_CUSTOMER_VALUE
 
 		annotation SummarizationSetBy = Automatic

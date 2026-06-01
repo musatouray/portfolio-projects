@@ -56,23 +56,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "a7cb9f408103ff2eea73",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Avg Revenue per Product"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }
