@@ -180,7 +180,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Executive Summary Title"
+                  "Property": "Filtered Period Title"
                 }
               }
             }
@@ -250,20 +250,6 @@
           }
         },
         "type": "Advanced"
-      },
-      {
-        "name": "3cb9b6e4fff35fab4293",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DIM_DATES"
-              }
-            },
-            "Property": "DATE"
-          }
-        },
-        "type": "Categorical"
       }
     ]
   }
