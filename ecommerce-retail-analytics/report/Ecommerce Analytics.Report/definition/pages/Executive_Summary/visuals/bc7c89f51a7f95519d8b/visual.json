@@ -4,7 +4,7 @@
   "position": {
     "x": 19.853008261949412,
     "y": 13.943281463834964,
-    "z": 5000,
+    "z": 125,
     "height": 52.55208069339551,
     "width": 355.01850068427188,
     "tabOrder": 13000
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Executive Summary",
+                    "value": "Performance Pulse",
                     "textStyle": {
                       "fontFamily": "Segoe (Bold)",
                       "fontSize": "14pt",
@@ -74,7 +74,7 @@
                                       "Source": "_"
                                     }
                                   },
-                                  "Property": "Executive Summary Title"
+                                  "Property": "Filtered Period Title"
                                 },
                                 "Name": "_Measures.Executive Summary Title"
                               }

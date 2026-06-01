@@ -47795,7 +47795,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Executive Summary Title"
+			          "ConceptualProperty": "Filtered Period Title"
 			        }
 			      },
 			      "State": "Generated",

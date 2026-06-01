@@ -399,12 +399,12 @@
       "*": {
         "background": [
           {
-            "color": { "solid": { "color": "#F3F2F1" } },
-            "transparency": 0
+            "color": { "solid": { "color": "#B7C5DB" } },
+            "transparency": 90
           }
         ],
         "wallpaper": [
-          { "color": { "solid": { "color": "#F3F2F1" } } }
+          { "color": { "solid": { "color": "#B7C5DB" } }, "transparency": 90 }
         ],
         "displayArea": [{ "verticalAlignment": "Top" }],
         "filterCard": [
@@ -420,7 +420,7 @@
           }
         ],
         "outspace": [
-          { "color": { "solid": { "color": "#F3F2F1" } }, "transparency": 0 }
+          { "color": { "solid": { "color": "#B7C5DB" } }, "transparency": 90 }
         ],
         "pageSize": [
           { "pageSizeTypes": "Custom", "pageSizeHeight": 1080, "pageSizeWidth": 1920 }
