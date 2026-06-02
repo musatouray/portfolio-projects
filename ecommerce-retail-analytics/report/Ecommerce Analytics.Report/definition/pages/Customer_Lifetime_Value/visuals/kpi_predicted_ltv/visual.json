@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Predicted LTV"
+                  "Property": "Total Predicted CLV"
                 }
               },
-              "queryRef": "_Measures.Total Predicted LTV",
-              "nativeQueryRef": "Total Predicted LTV"
+              "queryRef": "_Measures.Total Predicted CLV",
+              "nativeQueryRef": "Total Predicted CLV"
             }
           ]
         }
@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Predicted LTV'"
+                  "Value": "'Predicted CLV'"
                 }
               }
             }

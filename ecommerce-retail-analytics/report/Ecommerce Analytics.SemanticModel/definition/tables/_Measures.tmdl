@@ -281,38 +281,38 @@ table _Measures
 		displayFolder: 01_Segments\CLV
 		lineageTag: c1000002-0001-0001-0001-000000000002
 
-	measure 'Total Predicted LTV' = SUM(FCT_CLV_CUSTOMER[PREDICTED_LTV])
+	measure 'Total Predicted CLV' = SUM(FCT_CLV_CUSTOMER[PREDICTED_CLV])
 		formatString: $#,##0
 		displayFolder: 01_Segments\CLV
 		lineageTag: c1000003-0001-0001-0001-000000000003
 
-	measure 'Avg Predicted LTV' = AVERAGE(FCT_CLV_CUSTOMER[PREDICTED_LTV])
+	measure 'Avg Predicted CLV' = AVERAGE(FCT_CLV_CUSTOMER[PREDICTED_CLV])
 		formatString: $#,##0
 		displayFolder: 01_Segments\CLV
 		lineageTag: c1000004-0001-0001-0001-000000000004
 
-	measure 'High CLV Customers' =
+	measure 'Platinum CLV Customers' =
 			CALCULATE(
 				COUNTROWS(FCT_CLV_CUSTOMER),
-				FCT_CLV_CUSTOMER[CLV_SEGMENT] = "High"
+				FCT_CLV_CUSTOMER[CLV_SEGMENT] = "Platinum"
 			)
 		formatString: #,##0
 		displayFolder: 01_Segments\CLV
 		lineageTag: c1000005-0001-0001-0001-000000000005
 
-	measure 'Medium CLV Customers' =
+	measure 'Gold CLV Customers' =
 			CALCULATE(
 				COUNTROWS(FCT_CLV_CUSTOMER),
-				FCT_CLV_CUSTOMER[CLV_SEGMENT] = "Medium"
+				FCT_CLV_CUSTOMER[CLV_SEGMENT] = "Gold"
 			)
 		formatString: #,##0
 		displayFolder: 01_Segments\CLV
 		lineageTag: c1000006-0001-0001-0001-000000000006
 
-	measure 'Low CLV Customers' =
+	measure 'Silver CLV Customers' =
 			CALCULATE(
 				COUNTROWS(FCT_CLV_CUSTOMER),
-				FCT_CLV_CUSTOMER[CLV_SEGMENT] = "Low"
+				FCT_CLV_CUSTOMER[CLV_SEGMENT] = "Silver"
 			)
 		formatString: #,##0
 		displayFolder: 01_Segments\CLV
@@ -328,8 +328,8 @@ table _Measures
 		displayFolder: 01_Segments\CLV
 		lineageTag: c1000008-0001-0001-0001-000000000008
 
-	measure 'Avg CLV Score' = AVERAGE(FCT_CLV_CUSTOMER[CLV_SCORE])
-		formatString: 0.00
+	measure 'Avg CLV Decile' = AVERAGE(FCT_CLV_CUSTOMER[CLV_DECILE])
+		formatString: 0.0
 		displayFolder: 01_Segments\CLV
 		lineageTag: c1000009-0001-0001-0001-000000000009
 
@@ -913,18 +913,18 @@ table _Measures
 		displayFolder: 01_Segments\RFM
 		lineageTag: 59c9a4f6-8ace-4562-85c4-a312bd6638d4
 
-	measure 'High CLV Revenue %' =
+	measure 'Platinum CLV Revenue %' =
 			DIVIDE(
-				CALCULATE(SUM(FCT_CLV_CUSTOMER[HISTORICAL_CLV]), FCT_CLV_CUSTOMER[CLV_SEGMENT] = "High"),
+				CALCULATE(SUM(FCT_CLV_CUSTOMER[HISTORICAL_CLV]), FCT_CLV_CUSTOMER[CLV_SEGMENT] = "Platinum"),
 				[Total Historical CLV]
 			)
 		formatString: 0.0%
 		displayFolder: 01_Segments\CLV
 		lineageTag: c1eabe31-6a5c-460c-b83b-68a173c3a788
 
-	measure 'Medium CLV Revenue %' =
+	measure 'Gold CLV Revenue %' =
 			DIVIDE(
-				CALCULATE(SUM(FCT_CLV_CUSTOMER[HISTORICAL_CLV]), FCT_CLV_CUSTOMER[CLV_SEGMENT] = "Medium"),
+				CALCULATE(SUM(FCT_CLV_CUSTOMER[HISTORICAL_CLV]), FCT_CLV_CUSTOMER[CLV_SEGMENT] = "Gold"),
 				[Total Historical CLV]
 			)
 		formatString: 0.0%

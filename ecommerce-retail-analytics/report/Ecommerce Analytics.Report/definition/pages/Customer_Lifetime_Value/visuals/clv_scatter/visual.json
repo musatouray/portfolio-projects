@@ -61,11 +61,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Avg Predicted LTV"
+                  "Property": "Avg Predicted CLV"
                 }
               },
-              "queryRef": "_Measures.Avg Predicted LTV",
-              "nativeQueryRef": "Predicted LTV"
+              "queryRef": "_Measures.Avg Predicted CLV",
+              "nativeQueryRef": "Predicted CLV"
             }
           ]
         }

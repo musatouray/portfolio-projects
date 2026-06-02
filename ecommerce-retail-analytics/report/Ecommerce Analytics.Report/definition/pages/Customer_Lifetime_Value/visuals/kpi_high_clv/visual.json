@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "High CLV Customers"
+                  "Property": "Platinum CLV Customers"
                 }
               },
-              "queryRef": "_Measures.High CLV Customers",
-              "nativeQueryRef": "High CLV Customers"
+              "queryRef": "_Measures.Platinum CLV Customers",
+              "nativeQueryRef": "Platinum CLV Customers"
             }
           ]
         }

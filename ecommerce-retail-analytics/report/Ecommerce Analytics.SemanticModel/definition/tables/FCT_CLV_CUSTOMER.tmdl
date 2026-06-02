@@ -55,41 +55,81 @@ table FCT_CLV_CUSTOMER
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column EXPECTED_LTV
+	column CUSTOMER_AGE_DAYS
 		dataType: double
 		lineageTag: c9d53e0e-94f4-4dd3-8f44-5e369038dd93
 		summarizeBy: none
-		sourceColumn: EXPECTED_LTV
+		sourceColumn: CUSTOMER_AGE_DAYS
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column PREDICTED_LTV
+	column DAYS_SINCE_LAST_ORDER
 		dataType: double
 		lineageTag: 7e9172a2-4ee9-4e1b-8731-f287e6b72122
 		summarizeBy: none
-		sourceColumn: PREDICTED_LTV
+		sourceColumn: DAYS_SINCE_LAST_ORDER
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column VALUE_VS_COHORT
+	column EXPECTED_FUTURE_PURCHASES
 		dataType: double
 		lineageTag: e33f08e8-9849-49b0-ad39-242603d1401d
 		summarizeBy: none
-		sourceColumn: VALUE_VS_COHORT
+		sourceColumn: EXPECTED_FUTURE_PURCHASES
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column CLV_SCORE
+	column PREDICTED_FUTURE_VALUE
 		dataType: double
 		lineageTag: c3d8f316-5da3-40c5-ae1e-35ce1abdf2a1
 		summarizeBy: none
-		sourceColumn: CLV_SCORE
+		sourceColumn: PREDICTED_FUTURE_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PREDICTED_CLV
+		dataType: double
+		lineageTag: 2a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d
+		summarizeBy: none
+		sourceColumn: PREDICTED_CLV
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AVG_DAYS_BETWEEN_PURCHASES
+		dataType: double
+		lineageTag: 3b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e
+		summarizeBy: none
+		sourceColumn: AVG_DAYS_BETWEEN_PURCHASES
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PURCHASE_RATE_LAMBDA
+		dataType: double
+		lineageTag: 4c6d7e8f-9a0b-1c2d-3e4f-5a6b7c8d9e0f
+		summarizeBy: none
+		sourceColumn: PURCHASE_RATE_LAMBDA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PURCHASE_PROBABILITY
+		dataType: double
+		lineageTag: 5d7e8f9a-0b1c-2d3e-4f5a-6b7c8d9e0f1a
+		summarizeBy: none
+		sourceColumn: PURCHASE_PROBABILITY
 
 		annotation SummarizationSetBy = Automatic
 
