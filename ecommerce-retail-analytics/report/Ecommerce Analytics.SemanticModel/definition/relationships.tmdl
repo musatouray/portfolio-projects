@@ -74,8 +74,3 @@ relationship d5055622-1df6-3534-7c7b-f66d6677f095
 	fromColumn: FCT_ORDERS.CUSTOMER_KEY
 	toColumn: DIM_CUSTOMERS.CUSTOMER_KEY
 
-relationship bfadbd16-31c9-3fda-04f9-82fd28c8fe46
-	isActive: false
-	fromColumn: FCT_ORDER_ITEMS.ORDER_DATE_KEY
-	toColumn: DIM_DATES.DATE_KEY
-

@@ -7,7 +7,7 @@
     "z": 3000,
     "height": 179.84489837295351,
     "width": 1860.3436565462011,
-    "tabOrder": 2000
+    "tabOrder": 0
   },
   "visual": {
     "visualType": "cardVisual",
@@ -2167,93 +2167,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "d4eeefe283a45a4d6910",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Total Revenue"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "9e6c93f5b8a1e4c96a08",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Total Orders"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "2e30afa37c99e31935f7",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Average Order Value"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "97a6e2057567a7fee3e1",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Average Review Score"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "f3210df03ae47c9f819e",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Unique Customers"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "4ceea77d4dc1afe269ff",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "On-Time Delivery Rate"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

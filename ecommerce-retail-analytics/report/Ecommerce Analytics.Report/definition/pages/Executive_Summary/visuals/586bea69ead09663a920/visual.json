@@ -7,7 +7,7 @@
     "z": 2000,
     "height": 267.43169952861268,
     "width": 771.93167418520954,
-    "tabOrder": 11000
+    "tabOrder": 0
   },
   "visual": {
     "visualType": "pivotTable",
@@ -415,6 +415,20 @@
           "selector": {
             "metadata": "_Measures.Display % of Grand Total"
           }
+        },
+        {
+          "properties": {
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Avg Frequency"
+          }
         }
       ],
       "subTotals": [
@@ -438,7 +452,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Customer Segmentation'"
+                  "Value": "'Customer RFM Segmentation and Revenue Contribution by Segment'"
                 }
               }
             },
@@ -517,8 +531,13 @@
           "properties": {
             "text": {
               "expr": {
-                "Literal": {
-                  "Value": "' Average RFM and Revenue contribution of each segment'"
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Filtered Period Title"
                 }
               }
             },
@@ -890,62 +909,6 @@
   "parentGroupName": "5800d2375e12bd0a896a",
   "filterConfig": {
     "filters": [
-      {
-        "name": "8ce54a987b7e0e048d79",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "FCT_RFM_SEGMENTS"
-              }
-            },
-            "Property": "RFM_SEGMENT"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "6710af186d51b6e77d9f",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Avg Recency (Days)"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "6ee400d41e3eb33cb524",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Avg Frequency"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "9f1edc714d183216c971",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Avg Monetary"
-          }
-        },
-        "type": "Advanced"
-      },
       {
         "name": "2e747a0f47089cc359b0",
         "field": {

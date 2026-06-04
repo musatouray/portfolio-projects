@@ -6,7 +6,8 @@
     "y": 0,
     "z": 2000,
     "height": 63.062496832074615,
-    "width": 1629.3040293040292
+    "width": 1629.3040293040292,
+    "tabOrder": 4000
   },
   "visual": {
     "visualType": "pageNavigator",
@@ -466,7 +467,7 @@
             "showHiddenPages": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             }

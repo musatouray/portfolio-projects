@@ -383,23 +383,25 @@
           "nodeIndex": "DIM_DATES",
           "nodeLineageTag": "b4cf66a4-55c7-458b-be19-6f24ccc2c2e6",
           "size": {
-            "height": 300,
+            "height": 104,
             "width": 234
           },
-          "zIndex": 1
+          "zIndex": 1,
+          "expandedHeight": 300
         },
         {
           "location": {
-            "x": 624.20000076293945,
+            "x": 658.20000076293945,
             "y": 0
           },
           "nodeIndex": "DIM_CUSTOMERS",
           "nodeLineageTag": "b5f7505e-a37a-47d9-bfd1-99a4d36404b2",
           "size": {
-            "height": 300,
+            "height": 152,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 2,
+          "expandedHeight": 300
         },
         {
           "location": {
@@ -409,15 +411,16 @@
           "nodeIndex": "DIM_COHORTS",
           "nodeLineageTag": "58eefc92-76e0-4c4b-a158-cc4511b059ac",
           "size": {
-            "height": 300,
+            "height": 104,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 3,
+          "expandedHeight": 300
         },
         {
           "location": {
-            "x": 1309.2000007629395,
-            "y": 398
+            "x": 1317.2000007629395,
+            "y": 401
           },
           "nodeIndex": "FCT_COHORT_RETENTION",
           "nodeLineageTag": "202dd212-ce20-40d4-a849-593f800ab56b",
@@ -430,8 +433,8 @@
         },
         {
           "location": {
-            "x": 956.20000076293945,
-            "y": 406
+            "x": 979.20000076293945,
+            "y": 402
           },
           "nodeIndex": "FCT_CLV_CUSTOMER",
           "nodeLineageTag": "b544e3f2-4033-4220-a741-c0e080343fc5",
@@ -444,42 +447,45 @@
         },
         {
           "location": {
-            "x": 79.200000762939453,
-            "y": 398
+            "x": 161.20000076293945,
+            "y": 348
           },
           "nodeIndex": "FCT_ORDERS",
           "nodeLineageTag": "75a2ace9-4107-4c92-8e4e-a8d4733f9e84",
           "size": {
-            "height": 300,
+            "height": 176,
             "width": 234
           },
-          "zIndex": 6
+          "zIndex": 6,
+          "expandedHeight": 300
         },
         {
           "location": {
-            "x": 574.20000076293945,
-            "y": 440
+            "x": 157.20000076293945,
+            "y": 627
           },
           "nodeIndex": "FCT_ORDER_ITEMS",
           "nodeLineageTag": "0e4f458f-0dfd-4cf5-bd7e-68cdfbb34b61",
           "size": {
-            "height": 300,
+            "height": 152,
             "width": 234
           },
-          "zIndex": 5
+          "zIndex": 5,
+          "expandedHeight": 300
         },
         {
           "location": {
-            "x": 969.20000076293945,
-            "y": 519
+            "x": 569.20000076293945,
+            "y": 359
           },
           "nodeIndex": "FCT_RFM_SEGMENTS",
           "nodeLineageTag": "5d5cd826-5672-4bef-93ed-7b84e9a2a9ee",
           "size": {
-            "height": 300,
+            "height": 104,
             "width": 234
           },
-          "zIndex": 8
+          "zIndex": 8,
+          "expandedHeight": 300
         }
       ],
       "name": "Customers",
@@ -568,8 +574,78 @@
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,
       "tablesLocked": false
+    },
+    {
+      "ordinal": 4,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 222.20000076293945,
+            "y": 421
+          },
+          "nodeIndex": "FCT_ORDERS",
+          "nodeLineageTag": "75a2ace9-4107-4c92-8e4e-a8d4733f9e84",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 697.20000076293945,
+            "y": 429
+          },
+          "nodeIndex": "FCT_ORDER_ITEMS",
+          "nodeLineageTag": "0e4f458f-0dfd-4cf5-bd7e-68cdfbb34b61",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 766.20000076293945,
+            "y": 0
+          },
+          "nodeIndex": "DIM_SELLERS",
+          "nodeLineageTag": "1a7fd715-ad20-46cf-b32d-5e9773ccaed1",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 257.20000076293945,
+            "y": 15
+          },
+          "nodeIndex": "DIM_DATES",
+          "nodeLineageTag": "b4cf66a4-55c7-458b-be19-6f24ccc2c2e6",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Sellers",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Products",
+  "selectedDiagram": "Customers",
   "defaultDiagram": "All tables"
 }

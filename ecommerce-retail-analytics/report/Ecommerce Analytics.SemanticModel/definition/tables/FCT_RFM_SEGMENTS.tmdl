@@ -111,6 +111,27 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	column SEGMENT_ID =
+			
+			VAR __Segment = FCT_RFM_SEGMENTS[RFM_SEGMENT]
+			RETURN
+			SWITCH(
+			    __Segment,
+			    "Champions", 1,
+			    "Loyal", 3,
+			    "Potential Loyalists", 5,
+			    "Cant Lose Them", 7,
+			    "Need Attention", 2,
+			    "New Customers", 8,
+			    "At Risk", 4,
+			    "Hibernating", 6
+			)
+		formatString: 0
+		lineageTag: 5eaae347-cada-41e4-a00a-8bbc182e4876
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
 	partition FCT_RFM_SEGMENTS = m
 		mode: import
 		source =

@@ -6,7 +6,8 @@
     "y": 0,
     "z": 0,
     "height": 338.66896446854884,
-    "width": 1229.718688225455
+    "width": 1229.718688225455,
+    "tabOrder": 1000
   },
   "visual": {
     "visualType": "lineChart",
@@ -214,6 +215,13 @@
                   "Value": "1D"
                 }
               }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "90D"
+                }
+              }
             }
           }
         }
@@ -234,23 +242,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "09c05aaac582ccaf63f0",
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "e9c742aee42ab49417cb",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Blank"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
-  }
+  "parentGroupName": "09c05aaac582ccaf63f0"
 }

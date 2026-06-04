@@ -7,7 +7,7 @@
     "z": 2000,
     "height": 92.258097217294335,
     "width": 241.73957118961934,
-    "tabOrder": 9000
+    "tabOrder": 1000
   },
   "visual": {
     "visualType": "slicer",
@@ -548,20 +548,6 @@
         "howCreated": "User",
         "isHiddenInViewMode": true,
         "isLockedInViewMode": true
-      },
-      {
-        "name": "d4c5c9e9cf94cea9a864",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DIM_DATES"
-              }
-            },
-            "Property": "DATE"
-          }
-        },
-        "type": "Categorical"
       }
     ]
   }

@@ -6,7 +6,8 @@
     "y": 416.91317350093772,
     "z": 2000,
     "height": 338.66896446854884,
-    "width": 1229.718688225455
+    "width": 1229.718688225455,
+    "tabOrder": 5000
   },
   "visualGroup": {
     "displayName": "Grp Selected Metric",

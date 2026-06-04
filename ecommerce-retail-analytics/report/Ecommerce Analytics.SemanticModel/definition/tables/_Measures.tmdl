@@ -199,61 +199,19 @@ table _Measures
 		displayFolder: 08_Time Intelligence\_YoY
 		lineageTag: t1000011-0001-0001-0001-000000000011
 
-	/// =============================================
-	/// _RFM Segment Measures
-	/// =============================================
-	measure 'RFM Total Customers' = COUNTROWS(FCT_RFM_SEGMENTS)
-		formatString: #,##0
-		displayFolder: 01_Segments\RFM
-		lineageTag: r1000001-0001-0001-0001-000000000001
-
-	measure 'Champions Count' =
-			CALCULATE(
-				COUNTROWS(FCT_RFM_SEGMENTS),
-				FCT_RFM_SEGMENTS[RFM_SEGMENT] = "Champions"
-			)
-		formatString: #,##0
-		displayFolder: 01_Segments\RFM
-		lineageTag: r1000002-0001-0001-0001-000000000002
-
-	measure 'Loyal Customers Count' =
-			CALCULATE(
-				COUNTROWS(FCT_RFM_SEGMENTS),
-				FCT_RFM_SEGMENTS[RFM_SEGMENT] = "Loyal Customers"
-			)
-		formatString: #,##0
-		displayFolder: 01_Segments\RFM
-		lineageTag: r1000003-0001-0001-0001-000000000003
-
-	measure 'At Risk Count' =
-			CALCULATE(
-				COUNTROWS(FCT_RFM_SEGMENTS),
-				FCT_RFM_SEGMENTS[RFM_SEGMENT] = "At Risk"
-			)
-		formatString: #,##0
-		displayFolder: 01_Segments\RFM
-		lineageTag: r1000004-0001-0001-0001-000000000004
-
-	measure 'Hibernating Count' =
-			CALCULATE(
-				COUNTROWS(FCT_RFM_SEGMENTS),
-				FCT_RFM_SEGMENTS[RFM_SEGMENT] = "Hibernating"
-			)
-		formatString: #,##0
-		displayFolder: 01_Segments\RFM
-		lineageTag: r1000005-0001-0001-0001-000000000005
-
-	measure 'RFM Segment %' =
-			DIVIDE(
-				COUNTROWS(FCT_RFM_SEGMENTS),
-				CALCULATE(COUNTROWS(FCT_RFM_SEGMENTS), ALL(FCT_RFM_SEGMENTS[RFM_SEGMENT])),
-				0
-			)
-		formatString: 0.0%
+	measure 'RFM Segment Unique Customers' =
+			
+			COALESCE([Unique Customers], 0)
+		formatString: #,0
 		displayFolder: 01_Segments\RFM
 		lineageTag: r1000006-0001-0001-0001-000000000006
 
-	measure 'Avg Recency (Days)' = AVERAGE(FCT_RFM_SEGMENTS[RECENCY])
+	measure 'Avg Recency (Days)' =
+			// AVERAGE(FCT_RFM_SEGMENTS[RECENCY])
+			CALCULATE(
+			    AVERAGE(FCT_RFM_SEGMENTS[RECENCY]),
+			    CROSSFILTER(FCT_ORDERS[ORDER_DATE_KEY], DIM_DATES[DATE_KEY], Both)
+			)
 		formatString: #,##0
 		displayFolder: 01_Segments\RFM
 		lineageTag: r1000007-0001-0001-0001-000000000007
@@ -880,31 +838,18 @@ table _Measures
 		displayFolder: 07_Analytical
 		lineageTag: a1000006-0001-0001-0001-000000000006
 
-	measure 'Potential Loyalists Count' =
-			CALCULATE(
-				COUNTROWS(FCT_RFM_SEGMENTS),
-				FCT_RFM_SEGMENTS[RFM_SEGMENT] = "Potential Loyalists"
-			)
-		formatString: #,##0
-		displayFolder: 01_Segments\RFM
-		lineageTag: a6867f5d-ff74-4e13-af3a-9a4c54dbadde
-
-	measure 'New Customers Count' =
-			CALCULATE(
-				COUNTROWS(FCT_RFM_SEGMENTS),
-				FCT_RFM_SEGMENTS[RFM_SEGMENT] = "New Customers"
-			)
-		formatString: #,##0
-		displayFolder: 01_Segments\RFM
-		lineageTag: f8b65cb9-d280-476f-a55c-8c420f79425a
-
-	measure 'RFM Segment Revenue' = SUM(FCT_RFM_SEGMENTS[MONETARY])
+	measure 'RFM Segment Revenue' = ```
+			
+			COALESCE([Total Revenue], 0)
+			
+			```
 		formatString: $#,##0
 		displayFolder: 01_Segments\RFM
 		lineageTag: r1000012-0001-0001-0001-000000000012
 
 	/// Share of total RFM-segment revenue. ALLSELECTED so segment slicers still work.
 	measure 'RFM Segment Revenue %' =
+			
 			DIVIDE(
 				[RFM Segment Revenue],
 				CALCULATE([RFM Segment Revenue], ALLSELECTED(FCT_RFM_SEGMENTS[RFM_SEGMENT]))
@@ -1119,32 +1064,6 @@ table _Measures
 		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: 09_Time Series
 		lineageTag: ts100008-0001-0001-0001-000000000008
-
-	measure 'Customers Growth Arrow' =
-			VAR GrowthPct = [Unique Customers YoY %]
-			RETURN
-				SWITCH(
-					TRUE(),
-					GrowthPct > 0.01, UNICHAR(9650),
-					GrowthPct < -0.01, UNICHAR(9660),
-					UNICHAR(9472)
-				)
-		displayFolder: 14_Viz Helpers
-		lineageTag: 608b20ce-bb07-4f75-aa3b-6c0354a01d30
-
-	measure 'RFM Segment Color' =
-			VAR Segment = SELECTEDVALUE(FCT_RFM_SEGMENTS[RFM_SEGMENT])
-			RETURN
-				SWITCH(
-					Segment,
-					"Champions", "#1E3A5F",
-					"Loyal Customers", "#00897B",
-					"At Risk", "#FF7043",
-					"Hibernating", "#90A4AE",
-					"#607D8B"
-				)
-		displayFolder: 14_Viz Helpers
-		lineageTag: 8d6dab0f-a2da-4bd5-a4fb-f3998d69b525
 
 	measure 'CLV Segment Color' =
 			VAR Segment = SELECTEDVALUE(FCT_CLV_CUSTOMER[CLV_SEGMENT])
@@ -1489,7 +1408,7 @@ table _Measures
 	measure 'Filtered Period Title' = ```
 			
 			VAR __SelectedPeriod = SELECTEDVALUE('CG Custom Periods'[Period])
-			VAR __StartAndEndDate = [Start and End Dates]
+			VAR __StartAndEndDate = CALCULATE([Start and End Dates], REMOVEFILTERS(DIM_DATES))
 			VAR __Space = REPT(UNICHAR(160), 2)
 			
 			RETURN
@@ -2690,6 +2609,44 @@ table _Measures
 		lineageTag: f2d7dde3-02e7-48f8-9bcd-a1b401761b0a
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'RFM Segment Colors' = ```
+			
+			VAR __Segments = SELECTEDVALUE(FCT_RFM_SEGMENTS[RFM_SEGMENT])
+			RETURN
+			SWITCH(
+			    __Segments,
+			    "Champions", "#1E3A5F",
+			    "Loyal", "#4B617F",
+			    "Potential Loyalists", "#78899F",
+			    "Cant Lose Them", "#A5B0BF",
+			    "Need Attention", "#4A6FA5",
+			    "At Risk", "#6E8CB7",
+			    "Hibernating", "#92A9C9",
+			    "New Customers", "#B7C5DB"
+			)
+			
+			```
+		displayFolder: 14_Viz Helpers\_Color
+		lineageTag: 923f3adc-e123-411a-9c00-4916c8da7519
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'RFM Segment Label' = SELECTEDVALUE(FCT_RFM_SEGMENTS[RFM_SEGMENT])
+		displayFolder: 01_Segments\RFM
+		lineageTag: ee2b617e-fab7-4a07-9798-a55436647153
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Label Placeholder' = 0
+		formatString: 0
+		displayFolder: 01_Segments\RFM
+		lineageTag: 6bf6b5f3-1e70-47ab-b2df-020bf6316a47
+
+	measure 'RFM Remaining %' = 1 - [RFM Segment Revenue %]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 01_Segments\RFM
+		lineageTag: f7d2b922-449a-4423-9d8b-91166e9f7cf8
 
 	/// Hidden column for calculated table
 	column Value

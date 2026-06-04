@@ -54,7 +54,7 @@ table FCT_ORDER_ITEMS
 	column ORDER_DATE_KEY
 		dataType: double
 		lineageTag: 575c141a-f7d4-4ffc-8515-07022b071ac9
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: ORDER_DATE_KEY
 
 		annotation SummarizationSetBy = Automatic
@@ -64,7 +64,7 @@ table FCT_ORDER_ITEMS
 	column DELIVERY_DATE_KEY
 		dataType: double
 		lineageTag: 60b64be3-8929-4e0d-be7a-75cc15f211b1
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: DELIVERY_DATE_KEY
 
 		annotation SummarizationSetBy = Automatic
@@ -90,7 +90,7 @@ table FCT_ORDER_ITEMS
 	column ITEM_PRICE
 		dataType: double
 		lineageTag: e2a76e35-c94e-4b92-ba73-8fd8240cbbd0
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: ITEM_PRICE
 
 		annotation SummarizationSetBy = Automatic
@@ -100,7 +100,7 @@ table FCT_ORDER_ITEMS
 	column ITEM_FREIGHT
 		dataType: double
 		lineageTag: ff9a123d-6527-4b7d-a886-a97eebd9e1da
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: ITEM_FREIGHT
 
 		annotation SummarizationSetBy = Automatic
@@ -110,7 +110,7 @@ table FCT_ORDER_ITEMS
 	column ITEM_TOTAL
 		dataType: double
 		lineageTag: 896c1e02-dd3c-4fdc-80a4-bfc52f30dc59
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: ITEM_TOTAL
 
 		annotation SummarizationSetBy = Automatic

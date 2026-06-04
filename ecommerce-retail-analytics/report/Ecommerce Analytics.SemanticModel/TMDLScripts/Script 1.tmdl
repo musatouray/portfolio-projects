@@ -19,9 +19,9 @@ createOrReplace
 					    __IsDimDateFiltered, SELECTEDMEASURE(),
 					    CALCULATE(
 					        SELECTEDMEASURE(),
-					        REMOVEFILTERS(DIM_DATES),
-					        DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate),
-					        KEEPFILTERS(VALUES(DIM_DATES[DATE]))
+					        // REMOVEFILTERS(DIM_DATES),
+					        KEEPFILTERS(DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate))
+					        // KEEPFILTERS(VALUES(DIM_DATES[DATE]))
 					    )
 					)
 
@@ -39,9 +39,9 @@ createOrReplace
 					        
 					        CALCULATE( 
 					            SELECTEDMEASURE(), 
-					            REMOVEFILTERS(DIM_DATES), 
-					            DATESBETWEEN(DIM_DATES[DATE], __StartDate, __LastDate),
-					            KEEPFILTERS(VALUES(DIM_DATES[DATE])) 
+					            // REMOVEFILTERS(DIM_DATES), 
+					            KEEPFILTERS(DATESBETWEEN(DIM_DATES[DATE], __StartDate, __LastDate))
+					            // KEEPFILTERS(VALUES(DIM_DATES[DATE])) 
 					        ) 
 					    )
 					```
@@ -62,9 +62,9 @@ createOrReplace
 					        
 					        CALCULATE( 
 					            SELECTEDMEASURE(), 
-					            REMOVEFILTERS(DIM_DATES), 
-					            DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate),
-					            KEEPFILTERS(VALUES(DIM_DATES[DATE])) 
+					            // REMOVEFILTERS(DIM_DATES), 
+					            KEEPFILTERS(DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate))
+					            // KEEPFILTERS(VALUES(DIM_DATES[DATE])) 
 					        ) 
 					    )
 					```
@@ -85,9 +85,9 @@ createOrReplace
 					        
 					        CALCULATE( 
 					            SELECTEDMEASURE(), 
-					            REMOVEFILTERS(DIM_DATES), 
-					            DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate),
-					            KEEPFILTERS(VALUES(DIM_DATES[DATE])) 
+					            // REMOVEFILTERS(DIM_DATES), 
+					            KEEPFILTERS(DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate))
+					            // KEEPFILTERS(VALUES(DIM_DATES[DATE])) 
 					        ) 
 					    )
 					```
@@ -106,9 +106,9 @@ createOrReplace
 					        
 					        CALCULATE( 
 					            SELECTEDMEASURE(), 
-					            REMOVEFILTERS(DIM_DATES), 
-					            DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate),
-					            KEEPFILTERS(VALUES(DIM_DATES[DATE])) 
+					            // REMOVEFILTERS(DIM_DATES), 
+					            KEEPFILTERS(DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate))
+					            // KEEPFILTERS(VALUES(DIM_DATES[DATE])) 
 					        ) 
 					    )
 					```
@@ -128,9 +128,9 @@ createOrReplace
 					    __IsDimDateFiltered, SELECTEDMEASURE(),
 					    CALCULATE(
 					        SELECTEDMEASURE(),
-					        REMOVEFILTERS(DIM_DATES),
-					        DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate),
-					        KEEPFILTERS(VALUES(DIM_DATES[DATE]))
+					        // REMOVEFILTERS(DIM_DATES),
+					        KEEPFILTERS(DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate))
+					        // KEEPFILTERS(VALUES(DIM_DATES[DATE]))
 					    )
 					)
 
@@ -147,9 +147,9 @@ createOrReplace
 					    __IsDimDateFiltered, SELECTEDMEASURE(),
 					    CALCULATE(
 					        SELECTEDMEASURE(),
-					        --REMOVEFILTERS(DIM_DATES),
-					        DATESBETWEEN(DIM_DATES[DATE], __StartDate, __LastDate),
-					        KEEPFILTERS(VALUES(DIM_DATES[DATE]))
+					        // REMOVEFILTERS(DIM_DATES),
+					        KEEPFILTERS(DATESBETWEEN(DIM_DATES[DATE], __StartDate, __LastDate))
+					        // KEEPFILTERS(VALUES(DIM_DATES[DATE]))
 					    )
 					)
 
@@ -167,9 +167,9 @@ createOrReplace
 					    __IsDimDateFiltered, SELECTEDMEASURE(),
 					    CALCULATE(
 					        SELECTEDMEASURE(),
-					        --REMOVEFILTERS(DIM_DATES),
-					        DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate),
-					        KEEPFILTERS(VALUES(DIM_DATES[DATE]))
+					        // REMOVEFILTERS(DIM_DATES),
+					        KEEPFILTERS(DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate))
+					        // KEEPFILTERS(VALUES(DIM_DATES[DATE]))
 					    )
 					)
 
@@ -185,9 +185,9 @@ createOrReplace
 					    __IsDimDateFiltered, SELECTEDMEASURE(),
 					    CALCULATE(
 					        SELECTEDMEASURE(),
-					        --REMOVEFILTERS(DIM_DATES),
-							DATESINPERIOD(DIM_DATES[DATE], __LastDate, -6, MONTH),
-					        KEEPFILTERS(VALUES(DIM_DATES[DATE]))
+					        // REMOVEFILTERS(DIM_DATES),
+							KEEPFILTERS(DATESINPERIOD(DIM_DATES[DATE], __LastDate, -6, MONTH))
+					        // KEEPFILTERS(VALUES(DIM_DATES[DATE]))
 					    )
 					)
 
@@ -203,9 +203,9 @@ createOrReplace
 					    __IsDimDateFiltered, SELECTEDMEASURE(),
 					    CALCULATE(
 					        SELECTEDMEASURE(),
-					       --REMOVEFILTERS(DIM_DATES),
-							DATESINPERIOD(DIM_DATES[DATE], __LastDate, -12, MONTH),
-					        KEEPFILTERS(VALUES(DIM_DATES[DATE]))
+					       // REMOVEFILTERS(DIM_DATES),
+							KEEPFILTERS(DATESINPERIOD(DIM_DATES[DATE], __LastDate, -12, MONTH))
+					        // KEEPFILTERS(VALUES(DIM_DATES[DATE]))
 					    )
 					)
 
@@ -222,9 +222,9 @@ createOrReplace
 					    __IsDimDateFiltered, SELECTEDMEASURE(),
 					    CALCULATE(
 					        SELECTEDMEASURE(),
-					        --REMOVEFILTERS(DIM_DATES),
-					        DATESBETWEEN(DIM_DATES[DATE], __StartDate, __LastDate),
-					        KEEPFILTERS(VALUES(DIM_DATES[DATE]))
+					        // REMOVEFILTERS(DIM_DATES),
+					        KEEPFILTERS(DATESBETWEEN(DIM_DATES[DATE], __StartDate, __LastDate))
+					        // KEEPFILTERS(VALUES(DIM_DATES[DATE]))
 					    )
 					)
 
@@ -242,9 +242,9 @@ createOrReplace
 					    __IsDimDateFiltered, SELECTEDMEASURE(),
 					    CALCULATE(
 					        SELECTEDMEASURE(),
-					        --REMOVEFILTERS(DIM_DATES),
-					        DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate),
-					        KEEPFILTERS(VALUES(DIM_DATES[DATE]))
+					        // REMOVEFILTERS(DIM_DATES),
+					        KEEPFILTERS(DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate))
+					        // KEEPFILTERS(VALUES(DIM_DATES[DATE]))
 					    )
 					)
 
@@ -261,9 +261,9 @@ createOrReplace
 					    __IsDimDateFiltered, SELECTEDMEASURE(),
 					    CALCULATE(
 					        SELECTEDMEASURE(),
-					        --REMOVEFILTERS(DIM_DATES),
-					        DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate),
-					        KEEPFILTERS(VALUES(DIM_DATES[DATE]))
+					        // REMOVEFILTERS(DIM_DATES),
+					        KEEPFILTERS(DATESBETWEEN(DIM_DATES[DATE], __StartDate, __EndDate))
+					        // KEEPFILTERS(VALUES(DIM_DATES[DATE]))
 					    )
 					)
 

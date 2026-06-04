@@ -7,7 +7,7 @@
     "z": 1000,
     "height": 485.81479041005628,
     "width": 220.71873891226113,
-    "tabOrder": 8000
+    "tabOrder": 0
   },
   "visual": {
     "visualType": "listSlicer",
@@ -316,7 +316,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'QTD'"
+                                "Value": "'Last 12 Months'"
                               }
                             }
                           ]
@@ -910,23 +910,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "25a74169106a7f5889af",
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "197f4d9352350e3ab52f",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "CG Custom Periods"
-              }
-            },
-            "Property": "Period"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
-  }
+  "parentGroupName": "25a74169106a7f5889af"
 }

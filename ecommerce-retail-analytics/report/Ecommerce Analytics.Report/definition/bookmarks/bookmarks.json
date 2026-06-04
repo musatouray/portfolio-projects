@@ -2,10 +2,20 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmarksMetadata/1.0.0/schema.json",
   "items": [
     {
-      "name": "1a5a246d6802a3b4f417"
+      "name": "7ee8e15107e8c10bbb9d",
+      "displayName": "Executive Summary",
+      "children": [
+        "1a5a246d6802a3b4f417",
+        "0aa029ce323c04722e04"
+      ]
     },
     {
-      "name": "0aa029ce323c04722e04"
+      "name": "2d99bc22d1ed5c3a6c5a",
+      "displayName": "RFM Segmentation",
+      "children": [
+        "b63a5d9d042d809838ec",
+        "a635ffa2083b012a2b18"
+      ]
     }
   ]
 }

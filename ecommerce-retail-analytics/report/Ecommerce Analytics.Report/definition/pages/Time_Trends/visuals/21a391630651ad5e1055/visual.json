@@ -66,20 +66,6 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Revenue MoM %"
-                }
-              },
-              "queryRef": "_Measures.Revenue MoM %",
-              "nativeQueryRef": "MoM %"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
                   "Property": "Formatted Revenue Absolute and Relative"
                 }
               },

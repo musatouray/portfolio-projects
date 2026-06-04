@@ -7,7 +7,7 @@
     "z": 0,
     "height": 637.63191241319885,
     "width": 599.09371990470879,
-    "tabOrder": 15005
+    "tabOrder": 1000
   },
   "visual": {
     "visualType": "tableEx",
@@ -764,104 +764,6 @@
           ]
         },
         "howCreated": "User"
-      },
-      {
-        "name": "e443688f0c60c7c3b003",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Display Category"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "536e9c26f806244ed16a",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Display Rank Number"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "20517dfc66fc977b9aa8",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Display Revenue Value"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "b3553d0bb0bbd6877d1e",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DIM_PRODUCTS"
-              }
-            },
-            "Property": "PRODUCT_CATEGORY"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "2b5e9a3170c499cc5638",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Ranking Sort Order"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "99620baf58406f6ecbe3",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Display Orders Total"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "ebcb95d9acc8b171adee",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Display % of Grand Total"
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

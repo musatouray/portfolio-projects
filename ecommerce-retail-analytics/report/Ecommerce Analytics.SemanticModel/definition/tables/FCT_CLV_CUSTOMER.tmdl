@@ -95,6 +95,42 @@ table FCT_CLV_CUSTOMER
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column CLV_DECILE
+		dataType: double
+		lineageTag: 92d5c40e-176b-4065-8e10-c1265376e458
+		summarizeBy: none
+		sourceColumn: CLV_DECILE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CLV_SEGMENT
+		dataType: string
+		lineageTag: 1770a7ff-8ef5-47dd-992d-d759b9f208d8
+		summarizeBy: none
+		sourceColumn: CLV_SEGMENT
+
+		annotation SummarizationSetBy = Automatic
+
+	column CREATED_AT
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 75a39764-8d5a-4461-a455-ced2224ea118
+		summarizeBy: none
+		sourceColumn: CREATED_AT
+
+		annotation SummarizationSetBy = Automatic
+
+	column UPDATED_AT
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 49d6b9d9-5c77-4548-826b-c8ee2e50576b
+		summarizeBy: none
+		sourceColumn: UPDATED_AT
+
+		annotation SummarizationSetBy = Automatic
+
 	column PREDICTED_CLV
 		dataType: double
 		lineageTag: 2a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d
@@ -134,42 +170,6 @@ table FCT_CLV_CUSTOMER
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column CLV_DECILE
-		dataType: double
-		lineageTag: 92d5c40e-176b-4065-8e10-c1265376e458
-		summarizeBy: none
-		sourceColumn: CLV_DECILE
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column CLV_SEGMENT
-		dataType: string
-		lineageTag: 1770a7ff-8ef5-47dd-992d-d759b9f208d8
-		summarizeBy: none
-		sourceColumn: CLV_SEGMENT
-
-		annotation SummarizationSetBy = Automatic
-
-	column CREATED_AT
-		dataType: dateTime
-		formatString: General Date
-		lineageTag: 75a39764-8d5a-4461-a455-ced2224ea118
-		summarizeBy: none
-		sourceColumn: CREATED_AT
-
-		annotation SummarizationSetBy = Automatic
-
-	column UPDATED_AT
-		dataType: dateTime
-		formatString: General Date
-		lineageTag: 49d6b9d9-5c77-4548-826b-c8ee2e50576b
-		summarizeBy: none
-		sourceColumn: UPDATED_AT
-
-		annotation SummarizationSetBy = Automatic
 
 	partition FCT_CLV_CUSTOMER = m
 		mode: import
