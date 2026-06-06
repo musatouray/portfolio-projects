@@ -4,10 +4,10 @@
   "position": {
     "x": 30.363424400628517,
     "y": 414.57752547012012,
-    "z": 3000,
+    "z": 2000,
     "height": 639.96756044401639,
-    "width": 1170.1596634396067,
-    "tabOrder": 9001
+    "width": 1170,
+    "tabOrder": 5000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -87,7 +87,26 @@
                 }
               },
               "queryRef": "FCT_RFM_SEGMENTS.SEGMENT_ID",
-              "nativeQueryRef": "SEGMENT_ID"
+              "nativeQueryRef": " ",
+              "displayName": " "
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Label Placeholder"
+                }
+              },
+              "queryRef": "_Measures.Label Placeholder",
+              "nativeQueryRef": "Label Placeholder"
             }
           ]
         }
@@ -279,7 +298,7 @@
                   "expr": {
                     "ThemeDataColor": {
                       "ColorId": 0,
-                      "Percent": -0.1
+                      "Percent": 0
                     }
                   }
                 }
@@ -295,7 +314,7 @@
             "fontFamily": {
               "expr": {
                 "Literal": {
-                  "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
+                  "Value": "'Calibri'"
                 }
               }
             }
@@ -1457,34 +1476,6 @@
         },
         "isHiddenInViewMode": true,
         "isLockedInViewMode": true
-      },
-      {
-        "name": "1e6a3c0dbc09d3c23e88",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "RFM Segment Unique Customers"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "0ba650da38d0640ad224",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "RFM Segment Revenue"
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }
