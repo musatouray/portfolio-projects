@@ -58,26 +58,57 @@ This project demonstrates advanced T-SQL patterns for solving real-world busines
 - Configurable thresholds via `DECLARE` statements
 - Clear separation of aggregation, calculation, and presentation layers
 
+## Interactive Notebooks
+
+Each SQL file has a corresponding Jupyter notebook with:
+- Live query execution against SQL Server
+- Pandas DataFrames for tabular output
+- Matplotlib/Seaborn visualizations for insights
+
+| Notebook | Questions | Visualizations |
+|----------|-----------|----------------|
+| [01_sales_performance.ipynb](notebooks/01_sales_performance.ipynb) | Q1-Q4 | Revenue bar charts, rank movement lines, tier distributions |
+| [02_time_series.ipynb](notebooks/02_time_series.ipynb) | Q5-Q8 | Running totals, MoM heatmaps, moving average overlays |
+| [03_customer_analytics.ipynb](notebooks/03_customer_analytics.ipynb) | Q9-Q12 | Segmentation pies, CLV distributions, retention heatmaps |
+
 ## Repository Structure
 
 ```
 Advanced-SQL-Patterns/
 ├── README.md
+├── pyproject.toml                  # Python dependencies (uv/pip)
 ├── docs/
-│   └── data_dictionary.md      # AdventureWorksDW2022 table reference
+│   └── data_dictionary.md          # AdventureWorksDW2022 table reference
+├── notebooks/
+│   ├── 01_sales_performance.ipynb  # Questions 1-4 with visualizations
+│   ├── 02_time_series.ipynb        # Questions 5-8 with visualizations
+│   └── 03_customer_analytics.ipynb # Questions 9-12 with visualizations
 └── sql/
-    ├── 01_sales_performance.sql    # Questions 1-4
-    ├── 02_time_series.sql          # Questions 5-8
-    └── 03_customer_analytics.sql   # Questions 9-12
+    ├── 01_sales_performance.sql    # Questions 1-4 (raw SQL)
+    ├── 02_time_series.sql          # Questions 5-8 (raw SQL)
+    └── 03_customer_analytics.sql   # Questions 9-12 (raw SQL)
 ```
 
 ## Setup Instructions
+
+### SQL Scripts Only
 
 **Prerequisites:** Microsoft SQL Server 2022+ (for `DATETRUNC` support)
 
 1. Download [`AdventureWorksDW2022.bak`](https://learn.microsoft.com/en-us/sql/samples/adventureworks-install-configure) from Microsoft
 2. Restore to your SQL Server instance
 3. Execute scripts in `/sql/` via SSMS, Azure Data Studio, or your preferred client
+
+### Jupyter Notebooks (with Visualizations)
+
+**Additional prerequisites:** Python 3.9+, ODBC Driver 17 for SQL Server
+
+```bash
+uv sync
+uv run jupyter notebook notebooks/
+```
+
+Update the connection string in each notebook to match your SQL Server instance.
 
 ## Connect
 
