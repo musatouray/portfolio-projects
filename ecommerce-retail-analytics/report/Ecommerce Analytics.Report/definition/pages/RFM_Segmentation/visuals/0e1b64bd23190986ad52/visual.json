@@ -4,10 +4,10 @@
   "position": {
     "x": 1229.718688225455,
     "y": 414,
-    "z": 2000,
+    "z": 1000,
     "height": 307.13771605251151,
     "width": 660.98839272137468,
-    "tabOrder": 9002
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "barChart",
@@ -1073,48 +1073,6 @@
         },
         "isHiddenInViewMode": true,
         "isLockedInViewMode": true
-      },
-      {
-        "name": "7e4022990863ebe1b01a",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "RFM Segment Revenue %"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "9f2d44f045c00e700663",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Label Placeholder"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "78de1d80ac726950483e",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "RFM Remaining %"
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

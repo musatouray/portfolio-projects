@@ -50,6 +50,11 @@
         ▪ 10-time-trends.md : Time intelligence, seasonality
     ⏳ BUILD VISUALS (follow wireframes in narrative briefs)
     ⏳ CREATE DAX MEASURES (as specified in each page brief)
+    ⏳ FABRIC AUTO-SYNC
+        ▪ Set up GitHub Actions workflow to auto-sync Fabric workspace on push to main
+        ▪ Create service principal with Fabric workspace access
+        ▪ Store credentials as GitHub secrets (AZURE_TENANT_ID, AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, FABRIC_WORKSPACE_ID)
+        ▪ Add .github/workflows/fabric-sync.yml to call Fabric REST API updateFromGit endpoint
 ✅ BG/NBD Predictive Model via dbt Python for predictive_ltv
 ✅ Self-Correcting Agentic SQL Analyst - An Agentic RAG using crewAI / LangGraph / Microsoft Agent Framework SDK
 ✅ Streamlit App

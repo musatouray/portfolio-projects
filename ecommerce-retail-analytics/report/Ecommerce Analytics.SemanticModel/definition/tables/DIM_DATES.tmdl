@@ -7,13 +7,12 @@ table DIM_DATES
 
 	column DATE_KEY
 		dataType: double
+		formatString: 0
 		lineageTag: 0d5e6907-6544-44ed-a468-2be8dda238ef
 		summarizeBy: none
 		sourceColumn: DATE_KEY
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column DATE
 		dataType: dateTime

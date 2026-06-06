@@ -57,5 +57,12 @@
       }
     ]
   },
-  "visibility": "HiddenInViewMode"
+  "visibility": "HiddenInViewMode",
+  "visualInteractions": [
+    {
+      "source": "5ae70d96c0be39537e27",
+      "target": "bf55bed0854c7cab0db2",
+      "type": "DataFilter"
+    }
+  ]
 }

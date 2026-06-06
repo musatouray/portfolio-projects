@@ -397,11 +397,10 @@
           "nodeIndex": "DIM_CUSTOMERS",
           "nodeLineageTag": "b5f7505e-a37a-47d9-bfd1-99a4d36404b2",
           "size": {
-            "height": 152,
+            "height": 300,
             "width": 234
           },
-          "zIndex": 2,
-          "expandedHeight": 300
+          "zIndex": 2
         },
         {
           "location": {
@@ -453,11 +452,10 @@
           "nodeIndex": "FCT_ORDERS",
           "nodeLineageTag": "75a2ace9-4107-4c92-8e4e-a8d4733f9e84",
           "size": {
-            "height": 176,
+            "height": 300,
             "width": 234
           },
-          "zIndex": 6,
-          "expandedHeight": 300
+          "zIndex": 6
         },
         {
           "location": {
@@ -481,11 +479,10 @@
           "nodeIndex": "FCT_RFM_SEGMENTS",
           "nodeLineageTag": "5d5cd826-5672-4bef-93ed-7b84e9a2a9ee",
           "size": {
-            "height": 104,
+            "height": 300,
             "width": 234
           },
-          "zIndex": 8,
-          "expandedHeight": 300
+          "zIndex": 8
         }
       ],
       "name": "Customers",

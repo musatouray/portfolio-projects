@@ -32478,6 +32478,12 @@ cultureInfo en-US
 			          }
 			        },
 			        {
+			          "customers": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
 			          "unique clientele": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -32528,53 +32534,53 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "unique regular": {
+			          "clientele": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "unique custom": {
+			          "patron": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "unique trade": {
+			          "client": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "unique business": {
+			          "consumer": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "unique following": {
+			          "punter": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        }
 			      ]
@@ -34664,6 +34670,12 @@ cultureInfo en-US
 			          }
 			        },
 			        {
+			          "customers": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
 			          "active clientele": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -34714,53 +34726,53 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "active regular": {
+			          "clientele": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "active custom": {
+			          "patron": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "active trade": {
+			          "client": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "active business": {
+			          "consumer": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "active following": {
+			          "punter": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        }
 			      ]
@@ -34777,6 +34789,12 @@ cultureInfo en-US
 			        {
 			          "cooling customers": {
 			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "customers": {
+			            "State": "Generated",
+			            "Weight": 0.97
 			          }
 			        },
 			        {
@@ -34830,53 +34848,53 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "cooling regular": {
+			          "clientele": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "cooling custom": {
+			          "patron": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "cooling trade": {
+			          "client": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "cooling business": {
+			          "consumer": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "cooling following": {
+			          "punter": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        }
 			      ]
@@ -35012,6 +35030,12 @@ cultureInfo en-US
 			          }
 			        },
 			        {
+			          "customers": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
 			          "churned clientele": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -35062,53 +35086,53 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "churned regular": {
+			          "clientele": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "churned custom": {
+			          "patron": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "churned trade": {
+			          "client": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "churned business": {
+			          "consumer": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "churned following": {
+			          "punter": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        }
 			      ]
@@ -35836,6 +35860,12 @@ cultureInfo en-US
 			          }
 			        },
 			        {
+			          "customers": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
 			          "retained clientele": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -35886,53 +35916,53 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "retained regular": {
+			          "clientele": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "retained custom": {
+			          "patron": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "retained trade": {
+			          "client": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "retained business": {
+			          "consumer": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "retained following": {
+			          "punter": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        }
 			      ]
@@ -40676,6 +40706,12 @@ cultureInfo en-US
 			          }
 			        },
 			        {
+			          "customers": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
 			          "year customers": {
 			            "State": "Generated",
 			            "Weight": 0.97
@@ -41769,6 +41805,12 @@ cultureInfo en-US
 			        {
 			          "total churn customers": {
 			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "customers": {
+			            "State": "Generated",
+			            "Weight": 0.97
 			          }
 			        },
 			        {
@@ -49979,6 +50021,12 @@ cultureInfo en-US
 			          }
 			        },
 			        {
+			          "customers": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
 			          "CLV customers": {
 			            "State": "Generated",
 			            "Weight": 0.97
@@ -50101,6 +50149,12 @@ cultureInfo en-US
 			          }
 			        },
 			        {
+			          "customers": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
 			          "CLV customers": {
 			            "State": "Generated",
 			            "Weight": 0.97
@@ -50220,6 +50274,12 @@ cultureInfo en-US
 			        {
 			          "platinum CLV customers": {
 			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "customers": {
+			            "State": "Generated",
+			            "Weight": 0.97
 			          }
 			        },
 			        {
@@ -57834,230 +57894,162 @@ cultureInfo en-US
 			          }
 			        }
 			      ]
+			    },
+			    "fct_rfm_segment.segment_id": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "FCT_RFM_SEGMENTS",
+			          "ConceptualProperty": "SEGMENT_ID"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "segment id": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "SEGMENT_ID": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "segment identification": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "segment identity": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "segment identifier": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "segment credential": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "division id": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.6
+			          }
+			        },
+			        {
+			          "subdivision id": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.6
+			          }
+			        },
+			        {
+			          "section id": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.582
+			          }
+			        },
+			        {
+			          "sector id": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.582
+			          }
+			        },
+			        {
+			          "bit id": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.582
+			          }
+			        },
+			        {
+			          "fragment id": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.582
+			          }
+			        }
+			      ]
 			    }
 			  },
 			  "Relationships": {
-			    "fct_churn_risk_has_dim_cohort": {
+			    "fct_rfm_segment_has_segment_id": {
 			      "Binding": {
-			        "ConceptualEntity": "FCT_CHURN_RISK"
+			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "fct_churn_risk": {
-			          "Target": {
-			            "Entity": "fct_churn_risk"
-			          }
-			        },
-			        "dim_cohort": {
-			          "Target": {
-			            "Entity": "dim_cohort"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "fct_churn_risk"
-			            },
-			            "Object": {
-			              "Role": "dim_cohort"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "fct_churn_risks_have_dim_cohorts"
-			        },
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "dim_cohort"
-			            },
-			            "Object": {
-			              "Role": "fct_churn_risk"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "dim_cohorts_have_fct_churn_risks"
-			        }
-			      ]
-			    },
-			    "dim_product_has_fct_pareto_product": {
-			      "Binding": {
-			        "ConceptualEntity": "DIM_PRODUCTS"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "dim_product": {
-			          "Target": {
-			            "Entity": "dim_product"
-			          }
-			        },
-			        "fct_pareto_product": {
-			          "Target": {
-			            "Entity": "fct_pareto_product"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "dim_product"
-			            },
-			            "Object": {
-			              "Role": "fct_pareto_product"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "dim_products_have_fct_pareto_products"
-			        }
-			      ]
-			    },
-			    "dim_date_has_fct_orders_funnel": {
-			      "Binding": {
-			        "ConceptualEntity": "DIM_DATES"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "dim_date": {
-			          "Target": {
-			            "Entity": "dim_date"
-			          }
-			        },
-			        "fct_orders_funnel": {
-			          "Target": {
-			            "Entity": "fct_orders_funnel"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "dim_date"
-			            },
-			            "Object": {
-			              "Role": "fct_orders_funnel"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "dim_dates_have_fct_orders_funnels"
-			        }
-			      ]
-			    },
-			    "dim_date_has_fct_daily_revenue_time_series": {
-			      "Binding": {
-			        "ConceptualEntity": "DIM_DATES"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "dim_date": {
-			          "Target": {
-			            "Entity": "dim_date"
-			          }
-			        },
-			        "fct_daily_revenue_time_series": {
-			          "Target": {
-			            "Entity": "fct_daily_revenue_time_series"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "dim_date"
-			            },
-			            "Object": {
-			              "Role": "fct_daily_revenue_time_series"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "dim_dates_have_fct_daily_revenue_time_series"
-			        }
-			      ]
-			    },
-			    "dim_customer_has_fct_rfm_segment": {
-			      "Binding": {
-			        "ConceptualEntity": "DIM_CUSTOMERS"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "dim_customer": {
-			          "Target": {
-			            "Entity": "dim_customer"
-			          }
-			        },
 			        "fct_rfm_segment": {
 			          "Target": {
 			            "Entity": "fct_rfm_segment"
 			          }
+			        },
+			        "fct_rfm_segment.segment_id": {
+			          "Target": {
+			            "Entity": "fct_rfm_segment.segment_id"
+			          }
 			        }
 			      },
 			      "Phrasings": [
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "dim_customer"
-			            },
-			            "Object": {
 			              "Role": "fct_rfm_segment"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "dim_customers_have_fct_rfm_segments"
-			        }
-			      ]
-			    },
-			    "dim_customer_has_dim_cohort": {
-			      "Binding": {
-			        "ConceptualEntity": "DIM_CUSTOMERS"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "dim_customer": {
-			          "Target": {
-			            "Entity": "dim_customer"
-			          }
-			        },
-			        "dim_cohort": {
-			          "Target": {
-			            "Entity": "dim_cohort"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "dim_customer"
 			            },
 			            "Object": {
-			              "Role": "dim_cohort"
+			              "Role": "fct_rfm_segment.segment_id"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "dim_customers_have_dim_cohorts"
-			        },
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "dim_cohort"
-			            },
-			            "Object": {
-			              "Role": "dim_customer"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "dim_cohorts_have_dim_customers"
+			          "ID": "fct_rfm_segments_have_segment_ids"
 			        }
 			      ]
 			    },
@@ -78933,6 +78925,230 @@ cultureInfo en-US
 			          "State": "Generated",
 			          "Weight": 0.75,
 			          "ID": "top_bottom_selectors_select"
+			        }
+			      ]
+			    },
+			    "dim_customer_has_dim_cohort": {
+			      "Binding": {
+			        "ConceptualEntity": "DIM_CUSTOMERS"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "dim_customer": {
+			          "Target": {
+			            "Entity": "dim_customer"
+			          }
+			        },
+			        "dim_cohort": {
+			          "Target": {
+			            "Entity": "dim_cohort"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_customer"
+			            },
+			            "Object": {
+			              "Role": "dim_cohort"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_customers_have_dim_cohorts"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_cohort"
+			            },
+			            "Object": {
+			              "Role": "dim_customer"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_cohorts_have_dim_customers"
+			        }
+			      ]
+			    },
+			    "dim_customer_has_fct_rfm_segment": {
+			      "Binding": {
+			        "ConceptualEntity": "DIM_CUSTOMERS"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "dim_customer": {
+			          "Target": {
+			            "Entity": "dim_customer"
+			          }
+			        },
+			        "fct_rfm_segment": {
+			          "Target": {
+			            "Entity": "fct_rfm_segment"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_customer"
+			            },
+			            "Object": {
+			              "Role": "fct_rfm_segment"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_customers_have_fct_rfm_segments"
+			        }
+			      ]
+			    },
+			    "dim_date_has_fct_daily_revenue_time_series": {
+			      "Binding": {
+			        "ConceptualEntity": "DIM_DATES"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "dim_date": {
+			          "Target": {
+			            "Entity": "dim_date"
+			          }
+			        },
+			        "fct_daily_revenue_time_series": {
+			          "Target": {
+			            "Entity": "fct_daily_revenue_time_series"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_date"
+			            },
+			            "Object": {
+			              "Role": "fct_daily_revenue_time_series"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_dates_have_fct_daily_revenue_time_series"
+			        }
+			      ]
+			    },
+			    "dim_date_has_fct_orders_funnel": {
+			      "Binding": {
+			        "ConceptualEntity": "DIM_DATES"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "dim_date": {
+			          "Target": {
+			            "Entity": "dim_date"
+			          }
+			        },
+			        "fct_orders_funnel": {
+			          "Target": {
+			            "Entity": "fct_orders_funnel"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_date"
+			            },
+			            "Object": {
+			              "Role": "fct_orders_funnel"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_dates_have_fct_orders_funnels"
+			        }
+			      ]
+			    },
+			    "dim_product_has_fct_pareto_product": {
+			      "Binding": {
+			        "ConceptualEntity": "DIM_PRODUCTS"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "dim_product": {
+			          "Target": {
+			            "Entity": "dim_product"
+			          }
+			        },
+			        "fct_pareto_product": {
+			          "Target": {
+			            "Entity": "fct_pareto_product"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_product"
+			            },
+			            "Object": {
+			              "Role": "fct_pareto_product"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_products_have_fct_pareto_products"
+			        }
+			      ]
+			    },
+			    "fct_churn_risk_has_dim_cohort": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_CHURN_RISK"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_churn_risk": {
+			          "Target": {
+			            "Entity": "fct_churn_risk"
+			          }
+			        },
+			        "dim_cohort": {
+			          "Target": {
+			            "Entity": "dim_cohort"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_churn_risk"
+			            },
+			            "Object": {
+			              "Role": "dim_cohort"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_churn_risks_have_dim_cohorts"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_cohort"
+			            },
+			            "Object": {
+			              "Role": "fct_churn_risk"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_cohorts_have_fct_churn_risks"
 			        }
 			      ]
 			    },

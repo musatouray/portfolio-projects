@@ -20,6 +20,7 @@ select
     date_trunc('quarter', date_day) as quarter_start_date,
     month(date_day) as month,
     monthname( date_day) as month_name,
+    to_char(date_day, 'M') as month_short,
     to_char( date_day, 'Mon-YYYY') as month_year,
     date_trunc('month', date_day) as month_start_date,
     week(date_day) as week,

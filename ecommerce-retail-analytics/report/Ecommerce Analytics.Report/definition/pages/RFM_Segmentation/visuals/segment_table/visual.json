@@ -7,7 +7,7 @@
     "z": 0,
     "height": 307.13771605251151,
     "width": 660.98839272137468,
-    "tabOrder": 5000
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "tableEx",
@@ -959,65 +959,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "a79338342370be0e7723",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "FCT_RFM_SEGMENTS"
-              }
-            },
-            "Property": "RFM_SEGMENT"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "98aa2db5576b17d53783",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Avg Recency (Days)"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "bbddb58503c23c40c9c9",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Avg Frequency"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "d839122b95be938d7cc7",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Avg Monetary"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

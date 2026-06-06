@@ -207,21 +207,35 @@ table _Measures
 		lineageTag: r1000006-0001-0001-0001-000000000006
 
 	measure 'Avg Recency (Days)' =
-			// AVERAGE(FCT_RFM_SEGMENTS[RECENCY])
+			
 			CALCULATE(
 			    AVERAGE(FCT_RFM_SEGMENTS[RECENCY]),
-			    CROSSFILTER(FCT_ORDERS[ORDER_DATE_KEY], DIM_DATES[DATE_KEY], Both)
+			    CROSSFILTER(FCT_ORDERS[CUSTOMER_KEY], DIM_CUSTOMERS[CUSTOMER_KEY], Both)
 			)
 		formatString: #,##0
 		displayFolder: 01_Segments\RFM
 		lineageTag: r1000007-0001-0001-0001-000000000007
 
-	measure 'Avg Frequency' = AVERAGE(FCT_RFM_SEGMENTS[FREQUENCY])
+	measure 'Avg Frequency' = ```
+			
+			CALCULATE(
+			    AVERAGE(FCT_RFM_SEGMENTS[FREQUENCY]),
+			    CROSSFILTER(FCT_ORDERS[CUSTOMER_KEY], DIM_CUSTOMERS[CUSTOMER_KEY], Both)
+			)
+			
+			```
 		formatString: 0.0
 		displayFolder: 01_Segments\RFM
 		lineageTag: r1000008-0001-0001-0001-000000000008
 
-	measure 'Avg Monetary' = AVERAGE(FCT_RFM_SEGMENTS[MONETARY])
+	measure 'Avg Monetary' = ```
+			
+			CALCULATE(
+			    AVERAGE(FCT_RFM_SEGMENTS[MONETARY]),
+			    CROSSFILTER(FCT_ORDERS[CUSTOMER_KEY], DIM_CUSTOMERS[CUSTOMER_KEY], Both)
+			)
+			
+			```
 		formatString: $#,##0
 		displayFolder: 01_Segments\RFM
 		lineageTag: r1000009-0001-0001-0001-000000000009
@@ -1289,7 +1303,7 @@ table _Measures
 
 	measure 'Custom Period Slicer Disable Color' =
 			
-			IF( SELECTEDVALUE('CG Custom Periods'[Period]) = "Custom", "#1E3A5F", "#E7A3BD")
+			IF( SELECTEDVALUE('CG Custom Periods'[Period]) = "Custom", "#B3B3B3", "#E7A3BD")
 		formatString: 0
 		displayFolder: 11_Custom Period
 		lineageTag: 330af38e-e9a2-45d3-9d06-278966b7d50d
@@ -2647,6 +2661,95 @@ table _Measures
 		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: 01_Segments\RFM
 		lineageTag: f7d2b922-449a-4423-9d8b-91166e9f7cf8
+
+	measure 'Orders Sparkline SVG' = ```
+			
+			-- Step 1: Define SVG canvas boundaries
+			VAR __CanvasWidth = 150
+			VAR __CanvasHeight = 40
+			VAR __Padding = 2
+			
+			-- Step 2: Grab only the months that actually contain order data
+			VAR __FilteredMonths = 
+			    FILTER(
+			        SUMMARIZE(
+			            ALLSELECTED('DIM_DATES'),
+			            'DIM_DATES'[YEAR_MONTH]
+			        ),
+			        NOT(ISBLANK([Total Orders])) -- Excludes empty calendar months
+			    )
+			
+			-- Step 3: Use RANKX on the filtered table to generate safe continuous X indexes
+			VAR __SparklineTable = 
+			    ADDCOLUMNS(
+			        __FilteredMonths,
+			        "Y_Value", [Total Orders],
+			        "X_Value", RANKX(__FilteredMonths, 'DIM_DATES'[YEAR_MONTH], , ASC)
+			    )
+			
+			-- Step 4: Find min/max values for axis scaling
+			VAR __MaxYValue = MAXX(__SparklineTable, [Y_Value])
+			VAR __MinYValue = MINX(__SparklineTable, [Y_Value])
+			VAR __RangeY = IF(__MaxYValue = __MinYValue, 1, __MaxYValue - __MinYValue)
+			
+			VAR __MaxXValue = MAXX(__SparklineTable, [X_Value])
+			VAR __MinXValue = MINX(__SparklineTable, [X_Value])
+			VAR __RangeX = IF(__MaxXValue = __MinXValue, 1, __MaxXValue - __MinXValue)
+			
+			-- Step 5: Generate the clean coordinate pairs string
+			VAR __PathCoordinates = 
+			    CONCATENATEX(
+			        __SparklineTable,
+			        VAR __ScaledX = __Padding + (( [X_Value] - __MinXValue ) / __RangeX) * (__CanvasWidth - (2 * __Padding))
+			        VAR __ScaledY = (__CanvasHeight - __Padding) - ((([Y_Value] - __MinYValue) / __RangeY) * (__CanvasHeight - (2 * __Padding)))
+			        RETURN __ScaledX & "," & __ScaledY,
+			        " ",
+			        'DIM_DATES'[YEAR_MONTH],
+			        ASC
+			    )
+			
+			-- Step 6: Wrap the coordinate string into standard SVG format
+			-- Replaced raw spaces/brackets with URL-safe variants to comply with core engine requirements
+			VAR __Raw_SVG = 
+			    "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & __CanvasWidth & " " & __CanvasHeight & "' width='100%' height='100%'>" &
+			        "<path d='M " & __Padding & "," & __CanvasHeight & " L " & __PathCoordinates & " L " & __CanvasWidth - __Padding & "," & __CanvasHeight & " Z' fill='rgba(0, 92, 181, 0.1)' />" &
+			        "<path d='M " & __PathCoordinates & "' fill='none' stroke='#005CB5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' />" &
+			    "</svg>"
+			
+			-- Step 7: URL Encode the raw string
+			VAR __Encoded_SVG = 
+			    SUBSTITUTE(
+			        SUBSTITUTE(
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        __Raw_SVG,
+			                        "#", "%23"
+			                    ),
+			                    " ", "%20"
+			                ),
+			                "'", "%27"
+			            ),
+			            "<", "%3C"
+			        ),
+			        ">", "%3E"
+			    )
+			
+			VAR __Final_URL = "data:image/svg+xml;utf8," & __Encoded_SVG
+			
+			RETURN 
+			    IF(
+			        NOT(ISBLANK([Total Orders])), 
+			        __Final_URL, 
+			        BLANK()
+			    )
+			
+			```
+		displayFolder: 14_Viz Helpers
+		lineageTag: 10531c98-dbc0-4365-92b4-0004fc609f10
+		dataCategory: ImageUrl
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	/// Hidden column for calculated table
 	column Value
