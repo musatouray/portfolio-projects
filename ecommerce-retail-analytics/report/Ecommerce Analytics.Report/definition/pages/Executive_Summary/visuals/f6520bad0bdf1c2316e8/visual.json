@@ -585,8 +585,13 @@
           "properties": {
             "text": {
               "expr": {
-                "Literal": {
-                  "Value": "'  Top and Bottom Products by Revenue'"
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Top/Bottom N Title"
                 }
               }
             }

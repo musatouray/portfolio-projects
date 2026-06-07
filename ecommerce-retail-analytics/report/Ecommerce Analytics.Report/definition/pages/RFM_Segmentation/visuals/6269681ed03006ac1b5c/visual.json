@@ -10,7 +10,7 @@
     "tabOrder": 10000
   },
   "visual": {
-    "visualType": "lineChart",
+    "visualType": "areaChart",
     "query": {
       "queryState": {
         "Category": {
@@ -81,7 +81,15 @@
       ],
       "dataPoint": [
         {
-          "properties": {}
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "85D"
+                }
+              }
+            }
+          }
         },
         {
           "properties": {
@@ -101,119 +109,10 @@
           "selector": {
             "metadata": "_Measures.Avg Recency (Days)"
           }
-        }
-      ],
-      "error": [
-        {
-          "properties": {
-            "errorRange": {
-              "kind": "ErrorRange",
-              "explicit": {
-                "isRelative": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "false"
-                    }
-                  }
-                },
-                "lowerBound": {
-                  "expr": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "_Measures"
-                        }
-                      },
-                      "Property": "Label Placeholder"
-                    }
-                  }
-                },
-                "upperBound": {
-                  "expr": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "_Measures"
-                        }
-                      },
-                      "Property": "Avg Recency (Days)"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "dataViewWildcard": {
-                  "matchingOption": 0
-                }
-              }
-            ],
-            "metadata": "_Measures.Avg Recency (Days)",
-            "highlightMatching": 1
-          }
         },
         {
           "properties": {
-            "enabled": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "barWidth": {
-              "expr": {
-                "Literal": {
-                  "Value": "2D"
-                }
-              }
-            },
-            "markerShape": {
-              "expr": {
-                "Literal": {
-                  "Value": "'circle'"
-                }
-              }
-            },
-            "markerSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "1D"
-                }
-              }
-            },
-            "shadeShow": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "barBorderSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "0L"
-                }
-              }
-            },
-            "tooltipShow": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "shadeMatchSeriesColor": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "shadeColor": {
+            "fill": {
               "solid": {
                 "color": {
                   "expr": {
@@ -222,38 +121,12 @@
                       "Percent": 0.6
                     }
                   }
-                }
-              }
-            },
-            "barColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 8,
-                      "Percent": 0.6
-                    }
-                  }
-                }
-              }
-            },
-            "markerShow": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "shadeTransparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "90D"
                 }
               }
             }
           },
           "selector": {
-            "metadata": "_Measures.Avg Recency (Days)"
+            "metadata": "_Measures.Avg Monetary"
           }
         }
       ],
@@ -289,7 +162,7 @@
             "lineChartType": {
               "expr": {
                 "Literal": {
-                  "Value": "'linear'"
+                  "Value": "'smooth'"
                 }
               }
             },
@@ -297,6 +170,13 @@
               "expr": {
                 "Literal": {
                   "Value": "1D"
+                }
+              }
+            },
+            "areaShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }
@@ -307,6 +187,19 @@
         {
           "properties": {
             "borderShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "show": {
               "expr": {
                 "Literal": {
                   "Value": "false"
@@ -405,6 +298,19 @@
         }
       ],
       "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualTooltip": [
         {
           "properties": {
             "show": {
