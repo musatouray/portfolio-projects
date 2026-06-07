@@ -2751,6 +2751,18 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure 'Top/Bottom N Title' = ```
+			
+			VAR __SelectedTopN = SELECTEDVALUE('Top/Bottom Selector'[Top/Bottom N])
+			RETURN
+			"Top and Bottom " & __SelectedTopN & " Products by Revenue"
+			
+			```
+		displayFolder: 14_Viz Helpers\_Titles
+		lineageTag: afa28cb6-18ed-4979-a0c6-29023d515313
+
+		annotation PBI_FormatHint = {"isText":true}
+
 	/// Hidden column for calculated table
 	column Value
 		dataType: int64
