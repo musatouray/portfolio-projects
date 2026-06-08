@@ -38,11 +38,36 @@ rfm_segments as (
         *,
         -- RFM segmentation
         concat( r_score, f_score, m_score) as combined_score,
-        case 
-            -- Best customers (recent, frequent, high spenders)  
+        case
+            -- Best customers (recent, frequent, high spenders)
+            when r_score >= 4 and f_score >= 4 and m_score >= 4 then 1
+
+             -- Valuable customers slipping away (old, but high F and M)
+            when r_score <= 2 and f_score >= 4 and m_score >= 4 then 2
+
+            -- Frequent buyers with decent recency
+            when r_score >= 3 and f_score >= 4 then 3
+
+            -- Recent with growth potential
+            when r_score >= 4 and f_score in (2, 3) then 4
+
+            -- Just made first purchase
+            when r_score >= 4 and f_score = 1 then 5
+
+            -- Were engaged, recency declining
+            when r_score in (2, 3) and f_score >= 3 then 6
+
+            -- Low engagement across the board
+            when r_score <= 2 and f_score <= 2 then 8
+
+            -- All others
+            else 7
+        end as segment_id,
+        case
+            -- Best customers (recent, frequent, high spenders)
             when r_score >= 4 and f_score >= 4 and m_score >= 4 then 'Champions'
 
-             -- Valuable customers slipping away (old, but high F and M)                                                                                   
+             -- Valuable customers slipping away (old, but high F and M)
             when r_score <= 2 and f_score >= 4 and m_score >= 4 then 'Cant Lose Them'
 
             -- Frequent buyers with decent recency
@@ -79,6 +104,7 @@ final as (
         f_score,
         m_score,
         combined_score,
+        segment_id,
         rfm_segment,
 
         -- Metadata

@@ -32,10 +32,12 @@ table DIM_COHORTS
 		annotation SummarizationSetBy = Automatic
 
 	column COHORT_YEAR
-		dataType: double
+		dataType: int64
 		lineageTag: 9dbb0837-728d-4326-98aa-68489338cc2b
 		summarizeBy: none
 		sourceColumn: COHORT_YEAR
+
+		changedProperty = DataType
 
 		annotation SummarizationSetBy = Automatic
 
@@ -46,58 +48,22 @@ table DIM_COHORTS
 		lineageTag: 664faaf1-01fd-4e1b-9fd8-7ff18eac77ee
 		summarizeBy: none
 		sourceColumn: YEAR_QUARTER
+		sortByColumn: COHORT_YEAR
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
 	column COHORT_SIZE
-		dataType: double
+		dataType: int64
+		formatString: #,0
 		lineageTag: 64c545f6-19ae-4ae8-b150-e7b2d63e3117
 		summarizeBy: none
 		sourceColumn: COHORT_SIZE
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = DataType
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column TOTAL_COHORT_ORDERS
-		dataType: double
-		lineageTag: 6997a3c0-1095-493d-adf7-95181372d2f7
-		summarizeBy: none
-		sourceColumn: TOTAL_COHORT_ORDERS
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column TOTAL_COHORT_REVENUE
-		dataType: double
-		lineageTag: 89dcc374-b79d-4068-8bf1-4ee76a4eaad5
-		summarizeBy: none
-		sourceColumn: TOTAL_COHORT_REVENUE
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column AVG_ORDER_VALUE
-		dataType: double
-		lineageTag: b0f8125d-f56f-4c55-b18b-ec4e759251b1
-		summarizeBy: none
-		sourceColumn: AVG_ORDER_VALUE
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column AVG_CUSTOMER_VALUE
-		dataType: double
-		lineageTag: f00f1883-0153-4c97-b7dd-abc630de3ee7
-		summarizeBy: none
-		sourceColumn: AVG_CUSTOMER_VALUE
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation SummarizationSetBy = User
 
 	column CREATED_AT
 		dataType: dateTime
