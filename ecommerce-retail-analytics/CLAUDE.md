@@ -327,7 +327,7 @@ select * from renamed
 | Model | Grain | Description |
 |-------|-------|-------------|
 | dim_customers | customer_unique_id | Customer dimension with attributes, location, and cohort assignment |
-| dim_cohorts | cohort_month | Acquisition cohort dimension with aggregate metrics |
+| dim_cohorts | cohort_month | Acquisition cohort dimension with cohort attributes (cohort_size for filtering) |
 | dim_dates | date | Date dimension generated from order date range |
 | dim_products | product_id | Product dimension with English category names |
 | dim_sellers | seller_id | Seller dimension with location |
@@ -338,8 +338,8 @@ select * from renamed
 
 | Model | Grain | Description |
 |-------|-------|-------------|
-| fct_rfm_segments | customer_unique_id | RFM scoring and segmentation (Champions, At Risk, etc.) |
-| fct_cohort_retention | (cohort_month, period_number) | Cohort retention rates by period |
+| fct_rfm_segments | customer_unique_id | RFM scoring and segmentation with segment_id for sorting |
+| fct_cohort_retention | (cohort_month, period_number) | Cohort retention rates, period revenue, and orders by period |
 | fct_clv_customer | customer_unique_id | Customer Lifetime Value with predictions and segments |
 | fct_churn_risk | customer_unique_id | Churn risk scoring and status (Active, Cooling, At Risk, Churned) |
 

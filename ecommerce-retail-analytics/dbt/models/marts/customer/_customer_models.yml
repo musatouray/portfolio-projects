@@ -67,6 +67,14 @@ models:
         data_tests:
           - not_null
 
+      - name: segment_id
+        description: Numeric segment priority for sorting (1=Champions, 8=Hibernating)
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5, 6, 7, 8]
+
       - name: rfm_segment
         description: Business segment classification based on RFM scores
         data_tests:
@@ -99,6 +107,7 @@ models:
       Cohort retention fact table tracking customer retention by acquisition month.
       Each row represents a cohort-period combination showing how many customers
       from each acquisition cohort were active in subsequent months.
+      Includes period-level revenue and orders for cohort revenue analysis.
     data_tests:
       - dbt_utils.unique_combination_of_columns:
           arguments:
@@ -150,6 +159,16 @@ models:
 
       - name: churn_rate
         description: Percentage of cohort not active in this period (100 - retention_rate)
+        data_tests:
+          - not_null
+
+      - name: period_orders
+        description: Total orders placed by this cohort in this period
+        data_tests:
+          - not_null
+
+      - name: period_revenue
+        description: Total revenue (payment value) from this cohort in this period (BRL)
         data_tests:
           - not_null
 
