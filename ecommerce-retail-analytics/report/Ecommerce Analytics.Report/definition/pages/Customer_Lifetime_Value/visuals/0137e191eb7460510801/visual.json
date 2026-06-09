@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "0137e191eb7460510801",
+  "position": {
+    "x": 1361.6828019666482,
+    "y": 489.31826245628264,
+    "z": 12000,
+    "height": 249.91433929748086,
+    "width": 217.21526686603477,
+    "tabOrder": 12000
+  },
+  "visual": {
+    "visualType": "listSlicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DIM_CUSTOMERS"
+                    }
+                  },
+                  "Property": "CUSTOMER_VALUE_SEGMENT"
+                }
+              },
+              "queryRef": "DIM_CUSTOMERS.CUSTOMER_VALUE_SEGMENT",
+              "nativeQueryRef": "CUSTOMER_VALUE_SEGMENT",
+              "active": true
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "DIM_CUSTOMERS"
+                  }
+                },
+                "Property": "CUSTOMER_VALUE_SEGMENT"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -51,11 +51,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "RFM Segment Revenue"
+                  "Property": "Total Revenue"
                 }
               },
-              "queryRef": "_Measures.RFM Segment Revenue",
-              "nativeQueryRef": "RFM Segment Revenue"
+              "queryRef": "_Measures.Total Revenue",
+              "nativeQueryRef": "Total Revenue"
             }
           ]
         },
@@ -74,39 +74,6 @@
               },
               "queryRef": "FCT_RFM_SEGMENTS.RFM_SEGMENT",
               "nativeQueryRef": "RFM_SEGMENT"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "FCT_RFM_SEGMENTS"
-                    }
-                  },
-                  "Property": "SEGMENT_ID"
-                }
-              },
-              "queryRef": "FCT_RFM_SEGMENTS.SEGMENT_ID",
-              "nativeQueryRef": " ",
-              "displayName": " "
-            }
-          ]
-        },
-        "Tooltips": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Label Placeholder"
-                }
-              },
-              "queryRef": "_Measures.Label Placeholder",
-              "nativeQueryRef": "Label Placeholder"
             }
           ]
         }
@@ -121,7 +88,7 @@
                     "Entity": "FCT_RFM_SEGMENTS"
                   }
                 },
-                "Property": "SEGMENT_ID"
+                "Property": "RFM_SEGMENT"
               }
             },
             "direction": "Ascending"
@@ -553,6 +520,20 @@
           "selector": {
             "metadata": "_Measures.RFM Segment Revenue"
           }
+        },
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Revenue'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Revenue"
+          }
         }
       ],
       "value": [
@@ -596,6 +577,34 @@
           },
           "selector": {
             "metadata": "_Measures.RFM Segment Unique Customers"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Segment Revenue"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Revenue"
           }
         }
       ],
@@ -796,6 +805,62 @@
           "selector": {
             "id": "default"
           }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Prior Year Revenue"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Measures.Total Revenue",
+            "id": "field-27d3824f-9a09-4917-f055-5d7ba5c7ca9a",
+            "order": 0
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Revenue YoY %"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Measures.Total Revenue",
+            "id": "field-a2a459ba-1fc5-1991-6913-e4c38fe9dc92",
+            "order": 1
+          }
         }
       ],
       "referenceLabelTitle": [
@@ -950,6 +1015,50 @@
           "selector": {
             "metadata": "_Measures.RFM Segment Revenue",
             "id": "field-4806cb7c-044e-48ef-4668-b58f922aa8b6"
+          }
+        },
+        {
+          "properties": {
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'PY '"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Revenue",
+            "id": "field-27d3824f-9a09-4917-f055-5d7ba5c7ca9a"
+          }
+        },
+        {
+          "properties": {
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'YoY % '"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Revenue",
+            "id": "field-a2a459ba-1fc5-1991-6913-e4c38fe9dc92"
           }
         }
       ],
@@ -1238,6 +1347,67 @@
             ],
             "metadata": "_Measures.RFM Segment Revenue",
             "id": "field-4806cb7c-044e-48ef-4668-b58f922aa8b6"
+          }
+        },
+        {
+          "properties": {
+            "valueDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Revenue",
+            "id": "field-27d3824f-9a09-4917-f055-5d7ba5c7ca9a"
+          }
+        },
+        {
+          "properties": {
+            "valueDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Revenue",
+            "id": "field-a2a459ba-1fc5-1991-6913-e4c38fe9dc92"
+          }
+        },
+        {
+          "properties": {
+            "valueFontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Revenue YoY Font Color"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Measures.Total Revenue",
+            "id": "field-a2a459ba-1fc5-1991-6913-e4c38fe9dc92"
           }
         }
       ],
