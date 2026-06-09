@@ -79,16 +79,16 @@
         "sort": [
           {
             "field": {
-              "Measure": {
+              "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "_Measures"
+                    "Entity": "FCT_RFM_SEGMENTS"
                   }
                 },
-                "Property": "Avg Recency (Days)"
+                "Property": "RFM_SEGMENT"
               }
             },
-            "direction": "Descending"
+            "direction": "Ascending"
           }
         ]
       }

@@ -1,0 +1,26 @@
+table 'Param: Cohort Size'
+	lineageTag: 721f0832-4d15-4752-b4cb-6105debd7e64
+
+	measure 'Param: Cohort Size Value' = SELECTEDVALUE('Param: Cohort Size'[Param: Cohort Size], 1)
+		formatString: 0
+		lineageTag: 029bfc2f-f04f-4b2e-bc3e-f006b74b6632
+
+	column 'Param: Cohort Size'
+		formatString: 0
+		lineageTag: d7efe8f9-44d1-4bf9-b1cf-6a4fe5b00d67
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition 'Param: Cohort Size' = calculated
+		mode: import
+		source = GENERATESERIES(1, 10000, 1)
+
+	annotation PBI_Id = 27c7033e409a41518c9e6d49c19e2191
+

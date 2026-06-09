@@ -425,6 +425,16 @@ cultureInfo en-US
 			            },
 			            "Weight": 0.609
 			          }
+			        },
+			        {
+			          "Cohort Month": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },
@@ -450,6 +460,12 @@ cultureInfo en-US
 			          }
 			        },
 			        {
+			          "year": {
+			            "State": "Generated",
+			            "Weight": 0.7
+			          }
+			        },
+			        {
 			          "cohort yr": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -459,7 +475,8 @@ cultureInfo en-US
 			            "Weight": 0.75
 			          }
 			        }
-			      ]
+			      ],
+			      "SemanticType": "Time"
 			    },
 			    "dim_cohort.year_quarter": {
 			      "Definition": {
@@ -633,176 +650,18 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "dim_cohort.total_cohort_order": {
+			    "entity__measure.cohort_revenue": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "DIM_COHORTS",
-			          "ConceptualProperty": "TOTAL_COHORT_ORDERS"
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Cohort Revenue"
 			        }
 			      },
 			      "State": "Generated",
 			      "Terms": [
-			        {
-			          "total cohort order": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "TOTAL_COHORT_ORDERS": {
-			            "Type": "Noun",
-			            "State": "Generated",
-			            "Weight": 0.99
-			          }
-			        },
-			        {
-			          "order": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "cohort order": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "aggregate cohort order": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.591
-			          }
-			        },
-			        {
-			          "overall cohort order": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.591
-			          }
-			        },
-			        {
-			          "total cohort instruction": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.508
-			          }
-			        },
-			        {
-			          "total cohort direction": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.508
-			          }
-			        },
-			        {
-			          "total cohort edict": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.508
-			          }
-			        },
-			        {
-			          "cohort instruction": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.5
-			          }
-			        },
-			        {
-			          "cohort direction": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.5
-			          }
-			        },
-			        {
-			          "cohort edict": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.5
-			          }
-			        },
-			        {
-			          "total cohort command": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.492
-			          }
-			        },
-			        {
-			          "total cohort directive": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.492
-			          }
-			        }
-			      ]
-			    },
-			    "dim_cohort.total_cohort_revenue": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "DIM_COHORTS",
-			          "ConceptualProperty": "TOTAL_COHORT_REVENUE"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "total cohort revenue": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "TOTAL_COHORT_REVENUE": {
-			            "Type": "Noun",
-			            "State": "Generated",
-			            "Weight": 0.99
-			          }
-			        },
 			        {
 			          "cohort revenue": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "total cohort income": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.762
+			            "State": "Generated"
 			          }
 			        },
 			        {
@@ -813,36 +672,6 @@ cultureInfo en-US
 			              "Agent": "Thesaurus"
 			            },
 			            "Weight": 0.75
-			          }
-			        },
-			        {
-			          "total cohort profit": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.739
-			          }
-			        },
-			        {
-			          "total cohort turnover": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.739
-			          }
-			        },
-			        {
-			          "total cohort yield": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.739
 			          }
 			        },
 			        {
@@ -876,269 +705,304 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "aggregate cohort revenue": {
-			            "Type": "Noun",
+			          "Revenue": {
 			            "State": "Suggested",
 			            "Source": {
-			              "Agent": "Thesaurus"
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
 			            },
-			            "Weight": 0.591
-			          }
-			        },
-			        {
-			          "overall cohort revenue": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.591
+			            "Weight": 0.9
 			          }
 			        }
 			      ]
 			    },
-			    "dim_cohort.avg_order_value": {
+			    "entity__measure.top_bottom_n_title": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "DIM_COHORTS",
-			          "ConceptualProperty": "AVG_ORDER_VALUE"
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Top/Bottom N Title"
 			        }
 			      },
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "avg order value": {
+			          "top/bottom n title": {
 			            "State": "Generated"
 			          }
 			        },
 			        {
-			          "AVG_ORDER_VALUE": {
+			          "top bottom n title": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "bottom n title": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "title": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "n title": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "top/bottom n designation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.78
+			          }
+			        },
+			        {
+			          "top bottom n designation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.771
+			          }
+			        },
+			        {
+			          "bottom n designation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "top/bottom n name": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        },
+			        {
+			          "top/bottom n award": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        },
+			        {
+			          "top/bottom n call": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        },
+			        {
+			          "top/bottom n heading": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        },
+			        {
+			          "top/bottom n label": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        },
+			        {
+			          "n designation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "top bottom n name": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.748
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.orders_sparkline_SVG": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Orders Sparkline SVG"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "orders sparkline SVG": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "SVG": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "sparkline SVG": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        }
+			      ]
+			    },
+			    "fct_rfm_segment.segment_id": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "FCT_RFM_SEGMENTS",
+			          "ConceptualProperty": "SEGMENT_ID"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "segment id": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "SEGMENT_ID": {
 			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.99
 			          }
 			        },
 			        {
-			          "avg order assessment": {
+			          "segment identification": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.508
+			            "Weight": 0.75
 			          }
 			        },
 			        {
-			          "avg order worth": {
+			          "segment identity": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.492
+			            "Weight": 0.75
 			          }
 			        },
 			        {
-			          "avg order price": {
+			          "segment identifier": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.492
+			            "Weight": 0.75
 			          }
 			        },
 			        {
-			          "avg order cost": {
+			          "segment credential": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.492
+			            "Weight": 0.727
 			          }
 			        },
 			        {
-			          "avg order charge": {
+			          "division id": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.492
+			            "Weight": 0.6
 			          }
 			        },
 			        {
-			          "avg order rate": {
+			          "subdivision id": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.492
+			            "Weight": 0.6
 			          }
 			        },
 			        {
-			          "avg order importance": {
+			          "section id": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.482
+			            "Weight": 0.582
 			          }
 			        },
 			        {
-			          "avg order significance": {
+			          "sector id": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.482
+			            "Weight": 0.582
 			          }
 			        },
 			        {
-			          "avg order usefulness": {
+			          "bit id": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.482
+			            "Weight": 0.582
 			          }
 			        },
 			        {
-			          "avg order consequence": {
+			          "fragment id": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.482
-			          }
-			        }
-			      ]
-			    },
-			    "dim_cohort.avg_customer_value": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "DIM_COHORTS",
-			          "ConceptualProperty": "AVG_CUSTOMER_VALUE"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "avg customer value": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "AVG_CUSTOMER_VALUE": {
-			            "Type": "Noun",
-			            "State": "Generated",
-			            "Weight": 0.99
-			          }
-			        },
-			        {
-			          "avg client value": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.609
-			          }
-			        },
-			        {
-			          "avg consumer value": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.609
-			          }
-			        },
-			        {
-			          "avg user value": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.609
-			          }
-			        },
-			        {
-			          "avg buyer value": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.609
-			          }
-			        },
-			        {
-			          "avg patron value": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.609
-			          }
-			        },
-			        {
-			          "avg purchaser value": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.609
-			          }
-			        },
-			        {
-			          "avg shopper value": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.609
-			          }
-			        },
-			        {
-			          "average customer value": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.591
-			          }
-			        },
-			        {
-			          "avg customer assessment": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.508
-			          }
-			        },
-			        {
-			          "avg customer worth": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.492
+			            "Weight": 0.582
 			          }
 			        }
 			      ]
@@ -14337,6 +14201,16 @@ cultureInfo en-US
 			              "Agent": "Thesaurus"
 			            },
 			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "Period": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
 			          }
 			        }
 			      ]
@@ -36089,118 +35963,65 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure.avg_retention_rate": {
+			    "fct_cohort_retention.period_revenue": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Avg Retention Rate"
+			          "ConceptualEntity": "FCT_COHORT_RETENTION",
+			          "ConceptualProperty": "PERIOD_REVENUE"
 			        }
 			      },
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "avg retention rate": {
+			          "period revenue": {
 			            "State": "Generated"
 			          }
 			        },
 			        {
-			          "average retention rate": {
+			          "PERIOD_REVENUE": {
 			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.591
+			            "State": "Generated",
+			            "Weight": 0.99
 			          }
 			        },
 			        {
-			          "avg retention degree": {
+			          "period income": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.508
+			            "Weight": 0.75
 			          }
 			        },
 			        {
-			          "avg retention frequency": {
+			          "period profit": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.508
+			            "Weight": 0.727
 			          }
 			        },
 			        {
-			          "avg retention percentage": {
+			          "period turnover": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.508
+			            "Weight": 0.727
 			          }
 			        },
 			        {
-			          "avg retention ratio": {
+			          "period yield": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.508
-			          }
-			        },
-			        {
-			          "avg retention quotient": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.508
-			          }
-			        },
-			        {
-			          "avg retention amount": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.492
-			          }
-			        },
-			        {
-			          "avg retention proportion": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.492
-			          }
-			        },
-			        {
-			          "avg retention speed": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.492
-			          }
-			        },
-			        {
-			          "avg retention level": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.492
+			            "Weight": 0.727
 			          }
 			        }
 			      ]
@@ -41415,28 +41236,28 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure.RFM_segment_revenue": {
+			    "entity__measure.all_segments_revenue": {
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "RFM Segment Revenue"
+			          "ConceptualProperty": "All Segments Revenue"
 			        }
 			      },
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "RFM segment revenue": {
+			          "all segments revenue": {
 			            "State": "Generated"
 			          }
 			        },
 			        {
-			          "segment revenue": {
+			          "segments revenue": {
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
 			        },
 			        {
-			          "rfm segment income": {
+			          "all segment income": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -41456,7 +41277,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "rfm segment profit": {
+			          "all segment profit": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -41466,7 +41287,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "rfm segment turnover": {
+			          "all segment turnover": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -41476,7 +41297,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "rfm segment yield": {
+			          "all segment yield": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -41513,26 +41334,6 @@ cultureInfo en-US
 			              "Agent": "Thesaurus"
 			            },
 			            "Weight": 0.727
-			          }
-			        },
-			        {
-			          "rfm division revenue": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.609
-			          }
-			        },
-			        {
-			          "rfm subdivision revenue": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.609
 			          }
 			        }
 			      ]
@@ -50839,31 +50640,131 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure.entity__avg_retention_rate_FormatString": {
+			    "fct_cohort_retention.period_order": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "_Avg Retention Rate FormatString"
+			          "ConceptualEntity": "FCT_COHORT_RETENTION",
+			          "ConceptualProperty": "PERIOD_ORDERS"
 			        }
 			      },
 			      "State": "Generated",
-			      "Visibility": {
-			        "Value": "Hidden"
-			      },
 			      "Terms": [
 			        {
-			          "_avg retention rate FormatString": {
+			          "period order": {
 			            "State": "Generated"
 			          }
 			        },
 			        {
-			          "_ average retention rate formatstring": {
+			          "PERIOD_ORDERS": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "order": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "period instruction": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.605
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "period direction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "period edict": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "instruction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "direction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "edict": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "period command": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "period directive": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "period demand": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "period mandate": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
 			          }
 			        }
 			      ]
@@ -53128,121 +53029,118 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure.entity__RFM_segment_revenue_FormatString": {
+			    "entity__measure.choose_cohort_size": {
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "_RFM Segment Revenue FormatString"
+			          "ConceptualProperty": "Choose Cohort Size"
 			        }
 			      },
 			      "State": "Generated",
-			      "Visibility": {
-			        "Value": "Hidden"
-			      },
 			      "Terms": [
 			        {
-			          "_RFM segment revenue FormatString": {
+			          "choose cohort size": {
 			            "State": "Generated"
 			          }
 			        },
 			        {
-			          "_rfm division revenue formatstring": {
+			          "choose unit size": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.624
+			            "Weight": 0.508
 			          }
 			        },
 			        {
-			          "_rfm subdivision revenue formatstring": {
+			          "choose cohort extent": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.624
+			            "Weight": 0.508
 			          }
 			        },
 			        {
-			          "_rfm segment income formatstring": {
+			          "choose cohort magnitude": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.624
+			            "Weight": 0.508
 			          }
 			        },
 			        {
-			          "_rfm section revenue formatstring": {
+			          "choose army size": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.605
+			            "Weight": 0.508
 			          }
 			        },
 			        {
-			          "_rfm sector revenue formatstring": {
+			          "choose troop size": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.605
+			            "Weight": 0.492
 			          }
 			        },
 			        {
-			          "_rfm bit revenue formatstring": {
+			          "choose cohort scope": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.605
+			            "Weight": 0.492
 			          }
 			        },
 			        {
-			          "_rfm fragment revenue formatstring": {
+			          "choose regiment size": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.605
+			            "Weight": 0.492
 			          }
 			        },
 			        {
-			          "_rfm part revenue formatstring": {
+			          "choose legion size": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.605
+			            "Weight": 0.492
 			          }
 			        },
 			        {
-			          "_rfm piece revenue formatstring": {
+			          "choose group size": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.605
+			            "Weight": 0.492
 			          }
 			        },
 			        {
-			          "_rfm portion revenue formatstring": {
+			          "choose gang size": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.605
+			            "Weight": 0.492
 			          }
 			        }
 			      ]
@@ -57895,29 +57793,386 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "fct_rfm_segment.segment_id": {
+			    "entity__measure.cohort_orders": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "FCT_RFM_SEGMENTS",
-			          "ConceptualProperty": "SEGMENT_ID"
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Cohort Orders"
 			        }
 			      },
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "segment id": {
+			          "cohort orders": {
 			            "State": "Generated"
 			          }
 			        },
 			        {
-			          "SEGMENT_ID": {
+			          "cohort instruction": {
 			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "cohort guideline": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "cohort preparation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "cohort direction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "cohort command": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "cohort tip": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "cohort briefing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "cohort remit": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "cohort mission": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "cohort directive": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.cohort_avg_order_value": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Cohort Avg Order Value"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "cohort avg order value": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "cohort average order value": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        },
+			        {
+			          "cohort avg order assessment": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.514
+			          }
+			        },
+			        {
+			          "cohort avg order worth": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        },
+			        {
+			          "cohort avg order price": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        },
+			        {
+			          "cohort avg order cost": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        },
+			        {
+			          "cohort avg order charge": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        },
+			        {
+			          "cohort avg order rate": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        },
+			        {
+			          "cohort avg order importance": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.489
+			          }
+			        },
+			        {
+			          "cohort avg order significance": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.489
+			          }
+			        },
+			        {
+			          "cohort avg order usefulness": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.489
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.cohort_avg_customer_value": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Cohort Avg Customer Value"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "cohort avg customer value": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "cohort avg client value": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.617
+			          }
+			        },
+			        {
+			          "cohort avg consumer value": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.617
+			          }
+			        },
+			        {
+			          "cohort avg user value": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.617
+			          }
+			        },
+			        {
+			          "cohort avg buyer value": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.617
+			          }
+			        },
+			        {
+			          "cohort avg patron value": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.617
+			          }
+			        },
+			        {
+			          "cohort avg purchaser value": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.617
+			          }
+			        },
+			        {
+			          "cohort avg shopper value": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.617
+			          }
+			        },
+			        {
+			          "cohort average customer value": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        },
+			        {
+			          "cohort avg customer assessment": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.514
+			          }
+			        },
+			        {
+			          "cohort avg customer worth": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.cohort_lifetime_revenue": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Cohort Lifetime Revenue"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "cohort lifetime revenue": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "lifetime revenue": {
 			            "State": "Generated",
-			            "Weight": 0.99
+			            "Weight": 0.97
 			          }
 			        },
 			        {
-			          "segment identification": {
+			          "cohort lifetime income": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "lifetime income": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -57927,27 +58182,37 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "segment identity": {
+			          "cohort lifetime profit": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.75
+			            "Weight": 0.739
 			          }
 			        },
 			        {
-			          "segment identifier": {
+			          "cohort lifetime turnover": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.75
+			            "Weight": 0.739
 			          }
 			        },
 			        {
-			          "segment credential": {
+			          "cohort lifetime yield": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "lifetime profit": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -57957,7 +58222,1437 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "division id": {
+			          "lifetime turnover": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "lifetime yield": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.cohort_lifetime_orders": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Cohort Lifetime Orders"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "cohort lifetime orders": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "lifetime orders": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "cohort lifetime instruction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "cohort lifetime guideline": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "cohort lifetime preparation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "cohort lifetime direction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "lifetime instruction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "lifetime guideline": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "lifetime preparation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "lifetime direction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "cohort lifetime command": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "cohort lifetime tip": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__orders_sparkline_SVG_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_Orders Sparkline SVG FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_orders sparkline SVG FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__top_bottom_n_title_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_Top/Bottom N Title FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_top/bottom n title FormatString": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "_top": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "_ top bottom n title FormatString": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "bottom n title FormatString": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "_ best": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "_ first": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "_ leading": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "_ maximum": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "_ peak": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "_ upper": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "bottom n designation formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.617
+			          }
+			        },
+			        {
+			          "bottom n name formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        },
+			        {
+			          "bottom n award formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        },
+			        {
+			          "bottom n call formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__cohort_revenue_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_Cohort Revenue FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_cohort revenue FormatString": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "_cohort income formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.617
+			          }
+			        },
+			        {
+			          "_cohort profit formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        },
+			        {
+			          "_cohort turnover formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        },
+			        {
+			          "_cohort yield formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__cohort_orders_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_Cohort Orders FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_cohort orders FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__cohort_avg_order_value_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_Cohort Avg Order Value FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_cohort avg order value FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__cohort_avg_customer_value_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_Cohort Avg Customer Value FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_cohort avg customer value FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__cohort_lifetime_revenue_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_Cohort Lifetime Revenue FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_cohort lifetime revenue FormatString": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "_cohort lifetime income formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.624
+			          }
+			        },
+			        {
+			          "_cohort lifetime profit formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        },
+			        {
+			          "_cohort lifetime turnover formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        },
+			        {
+			          "_cohort lifetime yield formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__cohort_lifetime_orders_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_Cohort Lifetime Orders FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_cohort lifetime orders FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "param_cohort_retention": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Param: Cohort Retention"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "param: cohort retention": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "param: cohort preservation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.514
+			          }
+			        },
+			        {
+			          "param: cohort maintenance": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.514
+			          }
+			        },
+			        {
+			          "param: cohort custody": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.514
+			          }
+			        },
+			        {
+			          "param: cohort holding": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        },
+			        {
+			          "param: cohort retaining": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        },
+			        {
+			          "param: cohort withholding": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        },
+			        {
+			          "param: cohort memory": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.489
+			          }
+			        },
+			        {
+			          "param: cohort recollection": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.489
+			          }
+			        },
+			        {
+			          "param: cohort remembering": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.474
+			          }
+			        },
+			        {
+			          "param: cohort memorizing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.474
+			          }
+			        }
+			      ]
+			    },
+			    "param_cohort_retention.param_cohort_retention": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Param: Cohort Retention",
+			          "ConceptualProperty": "Param: Cohort Retention"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "param: cohort retention": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "param: cohort retention name": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "param: cohort preservation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.514
+			          }
+			        },
+			        {
+			          "param: cohort maintenance": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.514
+			          }
+			        },
+			        {
+			          "param: cohort custody": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.514
+			          }
+			        },
+			        {
+			          "param: cohort holding": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        },
+			        {
+			          "param: cohort retaining": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        },
+			        {
+			          "param: cohort withholding": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        },
+			        {
+			          "param: cohort memory": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.489
+			          }
+			        },
+			        {
+			          "param: cohort recollection": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.489
+			          }
+			        },
+			        {
+			          "param: cohort remembering": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.474
+			          }
+			        },
+			        {
+			          "param: cohort memorizing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.474
+			          }
+			        }
+			      ],
+			      "NameType": "Name"
+			    },
+			    "param_cohort_retention.param_cohort_retention_field": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Param: Cohort Retention",
+			          "ConceptualProperty": "Param: Cohort Retention Fields"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "param: cohort retention field": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "param: cohort retention arena": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.52
+			          }
+			        },
+			        {
+			          "param: cohort retention turf": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "param: cohort retention ground": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "param: cohort retention pitch": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "param: cohort retention park": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "param: cohort retention meadow": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.494
+			          }
+			        },
+			        {
+			          "param: cohort retention grassland": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.494
+			          }
+			        },
+			        {
+			          "param: cohort retention lea": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.494
+			          }
+			        },
+			        {
+			          "param: cohort retention pasture": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.479
+			          }
+			        },
+			        {
+			          "param: cohort retention countryside": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.479
+			          }
+			        }
+			      ]
+			    },
+			    "param_cohort_retention.param_cohort_retention_order": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Param: Cohort Retention",
+			          "ConceptualProperty": "Param: Cohort Retention Order"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "param: cohort retention order": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "param: cohort retention instruction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.52
+			          }
+			        },
+			        {
+			          "param: cohort retention direction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.52
+			          }
+			        },
+			        {
+			          "param: cohort retention edict": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.52
+			          }
+			        },
+			        {
+			          "param: cohort retention command": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "param: cohort retention directive": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "param: cohort retention demand": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "param: cohort retention mandate": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "param: cohort retention imperative": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "param: cohort retention stability": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.494
+			          }
+			        },
+			        {
+			          "param: cohort retention harmony": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.494
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.as_on_cohort_date": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "As on Cohort Date"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "as on cohort date": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "date": {
+			            "State": "Generated",
+			            "Weight": 0.7
+			          }
+			        },
+			        {
+			          "as on cohort moment": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.771
+			          }
+			        },
+			        {
+			          "as on cohort period": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.748
+			          }
+			        },
+			        {
+			          "as on unit date": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.514
+			          }
+			        },
+			        {
+			          "as on army date": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.514
+			          }
+			        },
+			        {
+			          "as on troop date": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        },
+			        {
+			          "as on regiment date": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        },
+			        {
+			          "as on legion date": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        },
+			        {
+			          "as on group date": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        },
+			        {
+			          "as on gang date": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        },
+			        {
+			          "as on supporter date": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.489
+			          }
+			        }
+			      ],
+			      "SemanticType": "Time"
+			    },
+			    "entity__measure.entity__all_segments_revenue_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_All Segments Revenue FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_all segments revenue FormatString": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "_all segment income formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.624
+			          }
+			        },
+			        {
+			          "_all segment profit formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        },
+			        {
+			          "_all segment turnover formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        },
+			        {
+			          "_all segment yield formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__choose_cohort_size_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_Choose Cohort Size FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_choose cohort size FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__as_on_cohort_date_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_As on Cohort Date FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_as on cohort date FormatString": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "date": {
+			            "State": "Generated",
+			            "Weight": 0.7
+			          }
+			        }
+			      ],
+			      "SemanticType": "Time"
+			    },
+			    "disconnected_calendar": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Disconnected Calendar"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "disconnected calendar": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "calendar": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "disconnected almanac": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "disconnected datebook": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "disconnected agenda": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "disconnected logbook": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "disconnected diary": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "almanac": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "datebook": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "agenda": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "logbook": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "diary": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        }
+			      ]
+			    },
+			    "disconnected_calendar.month_start_date": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Disconnected Calendar",
+			          "ConceptualProperty": "MONTH_START_DATE"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "month start date": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "MONTH_START_DATE": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "date": {
+			            "State": "Generated",
+			            "Weight": 0.7
+			          }
+			        },
+			        {
+			          "start date": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "month start moment": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "start moment": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "month start period": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "start period": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "month commencement date": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.615
+			          }
+			        },
+			        {
+			          "month inception date": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.615
+			          }
+			        },
+			        {
+			          "month kickoff date": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.615
+			          }
+			        },
+			        {
+			          "mth start date": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.609
+			          }
+			        },
+			        {
+			          "commencement date": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -57967,7 +59662,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "subdivision id": {
+			          "inception date": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -57975,65 +59670,62 @@ cultureInfo en-US
 			            },
 			            "Weight": 0.6
 			          }
-			        },
+			        }
+			      ],
+			      "SemanticType": "Time"
+			    },
+			    "disconnected_calendar.month_year": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Disconnected Calendar",
+			          "ConceptualProperty": "Month Year"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
 			        {
-			          "section id": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.582
+			          "month year": {
+			            "State": "Generated"
 			          }
 			        },
 			        {
-			          "sector id": {
+			          "month yr": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.582
+			            "Weight": 0.75
 			          }
 			        },
 			        {
-			          "bit id": {
+			          "mth year": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.582
-			          }
-			        },
-			        {
-			          "fragment id": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.582
+			            "Weight": 0.6
 			          }
 			        }
 			      ]
 			    }
 			  },
 			  "Relationships": {
-			    "fct_rfm_segment_has_segment_id": {
+			    "fct_cohort_retention_has_entity__measure_cohort_avg_customer_value": {
 			      "Binding": {
-			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "fct_rfm_segment": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "fct_rfm_segment"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
-			        "fct_rfm_segment.segment_id": {
+			        "entity__measure.cohort_avg_customer_value": {
 			          "Target": {
-			            "Entity": "fct_rfm_segment.segment_id"
+			            "Entity": "entity__measure.cohort_avg_customer_value"
 			          }
 			        }
 			      },
@@ -58041,15 +59733,81 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "fct_rfm_segment"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
-			              "Role": "fct_rfm_segment.segment_id"
+			              "Role": "entity__measure.cohort_avg_customer_value"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "fct_rfm_segments_have_segment_ids"
+			          "ID": "fct_cohort_retentions_have_cohort_avg_customer_value"
+			        }
+			      ]
+			    },
+			    "fct_cohort_retention_has_entity__measure_cohort_avg_order_value": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_cohort_retention": {
+			          "Target": {
+			            "Entity": "fct_cohort_retention"
+			          }
+			        },
+			        "entity__measure.cohort_avg_order_value": {
+			          "Target": {
+			            "Entity": "entity__measure.cohort_avg_order_value"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_cohort_retention"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.cohort_avg_order_value"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_cohort_retentions_have_cohort_avg_order_value"
+			        }
+			      ]
+			    },
+			    "fct_cohort_retention_has_entity__measure_cohort_orders": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_cohort_retention": {
+			          "Target": {
+			            "Entity": "fct_cohort_retention"
+			          }
+			        },
+			        "entity__measure.cohort_orders": {
+			          "Target": {
+			            "Entity": "entity__measure.cohort_orders"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_cohort_retention"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.cohort_orders"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_cohort_retentions_have_cohort_orders"
 			        }
 			      ]
 			    },
@@ -58548,6 +60306,39 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
+			    "dim_cohort_has_entity__measure_choose_cohort_size": {
+			      "Binding": {
+			        "ConceptualEntity": "DIM_COHORTS"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "dim_cohort": {
+			          "Target": {
+			            "Entity": "dim_cohort"
+			          }
+			        },
+			        "entity__measure.choose_cohort_size": {
+			          "Target": {
+			            "Entity": "entity__measure.choose_cohort_size"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_cohort"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.choose_cohort_size"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_cohorts_have_choose_cohort_size"
+			        }
+			      ]
+			    },
 			    "fct_clv_customer_has_purchase_probability": {
 			      "Binding": {
 			        "ConceptualEntity": "FCT_CLV_CUSTOMER"
@@ -58578,6 +60369,39 @@ cultureInfo en-US
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "fct_clv_customers_have_purchase_probabilities"
+			        }
+			      ]
+			    },
+			    "fct_cohort_retention_has_period_order": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_cohort_retention": {
+			          "Target": {
+			            "Entity": "fct_cohort_retention"
+			          }
+			        },
+			        "fct_cohort_retention.period_order": {
+			          "Target": {
+			            "Entity": "fct_cohort_retention.period_order"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_cohort_retention"
+			            },
+			            "Object": {
+			              "Role": "fct_cohort_retention.period_order"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_cohort_retentions_have_period_orders"
 			        }
 			      ]
 			    },
@@ -61760,7 +63584,7 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "fct_order_has_entity__measure_RFM_segment_revenue": {
+			    "fct_order_has_entity__measure_all_segments_revenue": {
 			      "Binding": {
 			        "ConceptualEntity": "FCT_ORDERS"
 			      },
@@ -61771,9 +63595,9 @@ cultureInfo en-US
 			            "Entity": "fct_order"
 			          }
 			        },
-			        "entity__measure.RFM_segment_revenue": {
+			        "entity__measure.all_segments_revenue": {
 			          "Target": {
-			            "Entity": "entity__measure.RFM_segment_revenue"
+			            "Entity": "entity__measure.all_segments_revenue"
 			          }
 			        }
 			      },
@@ -61784,12 +63608,12 @@ cultureInfo en-US
 			              "Role": "fct_order"
 			            },
 			            "Object": {
-			              "Role": "entity__measure.RFM_segment_revenue"
+			              "Role": "entity__measure.all_segments_revenue"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "fct_orders_have_RFM_segment_revenue"
+			          "ID": "fct_orders_have_all_segments_revenue"
 			        }
 			      ]
 			    },
@@ -63839,7 +65663,7 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "fct_cohort_retention_has_entity__measure_avg_retention_rate": {
+			    "fct_cohort_retention_has_period_revenue": {
 			      "Binding": {
 			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
@@ -63850,9 +65674,9 @@ cultureInfo en-US
 			            "Entity": "fct_cohort_retention"
 			          }
 			        },
-			        "entity__measure.avg_retention_rate": {
+			        "fct_cohort_retention.period_revenue": {
 			          "Target": {
-			            "Entity": "entity__measure.avg_retention_rate"
+			            "Entity": "fct_cohort_retention.period_revenue"
 			          }
 			        }
 			      },
@@ -63863,12 +65687,39 @@ cultureInfo en-US
 			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
-			              "Role": "entity__measure.avg_retention_rate"
+			              "Role": "fct_cohort_retention.period_revenue"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "fct_cohort_retentions_have_avg_retention_rate"
+			          "ID": "fct_cohort_retentions_have_period_revenues"
+			        },
+			        {
+			          "Adjective": {
+			            "Subject": {
+			              "Role": "fct_cohort_retention"
+			            },
+			            "Adjectives": [
+			              {
+			                "expensive": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Antonyms": [
+			              {
+			                "cheap": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Measurement": {
+			              "Role": "fct_cohort_retention.period_revenue"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "period_revenue_indicates_how_expensive_fct_cohort_retentions_are"
 			        }
 			      ]
 			    },
@@ -76178,20 +78029,20 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "dim_cohort_has_avg_customer_value": {
+			    "fct_rfm_segment_has_segment_id": {
 			      "Binding": {
-			        "ConceptualEntity": "DIM_COHORTS"
+			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "dim_cohort": {
+			        "fct_rfm_segment": {
 			          "Target": {
-			            "Entity": "dim_cohort"
+			            "Entity": "fct_rfm_segment"
 			          }
 			        },
-			        "dim_cohort.avg_customer_value": {
+			        "fct_rfm_segment.segment_id": {
 			          "Target": {
-			            "Entity": "dim_cohort.avg_customer_value"
+			            "Entity": "fct_rfm_segment.segment_id"
 			          }
 			        }
 			      },
@@ -76199,32 +78050,32 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "dim_cohort"
+			              "Role": "fct_rfm_segment"
 			            },
 			            "Object": {
-			              "Role": "dim_cohort.avg_customer_value"
+			              "Role": "fct_rfm_segment.segment_id"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "dim_cohorts_have_avg_customer_values"
+			          "ID": "fct_rfm_segments_have_segment_ids"
 			        }
 			      ]
 			    },
-			    "dim_cohort_has_avg_order_value": {
+			    "entity__measure_has_orders_sparkline_SVG": {
 			      "Binding": {
-			        "ConceptualEntity": "DIM_COHORTS"
+			        "ConceptualEntity": "_Measures"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "dim_cohort": {
+			        "entity__measure": {
 			          "Target": {
-			            "Entity": "dim_cohort"
+			            "Entity": "entity__measure"
 			          }
 			        },
-			        "dim_cohort.avg_order_value": {
+			        "entity__measure.orders_sparkline_SVG": {
 			          "Target": {
-			            "Entity": "dim_cohort.avg_order_value"
+			            "Entity": "entity__measure.orders_sparkline_SVG"
 			          }
 			        }
 			      },
@@ -76232,32 +78083,32 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "dim_cohort"
+			              "Role": "entity__measure"
 			            },
 			            "Object": {
-			              "Role": "dim_cohort.avg_order_value"
+			              "Role": "entity__measure.orders_sparkline_SVG"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "dim_cohorts_have_avg_order_values"
+			          "ID": "Phrasing_measures_have_orders_sparkline_SVG"
 			        }
 			      ]
 			    },
-			    "dim_cohort_has_total_cohort_revenue": {
+			    "top_bottom_selector_has_entity__measure_top_bottom_n_title": {
 			      "Binding": {
-			        "ConceptualEntity": "DIM_COHORTS"
+			        "ConceptualEntity": "Top/Bottom Selector"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "dim_cohort": {
+			        "top_bottom_selector": {
 			          "Target": {
-			            "Entity": "dim_cohort"
+			            "Entity": "top_bottom_selector"
 			          }
 			        },
-			        "dim_cohort.total_cohort_revenue": {
+			        "entity__measure.top_bottom_n_title": {
 			          "Target": {
-			            "Entity": "dim_cohort.total_cohort_revenue"
+			            "Entity": "entity__measure.top_bottom_n_title"
 			          }
 			        }
 			      },
@@ -76265,32 +78116,32 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "dim_cohort"
+			              "Role": "top_bottom_selector"
 			            },
 			            "Object": {
-			              "Role": "dim_cohort.total_cohort_revenue"
+			              "Role": "entity__measure.top_bottom_n_title"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "dim_cohorts_have_total_cohort_revenues"
+			          "ID": "top_bottom_selectors_have_top_bottom_n_title"
 			        }
 			      ]
 			    },
-			    "dim_cohort_has_total_cohort_order": {
+			    "fct_cohort_retention_has_entity__measure_cohort_revenue": {
 			      "Binding": {
-			        "ConceptualEntity": "DIM_COHORTS"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "dim_cohort": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "dim_cohort"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
-			        "dim_cohort.total_cohort_order": {
+			        "entity__measure.cohort_revenue": {
 			          "Target": {
-			            "Entity": "dim_cohort.total_cohort_order"
+			            "Entity": "entity__measure.cohort_revenue"
 			          }
 			        }
 			      },
@@ -76298,15 +78149,15 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "dim_cohort"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
-			              "Role": "dim_cohort.total_cohort_order"
+			              "Role": "entity__measure.cohort_revenue"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "dim_cohorts_have_total_cohort_orders"
+			          "ID": "fct_cohort_retentions_have_cohort_revenue"
 			        }
 			      ]
 			    },
@@ -76853,6 +78704,48 @@ cultureInfo en-US
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "dim_customers_are_in_zip_codes"
+			        }
+			      ]
+			    },
+			    "disconnected_calendar_is_started_on_month_start_date": {
+			      "Binding": {
+			        "ConceptualEntity": "Disconnected Calendar"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "disconnected_calendar": {
+			          "Target": {
+			            "Entity": "disconnected_calendar"
+			          }
+			        },
+			        "disconnected_calendar.month_start_date": {
+			          "Target": {
+			            "Entity": "disconnected_calendar.month_start_date"
+			          }
+			        }
+			      },
+			      "SemanticSlots": {
+			        "When": {
+			          "Role": "disconnected_calendar.month_start_date"
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Verb": {
+			            "Verbs": [
+			              {
+			                "start": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Object": {
+			              "Role": "disconnected_calendar"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.9,
+			          "ID": "disconnected_calendars_are_started_on_month_start_dates"
 			        }
 			      ]
 			    },
@@ -78925,6 +80818,217 @@ cultureInfo en-US
 			          "State": "Generated",
 			          "Weight": 0.75,
 			          "ID": "top_bottom_selectors_select"
+			        }
+			      ]
+			    },
+			    "param_cohort_retention_is_named_param_cohort_retention": {
+			      "Binding": {
+			        "ConceptualEntity": "Param: Cohort Retention"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "param_cohort_retention": {
+			          "Target": {
+			            "Entity": "param_cohort_retention"
+			          }
+			        },
+			        "param_cohort_retention.param_cohort_retention": {
+			          "Target": {
+			            "Entity": "param_cohort_retention.param_cohort_retention"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Name": {
+			            "Subject": {
+			              "Role": "param_cohort_retention"
+			            },
+			            "Name": {
+			              "Role": "param_cohort_retention.param_cohort_retention"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "param_cohort_retentions_are_names_IDs_of_param_cohort_retentions"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "param_cohort_retention"
+			            },
+			            "Object": {
+			              "Role": "param_cohort_retention.param_cohort_retention"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "param_cohort_retentions_have_param_cohort_retentions"
+			        }
+			      ]
+			    },
+			    "fct_cohort_retention_has_entity__measure_cohort_lifetime_revenue": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_cohort_retention": {
+			          "Target": {
+			            "Entity": "fct_cohort_retention"
+			          }
+			        },
+			        "entity__measure.cohort_lifetime_revenue": {
+			          "Target": {
+			            "Entity": "entity__measure.cohort_lifetime_revenue"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_cohort_retention"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.cohort_lifetime_revenue"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_cohort_retentions_have_cohort_lifetime_revenue"
+			        }
+			      ]
+			    },
+			    "fct_cohort_retention_has_entity__measure_cohort_lifetime_orders": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_cohort_retention": {
+			          "Target": {
+			            "Entity": "fct_cohort_retention"
+			          }
+			        },
+			        "entity__measure.cohort_lifetime_orders": {
+			          "Target": {
+			            "Entity": "entity__measure.cohort_lifetime_orders"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_cohort_retention"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.cohort_lifetime_orders"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_cohort_retentions_have_cohort_lifetime_orders"
+			        }
+			      ]
+			    },
+			    "disconnected_calendar_has_entity__measure_as_on_cohort_date": {
+			      "Binding": {
+			        "ConceptualEntity": "Disconnected Calendar"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "disconnected_calendar": {
+			          "Target": {
+			            "Entity": "disconnected_calendar"
+			          }
+			        },
+			        "entity__measure.as_on_cohort_date": {
+			          "Target": {
+			            "Entity": "entity__measure.as_on_cohort_date"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "disconnected_calendar"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.as_on_cohort_date"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "disconnected_calendars_have_as_on_cohort_date"
+			        }
+			      ]
+			    },
+			    "disconnected_calendar_has_month_start_date": {
+			      "Binding": {
+			        "ConceptualEntity": "Disconnected Calendar"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "disconnected_calendar": {
+			          "Target": {
+			            "Entity": "disconnected_calendar"
+			          }
+			        },
+			        "disconnected_calendar.month_start_date": {
+			          "Target": {
+			            "Entity": "disconnected_calendar.month_start_date"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "disconnected_calendar"
+			            },
+			            "Object": {
+			              "Role": "disconnected_calendar.month_start_date"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "disconnected_calendars_have_month_start_dates"
+			        }
+			      ]
+			    },
+			    "disconnected_calendar_has_month_year": {
+			      "Binding": {
+			        "ConceptualEntity": "Disconnected Calendar"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "disconnected_calendar": {
+			          "Target": {
+			            "Entity": "disconnected_calendar"
+			          }
+			        },
+			        "disconnected_calendar.month_year": {
+			          "Target": {
+			            "Entity": "disconnected_calendar.month_year"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "disconnected_calendar"
+			            },
+			            "Object": {
+			              "Role": "disconnected_calendar.month_year"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "disconnected_calendars_have_month_years"
 			        }
 			      ]
 			    },

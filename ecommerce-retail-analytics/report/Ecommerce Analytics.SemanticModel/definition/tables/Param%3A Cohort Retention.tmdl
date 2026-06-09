@@ -1,0 +1,52 @@
+table 'Param: Cohort Retention'
+	lineageTag: 846c9a26-807e-412b-ab47-d9e492d0ad26
+
+	column 'Param: Cohort Retention'
+		lineageTag: a8cd905e-c517-4c99-ae87-5ddec4591b39
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Param: Cohort Retention Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Param: Cohort Retention Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Param: Cohort Retention Fields'
+		isHidden
+		lineageTag: 8808e350-3e3d-4688-a83a-c4ab0aa7553c
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Param: Cohort Retention Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Param: Cohort Retention Order'
+		isHidden
+		formatString: 0
+		lineageTag: 6f653ba3-4e76-4c4a-b8ce-3f85078bc5c2
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Param: Cohort Retention' = calculated
+		mode: import
+		source =
+				{
+				    ("Retention", NAMEOF('_Measures'[Retention Rate]), 0),
+				    ("Active", NAMEOF('_Measures'[Retained Customers]), 1),
+				    ("Revenue", NAMEOF('_Measures'[Cohort Revenue]), 2),
+				    ("Orders", NAMEOF('_Measures'[Cohort Orders]), 3),
+				    ("AOV", NAMEOF('_Measures'[Cohort Avg Order Value]), 4),
+				    ("ACV", NAMEOF('_Measures'[Cohort Avg Customer Value]), 5)
+				}
+
+	annotation PBI_Id = 48e378e417f3459f8f427a98e26f7811
+

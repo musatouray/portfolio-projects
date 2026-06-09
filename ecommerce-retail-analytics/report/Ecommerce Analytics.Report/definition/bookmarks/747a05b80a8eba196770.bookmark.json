@@ -1,0 +1,564 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "Show Cohort Filter Pane",
+  "name": "747a05b80a8eba196770",
+  "options": {
+    "applyOnlyToTargetVisuals": true,
+    "targetVisualNames": [
+      "17881cbfcbe00dcc33db",
+      "7f52219908d93440d092",
+      "40aa4ee4140209a66150",
+      "73f37e4ed16699ba6602",
+      "563f09d209b92105c279",
+      "582512cc86e000d93d91"
+    ],
+    "suppressData": true
+  },
+  "explorationState": {
+    "version": "1.11",
+    "activeSection": "cohort_retention_page",
+    "sections": {
+      "cohort_retention_page": {
+        "visualContainers": {
+          "retention_curve": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "cab261a849225733500d",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FCT_COHORT_RETENTION"
+                        }
+                      },
+                      "Property": "PERIOD_NUMBER"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "14fe8f20997010d96c36",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Retention Rate"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "lineChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Retention Rate"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FCT_COHORT_RETENTION"
+                        }
+                      },
+                      "Property": "PERIOD_NUMBER"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "retention_matrix": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "38a4f6860de28c5a6da4",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FCT_COHORT_RETENTION"
+                        }
+                      },
+                      "Property": "PERIOD_NUMBER"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "e3d01dee6648e1a7750b",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DIM_COHORTS"
+                        }
+                      },
+                      "Property": "COHORT_MONTH_NAME"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "8c6402094090e9664941",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Retention Rate"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "pivotTable",
+              "objects": {},
+              "activeProjections": {
+                "Columns": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FCT_COHORT_RETENTION"
+                        }
+                      },
+                      "Property": "PERIOD_NUMBER"
+                    }
+                  }
+                ],
+                "Rows": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DIM_COHORTS"
+                        }
+                      },
+                      "Property": "COHORT_MONTH_NAME"
+                    }
+                  }
+                ]
+              },
+              "projections": {
+                "Columns": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FCT_COHORT_RETENTION"
+                        }
+                      },
+                      "Property": "PERIOD_NUMBER"
+                    }
+                  }
+                ],
+                "Rows": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DIM_COHORTS"
+                        }
+                      },
+                      "Property": "COHORT_MONTH_NAME"
+                    }
+                  }
+                ],
+                "Values": [
+                  {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Retention Rate"
+                    }
+                  }
+                ]
+              },
+              "parameters": {
+                "Values": [
+                  {
+                    "expr": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Param: Cohort Retention"
+                          }
+                        },
+                        "Property": "Param: Cohort Retention"
+                      }
+                    },
+                    "index": 0,
+                    "length": 1
+                  }
+                ]
+              }
+            }
+          },
+          "57134e4752439466c345": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "8821601b02218cd3510e": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "e6183625a3496280a841": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "2322f4ab909e0030d886",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Last Refresh"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "4b18ca2dd4c46508ce3a": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "500d516365a043678436": {
+            "singleVisual": {
+              "visualType": "image",
+              "objects": {}
+            }
+          },
+          "7dd41070320447dda476": {
+            "singleVisual": {
+              "visualType": "image",
+              "objects": {}
+            }
+          },
+          "562b1e60a473a40ee968": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "1931447d141c90734b48": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "781e13e80a21b2e2513c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Unique Customers"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "5c7e77c14eb4c74d2b72",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Total Revenue"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "783f1ef463c2968c48dc",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Total Orders"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "157925686a6d0003a2a5",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Avg Recency (Days)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "4623957e2eb6784b9e58",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Avg Frequency"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "282c8bf2d736a351a743",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Avg Monetary"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Unique Customers"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "a82c91fcc5e9e0c3dd7a": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "bf6bd61be0e393e2e4a9",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Param: Cohort Retention"
+                        }
+                      },
+                      "Property": "Param: Cohort Retention"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "advancedSlicerVisual",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "p",
+                                "Entity": "Param: Cohort Retention",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "p"
+                                            }
+                                          },
+                                          "Property": "Param: Cohort Retention Fields"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'''_Measures''[Retention Rate]'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "cachedFilterDisplayItems": [
+                {
+                  "id": {
+                    "scopeId": {
+                      "Comparison": {
+                        "ComparisonKind": 0,
+                        "Left": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "Param: Cohort Retention"
+                              }
+                            },
+                            "Property": "Param: Cohort Retention Fields"
+                          }
+                        },
+                        "Right": {
+                          "Literal": {
+                            "Value": "'''_Measures''[Retention Rate]'"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "displayName": "Retention Rate"
+                }
+              ]
+            }
+          },
+          "40aa4ee4140209a66150": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "563f09d209b92105c279": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "582512cc86e000d93d91": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          }
+        },
+        "visualContainerGroups": {
+          "17881cbfcbe00dcc33db": {
+            "isHidden": false
+          }
+        }
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -37,6 +37,9 @@ ref table 'TBL Date Granularity'
 ref table 'CG Selected Metric'
 ref table 'CG Custom Periods'
 ref table 'Top/Bottom Selector'
+ref table 'Param: Cohort Retention'
+ref table 'Disconnected Calendar'
+ref table 'Param: Cohort Size'
 
 ref cultureInfo en-US
 

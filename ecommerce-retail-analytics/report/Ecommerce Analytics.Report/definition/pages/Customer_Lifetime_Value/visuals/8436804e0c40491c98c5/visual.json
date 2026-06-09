@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "8436804e0c40491c98c5",
+  "position": {
+    "x": 1612.7649652795378,
+    "y": 614.275432105023,
+    "z": 10000,
+    "height": 267.43169952861268,
+    "width": 300.13077196005878,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "listSlicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DIM_CUSTOMERS"
+                    }
+                  },
+                  "Property": "CUSTOMER_SATISFACTION_SEGMENT"
+                }
+              },
+              "queryRef": "DIM_CUSTOMERS.CUSTOMER_SATISFACTION_SEGMENT",
+              "nativeQueryRef": "CUSTOMER_SATISFACTION_SEGMENT",
+              "active": true
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "DIM_CUSTOMERS"
+                  }
+                },
+                "Property": "CUSTOMER_SATISFACTION_SEGMENT"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

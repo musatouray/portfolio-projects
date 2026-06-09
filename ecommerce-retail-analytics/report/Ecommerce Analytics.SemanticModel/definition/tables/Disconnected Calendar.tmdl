@@ -1,0 +1,36 @@
+table 'Disconnected Calendar'
+	lineageTag: 21d2a943-bd31-4d53-b77d-7455003b47d7
+
+	column MONTH_START_DATE
+		formatString: Short Date
+		lineageTag: 87b79336-5003-4fe6-be2a-02d108f0234d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DIM_DATES[MONTH_START_DATE]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Month Year'
+		lineageTag: ef03d420-82a2-4954-8bca-fb0dcb24f353
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month Year]
+		sortByColumn: MONTH_START_DATE
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Disconnected Calendar' = calculated
+		mode: import
+		source =
+				
+				VAR __VirtualDimDates = ALLNOBLANKROW(DIM_DATES[MONTH_START_DATE])
+				RETURN
+				ADDCOLUMNS(
+				    __VirtualDimDates,
+				    "Month Year", FORMAT([MONTH_START_DATE], "mmm-yyyy")
+				)
+
+	annotation PBI_Id = e5b939ef003a4c149805dd7c776d2ba8
+

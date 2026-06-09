@@ -90,6 +90,9 @@ table FCT_RFM_SEGMENTS
 		lineageTag: 68d83f58-3e72-429e-9f71-8543c773bfc0
 		summarizeBy: none
 		sourceColumn: RFM_SEGMENT
+		sortByColumn: SEGMENT_ID
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
@@ -111,26 +114,16 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
-	column SEGMENT_ID =
-			
-			VAR __Segment = FCT_RFM_SEGMENTS[RFM_SEGMENT]
-			RETURN
-			SWITCH(
-			    __Segment,
-			    "Champions", 1,
-			    "Loyal", 3,
-			    "Potential Loyalists", 5,
-			    "Cant Lose Them", 7,
-			    "Need Attention", 2,
-			    "New Customers", 8,
-			    "At Risk", 4,
-			    "Hibernating", 6
-			)
+	column SEGMENT_ID
+		dataType: int64
 		formatString: 0
-		lineageTag: 5eaae347-cada-41e4-a00a-8bbc182e4876
-		summarizeBy: none
+		lineageTag: 5bc77fb2-c6c7-4381-a9a4-35728cf694e9
+		summarizeBy: count
+		sourceColumn: SEGMENT_ID
 
-		annotation SummarizationSetBy = User
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
 
 	partition FCT_RFM_SEGMENTS = m
 		mode: import

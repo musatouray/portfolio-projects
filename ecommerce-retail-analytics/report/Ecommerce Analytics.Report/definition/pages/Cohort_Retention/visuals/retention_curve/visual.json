@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "retention_curve",
   "position": {
-    "x": 32.4186334779477,
-    "y": 815.10363657682706,
-    "z": 5000,
-    "height": 248.89636342317294,
-    "width": 1362.7404144123018,
-    "tabOrder": 6000
+    "x": 1204.0265598864617,
+    "y": 754.41431395407778,
+    "z": 0,
+    "height": 297.79512392924124,
+    "width": 686.680521060368,
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "lineChart",
@@ -42,14 +42,32 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Avg Retention Rate"
+                  "Property": "Retention Rate"
                 }
               },
-              "queryRef": "_Measures.Avg Retention Rate",
-              "nativeQueryRef": "Avg Retention Rate"
+              "queryRef": "_Measures.Retention Rate",
+              "nativeQueryRef": "Retention Rate"
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Retention Rate"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
       }
     },
     "visualContainerObjects": {
@@ -66,7 +84,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Average Retention Curve'"
+                  "Value": "'Retention Curve'"
                 }
               }
             }
