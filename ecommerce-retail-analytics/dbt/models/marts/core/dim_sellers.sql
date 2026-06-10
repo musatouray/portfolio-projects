@@ -1,94 +1,57 @@
 -- Seller dimension table with one row per seller
--- Use this for seller analytics: performance tracking, fulfillment metrics, and geographic coverage
+-- Pure dimension containing seller attributes only
+-- Transactional metrics (orders, revenue, delivery performance) belong in fact tables
 
-with sellers as (
-    select * from {{ ref('stg_ecommerce__sellers') }}
+WITH sellers AS (
+    SELECT * FROM {{ ref('stg_ecommerce__sellers') }}
 ),
 
-geolocation as (
-    select * from {{ ref('stg_ecommerce__geolocation') }}
+-- Enforce deterministic deduplication on geo mapping
+deduped_geolocation AS (
+    SELECT
+        zip_code,
+        latitude,
+        longitude
+    FROM {{ ref('stg_ecommerce__geolocation') }}
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY zip_code ORDER BY latitude DESC, longitude DESC) = 1
 ),
 
-seller_orders as (
-    select 
-        seller_id,
-        min(order_date) as first_order_date,
-        max(order_date) as last_order_date,
-        count(distinct order_id) as total_orders,
-        count(*) as total_items_sold,
-        sum(price + freight_value) as total_revenue,
-        avg(case when order_status = 'delivered' then datediff(day, order_date, delivered_customer_date::date) end) as average_delivery_days,
-        avg(case when order_status = 'delivered' then datediff(day, delivered_carrier_date::date, delivered_customer_date::date) end) as average_shipping_transit_days,
-        avg(case when order_status = 'delivered' then datediff(day, order_approved_at::date, delivered_customer_date::date) end) as average_fulfillment_days,
-        count(distinct case when order_status = 'delivered' then order_id end) as successful_orders,
-        count(distinct case when order_status = 'delivered' then order_id end)::float / nullif(count(distinct order_id), 0) * 100 as sale_success_rate
-    from {{ ref('int_order_items_enriched') }}
-    group by seller_id
-),
-
-seller_primary_category as (
-    select
+seller_primary_category AS (
+    SELECT
         seller_id,
         product_category_english,
-        count(*) as items_sold
-    from {{ ref('int_order_items_enriched') }}
-    where product_category_english is not null
-    group by seller_id, product_category_english
-    qualify row_number() over (partition by seller_id order by count(*) desc, max(order_date) desc, product_category_english) = 1
+        COUNT(*) AS items_sold
+    FROM {{ ref('int_order_items_enriched') }}
+    WHERE product_category_english IS NOT NULL
+    GROUP BY 1, 2
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY seller_id ORDER BY COUNT(*) DESC, MAX(order_date) DESC, product_category_english) = 1
 ),
 
-final as (
-    select
-        -- Generate surrogate key for seller dimension
-        {{ dbt_utils.generate_surrogate_key(['s.seller_id']) }} as seller_key,
+final AS (
+    SELECT
+        -- Primary Key generation for Star Schema mapping
+        {{ dbt_utils.generate_surrogate_key(['s.seller_id']) }} AS seller_key,
+
+        -- Natural Key
         s.seller_id,
 
-        -- Location attributes
+        -- Location Attributes
         s.zip_code,
         s.city,
         s.state,
         g.latitude,
         g.longitude,
 
-        -- Orders activity attributes
-        so.first_order_date,
-        so.last_order_date,
-        datediff(day, so.first_order_date, so.last_order_date) as seller_tenure_days,
-        datediff(day, so.last_order_date, current_date) as days_since_last_sale,
-        so.average_delivery_days,
-        so.average_shipping_transit_days,
-        so.average_fulfillment_days,
+        -- Primary business classification attribute
+        COALESCE(spc.product_category_english, 'Unknown') AS primary_product_category,
 
-        -- Primary product category
-        coalesce(spc.product_category_english, 'Unknown') as primary_product_category,
+        -- Production Lineage Metadata
+        CURRENT_TIMESTAMP() AS created_at,
+        CURRENT_TIMESTAMP() AS updated_at
 
-        -- Active seller flag
-        so.last_order_date >= dateadd(day, -{{ var('active_days_threshold') }}, current_date) as is_active,
-        
-        -- Performance metrics
-        coalesce(so.total_orders, 0) as total_orders,
-        coalesce(so.total_items_sold, 0) as total_items_sold,
-        coalesce(so.total_revenue, 0) as total_revenue,
-        coalesce(so.successful_orders, 0) as successful_orders,
-        coalesce(so.sale_success_rate, 0) as sale_success_rate,
-
-        -- Seller performance segment
-        case
-            when so.total_revenue is null then 'inactive'
-            when so.total_revenue >= {{ var('platinum_value_threshold') }} then 'platinum'
-            when so.total_revenue >= {{ var('gold_value_threshold') }} then 'gold'
-            when so.total_revenue >= {{ var('silver_value_threshold') }} then 'silver'
-            else 'bronze'
-        end as performance_segment,
-
-        -- Metadata
-        current_timestamp() as created_at,
-        current_timestamp() as updated_at
-
-    from sellers s
-    left join geolocation g using (zip_code)
-    left join seller_orders so using (seller_id)
-    left join seller_primary_category spc using (seller_id)
+    FROM sellers s
+    LEFT JOIN deduped_geolocation g USING (zip_code)
+    LEFT JOIN seller_primary_category spc USING (seller_id)
 )
 
-select * from final
+SELECT * FROM final

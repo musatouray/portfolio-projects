@@ -1,247 +1,76 @@
-# Finance fact models for revenue and payment analytics.
-# These tables provide aggregated views for financial reporting and analysis.
+# Finance fact models for payment analytics.
+# These tables provide transactional views for financial reporting and analysis.
 
 version: 2
 
 models:
-  # Daily revenue time series fact table with comprehensive time intelligence
-  - name: fct_daily_revenue_time_series
+  # Order payments fact table at line-item grain
+  - name: fct_order_payments
     description: >
-      Daily revenue fact table with comprehensive time intelligence metrics.
-      Includes prior period comparisons (WoW, MoM, YoY), moving averages (7d, 28d, 90d, 365d),
-      running totals (YTD, QTD, MTD, WTD), and growth rates.
-      One row per calendar day (includes days with no orders).
-    columns:
-      - name: date_key
-        description: Foreign key to dim_dates
-        data_tests:
-          - unique
-          - not_null
-
-      - name: date
-        description: Calendar date
-        data_tests:
-          - not_null
-
-      - name: year
-        description: Calendar year
-        data_tests:
-          - not_null
-
-      - name: quarter_number
-        description: Quarter number (1-4)
-        data_tests:
-          - not_null
-
-      - name: month
-        description: Month number (1-12)
-        data_tests:
-          - not_null
-
-      - name: iso_year_week
-        description: ISO year and week (e.g., 2017-W01)
-        data_tests:
-          - not_null
-
-      - name: total_orders
-        description: Total distinct orders on this date (0 if no orders)
-        data_tests:
-          - not_null
-
-      - name: delivered_orders
-        description: Orders with delivered status
-        data_tests:
-          - not_null
-
-      - name: canceled_orders
-        description: Orders with canceled status
-        data_tests:
-          - not_null
-
-      - name: total_revenue
-        description: Sum of item prices (excludes freight)
-        data_tests:
-          - not_null
-
-      - name: total_freight
-        description: Sum of freight costs
-        data_tests:
-          - not_null
-
-      - name: gross_revenue
-        description: Total revenue including freight
-        data_tests:
-          - not_null
-
-      - name: average_order_value
-        description: Average order value (NULL if no orders)
-
-      - name: total_reviews
-        description: Total reviews submitted
-        data_tests:
-          - not_null
-
-      - name: avg_review_score
-        description: Average review score (NULL if no reviews)
-
-      - name: orders_prev_week
-        description: Orders from same day last week
-
-      - name: revenue_prev_week
-        description: Revenue from same day last week
-
-      - name: orders_prev_month
-        description: Orders from same day last month
-
-      - name: revenue_prev_month
-        description: Revenue from same day last month
-
-      - name: orders_prev_year
-        description: Orders from same day last year
-
-      - name: revenue_prev_year
-        description: Revenue from same day last year
-
-      - name: rolling_avg_orders_7d
-        description: 7-day rolling average of orders
-
-      - name: rolling_avg_revenue_7d
-        description: 7-day rolling average of revenue
-
-      - name: rolling_avg_orders_28d
-        description: 28-day rolling average of orders
-
-      - name: rolling_avg_revenue_28d
-        description: 28-day rolling average of revenue
-
-      - name: rolling_avg_orders_90d
-        description: 90-day rolling average of orders
-
-      - name: rolling_avg_revenue_90d
-        description: 90-day rolling average of revenue
-
-      - name: rolling_avg_orders_365d
-        description: 365-day rolling average of orders
-
-      - name: rolling_avg_revenue_365d
-        description: 365-day rolling average of revenue
-
-      - name: cumulative_orders
-        description: Cumulative orders since first date
-
-      - name: cumulative_revenue
-        description: Cumulative revenue since first date
-
-      - name: ytd_orders
-        description: Year-to-date orders
-
-      - name: ytd_revenue
-        description: Year-to-date revenue
-
-      - name: qtd_orders
-        description: Quarter-to-date orders
-
-      - name: qtd_revenue
-        description: Quarter-to-date revenue
-
-      - name: mtd_orders
-        description: Month-to-date orders
-
-      - name: mtd_revenue
-        description: Month-to-date revenue
-
-      - name: wtd_orders
-        description: Week-to-date orders (ISO week)
-
-      - name: wtd_revenue
-        description: Week-to-date revenue (ISO week)
-
-      - name: order_growth_wow_pct
-        description: Week-over-week order growth percentage
-
-      - name: revenue_growth_wow_pct
-        description: Week-over-week revenue growth percentage
-
-      - name: order_growth_mom_pct
-        description: Month-over-month order growth percentage
-
-      - name: revenue_growth_mom_pct
-        description: Month-over-month revenue growth percentage
-
-      - name: order_growth_yoy_pct
-        description: Year-over-year order growth percentage
-
-      - name: revenue_growth_yoy_pct
-        description: Year-over-year revenue growth percentage
-
-      - name: created_at
-        description: Timestamp when this record was created
-        data_tests:
-          - not_null
-
-      - name: updated_at
-        description: Timestamp when this record was last updated
-        data_tests:
-          - not_null
-
-  # Payment analysis fact table
-  - name: fct_payment_analysis
-    description: >
-      Payment analysis fact table aggregated by payment type and month.
-      Use this for payment method performance, installment analysis, and payment trends.
-      One row per payment type per month.
+      Order payments fact table at payment line item grain.
+      Use this for payment analysis, installment patterns, and payment method performance.
+      Excludes canceled/unavailable orders. One row per payment transaction per order.
     data_tests:
       - dbt_utils.unique_combination_of_columns:
           arguments:
             combination_of_columns:
+              - order_id
+              - payment_sequential
               - payment_type
-              - year_month
     columns:
+      - name: order_payment_key
+        description: Surrogate key for the order payment fact (hash of order_id, payment_sequential, payment_type)
+        data_tests:
+          - unique
+          - not_null
+
+      - name: order_key
+        description: Surrogate key matching fct_orders (deterministically generated)
+        data_tests:
+          - not_null
+
+      - name: customer_key
+        description: Surrogate key matching dim_customers (deterministically generated)
+        data_tests:
+          - not_null
+
+      - name: order_date_key
+        description: Foreign key to dim_dates for order placement date
+        data_tests:
+          - not_null
+
+      - name: order_id
+        description: Natural key - order identifier from source system
+        data_tests:
+          - not_null
+
       - name: payment_type
         description: Payment method (credit_card, boleto, voucher, debit_card, not_defined)
         data_tests:
           - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - credit_card
+                  - boleto
+                  - voucher
+                  - debit_card
+                  - not_defined
 
-      - name: year_month
-        description: Year and month in YYYY-MM format
+      - name: payment_sequential
+        description: Sequential number of the payment within the order
         data_tests:
           - not_null
 
-      - name: month_date_key
-        description: Foreign key to dim_dates for the first day of the month
-
-      - name: total_transactions
-        description: Total number of payment transactions
+      - name: payment_installments
+        description: Number of installments for this payment
         data_tests:
           - not_null
 
-      - name: total_orders
-        description: Total number of distinct orders using this payment type
+      - name: payment_value
+        description: Value of this payment (BRL)
         data_tests:
           - not_null
-
-      - name: total_payment_value
-        description: Sum of payment values for this payment type and month (BRL)
-        data_tests:
-          - not_null
-
-      - name: average_payment_value
-        description: Average payment value per transaction (BRL)
-        data_tests:
-          - not_null
-
-      - name: average_installments
-        description: Average number of installments used
-        data_tests:
-          - not_null
-
-      - name: max_installments
-        description: Maximum number of installments used in any transaction
-        data_tests:
-          - not_null
-
-      - name: revenue_per_order
-        description: Average revenue per order (total_payment_value / total_orders)
 
       - name: created_at
         description: Timestamp when this record was created in the data warehouse
@@ -253,75 +82,3 @@ models:
         data_tests:
           - not_null
 
-  # Pareto analysis fact table for ABC classification
-  - name: fct_pareto_products
-    description: >
-      Pareto analysis fact table identifying products that drive the majority of revenue.
-      Use this for inventory prioritization, ABC classification, and 80/20 analysis.
-      One row per product with cumulative revenue contribution.
-    columns:
-      - name: product_key
-        description: Foreign key to dim_products (also serves as unique identifier)
-        data_tests:
-          - unique
-          - not_null
-
-      - name: product_id
-        description: Natural key for the product
-        data_tests:
-          - unique
-          - not_null
-
-      - name: product_category
-        description: Product category in English
-
-      - name: total_orders
-        description: Total number of orders containing this product
-        data_tests:
-          - not_null
-
-      - name: total_revenue
-        description: Total revenue generated by this product (BRL)
-        data_tests:
-          - not_null
-
-      - name: revenue_rank
-        description: Product rank by revenue (1 = highest revenue)
-        data_tests:
-          - not_null
-
-      - name: cumulative_revenue
-        description: Running total of revenue including this product and all higher-ranked products
-        data_tests:
-          - not_null
-
-      - name: cumulative_revenue_pct
-        description: Cumulative percentage of total revenue (0-100)
-        data_tests:
-          - not_null
-
-      - name: cumulative_product_pct
-        description: Percentage of products ranked at or above this product (0-100)
-        data_tests:
-          - not_null
-
-      - name: pareto_segment
-        description: ABC classification based on cumulative revenue percentage
-        data_tests:
-          - not_null
-          - accepted_values:
-              arguments:
-                values:
-                  - A
-                  - B
-                  - C
-
-      - name: created_at
-        description: Timestamp when this record was created
-        data_tests:
-          - not_null
-
-      - name: updated_at
-        description: Timestamp when this record was last updated
-        data_tests:
-          - not_null

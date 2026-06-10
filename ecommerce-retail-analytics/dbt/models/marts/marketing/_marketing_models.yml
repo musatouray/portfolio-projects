@@ -1,184 +1,31 @@
-# Marketing fact models for category and geographic analytics.
-# These tables provide aggregated views for marketing performance and regional analysis.
+# Marketing fact models for basket analysis.
+# These tables provide insights for cross-selling and product recommendations.
 
 version: 2
 
 models:
-  # Category performance fact table
-  - name: fct_category_performance
-    description: >
-      Category performance fact table aggregated by product category and month.
-      Use this for category trends, product mix analysis, and merchandising insights.
-      One row per product category per month.
-    data_tests:
-      - dbt_utils.unique_combination_of_columns:
-          arguments:
-            combination_of_columns:
-              - product_category
-              - year_month
-    columns:
-      - name: product_category
-        description: Product category name in English. NULL for products without translation.
-
-      - name: year_month
-        description: Year and month in YYYY-MM format
-        data_tests:
-          - not_null
-
-      - name: month_date_key
-        description: Foreign key to dim_dates for the first day of the month
-
-      - name: total_items_sold
-        description: Total number of items sold in this category for the month
-        data_tests:
-          - not_null
-
-      - name: total_orders
-        description: Total number of distinct orders containing this category
-        data_tests:
-          - not_null
-
-      - name: total_price
-        description: Sum of item prices for this category (BRL)
-        data_tests:
-          - not_null
-
-      - name: total_freight
-        description: Sum of freight costs for this category (BRL)
-        data_tests:
-          - not_null
-
-      - name: total_revenue
-        description: Total revenue including freight (total_price + total_freight)
-        data_tests:
-          - not_null
-
-      - name: average_item_value
-        description: Average value per item (price + freight)
-        data_tests:
-          - not_null
-
-      - name: created_at
-        description: Timestamp when this record was created in the data warehouse
-        data_tests:
-          - not_null
-
-      - name: updated_at
-        description: Timestamp when this record was last updated in the data warehouse
-        data_tests:
-          - not_null
-
-  # Geographic performance fact table
-  - name: fct_geo_performance
-    description: >
-      Geographic performance fact table aggregated by customer state and month.
-      Use this for regional trends, market analysis, and geographic expansion insights.
-      One row per state per month.
-    data_tests:
-      - dbt_utils.unique_combination_of_columns:
-          arguments:
-            combination_of_columns:
-              - state
-              - year_month
-    columns:
-      - name: state
-        description: Customer state code (2-letter uppercase)
-        data_tests:
-          - not_null
-
-      - name: year_month
-        description: Year and month in YYYY-MM format
-        data_tests:
-          - not_null
-
-      - name: month_date_key
-        description: Foreign key to dim_dates for the first day of the month
-
-      - name: total_orders
-        description: Total number of distinct orders from this state
-        data_tests:
-          - not_null
-
-      - name: delivered_orders
-        description: Number of orders with 'delivered' status
-        data_tests:
-          - not_null
-
-      - name: canceled_orders
-        description: Number of orders with 'canceled' status
-        data_tests:
-          - not_null
-
-      - name: unique_cities
-        description: Number of distinct cities with orders in this state
-        data_tests:
-          - not_null
-
-      - name: total_price
-        description: Sum of item prices for this state (BRL)
-        data_tests:
-          - not_null
-
-      - name: total_freight
-        description: Sum of freight costs for this state (BRL)
-        data_tests:
-          - not_null
-
-      - name: total_revenue
-        description: Total revenue including freight (total_price + total_freight)
-        data_tests:
-          - not_null
-
-      - name: total_payment_value
-        description: Sum of payment values for this state (BRL)
-
-      - name: average_order_value
-        description: Average payment value per order (BRL)
-
-      - name: total_reviews
-        description: Total number of reviews from this state
-
-      - name: average_review_score
-        description: Average review score for this state (1-5 scale)
-
-      - name: created_at
-        description: Timestamp when this record was created in the data warehouse
-        data_tests:
-          - not_null
-
-      - name: updated_at
-        description: Timestamp when this record was last updated in the data warehouse
-        data_tests:
-          - not_null
-
   # Market basket analysis fact table
   - name: fct_market_basket
     description: >
-      Market basket analysis fact table identifying products frequently purchased together.
-      Use this for cross-sell recommendations, bundle creation, and product affinity analysis.
-      One row per product pair (ordered by product_id to avoid duplicates).
+      Market basket analysis fact table with atomic counts for product pair co-occurrence.
+      Provides raw counts for semantic layer calculations (support, confidence, lift).
+      Excludes canceled/unavailable orders. One row per product pair.
     columns:
       - name: basket_pair_key
-        description: Surrogate key for the product pair (hash of product_a and product_b)
+        description: Surrogate key for the product pair (hash of product_id_a and product_id_b)
         data_tests:
           - unique
           - not_null
 
-      - name: product_a
-        description: First product ID in the pair (lower product_id)
+      - name: product_key_a
+        description: Surrogate key matching dim_products for product A (deterministically generated)
         data_tests:
           - not_null
 
-      - name: product_b
-        description: Second product ID in the pair (higher product_id)
+      - name: product_key_b
+        description: Surrogate key matching dim_products for product B (deterministically generated)
         data_tests:
           - not_null
-
-      - name: category_a
-        description: Product category for product_a (English)
-
-      - name: category_b
-        description: Product category for product_b (English)
 
       - name: pair_count
         description: Number of orders containing both products
@@ -186,32 +33,12 @@ models:
           - not_null
 
       - name: product_a_order_count
-        description: Total orders containing product_a
+        description: Total orders containing product A (for confidence/lift calculations)
         data_tests:
           - not_null
 
       - name: product_b_order_count
-        description: Total orders containing product_b
-        data_tests:
-          - not_null
-
-      - name: support_pct
-        description: Support percentage - how often this pair appears in all orders
-        data_tests:
-          - not_null
-
-      - name: confidence_a_to_b_pct
-        description: Confidence A→B - probability of buying B given A was purchased
-        data_tests:
-          - not_null
-
-      - name: confidence_b_to_a_pct
-        description: Confidence B→A - probability of buying A given B was purchased
-        data_tests:
-          - not_null
-
-      - name: lift
-        description: Lift - how much more likely the pair is vs random chance (>1 = positive association)
+        description: Total orders containing product B (for confidence/lift calculations)
         data_tests:
           - not_null
 

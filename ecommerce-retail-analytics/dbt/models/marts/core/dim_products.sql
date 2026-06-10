@@ -1,67 +1,23 @@
 -- Product dimension table with one row per product
--- Use this for product analytics: category performance, ratings, and inventory insights
+-- Pure dimension containing product attributes only
+-- Transactional metrics (sales, reviews, etc.) belong in fact tables
 
-with products as (
-    select *
-    from {{ ref('stg_ecommerce__products') }}
+WITH products AS (
+    SELECT * FROM {{ ref('stg_ecommerce__products') }}
 ),
 
-orders as (
-    select *
-    from {{ ref('int_orders_enriched') }}
-),
-order_items as (
-    select *
-    from {{ ref('int_order_items_enriched') }}
-),
+final AS (
+    SELECT
+        -- Primary Key generation for Star Schema integration
+        {{ dbt_utils.generate_surrogate_key(['p.product_id']) }} AS product_key,
 
-products_orders as (
-    select
-        oi.product_id,
-        min(oi.order_date) as first_order_date,
-        max(oi.order_date) as last_order_date,
-        count(distinct oi.order_id) as total_orders,
-        count(*) as total_units_sold,
-        sum(oi.price + oi.freight_value) as total_revenue,
-        count(distinct case when oi.order_status = 'canceled' then oi.order_id end) as canceled_orders,
-        count(distinct case when oi.order_status = 'canceled' then oi.order_id end)::float / nullif(count(distinct oi.order_id), 0) * 100 as canceled_rate,
-        sum(o.review_count) as total_reviews,
-        sum(o.total_score) / nullif(sum(o.review_count), 0) as average_rating
-    from order_items oi
-    left join orders o using (order_id)
-    group by product_id
-),
-
-final as (
-    select
-        -- Generate surrogate key for product dimension
-        {{ dbt_utils.generate_surrogate_key(['p.product_id']) }} as product_key,
+        -- Natural Key
         p.product_id,
-        p.product_category_english as product_category,
 
-        -- Product sales attributes
-        po.first_order_date,
-        po.last_order_date,
-        po.total_orders,
-        po.total_units_sold,
-        po.canceled_orders,
-        po.canceled_rate,
-        po.total_revenue,
+        -- Clean, descriptive text descriptors
+        p.product_category_english AS product_category,
 
-        -- Product review attributes
-        po.total_reviews,
-        po.average_rating,
-
-        -- Product segmentation based on revenue
-        case
-            when po.total_revenue is null then 'no_sales'
-            when po.total_revenue >= {{ var('platinum_value_threshold') }} then 'platinum'
-            when po.total_revenue >= {{ var('gold_value_threshold') }} then 'gold'
-            when po.total_revenue >= {{ var('silver_value_threshold') }} then 'silver'
-            else 'bronze'
-        end as performance_segment,
-
-        -- Product attributes
+        -- Immutable physical specifications
         p.name_length,
         p.description_length,
         p.photos_qty,
@@ -70,12 +26,11 @@ final as (
         p.height_cm,
         p.width_cm,
 
-        -- Metadata
-        current_timestamp() as created_at,
-        current_timestamp() as updated_at
+        -- Production Lineage Metadata
+        CURRENT_TIMESTAMP() AS created_at,
+        CURRENT_TIMESTAMP() AS updated_at
 
-    from products p
-    left join products_orders po using (product_id)
+    FROM products p
 )
 
-select * from final
+SELECT * FROM final

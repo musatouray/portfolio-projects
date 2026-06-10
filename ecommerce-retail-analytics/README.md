@@ -186,29 +186,25 @@ ECOMMERCE_RETAIL_DB_PROD (Gold Only - Dashboards Connect Here)
 ### Dimensional Model
 
 **Core Fact Tables:**
-- `fct_orders` - Grain: one row per order with metrics
-- `fct_order_items` - Grain: one row per order item
+- `fct_orders` - Grain: one row per order with metrics and deterministic FKs
+- `fct_order_items` - Grain: one row per order item with deterministic FKs
 
 **Customer Fact Tables:**
-- `fct_rfm_segments` - Grain: one row per customer with RFM scores and segments
-- `fct_cohort_retention` - Grain: one row per cohort per period
-- `fct_clv_customer` - Grain: one row per customer with CLV metrics
-- `fct_churn_risk` - Grain: one row per customer with churn risk scores
+- `fct_rfm_segments` - Grain: one row per customer per month (RFM + churn risk snapshots)
+- `fct_cohort_retention` - Grain: one row per cohort per period with GRR/NRR metrics
+- `fct_clv_customer` - Grain: one row per customer with CLV and behavioral segments
 
 **Finance Fact Tables:**
-- `fct_daily_revenue` - Grain: one row per day
-- `fct_payment_analysis` - Grain: one row per payment type per month
+- `fct_order_payments` - Grain: one row per payment line item with deterministic FKs
 
 **Marketing Fact Tables:**
-- `fct_category_performance` - Grain: one row per category per month
-- `fct_geo_performance` - Grain: one row per state per month
+- `fct_market_basket` - Grain: one row per product pair with co-occurrence counts
 
 **Dimension Tables:**
-- `dim_customers` - Customer attributes, location, and cohort assignment
-- `dim_cohorts` - Acquisition cohorts with aggregate metrics
-- `dim_dates` - Date dimension with calendar attributes
-- `dim_products` - Product catalog with English categories
-- `dim_sellers` - Seller information and location
+- `dim_customers` - Pure customer dimension with attributes and cohort assignment
+- `dim_dates` - Pre-generated date dimension (2016-2028) with period start dates
+- `dim_products` - Pure product dimension with English categories
+- `dim_sellers` - Pure seller dimension with location and primary category
 
 ## Project Structure
 

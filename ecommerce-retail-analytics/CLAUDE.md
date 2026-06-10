@@ -118,8 +118,7 @@ ecommerce-retail-analytics/          # Project root (within portfolio-projects r
     ├── packages.yml                 # dbt_utils, audit_helper, codegen
     │
     ├── macros/
-    │   ├── generate_schema_name.sql  # Custom schema naming
-    │   └── generate_date_spine.sql   # Date spine generator for dim_dates
+    │   └── generate_schema_name.sql  # Custom schema naming
     │
     ├── seeds/
     │   └── rfm_segment_definitions.csv
@@ -139,7 +138,6 @@ ecommerce-retail-analytics/          # Project root (within portfolio-projects r
         └── marts/                   # Fact and dimension tables
             ├── core/                # Shared dimensions & facts
             │   ├── dim_customers.sql
-            │   ├── dim_cohorts.sql
             │   ├── dim_dates.sql
             │   ├── dim_products.sql
             │   ├── dim_sellers.sql
@@ -148,14 +146,11 @@ ecommerce-retail-analytics/          # Project root (within portfolio-projects r
             ├── customer/            # Customer analytics
             │   ├── fct_rfm_segments.sql
             │   ├── fct_cohort_retention.sql
-            │   ├── fct_clv_customer.sql
-            │   └── fct_churn_risk.sql
-            ├── finance/             # Revenue & payment analytics
-            │   ├── fct_daily_revenue.sql
-            │   └── fct_payment_analysis.sql
-            └── marketing/           # Category & geo analytics
-                ├── fct_category_performance.sql
-                └── fct_geo_performance.sql
+            │   └── fct_clv_customer.sql
+            ├── finance/             # Payment analytics
+            │   └── fct_order_payments.sql
+            └── marketing/           # Basket analysis
+                └── fct_market_basket.sql
 ```
 
 ## Snowflake Configuration
@@ -326,43 +321,38 @@ select * from renamed
 
 | Model | Grain | Description |
 |-------|-------|-------------|
-| dim_customers | customer_unique_id | Customer dimension with attributes, location, and cohort assignment |
-| dim_cohorts | cohort_month | Acquisition cohort dimension with cohort attributes (cohort_size for filtering) |
-| dim_dates | date | Date dimension generated from order date range |
-| dim_products | product_id | Product dimension with English category names |
-| dim_sellers | seller_id | Seller dimension with location |
-| fct_orders | order_id | Order fact table with metrics |
-| fct_order_items | (order_id, order_item_id) | Order item fact table with product and seller details |
+| dim_customers | customer_unique_id | Pure customer dimension with attributes, location, and cohort assignment |
+| dim_dates | date | Pre-generated date dimension (2016-2028) with period start dates |
+| dim_products | product_id | Pure product dimension with English category names |
+| dim_sellers | seller_id | Pure seller dimension with location and primary category |
+| fct_orders | order_id | Order fact table with deterministic FK generation |
+| fct_order_items | (order_id, order_item_id) | Order item fact table with deterministic FK generation |
 
 ### Customer (`marts/customer/`)
 
 | Model | Grain | Description |
 |-------|-------|-------------|
-| fct_rfm_segments | customer_unique_id | RFM scoring and segmentation with segment_id for sorting |
-| fct_cohort_retention | (cohort_month, period_number) | Cohort retention rates, period revenue, and orders by period |
-| fct_clv_customer | customer_unique_id | Customer Lifetime Value with predictions and segments |
-| fct_churn_risk | customer_unique_id | Churn risk scoring and status (Active, Cooling, At Risk, Churned) |
+| fct_rfm_segments | (snapshot_month, customer_unique_id) | Monthly RFM + churn risk snapshots for segment migration analysis |
+| fct_cohort_retention | (cohort_month, period) | Self-contained cohort retention with GRR/NRR metrics |
+| fct_clv_customer | customer_unique_id | Customer Lifetime Value with 12-month projection and behavioral segments |
 
 ### Finance (`marts/finance/`)
 
 | Model | Grain | Description |
 |-------|-------|-------------|
-| fct_daily_revenue | date | Daily revenue aggregates |
-| fct_payment_analysis | payment_type, month | Payment method performance by month |
+| fct_order_payments | (order_id, payment_sequential, payment_type) | Payment line items with deterministic FK generation |
 
 ### Marketing (`marts/marketing/`)
 
 | Model | Grain | Description |
 |-------|-------|-------------|
-| fct_category_performance | category, month | Category sales metrics by month |
-| fct_geo_performance | state, month | Geographic performance by month |
+| fct_market_basket | (product_id_a, product_id_b) | Product pair co-occurrence counts for basket analysis |
 
 ## Custom Macros
 
 | Macro | Purpose |
 |-------|---------|
 | `generate_schema_name` | Uses schema names directly without appending to target |
-| `get_order_date_spine` | Generates date spine from min/max order dates using dbt_utils.date_spine |
 
 ## Testing Strategy
 
