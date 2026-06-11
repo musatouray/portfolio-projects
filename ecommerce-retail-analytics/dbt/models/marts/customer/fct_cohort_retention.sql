@@ -71,6 +71,9 @@ final AS (
             'a.period'
         ]) }} AS cohort_retention_key,
 
+        -- Numeric date key for easier time-series analysis
+        TO_NUMERIC(TO_CHAR(a.cohort_month, 'YYYYMMDD')) AS cohort_date_key,
+
         a.cohort_month,
         cs.cohort_size,
         a.period,
@@ -78,7 +81,7 @@ final AS (
         a.period_orders,
         ROUND(a.period_revenue, 2) AS period_revenue,
 
-        -- Enterprise Standard Retention Metrics
+        -- Retention Metrics
         ROUND(LEAST(a.period_revenue, cbr.cohort_initial_revenue), 2) AS gross_retained_revenue,
         ROUND(a.period_revenue, 2) AS net_retained_revenue,
         ROUND(cbr.cohort_initial_revenue, 2) AS cohort_initial_revenue,

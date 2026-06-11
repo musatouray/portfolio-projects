@@ -102,6 +102,9 @@ calculated_risk AS (
 SELECT
     {{ dbt_utils.generate_surrogate_key(['snapshot_month', 'customer_unique_id']) }} AS rfm_snapshot_key,
     {{ dbt_utils.generate_surrogate_key(['customer_unique_id']) }} AS customer_key,
+
+    -- Numeric date key for easier time-series analysis
+    TO_NUMERIC(TO_CHAR(snapshot_month, 'YYYYMMDD')) AS snapshot_date_key,
     snapshot_month,
     customer_unique_id,
     recency_days,
