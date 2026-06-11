@@ -1,95 +1,56 @@
 -- Customer dimension table with one row per unique customer
--- Use this for customer-level analytics: segmentation, lifetime value, and retention metrics
+-- Pure dimension containing customer attributes and cohort assignment
+-- Transactional metrics (orders, revenue, etc.) belong in fact tables
 
-with customers as (
-    select * from {{ ref('stg_ecommerce__customers') }}
+WITH customers AS (
+    SELECT * FROM {{ ref('stg_ecommerce__customers') }}
 ),
 
-orders as (
-    select * from {{ ref('int_orders_enriched') }}
+orders AS (
+    SELECT * FROM {{ ref('int_orders_enriched') }}
+    WHERE order_status NOT IN ('canceled', 'unavailable')
 ),
 
--- Aggregate orders at the customer level grain
-customer_orders as (
-    select
+-- Isolate acquisition milestones cleanly without mixing transactional metrics
+customer_first_orders AS (
+    SELECT
         customer_unique_id,
-        min(order_date) as first_order_date,
-        max(order_date) as last_order_date,
-        count(distinct order_id) as total_orders,
-        sum(total_payment_value) as total_revenue,
-        sum(review_count) as total_reviews,
-        -- Weighted average: sum of all scores / total number of reviews
-        sum(total_score) / nullif(sum(review_count), 0) as average_rating
-    from orders
-    group by customer_unique_id
+        MIN(order_date) AS first_order_date
+    FROM orders
+    GROUP BY 1
 ),
 
--- Dedupe customers to unique customer level (take most recent address)
-deduped_customers as (
-    select
+-- Dedupe customers safely to unique customer level (take most recent address)
+deduped_customers AS (
+    SELECT
         customer_unique_id,
-        first_value(zip_code) over (partition by customer_unique_id order by customer_id desc) as zip_code,
-        first_value(city) over (partition by customer_unique_id order by customer_id desc) as city,
-        first_value(state) over (partition by customer_unique_id order by customer_id desc) as state
-    from customers
-    qualify row_number() over (partition by customer_unique_id order by customer_id desc) = 1
+        FIRST_VALUE(zip_code) OVER (PARTITION BY customer_unique_id ORDER BY customer_id DESC) AS zip_code,
+        FIRST_VALUE(city) OVER (PARTITION BY customer_unique_id ORDER BY customer_id DESC) AS city,
+        FIRST_VALUE(state) OVER (PARTITION BY customer_unique_id ORDER BY customer_id DESC) AS state
+    FROM customers
+    -- Enforce deterministic deduplication via qualify window step
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY customer_unique_id ORDER BY customer_id DESC) = 1
 ),
 
-final as (
-    select
-        -- Generate surrogate key for customer dimension
-        {{ dbt_utils.generate_surrogate_key(['dc.customer_unique_id']) }} as customer_key,
-        -- FK to dim_cohorts (must match cohort_key generation in dim_cohorts)
-        {{ dbt_utils.generate_surrogate_key(['date_trunc(month, co.first_order_date)']) }} as cohort_key,
+final AS (
+    SELECT
+        -- Primary Key generation for downstream Star Schema mapping
+        {{ dbt_utils.generate_surrogate_key(['dc.customer_unique_id']) }} AS customer_key,
         dc.customer_unique_id,
         dc.zip_code,
         dc.city,
         dc.state,
-        co.first_order_date,
-        co.last_order_date,
-        coalesce(co.total_orders, 0) as total_orders,
-        coalesce(co.total_revenue, 0) as total_revenue,
-        co.total_revenue / nullif(co.total_orders, 0) as average_order_value,
-        co.total_reviews,
-        co.average_rating,
-        datediff(day, co.last_order_date, current_date) as days_since_last_order,
-        datediff(day, co.first_order_date, co.last_order_date) as customer_tenure_days,
 
-        -- Customer purchase segment
-        case
-            when co.total_orders is null then 'prospect'
-            when co.total_orders = 1 then 'new'
-            else 'returning'
-        end as customer_segment,
+        -- Flat, immutable temporal descriptors instead of surrogate bridge keys
+        cfo.first_order_date,
+        DATE_TRUNC('MONTH', cfo.first_order_date) AS cohort_month,
 
-        -- Customer value segment based on revenue
-        case
-            when co.total_revenue is null then 'unknown'
-            when co.total_revenue >= {{ var('customer_high_value_threshold') }} then 'high_value'
-            when co.total_revenue >= {{ var('customer_medium_value_threshold') }} then 'medium_value'
-            else 'low_value'
-        end as customer_value_segment,
-
-        -- Customer satisfaction segment based on average rating
-        case
-            when co.average_rating is null then 'unknown'
-            when co.average_rating >= {{ var('customer_promoter_threshold') }} then 'promoter'
-            when co.average_rating >= {{ var('customer_neutral_threshold') }} then 'neutral'
-            else 'detractor'
-        end as customer_satisfaction_segment,
-
-        -- Active customer flag
-        case
-            when datediff(day, co.last_order_date, current_date) <= {{ var('active_days_threshold') }} then TRUE
-            else FALSE
-        end as is_active,
-        
-        -- Metadata
-        current_timestamp() as created_at,
-        current_timestamp() as updated_at
-
-    from deduped_customers dc
-    left join customer_orders co using (customer_unique_id)
+        -- Metadata logging for pipeline lineage tracking
+        CURRENT_TIMESTAMP() AS created_at,
+        CURRENT_TIMESTAMP() AS updated_at
+    FROM deduped_customers dc
+    -- LEFT JOIN guarantees prospects remain in system if your pipeline loads them
+    LEFT JOIN customer_first_orders cfo USING (customer_unique_id)
 )
 
-select * from final
+SELECT * FROM final

@@ -10,10 +10,10 @@ models:
   # Customers dimension model
   - name: dim_customers
     description: >
-      Customer dimension table containing customer attributes, location,
-      aggregated order metrics, and behavioral segmentation. Grain is one row
-      per unique customer (customer_unique_id). Includes customers who have
-      never placed an order (prospects).
+      Pure customer dimension table containing customer attributes, location, and cohort assignment.
+      Grain is one row per unique customer (customer_unique_id). Includes customers who have
+      never placed an order (prospects). Transactional metrics (orders, revenue, segments) are
+      calculated in downstream fact tables. Excludes canceled/unavailable orders from cohort assignment.
     columns:
       - name: customer_key
         description: Surrogate key for the customer dimension, generated from customer_unique_id
@@ -27,9 +27,6 @@ models:
           - unique
           - not_null
 
-      - name: cohort_key
-        description: Foreign key to dim_cohorts (acquisition cohort)
-
       - name: zip_code
         description: Customer's zip code (5-digit, zero-padded). Uses most recent address if customer has multiple orders.
 
@@ -40,83 +37,12 @@ models:
         description: Customer's state code (2-letter uppercase). Uses most recent address if customer has multiple orders.
 
       - name: first_order_date
-        description: Date of the customer's first order. NULL for prospects.
+        description: Date of the customer's first order (excluding canceled/unavailable). NULL for prospects.
 
-      - name: last_order_date
-        description: Date of the customer's most recent order. NULL for prospects.
-
-      - name: total_orders
-        description: Total number of orders placed by the customer. 0 for prospects.
-        data_tests:
-          - not_null
-
-      - name: total_revenue
-        description: Total payment value across all customer orders (BRL). 0 for prospects.
-        data_tests:
-          - not_null
-
-      - name: average_order_value
-        description: Average payment value per order (total_revenue / total_orders). NULL for prospects.
-
-      - name: total_reviews
-        description: Total number of reviews submitted by the customer across all orders. NULL for prospects.
-
-      - name: average_rating
+      - name: cohort_month
         description: >
-          Weighted average review score across all customer reviews (1-5 scale).
-          Computed as sum of all review scores / total review count, not average of order averages.
-          NULL if customer has no reviews.
-
-      - name: days_since_last_order
-        description: Number of days between last order date and current date. NULL for prospects.
-
-      - name: customer_tenure_days
-        description: Number of days between first and last order. 0 for single-order customers, NULL for prospects.
-
-      - name: customer_segment
-        description: >
-          Customer purchase behavior segment:
-          - prospect: No orders placed
-          - new: Exactly 1 order placed
-          - returning: 2+ orders placed
-        data_tests:
-          - not_null
-          - accepted_values:
-              arguments:
-                values: ['prospect', 'new', 'returning']
-
-      - name: customer_value_segment
-        description: >
-          Customer value segment based on total revenue. Thresholds configurable via dbt vars:
-          - unknown: No orders (prospect)
-          - high_value: Revenue >= $customer_high_value_threshold (default 500)
-          - medium_value: Revenue >= $customer_medium_value_threshold (default 100)
-          - low_value: Revenue < $customer_medium_value_threshold
-        data_tests:
-          - not_null
-          - accepted_values:
-              arguments:
-                values: ['unknown', 'high_value', 'medium_value', 'low_value']
-
-      - name: customer_satisfaction_segment
-        description: >
-          Customer satisfaction segment based on average review rating. Thresholds configurable via dbt vars:
-          - unknown: No reviews submitted
-          - promoter: Average rating >= $customer_promoter_threshold (default 4.5)
-          - neutral: Average rating >= $customer_neutral_threshold (default 3.0)
-          - detractor: Average rating < $customer_neutral_threshold
-        data_tests:
-          - not_null
-          - accepted_values:
-              arguments:
-                values: ['unknown', 'promoter', 'neutral', 'detractor']
-
-      - name: is_active
-        description: >
-          TRUE if customer's last order was within $customer_active_days_threshold days (default 180).
-          FALSE otherwise, including prospects.
-        data_tests:
-          - not_null
+          Month when the customer made their first purchase (DATE_TRUNC of first_order_date).
+          NULL for prospects. Used for cohort analysis without requiring FK joins.
 
       - name: created_at
         description: Timestamp when this record was created in the data warehouse
@@ -131,10 +57,9 @@ models:
   # Sellers dimension model
   - name: dim_sellers
     description: >
-      Seller dimension table containing seller attributes, location,
-      aggregated order metrics, delivery performance, and segmentation.
-      Grain is one row per seller (seller_id). Includes sellers who have
-      never completed an order.
+      Pure seller dimension table containing seller attributes and location only.
+      Grain is one row per seller (seller_id). Includes all sellers.
+      Transactional metrics (orders, revenue, delivery performance) belong in fact tables.
     columns:
       - name: seller_key
         description: Surrogate key for the seller dimension, generated from seller_id
@@ -158,37 +83,10 @@ models:
         description: Seller's state code (2-letter uppercase)
 
       - name: latitude
-        description: Geographic latitude of seller location (from geolocation data)
+        description: Geographic latitude of seller location (deterministic geo deduplication)
 
       - name: longitude
-        description: Geographic longitude of seller location (from geolocation data)
-
-      - name: first_order_date
-        description: Date of the seller's first order. NULL if no orders.
-
-      - name: last_order_date
-        description: Date of the seller's most recent order. NULL if no orders.
-
-      - name: seller_tenure_days
-        description: Number of days between first and last order. NULL if no orders.
-
-      - name: days_since_last_sale
-        description: Number of days between last order date and current date. NULL if no orders.
-
-      - name: average_delivery_days
-        description: >
-          Average days from order purchase to customer delivery for delivered orders.
-          Measures total customer wait time. NULL if no delivered orders.
-
-      - name: average_shipping_transit_days
-        description: >
-          Average days from carrier pickup to customer delivery for delivered orders.
-          Measures shipping transit time. NULL if no delivered orders.
-
-      - name: average_fulfillment_days
-        description: >
-          Average days from order approval to customer delivery for delivered orders.
-          Measures fulfillment efficiency. NULL if no delivered orders.
+        description: Geographic longitude of seller location (deterministic geo deduplication)
 
       - name: primary_product_category
         description: >
@@ -197,52 +95,6 @@ models:
           'Unknown' if no category data available.
         data_tests:
           - not_null
-
-      - name: is_active
-        description: >
-          TRUE if seller's last order was within $active_days_threshold days (default 180).
-          NULL if seller has no orders.
-
-      - name: total_orders
-        description: Total number of distinct orders fulfilled by the seller. 0 if no orders.
-        data_tests:
-          - not_null
-
-      - name: total_items_sold
-        description: Total number of items sold by the seller across all orders. 0 if no orders.
-        data_tests:
-          - not_null
-
-      - name: total_revenue
-        description: Total revenue (price + freight) across all seller orders (BRL). 0 if no orders.
-        data_tests:
-          - not_null
-
-      - name: successful_orders
-        description: Number of distinct orders with 'delivered' status. 0 if no delivered orders.
-        data_tests:
-          - not_null
-
-      - name: sale_success_rate
-        description: >
-          Percentage of orders successfully delivered (delivered orders / total orders * 100).
-          0 if no orders.
-        data_tests:
-          - not_null
-
-      - name: performance_segment
-        description: >
-          Seller performance segment based on total revenue. Thresholds configurable via dbt vars:
-          - inactive: No orders
-          - platinum: Revenue >= $seller_platinum_value_threshold (default 10000)
-          - gold: Revenue >= $seller_gold_value_threshold (default 1000)
-          - silver: Revenue >= $seller_silver_value_threshold (default 100)
-          - bronze: Revenue < $seller_silver_value_threshold
-        data_tests:
-          - not_null
-          - accepted_values:
-              arguments:
-                values: ['inactive', 'platinum', 'gold', 'silver', 'bronze']
 
       - name: created_at
         description: Timestamp when this record was created in the data warehouse
@@ -257,10 +109,9 @@ models:
   # Products dimension model
   - name: dim_products
     description: >
-      Product dimension table containing product attributes, sales metrics,
-      review ratings, and performance segmentation.
-      Grain is one row per product (product_id). Includes products that have
-      never been sold.
+      Pure product dimension table containing product attributes only.
+      Grain is one row per product (product_id). Includes all products.
+      Transactional metrics (sales, reviews, performance) belong in fact tables.
     columns:
       - name: product_key
         description: Surrogate key for the product dimension, generated from product_id
@@ -276,52 +127,6 @@ models:
 
       - name: product_category
         description: Product category name in English (translated from Portuguese)
-
-      - name: first_order_date
-        description: Date of the product's first sale. NULL if never sold.
-
-      - name: last_order_date
-        description: Date of the product's most recent sale. NULL if never sold.
-
-      - name: total_orders
-        description: Total number of distinct orders containing this product. NULL if never sold.
-
-      - name: total_units_sold
-        description: Total number of units sold across all orders. NULL if never sold.
-
-      - name: canceled_orders
-        description: Number of order items canceled for this product. NULL if never sold.
-
-      - name: canceled_rate
-        description: >
-          Percentage of orders canceled (canceled orders / total orders * 100).
-          NULL if never sold.
-
-      - name: total_revenue
-        description: Total revenue (price + freight) from this product (BRL). NULL if never sold.
-
-      - name: total_reviews
-        description: Total number of reviews for orders containing this product. NULL if never sold.
-
-      - name: average_rating
-        description: >
-          Weighted average review score for this product (1-5 scale).
-          Computed as sum of all review scores / total review count.
-          NULL if no reviews.
-
-      - name: performance_segment
-        description: >
-          Product performance segment based on total revenue. Thresholds configurable via dbt vars:
-          - no_sales: Never sold
-          - platinum: Revenue >= $platinum_value_threshold
-          - gold: Revenue >= $gold_value_threshold
-          - silver: Revenue >= $silver_value_threshold
-          - bronze: Revenue < $silver_value_threshold
-        data_tests:
-          - not_null
-          - accepted_values:
-              arguments:
-                values: ['no_sales', 'platinum', 'gold', 'silver', 'bronze']
 
       - name: name_length
         description: Length of product name in characters
@@ -354,62 +159,12 @@ models:
         data_tests:
           - not_null
 
-  # Cohorts dimension model
-  - name: dim_cohorts
-    description: >
-      Cohort dimension table grouping customers by their first purchase month.
-      Use this to slice metrics by acquisition cohort in Power BI dashboards.
-      Links to dim_customers and fct_cohort_retention via cohort_key.
-      Note: Revenue and order metrics are in fct_cohort_retention for period-level analysis.
-    columns:
-      - name: cohort_key
-        description: Surrogate key for the cohort dimension, generated from cohort_month
-        data_tests:
-          - unique
-          - not_null
-
-      - name: cohort_month
-        description: First day of the cohort month (e.g., 2017-01-01)
-        data_tests:
-          - unique
-          - not_null
-
-      - name: cohort_month_name
-        description: Human-readable cohort name (e.g., "Jan 2017")
-        data_tests:
-          - not_null
-
-      - name: cohort_year
-        description: Year of the cohort (e.g., 2017)
-        data_tests:
-          - not_null
-
-      - name: year_quarter
-        description: Year and quarter (e.g., "2017-Q1")
-        data_tests:
-          - not_null
-
-      - name: cohort_size
-        description: Number of customers acquired in this cohort (at P0)
-        data_tests:
-          - not_null
-
-      - name: created_at
-        description: Timestamp when this record was created in the data warehouse
-        data_tests:
-          - not_null
-
-      - name: updated_at
-        description: Timestamp when this record was last updated in the data warehouse
-        data_tests:
-          - not_null
-
   # Dates dimension model
   - name: dim_dates
     description: >
-      Date dimension table generated from the order date range in the source data.
-      Contains date attributes for time-based analysis including fiscal periods,
-      ISO week numbering, and relative offsets from current date.
+      Date dimension table with pre-generated date range (2016-2028).
+      Contains date attributes for time-based analysis including ISO week numbering,
+      period start dates, and weekend flags. Independent of transactional data.
     columns:
       - name: date_key
         description: Integer surrogate key in YYYYMMDD format (e.g., 20231225 for Dec 25, 2023)
@@ -435,6 +190,9 @@ models:
       - name: year_quarter
         description: Year and quarter in format YYYY-QN (e.g., 2023-Q4)
 
+      - name: year_start_date
+        description: First day of the year
+
       - name: year_month
         description: Year and month in format YYYY-MM (e.g., 2023-12)
 
@@ -443,6 +201,9 @@ models:
 
       - name: quarter_name
         description: Quarter name (Q1, Q2, Q3, Q4)
+
+      - name: quarter_start_date
+        description: First day of the quarter
 
       - name: month
         description: Month number (1-12)
@@ -453,11 +214,17 @@ models:
       - name: month_year
         description: Month and year in format Mon-YYYY (e.g., Dec-2023)
 
+      - name: month_start_date
+        description: First day of the month
+
       - name: week
         description: Week number of the year
 
       - name: year_week
         description: Week and year in format WW-YYYY
+
+      - name: week_start_date
+        description: First day of the week (Monday)
 
       - name: day
         description: Day of the month (1-31)
@@ -472,25 +239,23 @@ models:
         description: Snowflake day of week (0=Sunday, 6=Saturday)
 
       - name: is_weekend
-        description: TRUE if Saturday or Sunday (Snowflake convention)
+        description: TRUE if Saturday or Sunday
 
       - name: is_iso_weekend
         description: TRUE if Saturday or Sunday (ISO convention)
 
-      - name: day_offset
-        description: Days relative to current date (negative=past, 0=today, positive=future)
+      - name: month_initial
+        description: First letter of month name with zero-width spaces for Power BI sorting
 
-      - name: week_offset
-        description: Weeks relative to current date
+      - name: created_at
+        description: Timestamp when this record was created
+        data_tests:
+          - not_null
 
-      - name: month_offset
-        description: Months relative to current date
-
-      - name: quarter_offset
-        description: Quarters relative to current date
-
-      - name: year_offset
-        description: Years relative to current date
+      - name: updated_at
+        description: Timestamp when this record was last updated
+        data_tests:
+          - not_null
 
   # Orders fact table
   - name: fct_orders
@@ -541,7 +306,14 @@ models:
           - not_null
 
       - name: customer_key
-        description: Foreign key to dim_customers
+        description: Surrogate key matching dim_customers (deterministically generated, no join required)
+        data_tests:
+          - not_null
+
+      - name: customer_unique_id
+        description: Natural key - unique customer identifier from source system
+        data_tests:
+          - not_null
 
       - name: order_date_key
         description: Foreign key to dim_dates for order placement date
@@ -640,14 +412,30 @@ models:
         data_tests:
           - not_null
 
+      - name: product_id
+        description: Natural key - product identifier from source system
+        data_tests:
+          - not_null
+
+      - name: seller_id
+        description: Natural key - seller identifier from source system
+        data_tests:
+          - not_null
+
       - name: customer_key
-        description: Foreign key to dim_customers
+        description: Surrogate key matching dim_customers (deterministically generated, no join required)
+        data_tests:
+          - not_null
 
       - name: product_key
-        description: Foreign key to dim_products
+        description: Surrogate key matching dim_products (deterministically generated, no join required)
+        data_tests:
+          - not_null
 
       - name: seller_key
-        description: Foreign key to dim_sellers
+        description: Surrogate key matching dim_sellers (deterministically generated, no join required)
+        data_tests:
+          - not_null
 
       - name: order_date_key
         description: Foreign key to dim_dates for order placement date
@@ -657,13 +445,15 @@ models:
       - name: delivery_date_key
         description: Foreign key to dim_dates for customer delivery date
 
+      - name: order_date
+        description: Date when the order was placed
+        data_tests:
+          - not_null
+
       - name: order_status
         description: Current status of the order
         data_tests:
           - not_null
-
-      - name: product_category
-        description: Product category name in English (denormalized for quick access)
 
       - name: item_price
         description: Price of this item (BRL)
@@ -690,123 +480,3 @@ models:
         data_tests:
           - not_null
 
-  # Order funnel fact table
-  - name: fct_orders_funnel
-    description: >
-      Order funnel fact table tracking conversion rates through order lifecycle stages.
-      Use this for funnel visualization, drop-off analysis, and cycle time monitoring.
-      Grain is one row per month.
-    columns:
-      - name: funnel_key
-        description: Surrogate key for the funnel record, generated from funnel_month
-        data_tests:
-          - unique
-          - not_null
-
-      - name: date_key
-        description: Foreign key to dim_dates (first of month)
-        data_tests:
-          - not_null
-
-      - name: month_date
-        description: First day of the month
-        data_tests:
-          - not_null
-
-      - name: month_year
-        description: Human-readable month-year (e.g., "Jan-2017")
-        data_tests:
-          - not_null
-
-      - name: orders_placed
-        description: Total orders placed in this month
-        data_tests:
-          - not_null
-
-      - name: orders_approved
-        description: Orders that were approved (payment confirmed)
-        data_tests:
-          - not_null
-
-      - name: orders_shipped
-        description: Orders handed to carrier for delivery
-        data_tests:
-          - not_null
-
-      - name: orders_delivered
-        description: Orders successfully delivered to customer
-        data_tests:
-          - not_null
-
-      - name: orders_reviewed
-        description: Orders that received at least one review
-        data_tests:
-          - not_null
-
-      - name: orders_canceled
-        description: Orders that were canceled
-        data_tests:
-          - not_null
-
-      - name: orders_unavailable
-        description: Orders marked as unavailable
-        data_tests:
-          - not_null
-
-      - name: dropped_before_approval
-        description: Orders that dropped before approval stage
-
-      - name: dropped_before_shipping
-        description: Orders that dropped between approval and shipping
-
-      - name: dropped_before_delivery
-        description: Orders that dropped between shipping and delivery
-
-      - name: dropped_before_review
-        description: Orders delivered but not reviewed (can be negative if reviews submitted late)
-
-      - name: placed_to_approved_pct
-        description: Conversion rate from placed to approved (%)
-
-      - name: approved_to_shipped_pct
-        description: Conversion rate from approved to shipped (%)
-
-      - name: shipped_to_delivered_pct
-        description: Conversion rate from shipped to delivered (%)
-
-      - name: delivered_to_reviewed_pct
-        description: Conversion rate from delivered to reviewed (%)
-
-      - name: overall_delivery_rate
-        description: Overall conversion rate from placed to delivered (%)
-
-      - name: overall_review_rate
-        description: Overall conversion rate from placed to reviewed (%)
-
-      - name: cancellation_rate
-        description: Percentage of orders canceled (%)
-
-      - name: unavailability_rate
-        description: Percentage of orders marked unavailable (%)
-
-      - name: avg_days_to_approval
-        description: Average days from order placement to approval
-
-      - name: avg_days_to_ship
-        description: Average days from approval to carrier pickup
-
-      - name: avg_days_in_transit
-        description: Average days from carrier pickup to customer delivery
-
-      - name: avg_days_to_delivery
-        description: Average days from order placement to customer delivery
-
-      - name: created_at
-        description: Timestamp when this record was created
-        data_tests:
-          - not_null
-
-      - name: updated_at
-        description: Timestamp when this record was last updated
-        data_tests:
-          - not_null

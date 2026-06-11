@@ -1,93 +1,74 @@
 -- Fact table for order items at line-item grain (one row per order item)
 -- Use this for product/seller analytics: category performance, seller metrics, basket analysis
 -- Uses role-playing dimensions for date contexts
+
 {{
     config(
-        materialized = 'incremental',
-        unique_key = 'order_item_key',
-        incremental_strategy = 'merge'
+        materialized='incremental',
+        unique_key='order_item_key',
+        incremental_strategy='merge',
+        cluster_by=['order_date_key', 'product_key', 'seller_key']
     )
 }}
 
-with
+WITH
 {{ incremental_max_date_cte('order_date') }}
 
-order_items as (
-    select *
-    from {{ ref('int_order_items_enriched') }}
+order_items AS (
+    SELECT *
+    FROM {{ ref('int_order_items_enriched') }}
     {{ incremental_where_clause('order_date') }}
 ),
 
-orders as (
-    select order_id, customer_unique_id
-    from {{ ref('int_orders_enriched') }}
-    {{ incremental_where_clause('order_date') }}
+orders AS (
+    -- Remove the incremental clause here to protect against lookups on cross-window line updates
+    SELECT
+        order_id,
+        customer_unique_id
+    FROM {{ ref('int_orders_enriched') }}
 ),
 
-dim_customers as (
-    select customer_key, customer_unique_id
-    from {{ ref('dim_customers') }}
+dim_dates AS (
+    SELECT date_key, date FROM {{ ref('dim_dates') }}
 ),
 
-dim_products as (
-    select product_key, product_id
-    from {{ ref('dim_products') }}
-),
+final AS (
+    SELECT
+        -- Primary Key (Composite line grain mapping)
+        {{ dbt_utils.generate_surrogate_key(['oi.order_id', 'oi.order_item_id']) }} AS order_item_key,
 
-dim_sellers as (
-    select seller_key, seller_id
-    from {{ ref('dim_sellers') }}
-),
-
-dim_dates as (
-    select date_key, date
-    from {{ ref('dim_dates') }}
-),
-
-final as (
-    select
-        -- Surrogate key (composite grain)
-        {{ dbt_utils.generate_surrogate_key(['oi.order_id', 'oi.order_item_id']) }} as order_item_key,
-
-        -- Natural keys
+        -- Natural Keys
         oi.order_id,
         oi.order_item_id,
+        oi.product_id,
+        oi.seller_id,
 
-        -- Dimension keys
-        c.customer_key,
-        p.product_key,
-        s.seller_key,
+        -- Deterministic FK Generation (Eliminates 3 brittle dimension LEFT JOINs)
+        {{ dbt_utils.generate_surrogate_key(['o.customer_unique_id']) }} AS customer_key,
+        {{ dbt_utils.generate_surrogate_key(['oi.product_id']) }} AS product_key,
+        {{ dbt_utils.generate_surrogate_key(['oi.seller_id']) }} AS seller_key,
 
         -- Role-playing date dimension keys
-        d_order.date_key as order_date_key,
-        d_delivery.date_key as delivery_date_key,
+        d_order.date_key AS order_date_key,
+        d_delivery.date_key AS delivery_date_key,
 
-        -- Date columns (for incremental filtering and direct queries)
+        -- Date columns for direct queries
         oi.order_date,
-
-        -- Order attributes
         oi.order_status,
 
-        -- Product attributes (for quick access without joining dim)
-        oi.product_category_english as product_category,
+        -- Item financial metrics
+        oi.price AS item_price,
+        oi.freight_value AS item_freight,
+        oi.price + oi.freight_value AS item_total,
 
-        -- Item metrics
-        oi.price as item_price,
-        oi.freight_value as item_freight,
-        oi.price + oi.freight_value as item_total,
+        -- Pipeline Lineage Metadata
+        CURRENT_TIMESTAMP() AS created_at,
+        CURRENT_TIMESTAMP() AS updated_at
 
-        -- Metadata
-        current_timestamp() as created_at,
-        current_timestamp() as updated_at
-
-    from order_items oi
-    left join orders o on oi.order_id = o.order_id
-    left join dim_customers c on o.customer_unique_id = c.customer_unique_id
-    left join dim_products p on oi.product_id = p.product_id
-    left join dim_sellers s on oi.seller_id = s.seller_id
-    -- Role-playing date dimensions
-    left join dim_dates d_order on oi.order_date = d_order.date
-    left join dim_dates d_delivery on oi.delivered_customer_date::date = d_delivery.date
+    FROM order_items oi
+    INNER JOIN orders o ON oi.order_id = o.order_id
+    LEFT JOIN dim_dates d_order ON oi.order_date = d_order.date
+    LEFT JOIN dim_dates d_delivery ON DATE(oi.delivered_customer_date) = d_delivery.date
 )
 
-select * from final
+SELECT * FROM final
