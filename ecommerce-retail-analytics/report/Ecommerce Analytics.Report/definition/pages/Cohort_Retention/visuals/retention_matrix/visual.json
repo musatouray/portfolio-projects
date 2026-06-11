@@ -1,10 +1,10 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "retention_matrix",
   "position": {
     "x": 0,
     "y": 0,
-    "z": 0,
+    "z": 2000,
     "height": 637.63191241319885,
     "width": 1146.8031831314308,
     "tabOrder": 1000
@@ -1116,6 +1116,48 @@
           "selector": {
             "metadata": "_Measures.Avg Frequency"
           }
+        },
+        {
+          "properties": {
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Cohort Avg Order Value"
+          }
+        },
+        {
+          "properties": {
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "1L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Cohort Avg Customer Value"
+          }
+        },
+        {
+          "properties": {
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Cohort Revenue"
+          }
         }
       ],
       "subTotals": [
@@ -1178,8 +1220,13 @@
           "properties": {
             "text": {
               "expr": {
-                "Literal": {
-                  "Value": "'Retention Heatmap (Cohort x Period)'"
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Cohort Heatmap Title"
                 }
               }
             },
@@ -1258,8 +1305,13 @@
           "properties": {
             "text": {
               "expr": {
-                "Literal": {
-                  "Value": "' '"
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Cohort Period Title"
                 }
               }
             },
@@ -1621,6 +1673,13 @@
                   }
                 }
               }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
             }
           }
         }
@@ -1628,65 +1687,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "01bdd60043472a446dd6",
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "f71515db00eb807baaee",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "FCT_COHORT_RETENTION"
-              }
-            },
-            "Property": "PERIOD_NUMBER"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "040b3a0c108530636209",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DIM_COHORTS"
-              }
-            },
-            "Property": "COHORT_MONTH_NAME"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "1c3a8fad1220a1c8c3c8",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DIM_COHORTS"
-              }
-            },
-            "Property": "COHORT_SIZE"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "d7bfcb63c88592ada5ce",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Retention Rate"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
-  }
+  "parentGroupName": "01bdd60043472a446dd6"
 }

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "03e35d1fb97d03bb1ee4",
   "position": {
     "x": 18.527138216780145,
@@ -7,7 +7,7 @@
     "z": 1000,
     "height": 679.67357696791521,
     "width": 214.8796188352172,
-    "tabOrder": 4000
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "listSlicer",
@@ -456,7 +456,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Jul-2018'"
+                                "Value": "'Aug-2018'"
                               }
                             }
                           ]
@@ -929,23 +929,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "17881cbfcbe00dcc33db",
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "6b92c5c244b732c209a0",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Disconnected Calendar"
-              }
-            },
-            "Property": "Month Year"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
-  }
+  "parentGroupName": "17881cbfcbe00dcc33db"
 }

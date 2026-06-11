@@ -1,9 +1,9 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "retention_curve",
   "position": {
-    "x": 1204.0265598864617,
-    "y": 754.41431395407778,
+    "x": 1175.9987835166507,
+    "y": 339.83678848395766,
     "z": 0,
     "height": 297.79512392924124,
     "width": 686.680521060368,
@@ -90,8 +90,27 @@
             }
           }
         }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Cohort Period Title"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
-  }
+  },
+  "parentGroupName": "01bdd60043472a446dd6"
 }

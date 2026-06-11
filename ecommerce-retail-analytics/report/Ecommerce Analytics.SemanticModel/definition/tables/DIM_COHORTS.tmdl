@@ -34,7 +34,7 @@ table DIM_COHORTS
 	column COHORT_YEAR
 		dataType: int64
 		lineageTag: 9dbb0837-728d-4326-98aa-68489338cc2b
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: COHORT_YEAR
 
 		changedProperty = DataType
