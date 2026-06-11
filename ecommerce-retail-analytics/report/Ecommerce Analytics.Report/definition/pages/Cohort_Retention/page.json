@@ -57,6 +57,5 @@
       }
     ]
   },
-  "visibility": "HiddenInViewMode",
-  "visualInteractions": []
+  "visibility": "HiddenInViewMode"
 }

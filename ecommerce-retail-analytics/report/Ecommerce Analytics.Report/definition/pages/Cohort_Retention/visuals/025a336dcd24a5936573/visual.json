@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "025a336dcd24a5936573",
   "position": {
     "x": 16.864666227380894,
     "y": 137.43403112169904,
-    "z": 2500,
+    "z": 3000,
     "height": 104.68082662506102,
     "width": 240,
-    "tabOrder": 6002
+    "tabOrder": 5000
   },
   "visual": {
     "visualType": "textSlicer",
@@ -64,7 +64,7 @@
                         },
                         "Right": {
                           "Literal": {
-                            "Value": "2500M"
+                            "Value": "2000M"
                           }
                         }
                       }
@@ -340,23 +340,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "17881cbfcbe00dcc33db",
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "74ebbd9b60158cd958dc",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Param: Cohort Size"
-              }
-            },
-            "Property": "Param: Cohort Size"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
-  }
+  "parentGroupName": "17881cbfcbe00dcc33db"
 }

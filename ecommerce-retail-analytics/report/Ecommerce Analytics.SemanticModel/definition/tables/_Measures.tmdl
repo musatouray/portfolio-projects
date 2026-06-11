@@ -388,20 +388,15 @@ table _Measures
 	/// =============================================
 	measure 'Cohort Size' = ```
 			
-			VAR __CohortSize = [Param: Cohort Size Value]
-			VAR __CohortAsOfDate = [As on Cohort Date]
-			
-			RETURN
-			CALCULATE(
+			VAR __CohortSize = [Param: Cohort Size Value] 
+			VAR __CohortAsOfDate = [As on Cohort Date] 
+			RETURN 
+			CALCULATE( 
 			    SUM(FCT_COHORT_RETENTION[COHORT_SIZE]), 
-			    FCT_COHORT_RETENTION[PERIOD_NUMBER] = 0,
-			    FILTER(
-			        DIM_COHORTS,
-			        DIM_COHORTS[COHORT_MONTH] <= __CohortAsOfDate &&
-			        DIM_COHORTS[COHORT_SIZE] >= __CohortSize
-			    )
+			   // FCT_COHORT_RETENTION[PERIOD_NUMBER] = 0,
+			    KEEPFILTERS(DIM_COHORTS[COHORT_MONTH] <= __CohortAsOfDate),
+			    KEEPFILTERS(DIM_COHORTS[COHORT_SIZE] >= __CohortSize)
 			)
-			
 			
 			```
 		formatString: #,0
@@ -410,17 +405,13 @@ table _Measures
 
 	measure 'Retained Customers' = ```
 			
-			VAR __CohortSize = [Param: Cohort Size Value]
-			VAR __CohortAsOfDate = [As on Cohort Date]
-			
-			RETURN
-			CALCULATE(
-			    SUM(FCT_COHORT_RETENTION[ACTIVE_CUSTOMERS]),
-			    FILTER(
-			        DIM_COHORTS,
-			        DIM_COHORTS[COHORT_MONTH] <= __CohortAsOfDate &&
-			        DIM_COHORTS[COHORT_SIZE] >= __CohortSize
-			    )
+			VAR __CohortSize = [Param: Cohort Size Value] 
+			VAR __CohortAsOfDate = [As on Cohort Date] 
+			RETURN 
+			CALCULATE( 
+			    SUM(FCT_COHORT_RETENTION[ACTIVE_CUSTOMERS]), 
+			    KEEPFILTERS(DIM_COHORTS[COHORT_MONTH] <= __CohortAsOfDate),
+			    KEEPFILTERS(DIM_COHORTS[COHORT_SIZE] >= __CohortSize)
 			)
 			
 			```
@@ -984,7 +975,7 @@ table _Measures
 
 	/// Difference P1 - P6. Format string fixed (was '0', producing 0 for values < 1).
 	measure 'Avg P1-P6 Drop' = [P1 Retention Rate] - [P6 Retention Rate]
-		formatString: 0.0%;-0.0%;0.0%
+		formatString: 0.00%;-0.00%;0.00%
 		displayFolder: 05_Cohort
 		lineageTag: 4bda322f-7e8b-4f1e-bfc6-523971f75037
 
@@ -1162,38 +1153,17 @@ table _Measures
 
 	measure 'Max Selected Metric' = ```
 			
+			VAR __SelectedMetric = [Cohort Orders]
 			
-			-- Step 1: Capture the exact value of the current coordinate on the X-Axis
-			VAR __CurrentValue = [Blank]
-			
-			-- Step 2: Calculate the highest value across the entire visible X-Axis timeline
-			VAR __MaxValueOnChart = 
+			VAR __MaxYearly = 
 			    MAXX(
-			        ALLSELECTED(DIM_DATES[DATE]),
-			        CALCULATE(
-			            [Blank],
-			            -- Force context transition to evaluate [Blank] for each specific date row
-			            DIM_DATES[DATE] = EARLIER(DIM_DATES[DATE])
-			        )
+			        ALLSELECTED(DIM_COHORTS[COHORT_MONTH]),
+			        [Cohort Orders]
 			    )
-			
 			RETURN
-			    -- Step 3: Draw a data point ONLY if it matches the peak value
-			    IF( __CurrentValue = __MaxValueOnChart, __MaxValueOnChart )
-			
-			
-			
-			// VAR __SelectedMetric = SELECTEDVALUE('CG Selected Metric'[Metric])
-			
-			// VAR __MaxYearly = 
-			//     MAXX(
-			//         ALLSELECTED(DIM_DATES[MONTH_YEAR]),
-			//         __SelectedMetric
-			//     )
-			// RETURN
-			//     IF(
-			//         __MaxYearly = __SelectedMetric, __MaxYearly
-			//     )
+			    IF(
+			        __MaxYearly = __SelectedMetric, __MaxYearly, BLANK()
+			    )
 			
 			```
 		displayFolder: 14_Viz Helpers
@@ -2618,7 +2588,7 @@ table _Measures
 			"</div></div>
 			</div>
 			<div style=""background:#FFFFFF;border:1px solid rgba(0,120,212,0.18);border-radius:8px;padding:22px 24px;box-shadow:0 4px 16px rgba(0,120,212,0.08);"">
-			<div style=""display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;""><div style=""font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#0078D4;font-weight:600;"">Coverage</div><div style=""font-size:11px;color:#605E5C;letter-spacing:0.3px;"">18 Advanced SQL Patterns &middot; 140+ Measures &middot; 29 dbt Models</div></div>
+			<div style=""display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;""><div style=""font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#0078D4;font-weight:600;"">Coverage</div><div style=""font-size:11px;color:#605E5C;letter-spacing:0.3px;"">18 Advanced SQL Patterns &middot; 29 dbt Models</div></div>
 			<div style=""height:3px;background:rgba(0,120,212,0.1);border-radius:2px;overflow:hidden;""><div style=""height:100%;width:0;border-radius:2px;background:linear-gradient(90deg,#0078D4,#4FA8DF);animation:pplProgress 1.6s 2.2s forwards;box-shadow:0 0 8px rgba(0,120,212,0.35);""></div></div>
 			</div></div></div>
 			<style>
@@ -2782,38 +2752,31 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isText":true}
 
-	measure 'Cohort Revenue' =
+	measure 'Cohort Revenue' = ```
 			
-			VAR __CohortSize = [Param: Cohort Size Value]
-			VAR __CohortAsOfDate = [As on Cohort Date]
-			
-			RETURN
-			CALCULATE(
-			    SUM(FCT_COHORT_RETENTION[PERIOD_REVENUE]),
-			    FILTER(
-			        DIM_COHORTS,
-			        DIM_COHORTS[COHORT_MONTH] <= __CohortAsOfDate &&
-			        DIM_COHORTS[COHORT_SIZE] >= __CohortSize
-			    )
+			VAR __CohortSize = [Param: Cohort Size Value] 
+			VAR __CohortAsOfDate = [As on Cohort Date] 
+			RETURN 
+			CALCULATE( 
+			    SUM(FCT_COHORT_RETENTION[PERIOD_REVENUE]), 
+			    KEEPFILTERS(DIM_COHORTS[COHORT_MONTH] <= __CohortAsOfDate),
+			    KEEPFILTERS(DIM_COHORTS[COHORT_SIZE] >= __CohortSize)
 			)
+			
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
 		displayFolder: 05_Cohort
 		lineageTag: 76d6dc3a-0cda-4527-99b7-2e31806df60b
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	measure 'Cohort Orders' = ```
 			
-			VAR __CohortSize = [Param: Cohort Size Value]
-			VAR __CohortAsOfDate = [As on Cohort Date]
-			
-			RETURN
-			CALCULATE(
-			    SUM(FCT_COHORT_RETENTION[PERIOD_ORDERS]),
-			    FILTER(
-			        DIM_COHORTS,
-			        DIM_COHORTS[COHORT_MONTH] <= __CohortAsOfDate &&
-			        DIM_COHORTS[COHORT_SIZE] >= __CohortSize
-			    )
+			VAR __CohortSize = [Param: Cohort Size Value] 
+			VAR __CohortAsOfDate = [As on Cohort Date] 
+			RETURN 
+			CALCULATE( 
+			    SUM(FCT_COHORT_RETENTION[PERIOD_ORDERS]), 
+			    KEEPFILTERS(DIM_COHORTS[COHORT_MONTH] <= __CohortAsOfDate),
+			    KEEPFILTERS(DIM_COHORTS[COHORT_SIZE] >= __CohortSize)
 			)
 			
 			```
@@ -2828,9 +2791,11 @@ table _Measures
 			    [Cohort Orders],
 			    0
 			)
-		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		formatString: \$#,0;(\$#,0);\$#,0
 		displayFolder: 05_Cohort
 		lineageTag: 30948eb7-d33f-41b5-ade2-cdda32eb9cfa
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	measure 'Cohort Avg Customer Value' =
 			
@@ -2842,6 +2807,8 @@ table _Measures
 		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
 		displayFolder: 05_Cohort
 		lineageTag: 7f4b0b52-13ce-439c-b030-c10b686413c0
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	/// Lifetime cohort revenue across all periods (ignores period filter)
 	measure 'Cohort Lifetime Revenue' =
@@ -2895,6 +2862,105 @@ table _Measures
 		lineageTag: 9b9ee953-8d13-4f2d-8f87-c1ddb553b8e6
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cohort Heatmap Title' = ```
+			
+			VAR __SelectedCohortMetric = 
+			    SELECTCOLUMNS(
+			        SUMMARIZE(
+			            'Param: Cohort Retention',
+			            'Param: Cohort Retention'[Param: Cohort Retention],
+			            'Param: Cohort Retention'[Param: Cohort Retention Fields]
+			        ),
+			        'Param: Cohort Retention'[Param: Cohort Retention]
+			    )
+			
+			RETURN
+			IF (
+			    COUNTROWS(__SelectedCohortMetric) = 1,
+			    SWITCH(
+			        __SelectedCohortMetric,
+			        "Retention", "Retention Rate Heatmap (Cohort x Period)",
+			        "Active", "Active Customers Heaptmap (Cohort x Period)",
+			        "Revenue", "Revenue by Cohort Heatmap (Cohort x Period)",
+			        "Orders", "Orders Heatmap (Cohort x Period)",
+			        "AOV", "Average Order Value Heatmap (Cohort x Period)",
+			        "ACV", "Average Customer Value Heatmap (Cohort x Period)"
+			    )
+			)
+			
+			```
+		displayFolder: 14_Viz Helpers\_Titles
+		lineageTag: e91ece7a-8afb-458f-8245-5e963e09ace7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cohort Period Title' = ```
+			
+			VAR __MinCohort = CALCULATE( MIN(DIM_COHORTS[COHORT_MONTH]), ALLSELECTED(DIM_COHORTS))
+			VAR __MaxCohort = MAX('Disconnected Calendar'[MONTH_START_DATE])
+			VAR __Space = REPT(UNICHAR(160), 2)
+			VAR __FormattedMinDate = FORMAT(__MinCohort, "MMM, yyyy")
+			VAR __FormattedMaxDate = FORMAT(__MaxCohort, "MMM, yyyy")
+			
+			RETURN
+			"Cohort Period: " & __Space & __Space & __FormattedMinDate & __Space & " - " & __Space & __FormattedMaxDate
+			
+			```
+		displayFolder: 14_Viz Helpers\_Titles
+		lineageTag: ff2173a8-29ac-4a91-b5fd-27068b58322f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cohort Barchart Title' = ```
+			
+			VAR __SelectedCohortMetric = 
+			    SELECTCOLUMNS(
+			        SUMMARIZE(
+			            'Param: Cohort Retention',
+			            'Param: Cohort Retention'[Param: Cohort Retention],
+			            'Param: Cohort Retention'[Param: Cohort Retention Fields]
+			        ),
+			        'Param: Cohort Retention'[Param: Cohort Retention]
+			    )
+			
+			RETURN
+			IF (
+			    COUNTROWS(__SelectedCohortMetric) = 1,
+			    SWITCH(
+			        __SelectedCohortMetric,
+			        "Retention", "Retention Rate by Cohort",
+			        "Active", "Total Active Customers by Cohort",
+			        "Revenue", "Total Revenue by Cohort",
+			        "Orders", "Total Orders by Cohort",
+			        "AOV", "Average Order Value by Cohort",
+			        "ACV", "Average Customer Value by Cohort"
+			    )
+			)
+			
+			```
+		displayFolder: 14_Viz Helpers\_Titles
+		lineageTag: d8f416d8-745d-48da-984c-9db23e1c2ece
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Formatting Avg Cohort Orders' = ```
+			
+			VAR __CohortSize = [Param: Cohort Size Value]
+			VAR __CohortAsOfDate = [As on Cohort Date]
+			
+			RETURN
+			CALCULATE( 
+			    AVERAGE(FCT_COHORT_RETENTION[PERIOD_ORDERS]), 
+			    KEEPFILTERS(DIM_COHORTS[COHORT_MONTH] <= __CohortAsOfDate),
+			    KEEPFILTERS(DIM_COHORTS[COHORT_SIZE] >= __CohortSize)
+			)
+			```
+		formatString: #,0
+		displayFolder: 14_Viz Helpers
+		lineageTag: b57ec0f7-9037-4bc3-b9c9-91615d69586d
+
+		annotation PBI_FormatHint = {"isDecimal":true}
 
 	/// Hidden column for calculated table
 	column Value

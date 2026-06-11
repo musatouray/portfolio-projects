@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "7892ea28e6005b43736b",
   "position": {
     "x": 18.876946912342419,
     "y": 144.43403112169904,
-    "z": 1750,
+    "z": 2000,
     "height": 35.285671896087983,
     "width": 224.65211107176017,
-    "tabOrder": 6001
+    "tabOrder": 4000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -300,23 +300,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "17881cbfcbe00dcc33db",
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "20da1e5bca15ebe5218c",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Choose Cohort Size"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
-  }
+  "parentGroupName": "17881cbfcbe00dcc33db"
 }

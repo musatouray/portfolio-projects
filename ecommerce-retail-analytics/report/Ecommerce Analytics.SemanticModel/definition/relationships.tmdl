@@ -1,7 +1,3 @@
-relationship AutoDetected_520fbd8f-9d0a-4974-bb56-1eee13e6cc9c
-	fromColumn: DIM_CUSTOMERS.COHORT_KEY
-	toColumn: DIM_COHORTS.COHORT_KEY
-
 relationship AutoDetected_30f5b8c7-7e67-4e3a-8c0d-a6fc3e296078
 	fromColumn: FCT_CHURN_RISK.COHORT_KEY
 	toColumn: DIM_COHORTS.COHORT_KEY
