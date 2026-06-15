@@ -13,6 +13,7 @@ name: dbt CI
 on:
   pull_request:
     branches: [main]
+    types: [opened, synchronize, reopened, closed]
     paths:
       - 'ecommerce-retail-analytics/dbt/**'
       - '.github/workflows/dbt-ci.yml'
@@ -26,6 +27,7 @@ jobs:
   lint:
     name: Code Quality
     runs-on: ubuntu-latest
+    if: github.event.action != 'closed'
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -49,6 +51,7 @@ jobs:
   dbt-build:
     name: dbt Build & Test
     runs-on: ubuntu-latest
+    if: github.event.action != 'closed'
 
     steps:
       - name: Checkout PR branch
@@ -179,7 +182,7 @@ jobs:
     name: PR Summary
     runs-on: ubuntu-latest
     needs: [lint, dbt-build]
-    if: always()
+    if: always() && github.event.action != 'closed'
     permissions:
       pull-requests: write
 
@@ -218,3 +221,86 @@ jobs:
               repo: context.repo.repo,
               body: body
             });
+
+  # Job 4: Cleanup CI Schemas (runs when PR is closed)
+  cleanup:
+    name: Cleanup CI Schemas
+    runs-on: ubuntu-latest
+    if: github.event.action == 'closed'
+
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Install Snowflake connector
+        run: pip install snowflake-connector-python cryptography
+
+      - name: Setup Snowflake private key
+        run: |
+          echo "${{ secrets.SNOWFLAKE_PRIVATE_KEY }}" > /tmp/rsa_key.p8
+          chmod 600 /tmp/rsa_key.p8
+
+      - name: Drop CI schemas
+        env:
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+          SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE_DEV }}
+          SNOWFLAKE_PRIVATE_KEY_PASSPHRASE: ${{ secrets.SNOWFLAKE_PRIVATE_KEY_PASSPHRASE }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          python << 'EOF'
+          import os
+          import snowflake.connector
+          from cryptography.hazmat.backends import default_backend
+          from cryptography.hazmat.primitives import serialization
+
+          # Load private key
+          with open('/tmp/rsa_key.p8', 'rb') as key_file:
+              p_key = serialization.load_pem_private_key(
+                  key_file.read(),
+                  password=os.environ.get('SNOWFLAKE_PRIVATE_KEY_PASSPHRASE', '').encode(),
+                  backend=default_backend()
+              )
+          pkb = p_key.private_bytes(
+              encoding=serialization.Encoding.DER,
+              format=serialization.PrivateFormat.PKCS8,
+              encryption_algorithm=serialization.NoEncryption()
+          )
+
+          conn = snowflake.connector.connect(
+              account=os.environ['SNOWFLAKE_ACCOUNT'].strip(),
+              user=os.environ['SNOWFLAKE_USER'].strip(),
+              role=os.environ['SNOWFLAKE_ROLE'].strip(),
+              warehouse=os.environ['SNOWFLAKE_WAREHOUSE'].strip(),
+              database=os.environ['SNOWFLAKE_DATABASE'].strip(),
+              private_key=pkb
+          )
+
+          pr_number = os.environ['PR_NUMBER']
+          cursor = conn.cursor()
+
+          # Find and drop all CI schemas for this PR
+          cursor.execute(f"SHOW SCHEMAS LIKE 'CI_PR_{pr_number}%'")
+          schemas = cursor.fetchall()
+
+          for schema in schemas:
+              schema_name = schema[1]
+              print(f"Dropping schema: {schema_name}")
+              cursor.execute(f"DROP SCHEMA IF EXISTS {schema_name} CASCADE")
+
+          if not schemas:
+              print(f"No CI schemas found for PR #{pr_number}")
+          else:
+              print(f"Dropped {len(schemas)} CI schema(s)")
+
+          cursor.close()
+          conn.close()
+          EOF
+
+      - name: Cleanup private key
+        if: always()
+        run: rm -f /tmp/rsa_key.p8
