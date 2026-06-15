@@ -3,17 +3,23 @@ table DIM_SELLERS
 
 	column SELLER_KEY
 		dataType: string
+		isHidden
 		lineageTag: 5951b6c8-3555-4b50-9cea-9997bcdbcdc0
 		summarizeBy: none
 		sourceColumn: SELLER_KEY
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column SELLER_ID
 		dataType: string
+		isHidden
 		lineageTag: 72bc7d81-1126-4eb1-84d3-e9c342125d5c
 		summarizeBy: none
 		sourceColumn: SELLER_ID
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -61,78 +67,6 @@ table DIM_SELLERS
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column FIRST_ORDER_DATE
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 52a2eefc-e97a-4720-bdc9-58f798f85239
-		summarizeBy: none
-		sourceColumn: FIRST_ORDER_DATE
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column LAST_ORDER_DATE
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 1510fdb0-5076-4293-91bb-47918389a946
-		summarizeBy: none
-		sourceColumn: LAST_ORDER_DATE
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column SELLER_TENURE_DAYS
-		dataType: double
-		lineageTag: 700fb7ba-379f-4bb5-8992-046e8f7b0cba
-		summarizeBy: none
-		sourceColumn: SELLER_TENURE_DAYS
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column DAYS_SINCE_LAST_SALE
-		dataType: double
-		lineageTag: f9560c1c-8182-44dc-a881-0c90ba6a41de
-		summarizeBy: none
-		sourceColumn: DAYS_SINCE_LAST_SALE
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column AVERAGE_DELIVERY_DAYS
-		dataType: double
-		lineageTag: d2d8bbbb-1460-4c77-9365-91ae8c00fa79
-		summarizeBy: none
-		sourceColumn: AVERAGE_DELIVERY_DAYS
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column AVERAGE_SHIPPING_TRANSIT_DAYS
-		dataType: double
-		lineageTag: bb53f59d-ae00-438c-aaec-7d75dc7c8c8c
-		summarizeBy: none
-		sourceColumn: AVERAGE_SHIPPING_TRANSIT_DAYS
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column AVERAGE_FULFILLMENT_DAYS
-		dataType: double
-		lineageTag: 332f5c74-b1b0-40a2-a18e-42e37fed349e
-		summarizeBy: none
-		sourceColumn: AVERAGE_FULFILLMENT_DAYS
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column PRIMARY_PRODUCT_CATEGORY
 		dataType: string
 		lineageTag: 492b6422-dfe4-4fec-8997-4463991f50e2
@@ -141,88 +75,27 @@ table DIM_SELLERS
 
 		annotation SummarizationSetBy = Automatic
 
-	column IS_ACTIVE
-		dataType: boolean
-		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 1dd265b4-4318-4351-bd53-43906bc48def
-		summarizeBy: none
-		sourceColumn: IS_ACTIVE
-
-		annotation SummarizationSetBy = Automatic
-
-	column TOTAL_ORDERS
-		dataType: double
-		lineageTag: 29af15aa-06f6-40f2-8539-b53174921ef5
-		summarizeBy: none
-		sourceColumn: TOTAL_ORDERS
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column TOTAL_ITEMS_SOLD
-		dataType: double
-		lineageTag: b6bb2dfb-827d-4409-ac5a-6a7b36dfdc04
-		summarizeBy: none
-		sourceColumn: TOTAL_ITEMS_SOLD
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column TOTAL_REVENUE
-		dataType: double
-		lineageTag: 4668d57a-81fc-4f7d-b766-2e9590a3d108
-		summarizeBy: none
-		sourceColumn: TOTAL_REVENUE
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column SUCCESSFUL_ORDERS
-		dataType: double
-		lineageTag: 5b182541-6e36-407e-86fa-4a6e9a67ad17
-		summarizeBy: none
-		sourceColumn: SUCCESSFUL_ORDERS
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column SALE_SUCCESS_RATE
-		dataType: double
-		lineageTag: 9b23e9ff-5de0-437e-8d47-308fc58b5206
-		summarizeBy: none
-		sourceColumn: SALE_SUCCESS_RATE
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column PERFORMANCE_SEGMENT
-		dataType: string
-		lineageTag: 4ae2b439-eca4-4126-a6bd-06071afcf3e8
-		summarizeBy: none
-		sourceColumn: PERFORMANCE_SEGMENT
-
-		annotation SummarizationSetBy = Automatic
-
 	column CREATED_AT
 		dataType: dateTime
+		isHidden
 		formatString: General Date
 		lineageTag: 32c9cb89-823f-4a36-9166-41b75a4cc09f
 		summarizeBy: none
 		sourceColumn: CREATED_AT
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column UPDATED_AT
 		dataType: dateTime
+		isHidden
 		formatString: General Date
 		lineageTag: 3136d8f3-2e34-46eb-a7be-330fdf2eaf89
 		summarizeBy: none
 		sourceColumn: UPDATED_AT
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -236,4 +109,8 @@ table DIM_SELLERS
 				    DIM_SELLERS_Table = MARTS_Schema{[Name="DIM_SELLERS",Kind="Table"]}[Data]
 				in
 				    DIM_SELLERS_Table
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
 

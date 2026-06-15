@@ -8,6 +8,7 @@
 
 WITH orders AS (
     SELECT
+        order_id,
         customer_unique_id,
         order_date,
         total_payment_value AS revenue,
@@ -22,17 +23,31 @@ months AS (
     SELECT DISTINCT DATE_TRUNC('MONTH', order_date) AS snapshot_month FROM orders
 ),
 
+-- Pre-compute each customer's first snapshot month to eliminate anachronistic cross-join rows
+-- (a full CROSS JOIN produces 2.28M rows; ~60% predate each customer's first order)
+customer_first_months AS (
+    SELECT
+        customer_unique_id,
+        DATE_TRUNC('MONTH', MIN(order_date)) AS first_snapshot_month
+    FROM orders
+    GROUP BY 1
+),
+
 customer_snapshots AS (
     SELECT
         m.snapshot_month,
         c.customer_unique_id,
         MAX(o.order_date) AS last_purchase_date,
-        COUNT(DISTINCT CASE WHEN o.order_date <= LAST_DAY(m.snapshot_month) THEN o.order_date END) AS total_orders,
-        COALESCE(SUM(CASE WHEN o.order_date <= LAST_DAY(m.snapshot_month) THEN o.revenue ELSE 0 END), 0) AS total_revenue,
-        COALESCE(SUM(CASE WHEN o.order_date <= LAST_DAY(m.snapshot_month) THEN o.review_count ELSE 0 END), 0) AS total_reviews,
-        COALESCE(SUM(CASE WHEN o.order_date <= LAST_DAY(m.snapshot_month) THEN o.total_score ELSE 0 END), 0) AS total_scores
+        -- Fix: COUNT(DISTINCT order_id) — previously COUNT(DISTINCT order_date) undercounted
+        -- customers who placed multiple orders on the same calendar date
+        COUNT(DISTINCT o.order_id) AS total_orders,
+        COALESCE(SUM(o.revenue), 0) AS total_revenue,
+        COALESCE(SUM(o.review_count), 0) AS total_reviews,
+        COALESCE(SUM(o.total_score), 0) AS total_scores
     FROM months m
-    CROSS JOIN (SELECT DISTINCT customer_unique_id FROM orders) c
+    -- Fix: inner join on first_snapshot_month replaces the CROSS JOIN,
+    -- only pairing each customer with months on or after their first order month
+    JOIN customer_first_months c ON m.snapshot_month >= c.first_snapshot_month
     LEFT JOIN orders o ON o.customer_unique_id = c.customer_unique_id
         AND o.order_date <= LAST_DAY(m.snapshot_month)
     GROUP BY 1, 2
@@ -45,7 +60,9 @@ base_metrics AS (
         customer_unique_id,
         total_orders,
         total_revenue,
-        DATEDIFF('DAY', last_purchase_date, LAST_DAY(snapshot_month)) AS recency_days,
+        -- Fix: cap reference date at CURRENT_DATE() so the final partial month
+        -- measures recency to today rather than the future end-of-month
+        DATEDIFF('DAY', last_purchase_date, LEAST(LAST_DAY(snapshot_month), (SELECT MAX(order_date) FROM orders))) AS recency_days,
         (total_orders = 1) AS is_single_purchaser,
         total_scores / NULLIF(total_reviews, 0) AS average_rating
     FROM customer_snapshots
@@ -118,7 +135,7 @@ SELECT
     customer_nps_segment,
     churn_risk_score,
 
-    -- Risk Segments based on your business thresholds
+    -- Risk Segments based on composite churn_risk_score thresholds
     CASE
         WHEN churn_risk_score >= 75 THEN 'Critical'
         WHEN churn_risk_score >= 50 THEN 'High'
@@ -127,10 +144,13 @@ SELECT
     END AS churn_risk_segment,
 
     -- RFM Behavioral Segments
+    -- Fix: "New Customers" broadened from (r>=4 AND f_score=1) to (r>=4 AND total_orders<=2).
+    -- The old f_score=1 condition was too narrow due to NTILE ties in a dataset of mostly
+    -- single-purchase customers; using total_orders directly is more semantically accurate.
     CASE
         WHEN r_score >= 4 AND f_score >= 4 AND m_score >= 4 THEN 'Champions'
         WHEN r_score >= 3 AND f_score >= 3 THEN 'Loyalists'
-        WHEN r_score >= 4 AND f_score = 1 THEN 'New Customers'
+        WHEN r_score >= 4 AND total_orders <= 2 THEN 'New Customers'
         WHEN r_score = 1 THEN 'At Risk / Hibernating'
         ELSE 'General Pool'
     END AS rfm_segment,

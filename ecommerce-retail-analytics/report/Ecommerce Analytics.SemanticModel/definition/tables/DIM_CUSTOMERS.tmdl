@@ -3,25 +3,23 @@ table DIM_CUSTOMERS
 
 	column CUSTOMER_KEY
 		dataType: string
+		isHidden
 		lineageTag: 6c74aeb3-af8c-4da9-96de-ca68650f6db9
 		summarizeBy: none
 		sourceColumn: CUSTOMER_KEY
 
-		annotation SummarizationSetBy = Automatic
-
-	column COHORT_KEY
-		dataType: string
-		lineageTag: 8cb3dc71-a56d-4e09-9e7d-5573a3f9316b
-		summarizeBy: none
-		sourceColumn: COHORT_KEY
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column CUSTOMER_UNIQUE_ID
 		dataType: string
+		isHidden
 		lineageTag: 12d1d742-b3c1-422d-9238-d64f0701fd16
 		summarizeBy: none
 		sourceColumn: CUSTOMER_UNIQUE_ID
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -60,137 +58,40 @@ table DIM_CUSTOMERS
 
 		annotation UnderlyingDateTimeDataType = Date
 
-	column LAST_ORDER_DATE
-		dataType: dateTime
-		formatString: Short Date
-		lineageTag: 1f3d2f7d-06cc-4811-8bda-7c46a546e69b
-		summarizeBy: none
-		sourceColumn: LAST_ORDER_DATE
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column TOTAL_ORDERS
-		dataType: double
-		lineageTag: 62a42c6e-d064-4fef-bbfb-95b37fcb0d22
-		summarizeBy: none
-		sourceColumn: TOTAL_ORDERS
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column TOTAL_REVENUE
-		dataType: double
-		lineageTag: 117477d7-7931-49ca-a867-f136f64e3686
-		summarizeBy: none
-		sourceColumn: TOTAL_REVENUE
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column AVERAGE_ORDER_VALUE
-		dataType: double
-		lineageTag: e7d4a9f0-a798-4ac0-ac67-09c51df9a5ee
-		summarizeBy: none
-		sourceColumn: AVERAGE_ORDER_VALUE
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column TOTAL_REVIEWS
-		dataType: double
-		lineageTag: e769cebe-cf6a-4eb7-9b95-2a9bfaf871ff
-		summarizeBy: none
-		sourceColumn: TOTAL_REVIEWS
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column AVERAGE_RATING
-		dataType: double
-		lineageTag: 29fbde39-dba7-4bd7-9ca2-d7d5aac5ecc4
-		summarizeBy: none
-		sourceColumn: AVERAGE_RATING
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column DAYS_SINCE_LAST_ORDER
-		dataType: double
-		lineageTag: ee643be9-2d2c-4a27-a943-39afa84e29ed
-		summarizeBy: none
-		sourceColumn: DAYS_SINCE_LAST_ORDER
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column CUSTOMER_TENURE_DAYS
-		dataType: double
-		lineageTag: a4bde415-3e25-44e0-bb18-459a614c1805
-		summarizeBy: none
-		sourceColumn: CUSTOMER_TENURE_DAYS
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column CUSTOMER_SEGMENT
-		dataType: string
-		lineageTag: 42bc72bf-8107-464a-b62a-8df49058ad5e
-		summarizeBy: none
-		sourceColumn: CUSTOMER_SEGMENT
-
-		annotation SummarizationSetBy = Automatic
-
-	column CUSTOMER_VALUE_SEGMENT
-		dataType: string
-		lineageTag: 1355109e-9601-480f-8fdf-4b6cbc6a1e83
-		summarizeBy: none
-		sourceColumn: CUSTOMER_VALUE_SEGMENT
-
-		annotation SummarizationSetBy = Automatic
-
-	column CUSTOMER_SATISFACTION_SEGMENT
-		dataType: string
-		lineageTag: 1034e99e-a81a-45c7-bcb7-7d0f2fbeae81
-		summarizeBy: none
-		sourceColumn: CUSTOMER_SATISFACTION_SEGMENT
-
-		annotation SummarizationSetBy = Automatic
-
-	column IS_ACTIVE
-		dataType: boolean
-		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: d2aa6ffd-b21b-4030-b25f-b67ca01317fc
-		summarizeBy: none
-		sourceColumn: IS_ACTIVE
-
-		annotation SummarizationSetBy = Automatic
-
 	column CREATED_AT
 		dataType: dateTime
+		isHidden
 		formatString: General Date
 		lineageTag: e6fcfe49-a257-4fe5-9bf6-c1a9c6bb5c78
 		summarizeBy: none
 		sourceColumn: CREATED_AT
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column UPDATED_AT
 		dataType: dateTime
+		isHidden
 		formatString: General Date
 		lineageTag: 13a3728e-915c-42e7-a995-7bdd30c21489
 		summarizeBy: none
 		sourceColumn: UPDATED_AT
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
+
+	column COHORT_MONTH
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 7ca32640-500b-40d2-90d4-c9263ea6cae0
+		summarizeBy: none
+		sourceColumn: COHORT_MONTH
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	partition DIM_CUSTOMERS = m
 		mode: import
@@ -202,4 +103,8 @@ table DIM_CUSTOMERS
 				    DIM_CUSTOMERS_Table = MARTS_Schema{[Name="DIM_CUSTOMERS",Kind="Table"]}[Data]
 				in
 				    DIM_CUSTOMERS_Table
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
 

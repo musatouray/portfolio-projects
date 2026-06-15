@@ -292,6 +292,32 @@ models:
             severity: warn  # Some orders may have delivery before approval due to data issues, so we warn instead of failing
             warn_if: ">= 1"  # Warn if any orders violate this condition
             error_if: ">= 50"  # Fail if 50 or more orders violate this condition, indicating a systemic data issue
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "gross_order_value = total_price + total_freight_value"
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "delivery_days IS NULL or delivery_days >= 0"
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "fulfillment_days IS NULL or fulfillment_days >= 0"
+          config:
+            severity: warn
+            warn_if: ">= 1"
+            error_if: ">= 50"
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "shipping_transit_days IS NULL or shipping_transit_days >= 0"
+          config:
+            severity: warn
+            warn_if: ">= 1"
+            error_if: ">= 50"
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "payment_count IS NULL or payment_count >= 0"
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "review_count IS NULL or review_count >= 0"
     columns:
       - name: order_key
         description: Surrogate key for the order fact, generated from order_id
@@ -333,6 +359,9 @@ models:
         description: Current status of the order
         data_tests:
           - not_null
+          - accepted_values:
+              arguments:
+                values: ["approved", "canceled", "delivered", "invoiced", "processing", "shipped", "unavailable"]
 
       - name: delivery_days
         description: Days from order placement to customer delivery. NULL if not delivered.

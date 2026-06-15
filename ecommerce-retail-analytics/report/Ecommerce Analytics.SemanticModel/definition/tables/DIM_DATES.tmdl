@@ -7,10 +7,13 @@ table DIM_DATES
 
 	column DATE_KEY
 		dataType: double
+		isHidden
 		formatString: 0
 		lineageTag: 0d5e6907-6544-44ed-a468-2be8dda238ef
 		summarizeBy: none
 		sourceColumn: DATE_KEY
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -52,12 +55,15 @@ table DIM_DATES
 
 	column ISO_YEAR_WEEK
 		dataType: string
+		isHidden
 		lineageTag: de4e005a-e948-48d0-a028-b70d5b953ab5
 		summarizeBy: none
 		sourceColumn: ISO_YEAR_WEEK
 		sortByColumn: WEEK
 
 		changedProperty = SortByColumn
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -73,19 +79,25 @@ table DIM_DATES
 
 	column YEAR_MONTH
 		dataType: string
+		isHidden
 		lineageTag: 926fce62-b126-4e1d-b4f9-4749ac93f57c
 		summarizeBy: none
 		sourceColumn: YEAR_MONTH
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column QUARTER_NUMBER
 		dataType: int64
+		isHidden
 		lineageTag: 11605ecf-b884-4eca-a44a-09bdd87829a1
 		summarizeBy: none
 		sourceColumn: QUARTER_NUMBER
 
 		changedProperty = DataType
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = User
 
@@ -101,11 +113,14 @@ table DIM_DATES
 
 	column MONTH
 		dataType: int64
+		isHidden
 		lineageTag: 91bcf95c-99aa-4b71-9836-3a270a1c2200
 		summarizeBy: none
 		sourceColumn: MONTH
 
 		changedProperty = DataType
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = User
 
@@ -135,11 +150,14 @@ table DIM_DATES
 
 	column WEEK
 		dataType: int64
+		isHidden
 		lineageTag: ce9f366e-5509-453b-baf9-0b4c6c3cf812
 		summarizeBy: none
 		sourceColumn: WEEK
 
 		changedProperty = DataType
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = User
 
@@ -147,19 +165,25 @@ table DIM_DATES
 
 	column YEAR_WEEK
 		dataType: string
+		isHidden
 		lineageTag: 2c86ba6d-0267-4c90-95ba-9a19c6faa9a8
 		summarizeBy: none
 		sourceColumn: YEAR_WEEK
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column DAY
 		dataType: int64
+		isHidden
 		lineageTag: 03c000dd-0867-4f66-b710-05c78c5f1ba4
 		summarizeBy: none
 		sourceColumn: DAY
 
 		changedProperty = DataType
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = User
 
@@ -167,11 +191,14 @@ table DIM_DATES
 
 	column ISO_DAY_OF_WEEK
 		dataType: int64
+		isHidden
 		lineageTag: e2876260-e7f0-448e-a158-891770d8c87e
 		summarizeBy: none
 		sourceColumn: ISO_DAY_OF_WEEK
 
 		changedProperty = DataType
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = User
 
@@ -187,11 +214,14 @@ table DIM_DATES
 
 	column DAY_OF_WEEK
 		dataType: int64
+		isHidden
 		lineageTag: 3f75fc87-fc1c-4e3b-a184-402f508f5a05
 		summarizeBy: none
 		sourceColumn: DAY_OF_WEEK
 
 		changedProperty = DataType
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = User
 
@@ -199,88 +229,37 @@ table DIM_DATES
 
 	column IS_WEEKEND
 		dataType: boolean
+		isHidden
 		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: 9ef5f39e-1d91-42d4-a49a-20981baf5f7e
 		summarizeBy: none
 		sourceColumn: IS_WEEKEND
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column IS_ISO_WEEKEND
 		dataType: boolean
+		isHidden
 		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: 25e5e53e-e65a-451b-9f34-f28712c651f7
 		summarizeBy: none
 		sourceColumn: IS_ISO_WEEKEND
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
-
-	column DAY_OFFSET
-		dataType: int64
-		lineageTag: d1de5b77-5d4c-4a76-95ba-648557364a9a
-		summarizeBy: none
-		sourceColumn: DAY_OFFSET
-
-		changedProperty = DataType
-
-		annotation SummarizationSetBy = User
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column WEEK_OFFSET
-		dataType: int64
-		lineageTag: eb77c5b6-d2e6-48d3-87a1-d658529f36eb
-		summarizeBy: none
-		sourceColumn: WEEK_OFFSET
-
-		changedProperty = DataType
-
-		annotation SummarizationSetBy = User
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column MONTH_OFFSET
-		dataType: int64
-		lineageTag: 4ae506e6-5229-4a3c-bf35-cfd6bf9e2a54
-		summarizeBy: none
-		sourceColumn: MONTH_OFFSET
-
-		changedProperty = DataType
-
-		annotation SummarizationSetBy = User
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column QUARTER_OFFSET
-		dataType: int64
-		lineageTag: 52629fa2-c994-4424-8e10-915203a80e87
-		summarizeBy: none
-		sourceColumn: QUARTER_OFFSET
-
-		changedProperty = DataType
-
-		annotation SummarizationSetBy = User
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column YEAR_OFFSET
-		dataType: int64
-		lineageTag: 27f494ad-528d-4a03-a77a-bd6519a48b81
-		summarizeBy: none
-		sourceColumn: YEAR_OFFSET
-
-		changedProperty = DataType
-
-		annotation SummarizationSetBy = User
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column YEAR_START_DATE
 		dataType: dateTime
+		isHidden
 		formatString: Short Date
 		lineageTag: d6062289-fb2e-4393-a909-522628e329f4
 		summarizeBy: none
 		sourceColumn: YEAR_START_DATE
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -288,10 +267,13 @@ table DIM_DATES
 
 	column QUARTER_START_DATE
 		dataType: dateTime
+		isHidden
 		formatString: Short Date
 		lineageTag: 57c5e4bc-46e8-4de3-85ab-3bbccef8e401
 		summarizeBy: none
 		sourceColumn: QUARTER_START_DATE
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -299,10 +281,13 @@ table DIM_DATES
 
 	column MONTH_START_DATE
 		dataType: dateTime
+		isHidden
 		formatString: Short Date
 		lineageTag: 7e12e9c3-83d9-49c4-89b9-0eab4dd10bf2
 		summarizeBy: none
 		sourceColumn: MONTH_START_DATE
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -310,14 +295,49 @@ table DIM_DATES
 
 	column WEEK_START_DATE
 		dataType: dateTime
+		isHidden
 		formatString: Short Date
 		lineageTag: 2ce134d5-6173-4b77-a464-8816660fcf80
 		summarizeBy: none
 		sourceColumn: WEEK_START_DATE
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
+
+	column MONTH_INITIAL
+		dataType: string
+		lineageTag: defde0c6-21f1-4de0-839c-e992207cf235
+		summarizeBy: none
+		sourceColumn: MONTH_INITIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column CREATED_AT
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: e8315f10-7c0e-4642-9a24-014a4a961572
+		summarizeBy: none
+		sourceColumn: CREATED_AT
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column UPDATED_AT
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: b9831404-67e1-42b0-bb89-783ca0c9d2e3
+		summarizeBy: none
+		sourceColumn: UPDATED_AT
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
 
 	partition DIM_DATES = m
 		mode: import
@@ -329,4 +349,8 @@ table DIM_DATES
 				    DIM_DATES_Table = MARTS_Schema{[Name="DIM_DATES",Kind="Table"]}[Data]
 				in
 				    DIM_DATES_Table
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
 

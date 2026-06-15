@@ -3,25 +3,34 @@ table FCT_ORDER_ITEMS
 
 	column ORDER_ITEM_KEY
 		dataType: string
+		isHidden
 		lineageTag: 4f1830be-1345-4eb1-bcb4-79e0c0b8573b
 		summarizeBy: none
 		sourceColumn: ORDER_ITEM_KEY
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column ORDER_ID
 		dataType: string
+		isHidden
 		lineageTag: 0663d774-8ae0-4915-a97b-918a3fd6457b
 		summarizeBy: none
 		sourceColumn: ORDER_ID
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column ORDER_ITEM_ID
 		dataType: double
+		isHidden
 		lineageTag: d921a3cc-1654-4d25-b006-003304af1213
 		summarizeBy: none
 		sourceColumn: ORDER_ITEM_ID
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = User
 
@@ -29,33 +38,45 @@ table FCT_ORDER_ITEMS
 
 	column CUSTOMER_KEY
 		dataType: string
+		isHidden
 		lineageTag: ee7918b3-d9d1-4fc8-865b-959a0e499954
 		summarizeBy: none
 		sourceColumn: CUSTOMER_KEY
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column PRODUCT_KEY
 		dataType: string
+		isHidden
 		lineageTag: 02f19c43-e4c5-412d-9a21-5399bfab28fb
 		summarizeBy: none
 		sourceColumn: PRODUCT_KEY
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column SELLER_KEY
 		dataType: string
+		isHidden
 		lineageTag: 8b14c6d6-4847-4dda-804e-c1a9a3fb0f66
 		summarizeBy: none
 		sourceColumn: SELLER_KEY
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column ORDER_DATE_KEY
 		dataType: double
+		isHidden
 		lineageTag: 575c141a-f7d4-4ffc-8515-07022b071ac9
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ORDER_DATE_KEY
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -63,9 +84,12 @@ table FCT_ORDER_ITEMS
 
 	column DELIVERY_DATE_KEY
 		dataType: double
+		isHidden
 		lineageTag: 60b64be3-8929-4e0d-be7a-75cc15f211b1
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: DELIVERY_DATE_KEY
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -79,18 +103,10 @@ table FCT_ORDER_ITEMS
 
 		annotation SummarizationSetBy = Automatic
 
-	column PRODUCT_CATEGORY
-		dataType: string
-		lineageTag: f510f823-0186-4f93-8690-76f50a00c3b3
-		summarizeBy: none
-		sourceColumn: PRODUCT_CATEGORY
-
-		annotation SummarizationSetBy = Automatic
-
 	column ITEM_PRICE
 		dataType: double
 		lineageTag: e2a76e35-c94e-4b92-ba73-8fd8240cbbd0
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ITEM_PRICE
 
 		annotation SummarizationSetBy = Automatic
@@ -100,7 +116,7 @@ table FCT_ORDER_ITEMS
 	column ITEM_FREIGHT
 		dataType: double
 		lineageTag: ff9a123d-6527-4b7d-a886-a97eebd9e1da
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ITEM_FREIGHT
 
 		annotation SummarizationSetBy = Automatic
@@ -110,7 +126,7 @@ table FCT_ORDER_ITEMS
 	column ITEM_TOTAL
 		dataType: double
 		lineageTag: 896c1e02-dd3c-4fdc-80a4-bfc52f30dc59
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ITEM_TOTAL
 
 		annotation SummarizationSetBy = Automatic
@@ -119,21 +135,63 @@ table FCT_ORDER_ITEMS
 
 	column CREATED_AT
 		dataType: dateTime
+		isHidden
 		formatString: General Date
 		lineageTag: e5f4fa3c-60c2-4759-a3be-5a54c7a0a55f
 		summarizeBy: none
 		sourceColumn: CREATED_AT
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column UPDATED_AT
 		dataType: dateTime
+		isHidden
 		formatString: General Date
 		lineageTag: d680fe59-a258-43f0-99ac-77ff2b528558
 		summarizeBy: none
 		sourceColumn: UPDATED_AT
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
+
+	column PRODUCT_ID
+		dataType: string
+		isHidden
+		lineageTag: eec05277-a35e-43ac-90c8-75c6192b1edc
+		summarizeBy: none
+		sourceColumn: PRODUCT_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SELLER_ID
+		dataType: string
+		isHidden
+		lineageTag: 834e5dc3-1365-4670-b7ce-b7252ffc49a3
+		summarizeBy: none
+		sourceColumn: SELLER_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ORDER_DATE
+		dataType: dateTime
+		isHidden
+		formatString: Short Date
+		lineageTag: 54812cc5-42cc-4018-afa5-997a24c4d81a
+		summarizeBy: none
+		sourceColumn: ORDER_DATE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	partition FCT_ORDER_ITEMS = m
 		mode: import
@@ -147,4 +205,6 @@ table FCT_ORDER_ITEMS
 				    FCT_ORDER_ITEMS_Table
 
 	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
 

@@ -1,0 +1,147 @@
+table FCT_ORDER_PAYMENTS
+	lineageTag: 2f8d2dab-28cb-405d-95b4-44d14e7309b5
+
+	column PAYMENT_TYPE
+		dataType: string
+		lineageTag: 334d0c4f-a11e-4942-ad28-818ad4b4ad94
+		summarizeBy: none
+		sourceColumn: PAYMENT_TYPE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CREATED_AT
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: d9accdac-6d11-4bbc-8ee2-8b9cf6ee376f
+		summarizeBy: none
+		sourceColumn: CREATED_AT
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column UPDATED_AT
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: be77ef51-0b0f-4e11-8ebc-9862a867dedf
+		summarizeBy: none
+		sourceColumn: UPDATED_AT
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ORDER_PAYMENT_KEY
+		dataType: string
+		isHidden
+		lineageTag: 4f7890a1-ddea-433e-ae64-573d1fe33be9
+		summarizeBy: none
+		sourceColumn: ORDER_PAYMENT_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ORDER_KEY
+		dataType: string
+		isHidden
+		lineageTag: e3365d0a-4946-483f-854d-5efc96f416c7
+		summarizeBy: none
+		sourceColumn: ORDER_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUSTOMER_KEY
+		dataType: string
+		isHidden
+		lineageTag: dab77186-1a03-4898-bc61-1a596af3bf18
+		summarizeBy: none
+		sourceColumn: CUSTOMER_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ORDER_DATE_KEY
+		dataType: double
+		isHidden
+		lineageTag: 79132429-eec4-4fd4-87fa-054f747e4445
+		summarizeBy: none
+		sourceColumn: ORDER_DATE_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ORDER_ID
+		dataType: string
+		isHidden
+		lineageTag: 45e909eb-9c56-4195-b3d2-84f628e74c30
+		summarizeBy: none
+		sourceColumn: ORDER_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column PAYMENT_SEQUENTIAL
+		dataType: double
+		lineageTag: 3470ba29-ee3f-4fec-85d6-83ef25334b1b
+		summarizeBy: none
+		sourceColumn: PAYMENT_SEQUENTIAL
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PAYMENT_INSTALLMENTS
+		dataType: double
+		lineageTag: c6796c58-1c04-4861-8601-243df9583e2a
+		summarizeBy: none
+		sourceColumn: PAYMENT_INSTALLMENTS
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PAYMENT_VALUE
+		dataType: double
+		lineageTag: f4e10892-2460-4c1e-87c6-0e1e3b05708c
+		summarizeBy: none
+		sourceColumn: PAYMENT_VALUE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition FCT_ORDER_PAYMENTS = m
+		mode: import
+		source =
+				let
+				    Source = Snowflake.Databases("SVIPRYH-HOB47754.snowflakecomputing.com","ECOMMERCE_RETAIL_WH",[Implementation="1.0"]),
+				    ECOMMERCE_RETAIL_DB_PROD_Database = Source{[Name="ECOMMERCE_RETAIL_DB_PROD",Kind="Database"]}[Data],
+				    MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name="MARTS",Kind="Schema"]}[Data],
+				    FCT_PAYMENT_ANALYSIS_Table = MARTS_Schema{[Name="FCT_ORDER_PAYMENTS",Kind="Table"]}[Data]
+				in
+				    FCT_PAYMENT_ANALYSIS_Table
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,51 +1,10 @@
-relationship AutoDetected_30f5b8c7-7e67-4e3a-8c0d-a6fc3e296078
-	fromColumn: FCT_CHURN_RISK.COHORT_KEY
-	toColumn: DIM_COHORTS.COHORT_KEY
-
-relationship AutoDetected_e68b9574-188a-4eb2-9530-860098823b51
-	fromColumn: FCT_CLV_CUSTOMER.COHORT_KEY
-	toColumn: DIM_COHORTS.COHORT_KEY
-
-relationship AutoDetected_59831859-835c-4a47-b009-3d78dc2b6c92
-	fromColumn: FCT_COHORT_RETENTION.COHORT_KEY
-	toColumn: DIM_COHORTS.COHORT_KEY
-
-relationship AutoDetected_20f9703f-0f4b-4947-8a54-ded515e438c4
-	isActive: false
-	crossFilteringBehavior: bothDirections
-	fromCardinality: one
-	fromColumn: FCT_CHURN_RISK.CUSTOMER_UNIQUE_ID
-	toColumn: DIM_CUSTOMERS.CUSTOMER_UNIQUE_ID
-
-relationship AutoDetected_2dd453c4-8850-4ae2-ac02-9c4dca31bd50
-	crossFilteringBehavior: bothDirections
-	fromCardinality: one
-	fromColumn: FCT_RFM_SEGMENTS.CUSTOMER_UNIQUE_ID
-	toColumn: DIM_CUSTOMERS.CUSTOMER_UNIQUE_ID
-
-relationship AutoDetected_b32ec8ab-6e03-47f3-9851-07b3642135fe
-	crossFilteringBehavior: bothDirections
-	fromCardinality: one
-	fromColumn: FCT_DAILY_REVENUE_TIME_SERIES.DATE_KEY
-	toColumn: DIM_DATES.DATE_KEY
-
 relationship AutoDetected_3bbab5a0-957e-42c6-a250-12099c44dd6d
 	fromColumn: FCT_ORDER_ITEMS.PRODUCT_KEY
-	toColumn: DIM_PRODUCTS.PRODUCT_KEY
-
-relationship AutoDetected_56cfc916-4fd2-4999-a10d-be3850de5e8b
-	crossFilteringBehavior: bothDirections
-	fromCardinality: one
-	fromColumn: FCT_PARETO_PRODUCTS.PRODUCT_KEY
 	toColumn: DIM_PRODUCTS.PRODUCT_KEY
 
 relationship AutoDetected_09c05bdc-ad68-4426-b317-7b3098a030f6
 	fromColumn: FCT_ORDER_ITEMS.SELLER_KEY
 	toColumn: DIM_SELLERS.SELLER_KEY
-
-relationship AutoDetected_8b61e5eb-a417-458a-811a-7e7cb4436348
-	fromColumn: FCT_ORDER_ITEMS.ORDER_ID
-	toColumn: FCT_ORDERS.ORDER_ID
 
 relationship dd208b29-74bb-6e6e-179d-4fd48cf3d836
 	fromColumn: FCT_ORDERS.ORDER_DATE_KEY
@@ -56,12 +15,6 @@ relationship 2d7872ae-530c-6898-8ef9-0c9566077e24
 	fromColumn: FCT_ORDERS.DELIVERY_DATE_KEY
 	toColumn: DIM_DATES.DATE_KEY
 
-relationship 1700d365-d45b-070f-e9ce-79bacb820ce7
-	crossFilteringBehavior: bothDirections
-	fromCardinality: one
-	fromColumn: DIM_DATES.DATE_KEY
-	toColumn: FCT_ORDERS_FUNNEL.DATE_KEY
-
 relationship d9594cdf-72cd-af06-8fb4-6173abdd5fd4
 	fromColumn: 'Param: Date Granularity'.ID
 	toColumn: 'TBL Date Granularity'.ID
@@ -69,4 +22,47 @@ relationship d9594cdf-72cd-af06-8fb4-6173abdd5fd4
 relationship d5055622-1df6-3534-7c7b-f66d6677f095
 	fromColumn: FCT_ORDERS.CUSTOMER_KEY
 	toColumn: DIM_CUSTOMERS.CUSTOMER_KEY
+
+relationship AutoDetected_a0fd48e3-ac38-4928-a966-3481e4466d7f
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: FCT_CLV_CUSTOMER.CUSTOMER_KEY
+	toColumn: DIM_CUSTOMERS.CUSTOMER_KEY
+
+relationship 4d466b93-145a-7fad-c7fe-f8365aa5b36f
+	fromColumn: FCT_ORDER_ITEMS.CUSTOMER_KEY
+	toColumn: DIM_CUSTOMERS.CUSTOMER_KEY
+
+relationship AutoDetected_402dc1f1-d0ae-4678-9d56-5d983f8c04e8
+	fromColumn: FCT_ORDER_PAYMENTS.CUSTOMER_KEY
+	toColumn: DIM_CUSTOMERS.CUSTOMER_KEY
+
+relationship AutoDetected_a383df87-a982-49ba-8345-45068afe25af
+	fromColumn: FCT_RFM_SEGMENTS.CUSTOMER_KEY
+	toColumn: DIM_CUSTOMERS.CUSTOMER_KEY
+
+relationship 8abc68af-7ea1-87a8-e11b-623398db0b2f
+	fromColumn: FCT_MARKET_BASKET.PRODUCT_KEY_A
+	toColumn: DIM_PRODUCTS.PRODUCT_KEY
+
+relationship e6e917c9-4870-81c6-30f2-cfcc3dd5478a
+	isActive: false
+	fromColumn: FCT_MARKET_BASKET.PRODUCT_KEY_B
+	toColumn: DIM_PRODUCTS.PRODUCT_KEY
+
+relationship 64876b88-efda-0e2a-684e-7b40172cbccd
+	fromColumn: FCT_ORDER_ITEMS.ORDER_DATE_KEY
+	toColumn: DIM_DATES.DATE_KEY
+
+relationship 85abdf36-9712-9f4f-32aa-ca3204c953af
+	fromColumn: FCT_ORDER_PAYMENTS.ORDER_DATE_KEY
+	toColumn: DIM_DATES.DATE_KEY
+
+relationship 16edd9b6-3bb0-43aa-e6b2-aa2c502f50c8
+	fromColumn: FCT_RFM_SEGMENTS.SNAPSHOT_DATE_KEY
+	toColumn: DIM_DATES.DATE_KEY
+
+relationship 7a60a67e-f80d-9850-c1f7-88aa28204296
+	fromColumn: FCT_COHORT_RETENTION.COHORT_DATE_KEY
+	toColumn: DIM_DATES.DATE
 

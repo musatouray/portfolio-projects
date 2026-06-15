@@ -31,7 +31,7 @@ table 'Param: Cohort Retention'
 		isHidden
 		formatString: 0
 		lineageTag: 6f653ba3-4e76-4c4a-b8ce-3f85078bc5c2
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: [Value3]
 
 		annotation SummarizationSetBy = Automatic
