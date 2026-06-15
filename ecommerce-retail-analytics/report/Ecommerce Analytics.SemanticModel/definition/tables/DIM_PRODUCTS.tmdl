@@ -3,17 +3,23 @@ table DIM_PRODUCTS
 
 	column PRODUCT_KEY
 		dataType: string
+		isHidden
 		lineageTag: 56a44d8a-61dd-4c57-9014-0e2efb62dae4
 		summarizeBy: none
 		sourceColumn: PRODUCT_KEY
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column PRODUCT_ID
 		dataType: string
+		isHidden
 		lineageTag: 77bbe0f2-ec29-4a88-923f-424baa1b11a2
 		summarizeBy: none
 		sourceColumn: PRODUCT_ID
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -22,106 +28,6 @@ table DIM_PRODUCTS
 		lineageTag: f1f679e5-aa0f-45d7-ae8c-e9c13334b0f9
 		summarizeBy: none
 		sourceColumn: PRODUCT_CATEGORY
-
-		annotation SummarizationSetBy = Automatic
-
-	column FIRST_ORDER_DATE
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 295fba59-ac35-430b-9e70-f97977aef2f2
-		summarizeBy: none
-		sourceColumn: FIRST_ORDER_DATE
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column LAST_ORDER_DATE
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: b041878c-bed6-46e5-8244-4bc913f0ff6e
-		summarizeBy: none
-		sourceColumn: LAST_ORDER_DATE
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column TOTAL_ORDERS
-		dataType: double
-		lineageTag: 11c2f0b1-06e7-4051-8df9-f2fea9b96b7a
-		summarizeBy: none
-		sourceColumn: TOTAL_ORDERS
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column TOTAL_UNITS_SOLD
-		dataType: double
-		lineageTag: ce339c0d-d928-4a3c-b070-76dcdf195793
-		summarizeBy: none
-		sourceColumn: TOTAL_UNITS_SOLD
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column CANCELED_ORDERS
-		dataType: double
-		lineageTag: ab51fde0-44dd-4d92-9edb-9551a2333b6b
-		summarizeBy: none
-		sourceColumn: CANCELED_ORDERS
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column CANCELED_RATE
-		dataType: double
-		lineageTag: 33ea6d59-0ba0-4855-94f0-10211c756f54
-		summarizeBy: none
-		sourceColumn: CANCELED_RATE
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column TOTAL_REVENUE
-		dataType: double
-		lineageTag: 8c8bda43-e902-4e21-9d11-272aa9b58581
-		summarizeBy: none
-		sourceColumn: TOTAL_REVENUE
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column TOTAL_REVIEWS
-		dataType: double
-		lineageTag: 590fdae2-4125-4592-b9e1-13386d500527
-		summarizeBy: none
-		sourceColumn: TOTAL_REVIEWS
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column AVERAGE_RATING
-		dataType: double
-		lineageTag: 796d7500-cfe1-4fce-ad2d-b36ac5d439de
-		summarizeBy: none
-		sourceColumn: AVERAGE_RATING
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column PERFORMANCE_SEGMENT
-		dataType: string
-		lineageTag: a3161e36-f65f-4d27-a865-79b0b924e5ab
-		summarizeBy: none
-		sourceColumn: PERFORMANCE_SEGMENT
 
 		annotation SummarizationSetBy = Automatic
 
@@ -197,19 +103,25 @@ table DIM_PRODUCTS
 
 	column CREATED_AT
 		dataType: dateTime
+		isHidden
 		formatString: General Date
 		lineageTag: be45af8c-fe13-492e-a401-11b093fdcc30
 		summarizeBy: none
 		sourceColumn: CREATED_AT
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column UPDATED_AT
 		dataType: dateTime
+		isHidden
 		formatString: General Date
 		lineageTag: fdfd5789-62d3-4aa2-8f2d-9f2b17a69c15
 		summarizeBy: none
 		sourceColumn: UPDATED_AT
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -223,4 +135,8 @@ table DIM_PRODUCTS
 				    DIM_PRODUCTS_Table = MARTS_Schema{[Name="DIM_PRODUCTS",Kind="Table"]}[Data]
 				in
 				    DIM_PRODUCTS_Table
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
 

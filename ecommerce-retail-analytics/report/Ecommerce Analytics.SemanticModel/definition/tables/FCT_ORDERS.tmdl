@@ -3,33 +3,45 @@ table FCT_ORDERS
 
 	column ORDER_KEY
 		dataType: string
+		isHidden
 		lineageTag: 7ca1aa79-170c-4aa8-af69-9b157790d237
 		summarizeBy: none
 		sourceColumn: ORDER_KEY
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column ORDER_ID
 		dataType: string
+		isHidden
 		lineageTag: 4d9e4274-e1ad-4712-bbaa-67d0f25a2389
 		summarizeBy: none
 		sourceColumn: ORDER_ID
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column CUSTOMER_KEY
 		dataType: string
+		isHidden
 		lineageTag: aea5a544-421f-4a41-bef7-d6598bb4263f
 		summarizeBy: none
 		sourceColumn: CUSTOMER_KEY
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column ORDER_DATE_KEY
 		dataType: double
+		isHidden
 		lineageTag: 440d2e17-04af-4c2f-9863-09f7a85e9c1c
 		summarizeBy: none
 		sourceColumn: ORDER_DATE_KEY
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -37,9 +49,12 @@ table FCT_ORDERS
 
 	column APPROVAL_DATE_KEY
 		dataType: double
+		isHidden
 		lineageTag: 0d0f3a9c-9589-4593-b9ca-93f849eee367
 		summarizeBy: none
 		sourceColumn: APPROVAL_DATE_KEY
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -47,9 +62,12 @@ table FCT_ORDERS
 
 	column DELIVERY_DATE_KEY
 		dataType: double
+		isHidden
 		lineageTag: e4a4fc2f-e179-4582-8547-9829bdc773d9
 		summarizeBy: none
 		sourceColumn: DELIVERY_DATE_KEY
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -57,9 +75,12 @@ table FCT_ORDERS
 
 	column ESTIMATED_DELIVERY_DATE_KEY
 		dataType: double
+		isHidden
 		lineageTag: e5df83e2-7ada-4999-b836-c571513ccbe6
 		summarizeBy: none
 		sourceColumn: ESTIMATED_DELIVERY_DATE_KEY
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -184,21 +205,52 @@ table FCT_ORDERS
 
 	column CREATED_AT
 		dataType: dateTime
+		isHidden
 		formatString: General Date
 		lineageTag: 06bef0ba-6172-4af0-b260-acf06bebe1ef
 		summarizeBy: none
 		sourceColumn: CREATED_AT
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column UPDATED_AT
 		dataType: dateTime
+		isHidden
 		formatString: General Date
 		lineageTag: 91c6bbeb-8b41-46be-9f70-d835a3228e29
 		summarizeBy: none
 		sourceColumn: UPDATED_AT
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
+
+	column CUSTOMER_UNIQUE_ID
+		dataType: string
+		isHidden
+		lineageTag: a5cc8834-b8e5-433c-a6fa-c589f4474d55
+		summarizeBy: none
+		sourceColumn: CUSTOMER_UNIQUE_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ORDER_DATE
+		dataType: dateTime
+		isHidden
+		formatString: Short Date
+		lineageTag: 37cf1984-c8be-430c-a280-9ecd09fdd099
+		summarizeBy: none
+		sourceColumn: ORDER_DATE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	partition FCT_ORDERS = m
 		mode: import
@@ -212,4 +264,6 @@ table FCT_ORDERS
 				    FCT_ORDERS_Table
 
 	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
 

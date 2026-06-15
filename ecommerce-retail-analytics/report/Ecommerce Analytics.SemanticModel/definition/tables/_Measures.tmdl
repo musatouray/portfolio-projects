@@ -9,7 +9,7 @@ table _Measures
 		lineageTag: b1000001-0001-0001-0001-000000000001
 
 		formatStringDefinition = ```
-				VAR __FormattedRevenue = [Total Revenue]
+				VAR __FormattedRevenue = SELECTEDMEASURE()
 				RETURN
 				    SWITCH (
 				        TRUE (),
@@ -29,7 +29,7 @@ table _Measures
 		lineageTag: b1000002-0001-0001-0001-000000000002
 
 		formatStringDefinition =
-				VAR __FormattedOrders = [Total Orders]
+				VAR __FormattedOrders = SELECTEDMEASURE()
 				RETURN
 				    SWITCH (
 				        TRUE (),
@@ -47,7 +47,7 @@ table _Measures
 		lineageTag: b1000003-0001-0001-0001-000000000003
 
 		formatStringDefinition =
-				VAR __UniqueCustomers = [Unique Customers]
+				VAR __UniqueCustomers = SELECTEDMEASURE()
 				RETURN
 				    SWITCH (
 				        TRUE (),
@@ -65,7 +65,7 @@ table _Measures
 		lineageTag: b1000004-0001-0001-0001-000000000004
 
 		formatStringDefinition =
-				VAR __FormattedAOV = [Average Order Value]
+				VAR __FormattedAOV = SELECTEDMEASURE()
 				RETURN
 				    SWITCH (
 				        TRUE (),
@@ -91,9 +91,14 @@ table _Measures
 	/// Share of orders with ORDER_STATUS = 'delivered'. Storage-engine-friendly
 	/// (CALCULATE predicate, not COUNTROWS(FILTER(...))).
 	measure 'Delivery Rate' =
+			
+			VAR __TotalOrders = [Total Orders]
+			VAR __DeliveredOrders = CALCULATE([Total Orders], FCT_ORDERS[ORDER_STATUS] = "delivered")
+			RETURN
 			DIVIDE(
-				CALCULATE([Total Orders], FCT_ORDERS[ORDER_STATUS] = "delivered"),
-				[Total Orders]
+				__DeliveredOrders,
+				__TotalOrders,
+			    0
 			)
 		formatString: 0.0%
 		displayFolder: 00_Base
@@ -199,41 +204,47 @@ table _Measures
 		displayFolder: 08_Time Intelligence\_YoY
 		lineageTag: t1000011-0001-0001-0001-000000000011
 
-	measure 'RFM Segment Unique Customers' =
+	measure 'Avg Recency (Days)' = ```
 			
-			COALESCE([Unique Customers], 0)
-		formatString: #,0
-		displayFolder: 01_Segments\RFM
-		lineageTag: r1000006-0001-0001-0001-000000000006
-
-	measure 'Avg Recency (Days)' =
-			
-			CALCULATE(
-			    AVERAGE(FCT_RFM_SEGMENTS[RECENCY]),
-			    CROSSFILTER(FCT_ORDERS[CUSTOMER_KEY], DIM_CUSTOMERS[CUSTOMER_KEY], Both)
+			AVERAGEX(
+				KEEPFILTERS(
+					VALUES(FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID])
+				),
+				CALCULATE(
+					MIN(FCT_RFM_SEGMENTS[RECENCY_DAYS])
+				)
 			)
+			
+			```
 		formatString: #,##0
 		displayFolder: 01_Segments\RFM
 		lineageTag: r1000007-0001-0001-0001-000000000007
 
-	measure 'Avg Frequency' = ```
+	measure 'Avg Frequency' =
 			
-			CALCULATE(
-			    AVERAGE(FCT_RFM_SEGMENTS[FREQUENCY]),
-			    CROSSFILTER(FCT_ORDERS[CUSTOMER_KEY], DIM_CUSTOMERS[CUSTOMER_KEY], Both)
+			AVERAGEX(
+				KEEPFILTERS(
+					VALUES(FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID])
+				),
+				CALCULATE(
+					MAX(FCT_RFM_SEGMENTS[TOTAL_ORDERS])
+				)
 			)
-			
-			```
 		formatString: 0.0
 		displayFolder: 01_Segments\RFM
 		lineageTag: r1000008-0001-0001-0001-000000000008
 
 	measure 'Avg Monetary' = ```
 			
-			CALCULATE(
-			    AVERAGE(FCT_RFM_SEGMENTS[MONETARY]),
-			    CROSSFILTER(FCT_ORDERS[CUSTOMER_KEY], DIM_CUSTOMERS[CUSTOMER_KEY], Both)
+			AVERAGEX(
+				KEEPFILTERS(
+					VALUES(FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID])
+				),
+				CALCULATE(
+					MAX(FCT_RFM_SEGMENTS[TOTAL_REVENUE])
+				)
 			)
+			
 			
 			```
 		formatString: $#,##0
@@ -514,17 +525,17 @@ table _Measures
 	/// =============================================
 	/// _Product Performance Measures (Pareto)
 	/// =============================================
-	measure 'Product Revenue' = SUM(FCT_PARETO_PRODUCTS[TOTAL_REVENUE])
+	measure 'Product Revenue' = SUM(FCT_ORDER_ITEMS[ITEM_TOTAL])
 		formatString: $#,##0
 		displayFolder: 03_Product
 		lineageTag: p1000001-0001-0001-0001-000000000001
 
-	measure 'Product Orders' = SUM(FCT_PARETO_PRODUCTS[TOTAL_ORDERS])
+	measure 'Product Orders' = DISTINCTCOUNT(FCT_ORDER_ITEMS[ORDER_ID])
 		formatString: #,##0
 		displayFolder: 03_Product
 		lineageTag: p1000002-0001-0001-0001-000000000002
 
-	measure 'Total Products' = COUNTROWS(FCT_PARETO_PRODUCTS)
+	measure 'Total Products' = COUNTROWS(DIM_PRODUCTS)
 		formatString: #,##0
 		displayFolder: 03_Product
 		lineageTag: p1000003-0001-0001-0001-000000000003
@@ -562,7 +573,7 @@ table _Measures
 		displayFolder: 03_Product
 		lineageTag: p1000007-0001-0001-0001-000000000007
 
-	measure 'Total Categories' = DISTINCTCOUNT(FCT_PARETO_PRODUCTS[PRODUCT_CATEGORY])
+	measure 'Total Categories' = DISTINCTCOUNT(DIM_PRODUCTS[PRODUCT_CATEGORY])
 		formatString: #,##0
 		displayFolder: 03_Product
 		lineageTag: p1000008-0001-0001-0001-000000000008
@@ -868,27 +879,14 @@ table _Measures
 	measure 'All Segments Revenue' = ```
 			
 			CALCULATE(
-			    [Total Revenue], 
-			    REMOVEFILTERS(FCT_RFM_SEGMENTS),
-			    ALLSELECTED(FCT_RFM_SEGMENTS[RFM_SEGMENT])
-			    )
+			    [RFM Total Revenue], 
+			    REMOVEFILTERS(FCT_RFM_SEGMENTS[RFM_SEGMENT])
+			)
 			
 			```
 		formatString: \$#,0;(\$#,0);\$#,0
 		displayFolder: 01_Segments\RFM
 		lineageTag: r1000012-0001-0001-0001-000000000012
-
-	/// Share of total RFM-segment revenue. ALLSELECTED so segment slicers still work.
-	measure 'RFM Segment Revenue %' =
-			
-			DIVIDE(
-				[Total Revenue],
-				[All Segments Revenue],
-			    0
-			)
-		formatString: 0.0%;-0.0%;0.0%
-		displayFolder: 01_Segments\RFM
-		lineageTag: 59c9a4f6-8ace-4562-85c4-a312bd6638d4
 
 	measure 'Platinum CLV Revenue %' =
 			DIVIDE(
@@ -1004,11 +1002,22 @@ table _Measures
 		displayFolder: 04_Funnel
 		lineageTag: e558dd58-2114-44fb-b0da-31a508c47895
 
-	measure 'Category Revenue %' =
+	measure 'Category Revenue %' = ```
+			
+			VAR __ProductRevenue = [Product Revenue]
+			VAR __AllProductCategoryRevenue = 
+			    CALCULATE(
+			        [Product Revenue], 
+			        ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY])
+			    )
+			
+			RETURN
 			DIVIDE(
-				[Product Revenue],
-				CALCULATE([Product Revenue], ALLSELECTED(FCT_PARETO_PRODUCTS[PRODUCT_CATEGORY]))
+				__ProductRevenue,
+				__AllProductCategoryRevenue,
+			    0
 			)
+			```
 		formatString: 0.0%
 		displayFolder: 03_Product
 		lineageTag: 2f5b12f4-ebab-4b0a-b04b-66daa04ec37d
@@ -1299,8 +1308,8 @@ table _Measures
 
 	measure 'Start and End Dates' = ```
 			
-			VAR __MinDate = CALCULATE(MIN(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES))
-			VAR __MaxDate = CALCULATE(MAX(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES))
+			VAR __MinDate = CALCULATE(MIN(FCT_ORDERS[ORDER_DATE]), ALLSELECTED(DIM_DATES))
+			VAR __MaxDate = CALCULATE(MAX(FCT_ORDERS[ORDER_DATE]), ALLSELECTED(DIM_DATES))
 			VAR __StartOfWeek = __MaxDate - WEEKDAY(__MaxDate, 2) + 1
 			
 			VAR __SelectedPeriod = SELECTEDVALUE('CG Custom Periods'[Period], "Custom")
@@ -1758,12 +1767,13 @@ table _Measures
 
 	measure 'Total Revenue Order Items' = ```
 			
-			VAR __MaxDate = CALCULATE(MAX(DIM_DATES[DATE]), ALLSELECTED(DIM_DATES[DATE]))
-			RETURN
-			CALCULATE(
-			    SUM(FCT_ORDER_ITEMS[ITEM_TOTAL]),
-			    KEEPFILTERS(DIM_DATES[DATE] <= __MaxDate)
-			)
+			SUM(FCT_ORDER_ITEMS[ITEM_TOTAL])
+			// VAR __MaxDate = CALCULATE(MAX(FCT_ORDERS[ORDER_DATE]), ALLSELECTED(DIM_DATES[DATE]))
+			// RETURN
+			// CALCULATE(
+			//     SUM(FCT_ORDER_ITEMS[ITEM_TOTAL]),
+			//     KEEPFILTERS(DIM_DATES[DATE] <= __MaxDate)
+			// )
 			
 			```
 		displayFolder: 00_Base\_Order Items
@@ -2421,7 +2431,7 @@ table _Measures
 			"</div></div>
 			</div>
 			<div style=""background:rgba(0,120,212,0.06);border:1px solid rgba(0,120,212,0.18);border-radius:8px;padding:22px 24px;"">
-			<div style=""display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;""><div style=""font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(79,168,223,0.85);font-weight:600;"">Coverage</div><div style=""font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:0.3px;"">18 Advanced SQL Patterns &middot; 140+ Measures &middot; 29 dbt Models</div></div>
+			<div style=""display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;""><div style=""font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(79,168,223,0.85);font-weight:600;"">Coverage</div><div style=""font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:0.3px;"">18 Advanced SQL Patterns &middot; 140+ Measures &middot; 22 dbt Models</div></div>
 			<div style=""height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;""><div style=""height:100%;width:0;border-radius:2px;background:linear-gradient(90deg,#0078D4,#4FA8DF);animation:ppProgress 1.6s 2.2s forwards;box-shadow:0 0 10px rgba(0,120,212,0.6);""></div></div>
 			</div></div></div>
 			<style>
@@ -2588,7 +2598,7 @@ table _Measures
 			"</div></div>
 			</div>
 			<div style=""background:#FFFFFF;border:1px solid rgba(0,120,212,0.18);border-radius:8px;padding:22px 24px;box-shadow:0 4px 16px rgba(0,120,212,0.08);"">
-			<div style=""display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;""><div style=""font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#0078D4;font-weight:600;"">Coverage</div><div style=""font-size:11px;color:#605E5C;letter-spacing:0.3px;"">18 Advanced SQL Patterns &middot; 29 dbt Models</div></div>
+			<div style=""display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;""><div style=""font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#0078D4;font-weight:600;"">Coverage</div><div style=""font-size:11px;color:#605E5C;letter-spacing:0.3px;"">18 Advanced SQL Patterns &middot; 22 dbt Models</div></div>
 			<div style=""height:3px;background:rgba(0,120,212,0.1);border-radius:2px;overflow:hidden;""><div style=""height:100%;width:0;border-radius:2px;background:linear-gradient(90deg,#0078D4,#4FA8DF);animation:pplProgress 1.6s 2.2s forwards;box-shadow:0 0 8px rgba(0,120,212,0.35);""></div></div>
 			</div></div></div>
 			<style>
@@ -2646,7 +2656,7 @@ table _Measures
 		displayFolder: 01_Segments\RFM
 		lineageTag: 6bf6b5f3-1e70-47ab-b2df-020bf6316a47
 
-	measure 'RFM Remaining %' = 1 - [RFM Segment Revenue %]
+	measure 'RFM Remaining %' = 1 - [RFM Revenue Share %]
 		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: 01_Segments\RFM
 		lineageTag: f7d2b922-449a-4423-9d8b-91166e9f7cf8
@@ -2961,6 +2971,71 @@ table _Measures
 		lineageTag: b57ec0f7-9037-4bc3-b9c9-91615d69586d
 
 		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'RFM Unique Customers' = ```
+			
+			VAR __MaxSnapshotDate = 
+			CALCULATE(
+			    MAX(FCT_RFM_SEGMENTS[SNAPSHOT_MONTH]), 
+			    KEEPFILTERS('DIM_DATES'[DATE])
+			)
+			
+			RETURN
+			CALCULATE(
+				DISTINCTCOUNT(FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID]),
+			    FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __MaxSnapshotDate,
+				KEEPFILTERS(DIM_DATES[DATE])
+			)
+			
+			```
+		formatString: #,0
+		displayFolder: 01_Segments\RFM
+		lineageTag: db39dffb-e4b7-4d0c-8ea4-740964eda38f
+
+	measure 'RFM Total Orders' = ```
+			
+			VAR __MaxSnapshotDate = 
+			CALCULATE(
+			    MAX(FCT_RFM_SEGMENTS[SNAPSHOT_MONTH]),
+			    VALUES(FCT_RFM_SEGMENTS[CUSTOMER_KEY]),
+			    ALLSELECTED('DIM_DATES')
+			)
+			
+			RETURN
+			CALCULATE(
+				SUM(FCT_RFM_SEGMENTS[TOTAL_ORDERS]),
+			    FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __MaxSnapshotDate
+			)
+			```
+		formatString: #,##0
+		displayFolder: 01_Segments\RFM
+		lineageTag: 05945a0d-7f49-4422-b859-922320f64dc5
+
+	measure 'RFM Total Revenue' = ```
+			
+			VAR __MaxSnapshotDate = 
+			CALCULATE(
+			    MAX(FCT_RFM_SEGMENTS[SNAPSHOT_MONTH]), 
+			    KEEPFILTERS('DIM_DATES'[DATE])
+			)
+			
+			RETURN
+			CALCULATE(
+				SUM(FCT_RFM_SEGMENTS[TOTAL_REVENUE]),
+			    FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __MaxSnapshotDate,
+				KEEPFILTERS(DIM_DATES[DATE])
+			)
+			```
+		formatString: #,##0
+		displayFolder: 01_Segments\RFM
+		lineageTag: c362ddda-133e-4b1b-9dcf-7b749c9da826
+
+	measure 'RFM Revenue Share %' =
+			
+			DIVIDE([RFM Total Revenue], [All Segments Revenue], 0)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 01_Segments\RFM
+		lineageTag: 95c2ca3c-004a-454a-ad6b-52670686b6cf
 
 	/// Hidden column for calculated table
 	column Value

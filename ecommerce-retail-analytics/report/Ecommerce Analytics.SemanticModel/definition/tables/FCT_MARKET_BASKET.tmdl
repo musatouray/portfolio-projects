@@ -3,41 +3,12 @@ table FCT_MARKET_BASKET
 
 	column BASKET_PAIR_KEY
 		dataType: string
+		isHidden
 		lineageTag: 5f97b91b-50ad-4ea5-af08-d032885afb3e
 		summarizeBy: none
 		sourceColumn: BASKET_PAIR_KEY
 
-		annotation SummarizationSetBy = Automatic
-
-	column PRODUCT_A
-		dataType: string
-		lineageTag: 5cf31341-8f5b-4eb8-b526-bb25bbb04bda
-		summarizeBy: none
-		sourceColumn: PRODUCT_A
-
-		annotation SummarizationSetBy = Automatic
-
-	column PRODUCT_B
-		dataType: string
-		lineageTag: 898a48be-6215-493a-abfd-f70b536abe46
-		summarizeBy: none
-		sourceColumn: PRODUCT_B
-
-		annotation SummarizationSetBy = Automatic
-
-	column CATEGORY_A
-		dataType: string
-		lineageTag: 93474913-2f0a-495c-adf9-7f6db0001456
-		summarizeBy: none
-		sourceColumn: CATEGORY_A
-
-		annotation SummarizationSetBy = Automatic
-
-	column CATEGORY_B
-		dataType: string
-		lineageTag: 2812e844-8764-4f28-96f3-84e3ee62b153
-		summarizeBy: none
-		sourceColumn: CATEGORY_B
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -71,61 +42,49 @@ table FCT_MARKET_BASKET
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column SUPPORT_PCT
-		dataType: double
-		lineageTag: 866c72ff-bb6e-4ff9-ba45-0cfd0f5592dc
-		summarizeBy: none
-		sourceColumn: SUPPORT_PCT
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column CONFIDENCE_A_TO_B_PCT
-		dataType: double
-		lineageTag: 55d925f5-a510-4d90-8204-dd75eca36cee
-		summarizeBy: none
-		sourceColumn: CONFIDENCE_A_TO_B_PCT
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column CONFIDENCE_B_TO_A_PCT
-		dataType: double
-		lineageTag: c839357c-48c8-4b58-b8ee-4f6f6c6aefa5
-		summarizeBy: none
-		sourceColumn: CONFIDENCE_B_TO_A_PCT
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column LIFT
-		dataType: double
-		lineageTag: e7d83753-bd41-49ba-973f-d1b584afbd26
-		summarizeBy: none
-		sourceColumn: LIFT
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column CREATED_AT
 		dataType: dateTime
+		isHidden
 		formatString: General Date
 		lineageTag: ec6e4ef1-c06e-4f7a-8784-2172ac2282cd
 		summarizeBy: none
 		sourceColumn: CREATED_AT
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column UPDATED_AT
 		dataType: dateTime
+		isHidden
 		formatString: General Date
 		lineageTag: d2bde83a-c815-449e-8a29-b2f9a828cbdc
 		summarizeBy: none
 		sourceColumn: UPDATED_AT
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRODUCT_KEY_A
+		dataType: string
+		isHidden
+		lineageTag: 131c6ec1-cc1d-434e-b228-b26043aecbd8
+		summarizeBy: none
+		sourceColumn: PRODUCT_KEY_A
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRODUCT_KEY_B
+		dataType: string
+		isHidden
+		lineageTag: d9ff213a-3bba-4fd8-9141-d1f43701d994
+		summarizeBy: none
+		sourceColumn: PRODUCT_KEY_B
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -141,4 +100,6 @@ table FCT_MARKET_BASKET
 				    FCT_MARKET_BASKET_Table
 
 	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
 

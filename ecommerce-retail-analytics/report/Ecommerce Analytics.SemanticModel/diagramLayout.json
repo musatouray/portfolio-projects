@@ -4,23 +4,10 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 0,
+        "x": 1058.4000244140625,
         "y": 0
       },
       "nodes": [
-        {
-          "location": {
-            "x": 1504.381579012781,
-            "y": 392.40683827026146
-          },
-          "nodeIndex": "DIM_COHORTS",
-          "nodeLineageTag": "58eefc92-76e0-4c4b-a158-cc4511b059ac",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 1
-        },
         {
           "location": {
             "x": 849.948003311709,
@@ -78,32 +65,6 @@
         },
         {
           "location": {
-            "x": 2122.2078327898894,
-            "y": 55.20341913513073
-          },
-          "nodeIndex": "FCT_CATEGORY_PERFORMANCE",
-          "nodeLineageTag": "afbddc3f-026b-4b7c-9501-def0fd10b2e1",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 4
-        },
-        {
-          "location": {
-            "x": 1238.2504022866788,
-            "y": 735.74589072594176
-          },
-          "nodeIndex": "FCT_CHURN_RISK",
-          "nodeLineageTag": "722b1b9f-7172-4f69-bc82-3782b4bccfb4",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 5
-        },
-        {
-          "location": {
             "x": 1165.6951718035971,
             "y": 411.75803656843181
           },
@@ -127,32 +88,6 @@
             "width": 234
           },
           "zIndex": 7
-        },
-        {
-          "location": {
-            "x": 1768.2078327898894,
-            "y": 48.20341913513073
-          },
-          "nodeIndex": "FCT_DAILY_REVENUE_TIME_SERIES",
-          "nodeLineageTag": "f5968804-34e6-401e-84f0-4b221af16acc",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 8
-        },
-        {
-          "location": {
-            "x": 2279.2078327898894,
-            "y": 390.20341913513073
-          },
-          "nodeIndex": "FCT_GEO_PERFORMANCE",
-          "nodeLineageTag": "73d68d39-9807-4b18-87eb-a37d2d26c4d9",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 9
         },
         {
           "location": {
@@ -192,45 +127,6 @@
             "width": 234
           },
           "zIndex": 12
-        },
-        {
-          "location": {
-            "x": 1518.2078327898894,
-            "y": 0
-          },
-          "nodeIndex": "FCT_ORDERS_FUNNEL",
-          "nodeLineageTag": "89d189d6-0651-4c0f-ad91-53e719a3f412",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 13
-        },
-        {
-          "location": {
-            "x": 869.37167298736063,
-            "y": 416.3804094678826
-          },
-          "nodeIndex": "FCT_PARETO_PRODUCTS",
-          "nodeLineageTag": "bd3ba747-2729-475d-98b5-e389110b86f5",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 14
-        },
-        {
-          "location": {
-            "x": 2555.8076863055144,
-            "y": 409.20341913513073
-          },
-          "nodeIndex": "FCT_PAYMENT_ANALYSIS",
-          "nodeLineageTag": "2f8d2dab-28cb-405d-95b4-44d14e7309b5",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 15
         },
         {
           "location": {
@@ -320,7 +216,10 @@
           "zIndex": 0
         },
         {
-          "location": {},
+          "location": {
+            "x": 4678.2078327898889,
+            "y": 282.20074194252322
+          },
           "nodeIndex": "Param: Cohort Retention",
           "nodeLineageTag": "846c9a26-807e-412b-ab47-d9e492d0ad26",
           "size": {
@@ -330,10 +229,38 @@
           "zIndex": 0
         },
         {
-          "location": {},
+          "location": {
+            "x": 4962.2078327898889,
+            "y": 258.20074194252322
+          },
           "nodeIndex": "Disconnected Calendar",
           "size": {
             "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 5246.2078327898889,
+            "y": 246.20074194252322
+          },
+          "nodeIndex": "Param: Cohort Size",
+          "nodeLineageTag": "721f0832-4d15-4752-b4cb-6105debd7e64",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2555.8076863055144,
+            "y": 409.20341913513073
+          },
+          "nodeIndex": "FCT_ORDER_PAYMENTS",
+          "size": {
+            "height": 300,
             "width": 234
           },
           "zIndex": 0
@@ -396,22 +323,8 @@
       "nodes": [
         {
           "location": {
-            "x": 164.20000076293945,
-            "y": 0
-          },
-          "nodeIndex": "DIM_DATES",
-          "nodeLineageTag": "b4cf66a4-55c7-458b-be19-6f24ccc2c2e6",
-          "size": {
-            "height": 104,
-            "width": 234
-          },
-          "zIndex": 1,
-          "expandedHeight": 300
-        },
-        {
-          "location": {
-            "x": 658.20000076293945,
-            "y": 0
+            "x": 642.20000076293945,
+            "y": 2
           },
           "nodeIndex": "DIM_CUSTOMERS",
           "nodeLineageTag": "b5f7505e-a37a-47d9-bfd1-99a4d36404b2",
@@ -419,41 +332,13 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 2,
-          "expandedHeight": 300
-        },
-        {
-          "location": {
-            "x": 1169.2000007629395,
-            "y": 0
-          },
-          "nodeIndex": "DIM_COHORTS",
-          "nodeLineageTag": "58eefc92-76e0-4c4b-a158-cc4511b059ac",
-          "size": {
-            "height": 104,
-            "width": 234
-          },
-          "zIndex": 3,
-          "expandedHeight": 300
-        },
-        {
-          "location": {
-            "x": 1341.2000007629395,
-            "y": 388
-          },
-          "nodeIndex": "FCT_COHORT_RETENTION",
-          "nodeLineageTag": "202dd212-ce20-40d4-a849-593f800ab56b",
-          "size": {
-            "height": 104,
-            "width": 267
-          },
-          "zIndex": 7,
+          "zIndex": 6,
           "expandedHeight": 300
         },
         {
           "location": {
             "x": 962.20000076293945,
-            "y": 388
+            "y": 350
           },
           "nodeIndex": "FCT_CLV_CUSTOMER",
           "nodeLineageTag": "b544e3f2-4033-4220-a741-c0e080343fc5",
@@ -466,8 +351,8 @@
         },
         {
           "location": {
-            "x": 161.20000076293945,
-            "y": 348
+            "x": 8.2000007629394531,
+            "y": 352
           },
           "nodeIndex": "FCT_ORDERS",
           "nodeLineageTag": "75a2ace9-4107-4c92-8e4e-a8d4733f9e84",
@@ -475,27 +360,27 @@
             "height": 176,
             "width": 234
           },
-          "zIndex": 6,
+          "zIndex": 1,
           "expandedHeight": 300
         },
         {
           "location": {
-            "x": 157.20000076293945,
-            "y": 627
+            "x": 330.20000076293945,
+            "y": 351
           },
           "nodeIndex": "FCT_ORDER_ITEMS",
           "nodeLineageTag": "0e4f458f-0dfd-4cf5-bd7e-68cdfbb34b61",
           "size": {
-            "height": 152,
+            "height": 176,
             "width": 234
           },
-          "zIndex": 5,
+          "zIndex": 2,
           "expandedHeight": 300
         },
         {
           "location": {
-            "x": 647.20000076293945,
-            "y": 386
+            "x": 1304.2000007629395,
+            "y": 341
           },
           "nodeIndex": "FCT_RFM_SEGMENTS",
           "nodeLineageTag": "5d5cd826-5672-4bef-93ed-7b84e9a2a9ee",
@@ -503,21 +388,22 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 8,
+          "zIndex": 5,
           "expandedHeight": 300
         },
         {
           "location": {
-            "x": 737.20000076293945,
-            "y": 659
+            "x": 626.20000076293945,
+            "y": 355
           },
-          "nodeIndex": "Disconnected Calendar",
-          "nodeLineageTag": "21d2a943-bd31-4d53-b77d-7455003b47d7",
+          "nodeIndex": "FCT_ORDER_PAYMENTS",
+          "nodeLineageTag": "2f8d2dab-28cb-405d-95b4-44d14e7309b5",
           "size": {
             "height": 128,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 3,
+          "expandedHeight": 300
         }
       ],
       "name": "Customers",
@@ -536,68 +422,45 @@
       "nodes": [
         {
           "location": {
-            "x": 406.20000076293945,
-            "y": 0
-          },
-          "nodeIndex": "DIM_DATES",
-          "nodeLineageTag": "b4cf66a4-55c7-458b-be19-6f24ccc2c2e6",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 853.20000076293945,
-            "y": 12
+            "x": 825.20000076293945,
+            "y": 8
           },
           "nodeIndex": "DIM_PRODUCTS",
           "nodeLineageTag": "d13f411b-6e61-4583-af51-62ff5350c900",
           "size": {
-            "height": 300,
+            "height": 104,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 0,
+          "expandedHeight": 300
         },
         {
           "location": {
-            "x": 414.20000076293945,
-            "y": 449
-          },
-          "nodeIndex": "FCT_ORDERS",
-          "nodeLineageTag": "75a2ace9-4107-4c92-8e4e-a8d4733f9e84",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 879.20000076293945,
-            "y": 447
+            "x": 643.20000076293945,
+            "y": 370
           },
           "nodeIndex": "FCT_ORDER_ITEMS",
           "nodeLineageTag": "0e4f458f-0dfd-4cf5-bd7e-68cdfbb34b61",
           "size": {
-            "height": 300,
+            "height": 176,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 0,
+          "expandedHeight": 300
         },
         {
           "location": {
-            "x": 1324.2000007629395,
-            "y": 460
+            "x": 1013.2000007629395,
+            "y": 367
           },
-          "nodeIndex": "FCT_PARETO_PRODUCTS",
-          "nodeLineageTag": "bd3ba747-2729-475d-98b5-e389110b86f5",
+          "nodeIndex": "FCT_MARKET_BASKET",
+          "nodeLineageTag": "a151dc8c-67f0-4c78-a37a-353e565cdc4e",
           "size": {
-            "height": 300,
+            "height": 128,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 0,
+          "expandedHeight": 272
         }
       ],
       "name": "Products",
@@ -616,20 +479,6 @@
       "nodes": [
         {
           "location": {
-            "x": 222.20000076293945,
-            "y": 421
-          },
-          "nodeIndex": "FCT_ORDERS",
-          "nodeLineageTag": "75a2ace9-4107-4c92-8e4e-a8d4733f9e84",
-          "size": {
-            "height": 176,
-            "width": 234
-          },
-          "zIndex": 0,
-          "expandedHeight": 300
-        },
-        {
-          "location": {
             "x": 697.20000076293945,
             "y": 429
           },
@@ -644,8 +493,8 @@
         },
         {
           "location": {
-            "x": 766.20000076293945,
-            "y": 0
+            "x": 678.20000076293945,
+            "y": 12
           },
           "nodeIndex": "DIM_SELLERS",
           "nodeLineageTag": "1a7fd715-ad20-46cf-b32d-5e9773ccaed1",
@@ -655,22 +504,108 @@
           },
           "zIndex": 0,
           "expandedHeight": 300
-        },
+        }
+      ],
+      "name": "Sellers",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 5,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
         {
           "location": {
-            "x": 257.20000076293945,
-            "y": 15
+            "x": 821.20000076293945,
+            "y": 27
           },
           "nodeIndex": "DIM_DATES",
           "nodeLineageTag": "b4cf66a4-55c7-458b-be19-6f24ccc2c2e6",
           "size": {
-            "height": 300,
+            "height": 128,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 0,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 215.20000076293945,
+            "y": 459
+          },
+          "nodeIndex": "FCT_ORDERS",
+          "nodeLineageTag": "75a2ace9-4107-4c92-8e4e-a8d4733f9e84",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 583.20000076293945,
+            "y": 464
+          },
+          "nodeIndex": "FCT_ORDER_ITEMS",
+          "nodeLineageTag": "0e4f458f-0dfd-4cf5-bd7e-68cdfbb34b61",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 978.20000076293945,
+            "y": 474
+          },
+          "nodeIndex": "FCT_ORDER_PAYMENTS",
+          "nodeLineageTag": "2f8d2dab-28cb-405d-95b4-44d14e7309b5",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 1327.2000007629395,
+            "y": 472
+          },
+          "nodeIndex": "FCT_RFM_SEGMENTS",
+          "nodeLineageTag": "5d5cd826-5672-4bef-93ed-7b84e9a2a9ee",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 1608.2000007629395,
+            "y": 473
+          },
+          "nodeIndex": "FCT_COHORT_RETENTION",
+          "nodeLineageTag": "202dd212-ce20-40d4-a849-593f800ab56b",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 300
         }
       ],
-      "name": "Sellers",
+      "name": "Dates",
       "zoomValue": 100,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,

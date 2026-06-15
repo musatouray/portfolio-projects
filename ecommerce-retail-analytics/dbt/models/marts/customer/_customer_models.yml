@@ -32,6 +32,11 @@ models:
         data_tests:
           - not_null
 
+      - name: snapshot_date_key
+        description: Integer surrogate key in YYYYMMDD format (e.g., 20231201) for joining to dim_dates
+        data_tests:
+          - not_null
+
       - name: snapshot_month
         description: Month for which the scores are calculated (end of month reference)
         data_tests:

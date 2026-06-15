@@ -1,51 +1,16 @@
 table FCT_RFM_SEGMENTS
 	lineageTag: 5d5cd826-5672-4bef-93ed-7b84e9a2a9ee
 
-	column RFM_SEGMENT_KEY
-		dataType: string
-		lineageTag: 994ece81-461c-4092-b08e-3642a8564baa
-		summarizeBy: none
-		sourceColumn: RFM_SEGMENT_KEY
-
-		annotation SummarizationSetBy = Automatic
-
 	column CUSTOMER_UNIQUE_ID
 		dataType: string
+		isHidden
 		lineageTag: e84fa378-ef57-4fa1-a94c-cb9030cbbb4c
 		summarizeBy: none
 		sourceColumn: CUSTOMER_UNIQUE_ID
 
-		annotation SummarizationSetBy = Automatic
-
-	column RECENCY
-		dataType: double
-		lineageTag: 0c1edf57-f2b4-4b53-a273-e76cc8a63aa4
-		summarizeBy: none
-		sourceColumn: RECENCY
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column FREQUENCY
-		dataType: double
-		lineageTag: 44b433f9-1909-45f5-abd4-73f60757707f
-		summarizeBy: none
-		sourceColumn: FREQUENCY
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column MONETARY
-		dataType: double
-		lineageTag: 2e79d41e-c2b6-4ce1-aedf-eaa88b2281d8
-		summarizeBy: none
-		sourceColumn: MONETARY
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column R_SCORE
 		dataType: double
@@ -77,20 +42,11 @@ table FCT_RFM_SEGMENTS
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column COMBINED_SCORE
-		dataType: string
-		lineageTag: e42beca2-43f2-4572-a3b8-5a8d7571f33e
-		summarizeBy: none
-		sourceColumn: COMBINED_SCORE
-
-		annotation SummarizationSetBy = Automatic
-
 	column RFM_SEGMENT
 		dataType: string
 		lineageTag: 68d83f58-3e72-429e-9f71-8543c773bfc0
 		summarizeBy: none
 		sourceColumn: RFM_SEGMENT
-		sortByColumn: SEGMENT_ID
 
 		changedProperty = SortByColumn
 
@@ -98,32 +54,147 @@ table FCT_RFM_SEGMENTS
 
 	column CREATED_AT
 		dataType: dateTime
+		isHidden
 		formatString: General Date
 		lineageTag: 1f45021f-f56f-447f-aee4-a77f1a4e78dc
 		summarizeBy: none
 		sourceColumn: CREATED_AT
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column UPDATED_AT
 		dataType: dateTime
+		isHidden
 		formatString: General Date
 		lineageTag: cc297fac-7aff-4502-a713-81685e9aa49a
 		summarizeBy: none
 		sourceColumn: UPDATED_AT
 
-		annotation SummarizationSetBy = Automatic
-
-	column SEGMENT_ID
-		dataType: int64
-		formatString: 0
-		lineageTag: 5bc77fb2-c6c7-4381-a9a4-35728cf694e9
-		summarizeBy: count
-		sourceColumn: SEGMENT_ID
-
-		changedProperty = DataType
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
+
+	column RFM_SNAPSHOT_KEY
+		dataType: string
+		isHidden
+		lineageTag: 9af76b7b-0bc9-481b-bb54-71f9cd4cf5ac
+		summarizeBy: none
+		sourceColumn: RFM_SNAPSHOT_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUSTOMER_KEY
+		dataType: string
+		isHidden
+		lineageTag: c59f50bd-b787-4755-91f0-bc708d81a311
+		summarizeBy: none
+		sourceColumn: CUSTOMER_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SNAPSHOT_MONTH
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: ecc89f95-83aa-4bee-ac21-2e49337435b7
+		summarizeBy: none
+		sourceColumn: SNAPSHOT_MONTH
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column RECENCY_DAYS
+		dataType: double
+		lineageTag: e80cf489-8a25-40fc-9ae4-2bffe8004365
+		summarizeBy: none
+		sourceColumn: RECENCY_DAYS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TOTAL_ORDERS
+		dataType: double
+		lineageTag: e89aa42c-907e-4b31-97bb-4c405870486f
+		summarizeBy: none
+		sourceColumn: TOTAL_ORDERS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TOTAL_REVENUE
+		dataType: double
+		lineageTag: c5fbb83a-02c9-4d96-80fa-63c5e0d01f82
+		summarizeBy: none
+		sourceColumn: TOTAL_REVENUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AVERAGE_RATING
+		dataType: double
+		lineageTag: 4251ae54-f116-4c7b-9de1-5d5e19a11d2f
+		summarizeBy: none
+		sourceColumn: AVERAGE_RATING
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CHURN_STATUS
+		dataType: string
+		lineageTag: 8618fdb5-5ece-4580-942d-c9f6cb313bb2
+		summarizeBy: none
+		sourceColumn: CHURN_STATUS
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUSTOMER_NPS_SEGMENT
+		dataType: string
+		lineageTag: 8195307b-20fc-427a-ac90-4fe8b9be2eb8
+		summarizeBy: none
+		sourceColumn: CUSTOMER_NPS_SEGMENT
+
+		annotation SummarizationSetBy = Automatic
+
+	column CHURN_RISK_SCORE
+		dataType: double
+		lineageTag: 2d54c0c2-37b9-483d-ab07-dba420f5b9c7
+		summarizeBy: none
+		sourceColumn: CHURN_RISK_SCORE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CHURN_RISK_SEGMENT
+		dataType: string
+		lineageTag: 9c9dfa6d-c0da-4a86-b393-ad2d4db00c2f
+		summarizeBy: none
+		sourceColumn: CHURN_RISK_SEGMENT
+
+		annotation SummarizationSetBy = Automatic
+
+	column SNAPSHOT_DATE_KEY
+		dataType: double
+		isHidden
+		lineageTag: 91c38257-bfc8-4ab1-ade9-0574fe0d022e
+		summarizeBy: none
+		sourceColumn: SNAPSHOT_DATE_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	partition FCT_RFM_SEGMENTS = m
 		mode: import
@@ -137,4 +208,6 @@ table FCT_RFM_SEGMENTS
 				    FCT_RFM_SEGMENTS_Table
 
 	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
 
