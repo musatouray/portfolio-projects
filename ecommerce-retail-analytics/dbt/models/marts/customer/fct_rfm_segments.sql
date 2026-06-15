@@ -144,7 +144,7 @@ SELECT
     END AS churn_risk_segment,
 
     -- RFM Behavioral Segments
-    -- Fix: "New Customers" broadened from (r>=4 AND f_score=1) to (r>=4 AND total_orders<=2).
+    -- "New Customers" broadened from (r>=4 AND f_score=1) to (r>=4 AND total_orders<=2).
     -- The old f_score=1 condition was too narrow due to NTILE ties in a dataset of mostly
     -- single-purchase customers; using total_orders directly is more semantically accurate.
     CASE
@@ -154,6 +154,15 @@ SELECT
         WHEN r_score = 1 THEN 'At Risk / Hibernating'
         ELSE 'General Pool'
     END AS rfm_segment,
+
+    -- Sort index for RFM segments (Champions first, General Pool last)
+    CASE
+        WHEN r_score >= 4 AND f_score >= 4 AND m_score >= 4 THEN 1  -- Champions
+        WHEN r_score >= 3 AND f_score >= 3 THEN 2                   -- Loyalists
+        WHEN r_score >= 4 AND total_orders <= 2 THEN 3              -- New Customers
+        WHEN r_score = 1 THEN 4                                     -- At Risk / Hibernating
+        ELSE 5                                                      -- General Pool
+    END AS segment_index,
 
     -- Metadata
     CURRENT_TIMESTAMP() AS created_at,
