@@ -24,13 +24,13 @@ ENV_FILE = PROJECT_ROOT / ".env"
 # CSV file to table name mapping
 TABLE_MAPPING = {
     "olist_orders_dataset.csv": "orders",
-    "olist_customers_dataset.csv": "customers",
+    "us_customers_dataset.csv": "customers",
     "olist_order_items_dataset.csv": "order_items",
     "olist_order_payments_dataset.csv": "order_payments",
     "olist_order_reviews_dataset.csv": "order_reviews",
     "olist_products_dataset.csv": "products",
-    "olist_sellers_dataset.csv": "sellers",
-    "olist_geolocation_dataset.csv": "geolocation",
+    "us_sellers_dataset.csv": "sellers",
+    "us_geolocation_dataset.csv": "geolocation",
     "product_category_name_translation.csv": "product_category_translation",
 }
 
