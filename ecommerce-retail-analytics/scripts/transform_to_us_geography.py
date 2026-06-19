@@ -358,64 +358,262 @@ def create_zip_mapping(
     return zip_mapping
 
 
-if __name__ == "__main__":
-    # Test the functionality
-    print("Testing ZCTA download and ZIP mapping creation...")
-    print("=" * 60)
+def transform_geolocation(br_df: pd.DataFrame, zip_mapping: dict[str, dict]) -> pd.DataFrame:
+    """
+    Transform Brazilian geolocation data to US geolocation.
 
-    # Download ZCTA data
+    Creates one row per unique US zip from the mapping.
+    Note: Output has fewer rows than input (BR has multiple lat/lng per zip).
+
+    Args:
+        br_df: Brazilian geolocation DataFrame
+        zip_mapping: Dictionary mapping BR zip to US zip data
+
+    Returns:
+        DataFrame with US geolocation data (one row per unique US zip)
+        Schema: geolocation_zip_code_prefix, geolocation_lat, geolocation_lng,
+                geolocation_city, geolocation_state
+    """
+    print("Transforming geolocation data to US geography...")
+
+    # Extract unique US ZIP codes from mapping
+    us_zips = {}
+    for br_zip, us_data in zip_mapping.items():
+        us_zip = us_data['us_zip']
+
+        # Only keep first occurrence of each US ZIP (deterministic)
+        if us_zip not in us_zips:
+            us_zips[us_zip] = {
+                'geolocation_zip_code_prefix': us_zip,
+                'geolocation_lat': us_data['us_lat'],
+                'geolocation_lng': us_data['us_lng'],
+                'geolocation_city': us_data['us_city'],
+                'geolocation_state': us_data['us_state']
+            }
+
+    # Convert to DataFrame
+    us_geo_df = pd.DataFrame(list(us_zips.values()))
+
+    # Sort by zip code for consistency
+    us_geo_df = us_geo_df.sort_values('geolocation_zip_code_prefix').reset_index(drop=True)
+
+    print(f"  Input: {len(br_df):,} Brazilian geolocation records")
+    print(f"  Output: {len(us_geo_df):,} US geolocation records (unique US ZIPs)")
+
+    return us_geo_df
+
+
+def transform_customers(br_df: pd.DataFrame, zip_mapping: dict[str, dict]) -> pd.DataFrame:
+    """
+    Transform Brazilian customers data to US geography.
+
+    Preserves customer_id and customer_unique_id unchanged.
+    Row count must match exactly.
+
+    Args:
+        br_df: Brazilian customers DataFrame
+        zip_mapping: Dictionary mapping BR zip to US zip data
+
+    Returns:
+        DataFrame with US customer data (same row count as input)
+    """
+    print("Transforming customers data to US geography...")
+
+    # Copy DataFrame to avoid modifying original
+    us_df = br_df.copy()
+
+    # Normalize Brazilian zip codes (ensure 5 digits with leading zeros)
+    us_df['customer_zip_code_prefix'] = us_df['customer_zip_code_prefix'].astype(str).str.zfill(5)
+
+    # Map to US geography
+    us_df['customer_zip_code_prefix'] = us_df['customer_zip_code_prefix'].map(
+        lambda br_zip: zip_mapping.get(br_zip, {}).get('us_zip', br_zip)
+    )
+    us_df['customer_city'] = us_df['customer_zip_code_prefix'].map(
+        lambda us_zip: next(
+            (v['us_city'] for k, v in zip_mapping.items() if v['us_zip'] == us_zip),
+            None
+        )
+    )
+    us_df['customer_state'] = us_df['customer_zip_code_prefix'].map(
+        lambda us_zip: next(
+            (v['us_state'] for k, v in zip_mapping.items() if v['us_zip'] == us_zip),
+            None
+        )
+    )
+
+    print(f"  Input: {len(br_df):,} customers")
+    print(f"  Output: {len(us_df):,} customers (row count preserved)")
+
+    # Verify row count matches exactly
+    assert len(us_df) == len(br_df), f"Row count mismatch: {len(us_df)} != {len(br_df)}"
+
+    return us_df
+
+
+def transform_sellers(br_df: pd.DataFrame, zip_mapping: dict[str, dict]) -> pd.DataFrame:
+    """
+    Transform Brazilian sellers data to US geography.
+
+    Preserves seller_id unchanged.
+    Row count must match exactly.
+
+    Args:
+        br_df: Brazilian sellers DataFrame
+        zip_mapping: Dictionary mapping BR zip to US zip data
+
+    Returns:
+        DataFrame with US seller data (same row count as input)
+    """
+    print("Transforming sellers data to US geography...")
+
+    # Copy DataFrame to avoid modifying original
+    us_df = br_df.copy()
+
+    # Normalize Brazilian zip codes (ensure 5 digits with leading zeros)
+    us_df['seller_zip_code_prefix'] = us_df['seller_zip_code_prefix'].astype(str).str.zfill(5)
+
+    # Map to US geography
+    us_df['seller_zip_code_prefix'] = us_df['seller_zip_code_prefix'].map(
+        lambda br_zip: zip_mapping.get(br_zip, {}).get('us_zip', br_zip)
+    )
+    us_df['seller_city'] = us_df['seller_zip_code_prefix'].map(
+        lambda us_zip: next(
+            (v['us_city'] for k, v in zip_mapping.items() if v['us_zip'] == us_zip),
+            None
+        )
+    )
+    us_df['seller_state'] = us_df['seller_zip_code_prefix'].map(
+        lambda us_zip: next(
+            (v['us_state'] for k, v in zip_mapping.items() if v['us_zip'] == us_zip),
+            None
+        )
+    )
+
+    print(f"  Input: {len(br_df):,} sellers")
+    print(f"  Output: {len(us_df):,} sellers (row count preserved)")
+
+    # Verify row count matches exactly
+    assert len(us_df) == len(br_df), f"Row count mismatch: {len(us_df)} != {len(br_df)}"
+
+    return us_df
+
+
+def main():
+    """
+    Full pipeline to transform Brazilian datasets to US geography and write CSV files.
+
+    Steps:
+    1. Download US ZCTA data and build lookup
+    2. Load Brazilian CSV files (geolocation, customers, sellers)
+    3. Create deterministic ZIP mapping
+    4. Transform all 3 datasets
+    5. Write to CSV files
+    6. Print validation summary
+    """
+    print("=" * 80)
+    print("US GEOGRAPHY TRANSFORMATION PIPELINE")
+    print("=" * 80)
+
+    # Step 1: Download US data and build lookup
+    print("\n[Step 1/6] Downloading US ZCTA data...")
     zcta_df = download_zcta_data()
-    print(f"\nTotal US ZIP codes: {len(zcta_df):,}")
-    print(f"Total US states: {zcta_df['state'].nunique()}")
 
-    # Build lookup
-    zip_lookup = build_zip_lookup(zcta_df)
+    print("\n[Step 2/6] Building ZIP code lookup...")
+    us_zip_lookup = build_zip_lookup(zcta_df)
 
-    # Print California example
-    ca_zips = zip_lookup.get('CA', [])
-    print(f"\nCalifornia ZIP codes: {len(ca_zips):,}")
-    if ca_zips:
-        print(f"First CA ZIP: {ca_zips[0]}")
-        print(f"Last CA ZIP: {ca_zips[-1]}")
-
-    # Load Brazilian geolocation data
-    print("\n" + "=" * 60)
-    print("Loading Brazilian geolocation data...")
+    # Step 2: Load Brazilian datasets
+    print("\n[Step 3/6] Loading Brazilian datasets...")
 
     br_geo_path = DATA_RAW_DIR / "olist_geolocation_dataset.csv"
-    if not br_geo_path.exists():
-        print(f"ERROR: Brazilian geolocation file not found at {br_geo_path}")
-        print("Please run download_kaggle_data.py first")
-        exit(1)
+    br_customers_path = DATA_RAW_DIR / "olist_customers_dataset.csv"
+    br_sellers_path = DATA_RAW_DIR / "olist_sellers_dataset.csv"
 
-    br_geo_df = pd.read_csv(
-        br_geo_path,
-        dtype={'geolocation_zip_code_prefix': str}
-    )
-    print(f"Loaded {len(br_geo_df):,} Brazilian geolocation records")
+    # Check files exist
+    for path in [br_geo_path, br_customers_path, br_sellers_path]:
+        if not path.exists():
+            print(f"ERROR: File not found: {path}")
+            print("Please run download_kaggle_data.py first")
+            exit(1)
 
-    # Create ZIP mapping
-    print("\n" + "=" * 60)
-    zip_mapping = create_zip_mapping(br_geo_df, zip_lookup)
+    # Load datasets
+    br_geo_df = pd.read_csv(br_geo_path, dtype={'geolocation_zip_code_prefix': str})
+    br_customers_df = pd.read_csv(br_customers_path, dtype={'customer_zip_code_prefix': str})
+    br_sellers_df = pd.read_csv(br_sellers_path, dtype={'seller_zip_code_prefix': str})
 
-    # Print sample mappings
-    print("\n" + "=" * 60)
-    print("Sample ZIP mappings:")
-    print("-" * 60)
+    print(f"  - Geolocation: {len(br_geo_df):,} records")
+    print(f"  - Customers: {len(br_customers_df):,} records")
+    print(f"  - Sellers: {len(br_sellers_df):,} records")
 
-    sample_count = 0
-    for br_zip, us_data in zip_mapping.items():
-        if sample_count >= 10:
-            break
+    # Step 3: Create ZIP mapping
+    print("\n[Step 4/6] Creating ZIP code mapping...")
+    zip_mapping = create_zip_mapping(br_geo_df, us_zip_lookup)
 
-        print(f"\nBrazilian ZIP: {br_zip}")
-        print(f"  -> US ZIP: {us_data['us_zip']}")
-        print(f"  -> US City: {us_data['us_city']}")
-        print(f"  -> US State: {us_data['us_state']}")
-        print(f"  -> Coordinates: ({us_data['us_lat']:.4f}, {us_data['us_lng']:.4f})")
+    # Step 4: Transform datasets
+    print("\n[Step 5/6] Transforming datasets...")
+    us_geo_df = transform_geolocation(br_geo_df, zip_mapping)
+    us_customers_df = transform_customers(br_customers_df, zip_mapping)
+    us_sellers_df = transform_sellers(br_sellers_df, zip_mapping)
 
-        sample_count += 1
+    # Step 5: Write CSV files
+    print("\n[Step 6/6] Writing CSV files...")
 
-    print("\n" + "=" * 60)
-    print("Test completed successfully!")
-    print(f"Total ZIP mappings created: {len(zip_mapping):,}")
+    us_geo_path = DATA_RAW_DIR / "us_geolocation_dataset.csv"
+    us_customers_path = DATA_RAW_DIR / "us_customers_dataset.csv"
+    us_sellers_path = DATA_RAW_DIR / "us_sellers_dataset.csv"
+
+    us_geo_df.to_csv(us_geo_path, index=False)
+    us_customers_df.to_csv(us_customers_path, index=False)
+    us_sellers_df.to_csv(us_sellers_path, index=False)
+
+    print(f"  - {us_geo_path}")
+    print(f"  - {us_customers_path}")
+    print(f"  - {us_sellers_path}")
+
+    # Step 6: Validation summary
+    print("\n" + "=" * 80)
+    print("VALIDATION SUMMARY")
+    print("=" * 80)
+
+    # Row counts
+    print("\nRow Counts:")
+    print(f"  - Geolocation: {len(us_geo_df):,} (reduced from {len(br_geo_df):,})")
+    print(f"  - Customers: {len(us_customers_df):,} (expected: 99,441)")
+    print(f"  - Sellers: {len(us_sellers_df):,} (expected: 3,095)")
+
+    # Validate customer count
+    customer_match = len(us_customers_df) == 99_441
+    print(f"    [OK] Customers count matches" if customer_match else f"    [ERROR] Customers count MISMATCH")
+
+    # Validate seller count
+    seller_match = len(us_sellers_df) == 3_095
+    print(f"    [OK] Sellers count matches" if seller_match else f"    [ERROR] Sellers count MISMATCH")
+
+    # Coordinate bounds
+    print("\nCoordinate Bounds (US: lat 24-50, lng -125 to -66):")
+    lat_min = us_geo_df['geolocation_lat'].min()
+    lat_max = us_geo_df['geolocation_lat'].max()
+    lng_min = us_geo_df['geolocation_lng'].min()
+    lng_max = us_geo_df['geolocation_lng'].max()
+
+    print(f"  - Latitude: {lat_min:.2f} to {lat_max:.2f}")
+    print(f"  - Longitude: {lng_min:.2f} to {lng_max:.2f}")
+
+    lat_valid = 24 <= lat_min and lat_max <= 50
+    lng_valid = -125 <= lng_min and lng_max <= -66
+
+    print(f"    [OK] Coordinates in valid US range" if (lat_valid and lng_valid) else f"    [ERROR] Coordinates OUT OF RANGE")
+
+    # Check for null values
+    print("\nNull Values:")
+    print(f"  - Geolocation: {us_geo_df.isnull().sum().sum()} nulls")
+    print(f"  - Customers: {us_customers_df.isnull().sum().sum()} nulls")
+    print(f"  - Sellers: {us_sellers_df.isnull().sum().sum()} nulls")
+
+    print("\n" + "=" * 80)
+    print("TRANSFORMATION COMPLETED SUCCESSFULLY!")
+    print("=" * 80)
+
+
+if __name__ == "__main__":
+    main()
