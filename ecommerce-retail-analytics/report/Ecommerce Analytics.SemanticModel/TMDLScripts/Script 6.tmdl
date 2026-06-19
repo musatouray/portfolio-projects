@@ -1,0 +1,148 @@
+createOrReplace
+
+	ref table _Measures
+
+		measure 'RFM Unique Customers' = ```
+				
+				CALCULATE(
+					DISTINCTCOUNT(FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID]),
+					KEEPFILTERS(DIM_DATES)
+				)
+				
+				```
+			formatString: #,0
+			displayFolder: 01_Segments\RFM
+			lineageTag: db39dffb-e4b7-4d0c-8ea4-740964eda38f
+
+		measure 'RFM Total Orders' =
+				SUMX(
+					SUMMARIZE(
+						FCT_RFM_SEGMENTS,
+						FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID]
+					),
+					CALCULATE(
+						MAX(FCT_RFM_SEGMENTS[TOTAL_ORDERS]),
+						KEEPFILTERS(DIM_DATES)
+					)
+				)
+
+			formatString: #,##0
+			displayFolder: 01_Segments\RFM
+
+		measure 'RFM Total Revenue' =
+
+				SUMX(
+					SUMMARIZE(
+						FCT_RFM_SEGMENTS,
+						FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID]
+					),
+					CALCULATE(
+						MAX(FCT_RFM_SEGMENTS[TOTAL_REVENUE]),
+						KEEPFILTERS(DIM_DATES)
+					)
+				)
+
+			formatString: #,##0
+			displayFolder: 01_Segments\RFM
+
+		measure 'All Segments Revenue' = ```
+				
+				CALCULATE(
+				    [RFM Total Revenue], 
+				    REMOVEFILTERS(FCT_RFM_SEGMENTS),
+				    ALLSELECTED(FCT_RFM_SEGMENTS[RFM_SEGMENT])
+				)
+				
+				```
+			formatString: \$#,0;(\$#,0);\$#,0
+			displayFolder: 01_Segments\RFM
+			lineageTag: r1000012-0001-0001-0001-000000000012
+
+		measure 'RFM Revenue Share %' =
+
+				DIVIDE([RFM Total Revenue], [All Segments Revenue], 0)
+			formatString: #,##0
+			displayFolder: 01_Segments\RFM
+
+		measure 'Avg Frequency' =
+				
+				AVERAGEX(
+					KEEPFILTERS(
+						VALUES(FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID])
+					),
+					CALCULATE(
+						MAX(FCT_RFM_SEGMENTS[TOTAL_ORDERS])
+					)
+				)
+			formatString: 0.0
+			displayFolder: 01_Segments\RFM
+			lineageTag: r1000008-0001-0001-0001-000000000008
+
+		measure 'Avg Monetary' = ```
+				
+				AVERAGEX(
+					KEEPFILTERS(
+						VALUES(FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID])
+					),
+					CALCULATE(
+						MAX(FCT_RFM_SEGMENTS[TOTAL_REVENUE])
+					)
+				)
+				
+				
+				```
+			formatString: $#,##0
+			displayFolder: 01_Segments\RFM
+			lineageTag: r1000009-0001-0001-0001-000000000009
+
+		measure 'Avg Recency (Days)' = ```
+				
+				AVERAGEX(
+					KEEPFILTERS(
+						VALUES(FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID])
+					),
+					CALCULATE(
+						MIN(FCT_RFM_SEGMENTS[RECENCY_DAYS])
+					)
+				)
+				
+				```
+			formatString: #,##0
+			displayFolder: 01_Segments\RFM
+			lineageTag: r1000007-0001-0001-0001-000000000007
+
+		measure 'Label Placeholder' = 0
+			formatString: 0
+			displayFolder: 01_Segments\RFM
+			lineageTag: 6bf6b5f3-1e70-47ab-b2df-020bf6316a47
+
+		measure 'RFM Remaining %' = 1 - [RFM Segment Revenue %]
+			formatString: 0.0%;-0.0%;0.0%
+			displayFolder: 01_Segments\RFM
+			lineageTag: f7d2b922-449a-4423-9d8b-91166e9f7cf8
+
+		measure 'RFM Segment Label' = SELECTEDVALUE(FCT_RFM_SEGMENTS[RFM_SEGMENT])
+			displayFolder: 01_Segments\RFM
+			lineageTag: ee2b617e-fab7-4a07-9798-a55436647153
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		/// Share of total RFM-segment revenue. ALLSELECTED so segment slicers still work.
+		measure 'RFM Segment Revenue %' =
+				
+				DIVIDE(
+					[Total Revenue],
+					[All Segments Revenue],
+				    0
+				)
+			formatString: 0.0%;-0.0%;0.0%
+			displayFolder: 01_Segments\RFM
+			lineageTag: 59c9a4f6-8ace-4562-85c4-a312bd6638d4
+
+		measure 'RFM Segment Unique Customers' =
+				
+				COALESCE([Unique Customers], 0)
+			formatString: #,0
+			displayFolder: 01_Segments\RFM
+			lineageTag: r1000006-0001-0001-0001-000000000006
+

@@ -1,9 +1,9 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "2058e3a30867de374f20",
   "position": {
     "x": 19.8530082619493,
-    "y": 272.10299559024787,
+    "y": 333.43403112169904,
     "z": 1000,
     "height": 485.81479041005628,
     "width": 220.71873891226113,
@@ -316,7 +316,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Last 6 Months'"
+                                "Value": "'QTD'"
                               }
                             }
                           ]

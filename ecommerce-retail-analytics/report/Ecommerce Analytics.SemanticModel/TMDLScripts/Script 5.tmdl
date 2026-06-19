@@ -1,0 +1,125 @@
+createOrReplace
+
+	ref table _Measures
+
+		measure 'Average Order Value' = DIVIDE([Total Revenue], [Total Orders], 0)
+			displayFolder: 00_Base
+			lineageTag: b1000004-0001-0001-0001-000000000004
+
+			formatStringDefinition =
+					VAR __FormattedAOV = SELECTEDMEASURE()
+					RETURN
+					    SWITCH (
+					        TRUE (),
+					        __FormattedAOV <= 1E3, "$#,0.0;-#,0.0;0",
+					        __FormattedAOV <= 1E4, "$#,0,.00K;-#,0,.00K;0",
+					        __FormattedAOV <= 1E5, "$$#,0,.0K;-#,0,.0K;0",
+					        __FormattedAOV <= 1E6, "$#,0,.0K;-#,0,.0K;0",
+					        __FormattedAOV <= 1E7, "$#,0,,.00M;-#,0,,.00M;0",
+					        __FormattedAOV <= 1E8, "$#,0,,.0M;-#,0,,.0M;0",
+					        __FormattedAOV <= 1E9, "$#,0,,.M;-#,0,,.M;0"
+					    )
+
+		measure 'Average Review Score' = AVERAGE(FCT_ORDERS[REVIEW_SCORE])
+			formatString: 0.0
+			displayFolder: 00_Base
+			lineageTag: b1000005-0001-0001-0001-000000000005
+
+		/// Share of orders with ORDER_STATUS = 'delivered'. Storage-engine-friendly
+		/// (CALCULATE predicate, not COUNTROWS(FILTER(...))).
+		measure 'Delivery Rate' =
+				DIVIDE(
+					CALCULATE([Total Orders], FCT_ORDERS[ORDER_STATUS] = "delivered"),
+					[Total Orders]
+				)
+			formatString: 0.0%
+			displayFolder: 00_Base
+			lineageTag: b1000007-0001-0001-0001-000000000007
+
+		/// Of delivered orders, share that arrived on/before the estimated date.
+		/// Both numerator and denominator pushed to storage engine.
+		measure 'On-Time Delivery Rate' = ```
+				
+				VAR __TotalOrdersDelivered = 
+				    CALCULATE(
+				        [Total Orders], 
+				        FCT_ORDERS[ORDER_STATUS] = "delivered"
+				    )
+				
+				VAR _OnTimeOrdersDelivered = 
+				    CALCULATE(
+				        [Total Orders], 
+				        FCT_ORDERS[IS_ON_TIME_DELIVERY] = TRUE(), 
+				        FCT_ORDERS[ORDER_STATUS] = "delivered"
+				    )
+				
+				RETURN
+				DIVIDE(
+					_OnTimeOrdersDelivered,
+					__TotalOrdersDelivered
+				)
+				
+				```
+			formatString: 0.0%;-0.0%;0.0%
+			displayFolder: 00_Base
+			lineageTag: b1000008-0001-0001-0001-000000000008
+
+		measure 'Total Orders' = COUNTROWS(FCT_ORDERS)
+			displayFolder: 00_Base
+			lineageTag: b1000002-0001-0001-0001-000000000002
+
+			formatStringDefinition =
+					VAR __FormattedOrders = SELECTEDMEASURE()
+					RETURN
+					    SWITCH (
+					        TRUE (),
+					        __FormattedOrders <= 1E3, "#,0;-#,0;0",
+					        __FormattedOrders <= 1E4, "#,0,K;-#,0,K;0",
+					        __FormattedOrders <= 1E5, "#,0,K;-#,0,K;0",
+					        __FormattedOrders <= 1E6, "#,0,K;-#,0,K;0",
+					        __FormattedOrders <= 1E7, "#,0,,M;-#,0,,M;0",
+					        __FormattedOrders <= 1E8, "#,0,,M;-#,0,,M;0",
+					        __FormattedOrders <= 1E9, "#,0,,M;-#,0,,M;0"
+					    )
+
+		/// =============================================
+		/// _Base Measures - Core Metrics
+		/// =============================================
+		measure 'Total Revenue' = SUM(FCT_ORDERS[TOTAL_PAYMENT_VALUE])
+			displayFolder: 00_Base
+			lineageTag: b1000001-0001-0001-0001-000000000001
+
+			formatStringDefinition = ```
+					VAR __FormattedRevenue = SELECTEDMEASURE()
+					RETURN
+					    SWITCH (
+					        TRUE (),
+					        __FormattedRevenue <= 1E3, "$#,0.;-#,0.;0",
+					        __FormattedRevenue <= 1E4, "$#,0,.00K;-#,0,.00K;0",
+					        __FormattedRevenue <= 1E5, "$#,0,.0K;-#,0,.0K;0",
+					        __FormattedRevenue <= 1E6, "$#,0,.K;-#,0,.K;0",
+					        __FormattedRevenue <= 1E7, "$#,0,,.00M;-#,0,,.00M;0",
+					        __FormattedRevenue <= 1E8, "$#,0,,.0M;-#,0,,.0M;0",
+					        __FormattedRevenue <= 1E9, "$#,0,,.M;-#,0,,.M;0"
+					    )
+					
+					```
+
+		measure 'Unique Customers' = DISTINCTCOUNT(FCT_ORDER_ITEMS[CUSTOMER_KEY])
+			displayFolder: 00_Base
+			lineageTag: b1000003-0001-0001-0001-000000000003
+
+			formatStringDefinition =
+					VAR __UniqueCustomers = SELECTEDMEASURE()
+					RETURN
+					    SWITCH (
+					        TRUE (),
+					        __UniqueCustomers <= 1E3, "#,0;-#,0;0",
+					        __UniqueCustomers <= 1E4, "#,0,K;-#,0,K;0",
+					        __UniqueCustomers <= 1E5, "#,0,K;-#,0,K;0",
+					        __UniqueCustomers <= 1E6, "#,0,K;-#,0,K;0",
+					        __UniqueCustomers <= 1E7, "#,0,,M;-#,0,,M;0",
+					        __UniqueCustomers <= 1E8, "#,0,,M;-#,0,,M;0",
+					        __UniqueCustomers <= 1E9, "#,0,,M;-#,0,,M;0"
+					    )
+

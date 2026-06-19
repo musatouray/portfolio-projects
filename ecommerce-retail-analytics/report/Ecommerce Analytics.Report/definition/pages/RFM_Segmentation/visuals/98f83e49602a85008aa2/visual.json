@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "98f83e49602a85008aa2",
   "position": {
     "x": 0,
@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Unique Customers"
+                  "Property": "RFM Unique Customers"
                 }
               },
-              "queryRef": "_Measures.Total Customers",
-              "nativeQueryRef": "Unique Customers"
+              "queryRef": "_Measures.RFM Unique Customers",
+              "nativeQueryRef": "RFM Unique Customers"
             },
             {
               "field": {
@@ -37,11 +37,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Revenue"
+                  "Property": "RFM Total Revenue"
                 }
               },
-              "queryRef": "_Measures.Total Revenue",
-              "nativeQueryRef": "Total Revenue"
+              "queryRef": "_Measures.RFM Total Revenue",
+              "nativeQueryRef": "RFM Total Revenue"
             },
             {
               "field": {
@@ -51,11 +51,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Orders"
+                  "Property": "RFM Total Orders"
                 }
               },
-              "queryRef": "_Measures.Total Orders",
-              "nativeQueryRef": "Total Orders"
+              "queryRef": "_Measures.RFM Total Orders",
+              "nativeQueryRef": "RFM Total Orders"
             },
             {
               "field": {
@@ -112,7 +112,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Unique Customers"
+                "Property": "RFM Unique Customers"
               }
             },
             "direction": "Descending"
@@ -207,6 +207,48 @@
           },
           "selector": {
             "metadata": "_Measures.Total Customers"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Unique Customers"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Total Revenue"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Total Orders"
           }
         }
       ],
@@ -1022,6 +1064,48 @@
           },
           "selector": {
             "metadata": "_Measures.Total Customers"
+          }
+        },
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Customers'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Unique Customers"
+          }
+        },
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Revenue'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Total Revenue"
+          }
+        },
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Orders'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Total Orders"
           }
         }
       ],

@@ -206,13 +206,17 @@ table _Measures
 
 	measure 'Avg Recency (Days)' = ```
 			
-			AVERAGEX(
-				KEEPFILTERS(
-					VALUES(FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID])
-				),
-				CALCULATE(
-					MIN(FCT_RFM_SEGMENTS[RECENCY_DAYS])
-				)
+			VAR __MaxSnapshotDate = 
+			    CALCULATE(
+			        MAX(DIM_DATES[DATE]), 
+			        ALLSELECTED(DIM_DATES)
+			    )
+			VAR __FormattedMaxSnapShotDate = (YEAR(__MaxSnapshotDate) * 10000) +(MONTH(__MaxSnapshotDate) * 100) + 01
+			
+			RETURN
+			CALCULATE(
+				AVERAGE(FCT_RFM_SEGMENTS[RECENCY_DAYS]),
+			    FCT_RFM_SEGMENTS[SNAPSHOT_DATE_KEY] = __FormattedMaxSnapShotDate
 			)
 			
 			```
@@ -220,30 +224,57 @@ table _Measures
 		displayFolder: 01_Segments\RFM
 		lineageTag: r1000007-0001-0001-0001-000000000007
 
-	measure 'Avg Frequency' =
+	measure 'Avg Frequency' = ```
 			
-			AVERAGEX(
-				KEEPFILTERS(
-					VALUES(FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID])
-				),
-				CALCULATE(
-					MAX(FCT_RFM_SEGMENTS[TOTAL_ORDERS])
-				)
+			VAR __MaxSnapshotDate = 
+			    CALCULATE(
+			        MAX(DIM_DATES[DATE]), 
+			        ALLSELECTED(DIM_DATES)
+			    )
+			VAR __FormattedMaxSnapShotDate = (YEAR(__MaxSnapshotDate) * 10000) +(MONTH(__MaxSnapshotDate) * 100) + 01
+			
+			RETURN
+			CALCULATE(
+				AVERAGE(FCT_RFM_SEGMENTS[TOTAL_ORDERS]),
+			    FCT_RFM_SEGMENTS[SNAPSHOT_DATE_KEY] = __FormattedMaxSnapShotDate
 			)
+			
+			// AVERAGEX(
+			// 	KEEPFILTERS(
+			// 		VALUES(FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID])
+			// 	),
+			// 	CALCULATE(
+			// 		MAX(FCT_RFM_SEGMENTS[TOTAL_ORDERS])
+			// 	)
+			// )
+			```
 		formatString: 0.0
 		displayFolder: 01_Segments\RFM
 		lineageTag: r1000008-0001-0001-0001-000000000008
 
 	measure 'Avg Monetary' = ```
 			
-			AVERAGEX(
-				KEEPFILTERS(
-					VALUES(FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID])
-				),
-				CALCULATE(
-					MAX(FCT_RFM_SEGMENTS[TOTAL_REVENUE])
-				)
+			VAR __MaxSnapshotDate = 
+			    CALCULATE(
+			        MAX(DIM_DATES[DATE]), 
+			        ALLSELECTED(DIM_DATES)
+			    )
+			VAR __FormattedMaxSnapShotDate = (YEAR(__MaxSnapshotDate) * 10000) +(MONTH(__MaxSnapshotDate) * 100) + 01
+			
+			RETURN
+			CALCULATE(
+				AVERAGE(FCT_RFM_SEGMENTS[TOTAL_REVENUE]),
+			    FCT_RFM_SEGMENTS[SNAPSHOT_DATE_KEY] = __FormattedMaxSnapShotDate
 			)
+			
+			// AVERAGEX(
+			// 	KEEPFILTERS(
+			// 		VALUES(FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID])
+			// 	),
+			// 	CALCULATE(
+			// 		MAX(FCT_RFM_SEGMENTS[TOTAL_REVENUE])
+			// 	)
+			// )
 			
 			
 			```
@@ -405,8 +436,8 @@ table _Measures
 			CALCULATE( 
 			    SUM(FCT_COHORT_RETENTION[COHORT_SIZE]), 
 			   // FCT_COHORT_RETENTION[PERIOD_NUMBER] = 0,
-			    KEEPFILTERS(DIM_COHORTS[COHORT_MONTH] <= __CohortAsOfDate),
-			    KEEPFILTERS(DIM_COHORTS[COHORT_SIZE] >= __CohortSize)
+			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_MONTH] <= __CohortAsOfDate),
+			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_SIZE] >= __CohortSize)
 			)
 			
 			```
@@ -421,8 +452,8 @@ table _Measures
 			RETURN 
 			CALCULATE( 
 			    SUM(FCT_COHORT_RETENTION[ACTIVE_CUSTOMERS]), 
-			    KEEPFILTERS(DIM_COHORTS[COHORT_MONTH] <= __CohortAsOfDate),
-			    KEEPFILTERS(DIM_COHORTS[COHORT_SIZE] >= __CohortSize)
+			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_MONTH] <= __CohortAsOfDate),
+			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_SIZE] >= __CohortSize)
 			)
 			
 			```
@@ -439,10 +470,8 @@ table _Measures
 		lineageTag: co100003-0001-0001-0001-000000000003
 
 		formatStringDefinition = ```
-				VAR __SelectedMeasure = [Retention Rate]
-				RETURN
 				IF( 
-				    __SelectedMeasure < 1, 
+				    SELECTEDMEASURE() < 1, 
 				    "0.00%",
 				    "0%"
 				)
@@ -454,7 +483,7 @@ table _Measures
 		displayFolder: 05_Cohort
 		lineageTag: co100005-0001-0001-0001-000000000005
 
-	measure 'Total Cohorts' = DISTINCTCOUNT(FCT_COHORT_RETENTION[COHORT_KEY])
+	measure 'Total Cohorts' = DISTINCTCOUNT(FCT_COHORT_RETENTION[COHORT_RETENTION_KEY])
 		formatString: #,##0
 		displayFolder: 05_Cohort
 		lineageTag: co100006-0001-0001-0001-000000000006
@@ -880,11 +909,11 @@ table _Measures
 			
 			CALCULATE(
 			    [RFM Total Revenue], 
-			    REMOVEFILTERS(FCT_RFM_SEGMENTS[RFM_SEGMENT])
+			    ALL(FCT_RFM_SEGMENTS[RFM_SEGMENT], FCT_RFM_SEGMENTS[SEGMENT_INDEX])
 			)
 			
 			```
-		formatString: \$#,0;(\$#,0);\$#,0
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
 		displayFolder: 01_Segments\RFM
 		lineageTag: r1000012-0001-0001-0001-000000000012
 
@@ -944,7 +973,7 @@ table _Measures
 			
 			CALCULATE(
 				[Retention Rate],
-				FCT_COHORT_RETENTION[PERIOD_NUMBER] = 1
+				FCT_COHORT_RETENTION[PERIOD] = 1
 			)
 		displayFolder: 05_Cohort
 		lineageTag: 069e8c71-f5f7-4a6c-b6ab-3e1b2263ff83
@@ -955,7 +984,7 @@ table _Measures
 			
 			CALCULATE(
 				[Retention Rate],
-				FCT_COHORT_RETENTION[PERIOD_NUMBER] = 3
+				FCT_COHORT_RETENTION[PERIOD] = 3
 			)
 		formatString: 0.00%;-0.00%;0.00%
 		displayFolder: 05_Cohort
@@ -965,7 +994,7 @@ table _Measures
 			
 			CALCULATE(
 				[Retention Rate],
-				FCT_COHORT_RETENTION[PERIOD_NUMBER] = 6
+				FCT_COHORT_RETENTION[PERIOD] = 6
 			)
 		formatString: 0.00%;-0.00%;0.00%
 		displayFolder: 05_Cohort
@@ -981,12 +1010,12 @@ table _Measures
 	/// it evaluates once under the outer filter context, then filter the table.
 	measure 'Latest Cohort Size' =
 			
-			VAR _LatestCohort = CALCULATE(MAX(FCT_COHORT_RETENTION[COHORT_KEY]), ALLSELECTED(FCT_COHORT_RETENTION))
+			VAR _LatestCohort = CALCULATE(MAX(FCT_COHORT_RETENTION[COHORT_RETENTION_KEY]), ALLSELECTED(FCT_COHORT_RETENTION))
 			RETURN
 				CALCULATE(
 					SUM(FCT_COHORT_RETENTION[COHORT_SIZE]),
-					KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_KEY] = _LatestCohort),
-					KEEPFILTERS(FCT_COHORT_RETENTION[PERIOD_NUMBER] = 0)
+					KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_RETENTION_KEY] = _LatestCohort),
+					KEEPFILTERS(FCT_COHORT_RETENTION[PERIOD] = 0)
 				)
 		formatString: #,##0
 		displayFolder: 05_Cohort
@@ -2630,13 +2659,10 @@ table _Measures
 			SWITCH(
 			    __Segments,
 			    "Champions", "#1E3A5F",
-			    "Loyal", "#4B617F",
-			    "Potential Loyalists", "#78899F",
-			    "Cant Lose Them", "#A5B0BF",
-			    "Need Attention", "#4A6FA5",
-			    "At Risk", "#6E8CB7",
-			    "Hibernating", "#92A9C9",
-			    "New Customers", "#B7C5DB"
+			    "Loyalists", "#4B617F",
+			    "New Customers", "#78899F",
+			    "At Risk / Hibernating", "#A5B0BF",
+			    "General Pool", "#B7C5DB"
 			)
 			
 			```
@@ -2769,8 +2795,8 @@ table _Measures
 			RETURN 
 			CALCULATE( 
 			    SUM(FCT_COHORT_RETENTION[PERIOD_REVENUE]), 
-			    KEEPFILTERS(DIM_COHORTS[COHORT_MONTH] <= __CohortAsOfDate),
-			    KEEPFILTERS(DIM_COHORTS[COHORT_SIZE] >= __CohortSize)
+			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_MONTH] <= __CohortAsOfDate),
+			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_SIZE] >= __CohortSize)
 			)
 			
 			```
@@ -2785,8 +2811,8 @@ table _Measures
 			RETURN 
 			CALCULATE( 
 			    SUM(FCT_COHORT_RETENTION[PERIOD_ORDERS]), 
-			    KEEPFILTERS(DIM_COHORTS[COHORT_MONTH] <= __CohortAsOfDate),
-			    KEEPFILTERS(DIM_COHORTS[COHORT_SIZE] >= __CohortSize)
+			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_MONTH] <= __CohortAsOfDate),
+			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_SIZE] >= __CohortSize)
 			)
 			
 			```
@@ -2821,12 +2847,20 @@ table _Measures
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	/// Lifetime cohort revenue across all periods (ignores period filter)
-	measure 'Cohort Lifetime Revenue' =
-			CALCULATE(
-				SUM(FCT_COHORT_RETENTION[PERIOD_REVENUE]),
-				ALL(FCT_COHORT_RETENTION[PERIOD_NUMBER])
+	measure 'Cohort Initial Revenue' = ```
+			
+			VAR __CohortSize = [Param: Cohort Size Value] 
+			VAR __CohortAsOfDate = [As on Cohort Date] 
+			RETURN 
+			CALCULATE( 
+			    SUM(FCT_COHORT_RETENTION[COHORT_INITIAL_REVENUE]),
+				FCT_COHORT_RETENTION[PERIOD] = 0, 
+			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_MONTH] <= __CohortAsOfDate),
+			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_SIZE] >= __CohortSize)
 			)
-		formatString: $#,0;-$#,0;$#,0
+			
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
 		displayFolder: 05_Cohort
 		lineageTag: 8a9b0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d
 
@@ -2834,7 +2868,7 @@ table _Measures
 	measure 'Cohort Lifetime Orders' =
 			CALCULATE(
 				SUM(FCT_COHORT_RETENTION[PERIOD_ORDERS]),
-				ALL(FCT_COHORT_RETENTION[PERIOD_NUMBER])
+				ALL(FCT_COHORT_RETENTION[PERIOD])
 			)
 		formatString: #,0
 		displayFolder: 05_Cohort
@@ -2894,8 +2928,8 @@ table _Measures
 			        "Active", "Active Customers Heaptmap (Cohort x Period)",
 			        "Revenue", "Revenue by Cohort Heatmap (Cohort x Period)",
 			        "Orders", "Orders Heatmap (Cohort x Period)",
-			        "AOV", "Average Order Value Heatmap (Cohort x Period)",
-			        "ACV", "Average Customer Value Heatmap (Cohort x Period)"
+			        "GRR", "Gross Retention Rate Heatmap (Cohort x Period)",
+			        "NRR", "Net Retention Rate Heatmap (Cohort x Period)"
 			    )
 			)
 			
@@ -2905,9 +2939,9 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Cohort Period Title' = ```
+	measure 'Cohort Period Subtitle' = ```
 			
-			VAR __MinCohort = CALCULATE( MIN(DIM_COHORTS[COHORT_MONTH]), ALLSELECTED(DIM_COHORTS))
+			VAR __MinCohort = CALCULATE( MIN(FCT_COHORT_RETENTION[COHORT_MONTH]), ALLSELECTED(FCT_COHORT_RETENTION))
 			VAR __MaxCohort = MAX('Disconnected Calendar'[MONTH_START_DATE])
 			VAR __Space = REPT(UNICHAR(160), 2)
 			VAR __FormattedMinDate = FORMAT(__MinCohort, "MMM, yyyy")
@@ -2943,8 +2977,8 @@ table _Measures
 			        "Active", "Total Active Customers by Cohort",
 			        "Revenue", "Total Revenue by Cohort",
 			        "Orders", "Total Orders by Cohort",
-			        "AOV", "Average Order Value by Cohort",
-			        "ACV", "Average Customer Value by Cohort"
+			        "GRR", "Gross Retention Revenue by Cohort",
+			        "NRR", "Net Retention Revenue by Cohort"
 			    )
 			)
 			
@@ -2975,60 +3009,102 @@ table _Measures
 	measure 'RFM Unique Customers' = ```
 			
 			VAR __MaxSnapshotDate = 
-			CALCULATE(
-			    MAX(FCT_RFM_SEGMENTS[SNAPSHOT_MONTH]), 
-			    KEEPFILTERS('DIM_DATES'[DATE])
-			)
+			    CALCULATE(
+			        MAX(DIM_DATES[DATE]), 
+			        ALLSELECTED(DIM_DATES)
+			    )
+			VAR __FormattedMaxSnapShotDate = (YEAR(__MaxSnapshotDate) * 10000) +(MONTH(__MaxSnapshotDate) * 100) + 01
 			
 			RETURN
 			CALCULATE(
 				DISTINCTCOUNT(FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID]),
-			    FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __MaxSnapshotDate,
-				KEEPFILTERS(DIM_DATES[DATE])
+			    FCT_RFM_SEGMENTS[SNAPSHOT_DATE_KEY] = __FormattedMaxSnapShotDate,
+				REMOVEFILTERS(DIM_DATES)
 			)
 			
 			```
-		formatString: #,0
 		displayFolder: 01_Segments\RFM
 		lineageTag: db39dffb-e4b7-4d0c-8ea4-740964eda38f
+
+		formatStringDefinition =
+				VAR __UniqueCustomers = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __UniqueCustomers <= 1E3, "#,0;-#,0;0",
+				        __UniqueCustomers <= 1E4, "#,0,K;-#,0,K;0",
+				        __UniqueCustomers <= 1E5, "#,0,K;-#,0,K;0",
+				        __UniqueCustomers <= 1E6, "#,0,K;-#,0,K;0",
+				        __UniqueCustomers <= 1E7, "#,0,,M;-#,0,,M;0",
+				        __UniqueCustomers <= 1E8, "#,0,,M;-#,0,,M;0",
+				        __UniqueCustomers <= 1E9, "#,0,,M;-#,0,,M;0"
+				    )
 
 	measure 'RFM Total Orders' = ```
 			
 			VAR __MaxSnapshotDate = 
-			CALCULATE(
-			    MAX(FCT_RFM_SEGMENTS[SNAPSHOT_MONTH]),
-			    VALUES(FCT_RFM_SEGMENTS[CUSTOMER_KEY]),
-			    ALLSELECTED('DIM_DATES')
-			)
+			    CALCULATE(
+			        MAX(DIM_DATES[DATE]), 
+			        ALLSELECTED(DIM_DATES)
+			    )
+			VAR __FormattedMaxSnapShotDate = (YEAR(__MaxSnapshotDate) * 10000) +(MONTH(__MaxSnapshotDate) * 100) + 01
 			
 			RETURN
 			CALCULATE(
 				SUM(FCT_RFM_SEGMENTS[TOTAL_ORDERS]),
-			    FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __MaxSnapshotDate
+			    FCT_RFM_SEGMENTS[SNAPSHOT_DATE_KEY] = __FormattedMaxSnapShotDate
 			)
 			```
-		formatString: #,##0
 		displayFolder: 01_Segments\RFM
 		lineageTag: 05945a0d-7f49-4422-b859-922320f64dc5
+
+		formatStringDefinition =
+				VAR __FormattedOrders = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __FormattedOrders <= 1E3, "#,0;-#,0;0",
+				        __FormattedOrders <= 1E4, "#,0,K;-#,0,K;0",
+				        __FormattedOrders <= 1E5, "#,0,K;-#,0,K;0",
+				        __FormattedOrders <= 1E6, "#,0,K;-#,0,K;0",
+				        __FormattedOrders <= 1E7, "#,0,,M;-#,0,,M;0",
+				        __FormattedOrders <= 1E8, "#,0,,M;-#,0,,M;0",
+				        __FormattedOrders <= 1E9, "#,0,,M;-#,0,,M;0"
+				    )
 
 	measure 'RFM Total Revenue' = ```
 			
 			VAR __MaxSnapshotDate = 
-			CALCULATE(
-			    MAX(FCT_RFM_SEGMENTS[SNAPSHOT_MONTH]), 
-			    KEEPFILTERS('DIM_DATES'[DATE])
-			)
+			    CALCULATE(
+			        MAX(DIM_DATES[DATE]), 
+			        ALLSELECTED(DIM_DATES[DATE])
+			    )
+			VAR __FormattedMaxSnapShotDate = (YEAR(__MaxSnapshotDate) * 10000) +(MONTH(__MaxSnapshotDate) * 100) + 01
 			
 			RETURN
 			CALCULATE(
 				SUM(FCT_RFM_SEGMENTS[TOTAL_REVENUE]),
-			    FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __MaxSnapshotDate,
-				KEEPFILTERS(DIM_DATES[DATE])
+			    FCT_RFM_SEGMENTS[SNAPSHOT_DATE_KEY] = __FormattedMaxSnapShotDate
 			)
 			```
-		formatString: #,##0
 		displayFolder: 01_Segments\RFM
 		lineageTag: c362ddda-133e-4b1b-9dcf-7b749c9da826
+
+		formatStringDefinition = ```
+				VAR __FormattedRevenue = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __FormattedRevenue <= 1E3, "$#,0.;-#,0.;0",
+				        __FormattedRevenue <= 1E4, "$#,0,.00K;-#,0,.00K;0",
+				        __FormattedRevenue <= 1E5, "$#,0,.0K;-#,0,.0K;0",
+				        __FormattedRevenue <= 1E6, "$#,0,.K;-#,0,.K;0",
+				        __FormattedRevenue <= 1E7, "$#,0,,.00M;-#,0,,.00M;0",
+				        __FormattedRevenue <= 1E8, "$#,0,,.0M;-#,0,,.0M;0",
+				        __FormattedRevenue <= 1E9, "$#,0,,.M;-#,0,,.M;0"
+				    )
+				
+				```
 
 	measure 'RFM Revenue Share %' =
 			
@@ -3036,6 +3112,231 @@ table _Measures
 		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: 01_Segments\RFM
 		lineageTag: 95c2ca3c-004a-454a-ad6b-52670686b6cf
+
+	measure 'RFM Segment Snapshot Title' = ```
+			
+			VAR __MaxSnapshotDate = 
+			    CALCULATE(
+			        MAX(DIM_DATES[DATE]), 
+			        ALLSELECTED(DIM_DATES)
+			    )
+			
+			RETURN
+			"Snapshot month is as of " & FORMAT(__MaxSnapshotDate, "MMM YYYY")
+			
+			```
+		displayFolder: 14_Viz Helpers\_Titles
+		lineageTag: 1ec7f50d-a0fa-4c23-a273-322e6b2d0494
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'RFM PY Customers' =
+			
+			// Using UDF function to dynamically calculate SPLY
+			TimeIntelligence.PY([RFM Unique Customers])
+		displayFolder: 01_Segments\RFM
+		lineageTag: 49172a40-82fe-473e-80af-d275ae9beb0b
+
+		formatStringDefinition =
+				VAR __UniqueCustomers = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __UniqueCustomers <= 1E3, "#,0;-#,0;0",
+				        __UniqueCustomers <= 1E4, "#,0,K;-#,0,K;0",
+				        __UniqueCustomers <= 1E5, "#,0,K;-#,0,K;0",
+				        __UniqueCustomers <= 1E6, "#,0,K;-#,0,K;0",
+				        __UniqueCustomers <= 1E7, "#,0,,M;-#,0,,M;0",
+				        __UniqueCustomers <= 1E8, "#,0,,M;-#,0,,M;0",
+				        __UniqueCustomers <= 1E9, "#,0,,M;-#,0,,M;0"
+				    )
+
+	measure 'RFM PY Orders' =
+			
+			// Using UDF function to dynamically calculate SPLY
+			TimeIntelligence.PY([RFM Total Orders])
+		displayFolder: 01_Segments\RFM
+		lineageTag: c196e6a7-96b1-46af-a8ba-95df621ad989
+
+		formatStringDefinition =
+				VAR __FormattedOrders = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __FormattedOrders <= 1E3, "#,0;-#,0;0",
+				        __FormattedOrders <= 1E4, "#,0,K;-#,0,K;0",
+				        __FormattedOrders <= 1E5, "#,0,K;-#,0,K;0",
+				        __FormattedOrders <= 1E6, "#,0,K;-#,0,K;0",
+				        __FormattedOrders <= 1E7, "#,0,,M;-#,0,,M;0",
+				        __FormattedOrders <= 1E8, "#,0,,M;-#,0,,M;0",
+				        __FormattedOrders <= 1E9, "#,0,,M;-#,0,,M;0"
+				    )
+
+	measure 'RFM PY Revenue' =
+			
+			// Using UDF function to dynamically calculate SPLY
+			TimeIntelligence.PY([RFM Total Revenue])
+		displayFolder: 01_Segments\RFM
+		lineageTag: 0e51533e-a949-48bb-9f30-24a1842a3215
+
+		formatStringDefinition =
+				VAR __FormattedRevenue = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __FormattedRevenue <= 1E3, "$#,0.;-#,0.;0",
+				        __FormattedRevenue <= 1E4, "$#,0,.00K;-#,0,.00K;0",
+				        __FormattedRevenue <= 1E5, "$#,0,.0K;-#,0,.0K;0",
+				        __FormattedRevenue <= 1E6, "$#,0,.K;-#,0,.K;0",
+				        __FormattedRevenue <= 1E7, "$#,0,,.00M;-#,0,,.00M;0",
+				        __FormattedRevenue <= 1E8, "$#,0,,.0M;-#,0,,.0M;0",
+				        __FormattedRevenue <= 1E9, "$#,0,,.M;-#,0,,.M;0"
+				    )
+
+	measure 'RFM Customers YoY %' = ```
+			
+			VAR CurrentPeriod = [RFM Unique Customers]
+			VAR PriorYear = [RFM PY Customers]
+			
+			RETURN 
+			DIVIDE(CurrentPeriod - PriorYear, PriorYear, 0)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 01_Segments\RFM
+		lineageTag: 82ac4d7f-74c0-4fda-80a7-c351c9223d28
+
+	measure 'RFM Orders YoY %' = ```
+			
+			VAR CurrentPeriod = [RFM Total Orders]
+			VAR PriorYear = [RFM PY Orders]
+			
+			RETURN 
+			DIVIDE(CurrentPeriod - PriorYear, PriorYear, 0)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 01_Segments\RFM
+		lineageTag: 0390e22c-b78c-4cc0-835b-bf3f66b7f85d
+
+	measure 'RFM Revenue YoY %' = ```
+			
+			VAR CurrentPeriod = [RFM Total Revenue]
+			VAR PriorYear = [RFM PY Revenue]
+			
+			RETURN 
+			DIVIDE(CurrentPeriod - PriorYear, PriorYear, 0)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 01_Segments\RFM
+		lineageTag: 1431800c-c35f-404a-80c8-ca17e51e28bc
+
+	measure 'RFM Orders YoY Font Color' = ```
+			
+			// Using UDF color function with 0% transparency
+			Color.YoYGrowthPct([RFM Orders YoY %], 0) 
+			
+			```
+		displayFolder: 01_Segments\RFM
+		lineageTag: c65f9968-7ba6-4b5f-942a-5c42689a38a9
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'RFM Revenue YoY Font Color' = ```
+			
+			// Using UDF color function with 0% transparency
+			Color.YoYGrowthPct([RFM Revenue YoY %], 0) 
+			
+			```
+		displayFolder: 01_Segments\RFM
+		lineageTag: 96a1d3cc-817d-4676-845c-718f9d667a44
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'RFM Customers YoY Font Color' = ```
+			
+			// Using UDF color function with 0% transparency
+			Color.YoYGrowthPct([RFM Customers YoY %], 0) 
+			
+			```
+		displayFolder: 01_Segments\RFM
+		lineageTag: 44bf708b-87ae-49b1-ade1-2b4d6a7e6ffb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cohort Gross Retained Revenue (GRR)' = ```
+			
+			VAR __CohortSize = [Param: Cohort Size Value] 
+			VAR __CohortAsOfDate = [As on Cohort Date] 
+			RETURN 
+			CALCULATE( 
+			    SUM(FCT_COHORT_RETENTION[GROSS_RETAINED_REVENUE]), 
+			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_MONTH] <= __CohortAsOfDate),
+			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_SIZE] >= __CohortSize)
+			)
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 05_Cohort
+		lineageTag: c5114899-994f-4244-9ed4-18ddd1e12c6b
+
+	measure 'Cohort Net Retained Revenue (NRR)' = ```
+			
+			VAR __CohortSize = [Param: Cohort Size Value] 
+			VAR __CohortAsOfDate = [As on Cohort Date] 
+			RETURN 
+			CALCULATE( 
+			    SUM(FCT_COHORT_RETENTION[NET_RETAINED_REVENUE]), 
+			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_MONTH] <= __CohortAsOfDate),
+			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_SIZE] >= __CohortSize)
+			)
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 05_Cohort
+		lineageTag: aa4fc36f-2ca4-4536-a7a3-d32586c37c44
+
+	measure 'Gross Revenue Retention (GRR) %' = ```
+			
+			VAR __GrossRetained = [Cohort Gross Retained Revenue (GRR)]
+			VAR __InitialRevenue = 
+			    CALCULATE(
+			        [Cohort Initial Revenue],
+			        REMOVEFILTERS('fct_cohort_retention'[period])
+			    )
+			RETURN
+			DIVIDE(__GrossRetained, __InitialRevenue, 0)
+			
+			```
+		displayFolder: 05_Cohort
+		lineageTag: d92ca957-25e1-4d0a-9936-0eefe029788a
+
+		formatStringDefinition = ```
+				IF( 
+				    SELECTEDMEASURE() < 1, 
+				    "0.00%",
+				    "0%"
+				)
+				```
+
+	measure 'Net Revenue Retention (NRR) %' = ```
+			
+			VAR __NetRetained = [Cohort Net Retained Revenue (NRR)]
+			VAR __InitialRevenue = 
+			    CALCULATE(
+			        [Cohort Initial Revenue],
+			        REMOVEFILTERS('fct_cohort_retention'[period])
+			    )
+			RETURN
+			DIVIDE(__NetRetained, __InitialRevenue, 0)
+			
+			```
+		displayFolder: 05_Cohort
+		lineageTag: b83620a9-87ce-478b-a133-abfa8c81eb30
+
+		formatStringDefinition = ```
+				IF( 
+				    SELECTEDMEASURE() < 1, 
+				    "0.00%",
+				    "0%"
+				)
+				```
 
 	/// Hidden column for calculated table
 	column Value

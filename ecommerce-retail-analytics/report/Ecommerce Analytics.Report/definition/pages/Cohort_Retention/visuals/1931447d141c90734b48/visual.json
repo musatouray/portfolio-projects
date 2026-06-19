@@ -112,6 +112,34 @@
               },
               "queryRef": "_Measures.Cohort Churn Rate",
               "nativeQueryRef": "Cohort Churn Rate"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Gross Revenue Retention (GRR) %"
+                }
+              },
+              "queryRef": "_Measures.Gross Revenue Retention (GRR) %",
+              "nativeQueryRef": "Gross Revenue Retention (GRR) %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Net Revenue Retention (NRR) %"
+                }
+              },
+              "queryRef": "_Measures.Net Revenue Retention (NRR) %",
+              "nativeQueryRef": "Net Revenue Retention (NRR) %"
             }
           ]
         }

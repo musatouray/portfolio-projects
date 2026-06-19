@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "b15defde10bbc71ab25d",
   "position": {
     "x": 30.363424400628517,
     "y": 414.57752547012012,
-    "z": 2000,
+    "z": 4000,
     "height": 639.96756044401639,
     "width": 1170,
-    "tabOrder": 5000
+    "tabOrder": 4000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "RFM Segment Unique Customers"
+                  "Property": "RFM Unique Customers"
                 }
               },
-              "queryRef": "_Measures.RFM Segment Unique Customers",
-              "nativeQueryRef": "RFM Segment Unique Customers"
+              "queryRef": "_Measures.RFM Unique Customers",
+              "nativeQueryRef": "RFM Unique Customers"
             },
             {
               "field": {
@@ -37,11 +37,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Orders"
+                  "Property": "RFM Total Orders"
                 }
               },
-              "queryRef": "_Measures.Total Orders",
-              "nativeQueryRef": "Total Orders"
+              "queryRef": "_Measures.RFM Total Orders",
+              "nativeQueryRef": "RFM Total Orders"
             },
             {
               "field": {
@@ -51,11 +51,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Revenue"
+                  "Property": "RFM Total Revenue"
                 }
               },
-              "queryRef": "_Measures.Total Revenue",
-              "nativeQueryRef": "Total Revenue"
+              "queryRef": "_Measures.RFM Total Revenue",
+              "nativeQueryRef": "RFM Total Revenue"
             }
           ]
         },
@@ -534,6 +534,48 @@
           "selector": {
             "metadata": "_Measures.Total Revenue"
           }
+        },
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Customers'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Unique Customers"
+          }
+        },
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Orders'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Total Orders"
+          }
+        },
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Revenue'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Total Revenue"
+          }
         }
       ],
       "value": [
@@ -605,6 +647,48 @@
           },
           "selector": {
             "metadata": "_Measures.Total Revenue"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Unique Customers"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Total Orders"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Total Revenue"
           }
         }
       ],
@@ -861,6 +945,174 @@
             "id": "field-a2a459ba-1fc5-1991-6913-e4c38fe9dc92",
             "order": 1
           }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "RFM PY Customers"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Measures.RFM Unique Customers",
+            "id": "field-a99c7d1e-1fb6-4f2a-659f-fff37be4156f",
+            "order": 0
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "RFM Customers YoY %"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Measures.RFM Unique Customers",
+            "id": "field-44163982-178a-769e-2ec5-54cd39d75112",
+            "order": 1
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "RFM PY Orders"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Measures.RFM Total Orders",
+            "id": "field-cb87b2d9-6ae0-4291-de66-47237667461e",
+            "order": 0
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "RFM Orders YoY %"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Measures.RFM Total Orders",
+            "id": "field-915254d5-4cd6-03a5-bf5e-f99a92a4fd82",
+            "order": 1
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "RFM PY Revenue"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Measures.RFM Total Revenue",
+            "id": "field-d2d65b4d-6e1f-1638-c215-dabf58c271d7",
+            "order": 0
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "RFM Revenue YoY %"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Measures.RFM Total Revenue",
+            "id": "field-87dd67da-6b0f-0f5a-58a6-86520864facb",
+            "order": 1
+          }
         }
       ],
       "referenceLabelTitle": [
@@ -1059,6 +1311,138 @@
           "selector": {
             "metadata": "_Measures.Total Revenue",
             "id": "field-a2a459ba-1fc5-1991-6913-e4c38fe9dc92"
+          }
+        },
+        {
+          "properties": {
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'PY '"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Unique Customers",
+            "id": "field-a99c7d1e-1fb6-4f2a-659f-fff37be4156f"
+          }
+        },
+        {
+          "properties": {
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'YoY %'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Unique Customers",
+            "id": "field-44163982-178a-769e-2ec5-54cd39d75112"
+          }
+        },
+        {
+          "properties": {
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'PY'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Total Orders",
+            "id": "field-cb87b2d9-6ae0-4291-de66-47237667461e"
+          }
+        },
+        {
+          "properties": {
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'YoY %'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Total Orders",
+            "id": "field-915254d5-4cd6-03a5-bf5e-f99a92a4fd82"
+          }
+        },
+        {
+          "properties": {
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'PY'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Total Revenue",
+            "id": "field-d2d65b4d-6e1f-1638-c215-dabf58c271d7"
+          }
+        },
+        {
+          "properties": {
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'YoY %'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Total Revenue",
+            "id": "field-87dd67da-6b0f-0f5a-58a6-86520864facb"
           }
         }
       ],
@@ -1409,6 +1793,174 @@
             "metadata": "_Measures.Total Revenue",
             "id": "field-a2a459ba-1fc5-1991-6913-e4c38fe9dc92"
           }
+        },
+        {
+          "properties": {
+            "valueDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Unique Customers",
+            "id": "field-a99c7d1e-1fb6-4f2a-659f-fff37be4156f"
+          }
+        },
+        {
+          "properties": {
+            "valueDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Total Orders",
+            "id": "field-cb87b2d9-6ae0-4291-de66-47237667461e"
+          }
+        },
+        {
+          "properties": {
+            "valueDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Total Orders",
+            "id": "field-915254d5-4cd6-03a5-bf5e-f99a92a4fd82"
+          }
+        },
+        {
+          "properties": {
+            "valueDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Total Revenue",
+            "id": "field-d2d65b4d-6e1f-1638-c215-dabf58c271d7"
+          }
+        },
+        {
+          "properties": {
+            "valueDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Total Revenue",
+            "id": "field-87dd67da-6b0f-0f5a-58a6-86520864facb"
+          }
+        },
+        {
+          "properties": {
+            "valueFontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "RFM Revenue YoY Font Color"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Measures.RFM Total Revenue",
+            "id": "field-87dd67da-6b0f-0f5a-58a6-86520864facb"
+          }
+        },
+        {
+          "properties": {
+            "valueFontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "RFM Orders YoY Font Color"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Measures.RFM Total Orders",
+            "id": "field-915254d5-4cd6-03a5-bf5e-f99a92a4fd82"
+          }
+        },
+        {
+          "properties": {
+            "valueFontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "RFM Customers YoY Font Color"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Measures.RFM Unique Customers",
+            "id": "field-44163982-178a-769e-2ec5-54cd39d75112"
+          }
         }
       ],
       "border": [
@@ -1542,7 +2094,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Filtered Period Title"
+                  "Property": "RFM Segment Snapshot Title"
                 }
               }
             }
@@ -1648,5 +2200,6 @@
         "isLockedInViewMode": true
       }
     ]
-  }
+  },
+  "isHidden": true
 }

@@ -456,7 +456,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Aug-2018'"
+                                "Value": "'Jul-2018'"
                               }
                             }
                           ]
@@ -929,5 +929,79 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "17881cbfcbe00dcc33db"
+  "parentGroupName": "17881cbfcbe00dcc33db",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "6615c8a3ecb4c39b1127",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Disconnected Calendar"
+              }
+            },
+            "Property": "Month Year"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "d14575474c642e2150db",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Disconnected Calendar"
+              }
+            },
+            "Property": "MONTH_START_DATE"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "Disconnected Calendar",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Comparison": {
+                  "ComparisonKind": 4,
+                  "Left": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "d"
+                        }
+                      },
+                      "Property": "MONTH_START_DATE"
+                    }
+                  },
+                  "Right": {
+                    "DateSpan": {
+                      "Expression": {
+                        "Literal": {
+                          "Value": "datetime'2018-09-03T00:00:00'"
+                        }
+                      },
+                      "TimeUnit": 5
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User",
+        "isHiddenInViewMode": true,
+        "isLockedInViewMode": true
+      }
+    ]
+  }
 }

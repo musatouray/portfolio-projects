@@ -1,0 +1,19 @@
+// Welcome to DAX query view! Learn more about DAX queries at https://aka.ms/dax-queries.
+// Right-click on tables, columns, or measures in the data pane to access quick queries, or ask Copilot for help writing DAX.
+
+// Select "Run" to try this sample DAX query.
+EVALUATE
+    VAR __MaxSnapshotDate = 
+		ADDCOLUMNS(
+			VALUES(FCT_RFM_SEGMENTS[CUSTOMER_KEY]),
+			"@MaxSnapshot", CALCULATE(MAX(FCT_RFM_SEGMENTS[SNAPSHOT_MONTH])),
+			"@Orders", CALCULATE(MAX(FCT_RFM_SEGMENTS[TOTAL_ORDERS])),
+			"@Revenue", CALCULATE(MAX(FCT_RFM_SEGMENTS[TOTAL_REVENUE]))
+		)
+
+	RETURN
+	__MaxSnapshotDate
+	// CALCULATE(
+	// 	SUM(FCT_RFM_SEGMENTS[TOTAL_ORDERS]),
+	// 	FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __MaxSnapshotDate
+	// )

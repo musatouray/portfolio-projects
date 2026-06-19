@@ -1,10 +1,10 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "bed12274a34c6b3c8350",
   "position": {
-    "x": 95.761569263520713,
+    "x": 95.761569263520641,
     "y": 30.363424400628517,
-    "z": 3000,
+    "z": 5000,
     "height": 39.706016523898832,
     "width": 152.98494601855137,
     "tabOrder": 2000

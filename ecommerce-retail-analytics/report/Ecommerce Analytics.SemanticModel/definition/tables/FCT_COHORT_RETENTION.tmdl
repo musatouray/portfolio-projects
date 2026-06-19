@@ -85,14 +85,15 @@ table FCT_COHORT_RETENTION
 		annotation SummarizationSetBy = Automatic
 
 	column PERIOD
-		dataType: double
+		dataType: int64
+		formatString: 0
 		lineageTag: aa2d79af-cd67-4f06-96dd-bfeae24010bd
 		summarizeBy: none
 		sourceColumn: PERIOD
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = DataType
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation SummarizationSetBy = User
 
 	column GROSS_RETAINED_REVENUE
 		dataType: double

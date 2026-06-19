@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "0e1b64bd23190986ad52",
   "position": {
-    "x": 1229.718688225455,
-    "y": 414,
-    "z": 1000,
-    "height": 307.13771605251151,
-    "width": 660.98839272137468,
-    "tabOrder": 6000
+    "x": 1284.3743395939039,
+    "y": 528.72240573446675,
+    "z": 3000,
+    "height": 245.64536549610182,
+    "width": 605.92523489038456,
+    "tabOrder": 5000
   },
   "visual": {
     "visualType": "barChart",
@@ -27,8 +27,41 @@
                 }
               },
               "queryRef": "FCT_RFM_SEGMENTS.RFM_SEGMENT",
-              "nativeQueryRef": "RFM_SEGMENT",
-              "active": true
+              "nativeQueryRef": "Segment",
+              "active": true,
+              "displayName": "Segment"
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avg Recency (Days)"
+                }
+              },
+              "queryRef": "_Measures.Avg Recency (Days)",
+              "nativeQueryRef": "Avg Recency (Days)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avg Monetary"
+                }
+              },
+              "queryRef": "_Measures.Avg Monetary",
+              "nativeQueryRef": "Avg Monetary"
             }
           ]
         },
@@ -56,11 +89,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "RFM Segment Revenue %"
+                  "Property": "RFM Revenue Share %"
                 }
               },
-              "queryRef": "_Measures.RFM Segment Revenue %",
-              "nativeQueryRef": "RFM Segment Revenue %"
+              "queryRef": "_Measures.RFM Revenue Share %",
+              "nativeQueryRef": "RFM Revenue Share %"
             },
             {
               "field": {
@@ -89,7 +122,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "RFM Segment Revenue %"
+                "Property": "RFM Revenue Share %"
               }
             },
             "direction": "Descending"
@@ -515,7 +548,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "RFM Segment Revenue %"
+                  "Property": "RFM Revenue Share %"
                 }
               }
             }
@@ -530,6 +563,20 @@
             ],
             "metadata": "_Measures.RFM Remaining %",
             "highlightMatching": 1
+          }
+        },
+        {
+          "properties": {
+            "showSeries": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Revenue Share %"
           }
         }
       ],
@@ -678,6 +725,39 @@
           "selector": {
             "metadata": "_Measures.Label Placeholder"
           }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 8,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "fillTransparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "borderShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.RFM Revenue Share %"
+          }
         }
       ],
       "layout": [
@@ -758,7 +838,7 @@
             "shadowSpread": {
               "expr": {
                 "Literal": {
-                  "Value": "1D"
+                  "Value": "0D"
                 }
               }
             },
@@ -772,7 +852,7 @@
             "transparency": {
               "expr": {
                 "Literal": {
-                  "Value": "90D"
+                  "Value": "92D"
                 }
               }
             }
@@ -790,7 +870,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Filtered Period Title"
+                  "Property": "RFM Segment Snapshot Title"
                 }
               }
             },
@@ -830,7 +910,75 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "showSentenceFormat": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "sentenceTemplate": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{RFM_SEGMENT} has average recency of {Avg Recency (Days)} days and average monetary value of {Avg Monetary}'"
+                }
+              }
+            },
+            "themedValueFontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0078d4'"
+                    }
+                  }
+                }
+              }
+            },
+            "themedBackground": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 8,
+                      "Percent": 0.6
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "themedTitleFontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "actionFontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0
+                    }
+                  }
                 }
               }
             }
@@ -844,6 +992,19 @@
               "expr": {
                 "Literal": {
                   "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "spacing": [
+        {
+          "properties": {
+            "spaceBelowSubTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "6D"
                 }
               }
             }
@@ -908,6 +1069,48 @@
         },
         "isHiddenInViewMode": true,
         "isLockedInViewMode": true
+      },
+      {
+        "name": "9da10d8a118d06c8bc92",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Label Placeholder"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ce4bb659d4a5b610a052",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "RFM Revenue Share %"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "fb0db1ddd7b005803742",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "RFM Remaining %"
+          }
+        },
+        "type": "Advanced"
       }
     ]
   }

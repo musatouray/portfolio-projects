@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "5ae70d96c0be39537e27",
   "position": {
-    "x": 19.8530082619493,
-    "y": 272.10299559024787,
-    "z": 1000,
-    "height": 485.81479041005628,
-    "width": 220.71873891226113,
+    "x": 19.823891885366564,
+    "y": 264.09407799782832,
+    "z": 3000,
+    "height": 345.587877976219,
+    "width": 220.98816686914682,
     "tabOrder": 0
   },
   "visual": {
@@ -316,7 +316,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Last 12 Months'"
+                                "Value": "'Last 6 Months'"
                               }
                             }
                           ]
@@ -910,5 +910,120 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "8eb14140071a05b20352"
+  "parentGroupName": "8eb14140071a05b20352",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "04c5c05069a0a1153804",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "CG Custom Periods"
+              }
+            },
+            "Property": "Period"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "c",
+              "Entity": "CG Custom Periods",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "c"
+                          }
+                        },
+                        "Property": "Period"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Custom'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'MTD'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Last Month'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'QTD'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Last Quarter'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Last 6 Months'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Last 12 Months'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Last Year'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'All Time'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "isHiddenInViewMode": true,
+        "isLockedInViewMode": true
+      }
+    ]
+  }
 }

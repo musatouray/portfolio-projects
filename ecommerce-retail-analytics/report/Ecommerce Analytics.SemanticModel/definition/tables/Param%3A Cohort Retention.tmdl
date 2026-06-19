@@ -31,7 +31,7 @@ table 'Param: Cohort Retention'
 		isHidden
 		formatString: 0
 		lineageTag: 6f653ba3-4e76-4c4a-b8ce-3f85078bc5c2
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: [Value3]
 
 		annotation SummarizationSetBy = Automatic
@@ -40,12 +40,12 @@ table 'Param: Cohort Retention'
 		mode: import
 		source =
 				{
-				    ("Retention", NAMEOF('_Measures'[Retention Rate]), 0),
-				    ("Active", NAMEOF('_Measures'[Retained Customers]), 1),
-				    ("Revenue", NAMEOF('_Measures'[Cohort Revenue]), 2),
-				    ("Orders", NAMEOF('_Measures'[Cohort Orders]), 3),
-				    ("AOV", NAMEOF('_Measures'[Cohort Avg Order Value]), 4),
-				    ("ACV", NAMEOF('_Measures'[Cohort Avg Customer Value]), 5)
+				    // ("Retention", NAMEOF('_Measures'[Retention Rate]), 0),
+				    // ("Active", NAMEOF('_Measures'[Retained Customers]), 1),
+				    // ("Revenue", NAMEOF('_Measures'[Cohort Revenue]), 2),
+				    // ("Orders", NAMEOF('_Measures'[Cohort Orders]), 3),
+				    ("GRR", NAMEOF('_Measures'[Gross Revenue Retention (GRR) %]), 4),
+				    ("NRR", NAMEOF('_Measures'[Net Revenue Retention (NRR) %]), 5)
 				}
 
 	annotation PBI_Id = 48e378e417f3459f8f427a98e26f7811

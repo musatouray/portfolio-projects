@@ -1,16 +1,17 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "ec9f73d00650882286cb",
   "position": {
     "x": 30.363424400628517,
     "y": 206.70485072735568,
-    "z": 3000,
+    "z": 5000,
     "height": 179.84489837295354,
     "width": 1860.3436565462011,
-    "tabOrder": 10002
+    "tabOrder": 10000
   },
   "visualGroup": {
     "displayName": "Grp KPI Cards",
     "groupMode": "ScaleMode"
-  }
+  },
+  "isHidden": true
 }

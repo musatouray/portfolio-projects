@@ -14,9 +14,12 @@ table FCT_RFM_SEGMENTS
 
 	column R_SCORE
 		dataType: double
+		isHidden
 		lineageTag: ff68920f-034e-4c63-8491-6a6ab8dae151
 		summarizeBy: none
 		sourceColumn: R_SCORE
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -24,9 +27,12 @@ table FCT_RFM_SEGMENTS
 
 	column F_SCORE
 		dataType: double
+		isHidden
 		lineageTag: d5dee23b-64f7-482c-89ad-621d16da7ffc
 		summarizeBy: none
 		sourceColumn: F_SCORE
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -34,9 +40,12 @@ table FCT_RFM_SEGMENTS
 
 	column M_SCORE
 		dataType: double
+		isHidden
 		lineageTag: 478d0f75-6885-47a3-8163-040cbd22c5f2
 		summarizeBy: none
 		sourceColumn: M_SCORE
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -47,6 +56,7 @@ table FCT_RFM_SEGMENTS
 		lineageTag: 68d83f58-3e72-429e-9f71-8543c773bfc0
 		summarizeBy: none
 		sourceColumn: RFM_SEGMENT
+		sortByColumn: SEGMENT_INDEX
 
 		changedProperty = SortByColumn
 
@@ -167,9 +177,12 @@ table FCT_RFM_SEGMENTS
 
 	column CHURN_RISK_SCORE
 		dataType: double
+		isHidden
 		lineageTag: 2d54c0c2-37b9-483d-ab07-dba420f5b9c7
 		summarizeBy: none
 		sourceColumn: CHURN_RISK_SCORE
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -189,6 +202,19 @@ table FCT_RFM_SEGMENTS
 		lineageTag: 91c38257-bfc8-4ab1-ade9-0574fe0d022e
 		summarizeBy: none
 		sourceColumn: SNAPSHOT_DATE_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SEGMENT_INDEX
+		dataType: double
+		isHidden
+		lineageTag: bf3e11c4-9c0e-43a8-a398-94cef73d2606
+		summarizeBy: sum
+		sourceColumn: SEGMENT_INDEX
 
 		changedProperty = IsHidden
 

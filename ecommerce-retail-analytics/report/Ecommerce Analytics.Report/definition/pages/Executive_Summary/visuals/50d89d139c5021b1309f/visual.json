@@ -1,11 +1,11 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "50d89d139c5021b1309f",
   "position": {
-    "x": 17.517360231131761,
-    "y": 137.80323381823712,
+    "x": 17.359314201371372,
+    "y": 138.31010578559204,
     "z": 2000,
-    "height": 92.258097217294335,
+    "height": 143.64235389528105,
     "width": 241.73957118961934,
     "tabOrder": 1000
   },
@@ -59,7 +59,7 @@
             "mode": {
               "expr": {
                 "Literal": {
-                  "Value": "'Between'"
+                  "Value": "'RelativeDatePicker'"
                 }
               }
             }
@@ -127,8 +127,8 @@
                 "color": {
                   "expr": {
                     "ThemeDataColor": {
-                      "ColorId": 2,
-                      "Percent": 0.4
+                      "ColorId": 1,
+                      "Percent": 0.6
                     }
                   }
                 }
@@ -182,20 +182,6 @@
                 }
               }
             },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "11D"
-                }
-              }
-            },
-            "fontFamily": {
-              "expr": {
-                "Literal": {
-                  "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
-                }
-              }
-            },
             "fontColor": {
               "solid": {
                 "color": {
@@ -209,6 +195,13 @@
                       "Property": "Custom Period Slicer Disable Color"
                     }
                   }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
                 }
               }
             }
@@ -423,36 +416,7 @@
       ],
       "padding": [
         {
-          "properties": {
-            "top": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
-                }
-              }
-            },
-            "bottom": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
-                }
-              }
-            },
-            "left": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
-                }
-              }
-            },
-            "right": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
-                }
-              }
-            }
-          }
+          "properties": {}
         }
       ],
       "visualHeader": [
@@ -468,13 +432,6 @@
                   }
                 }
               }
-            },
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
             }
           }
         }
@@ -486,6 +443,19 @@
               "expr": {
                 "Literal": {
                   "Value": "''"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "keepLayerOrder": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }
