@@ -192,8 +192,14 @@ def build_zip_lookup(zcta_df: pd.DataFrame) -> dict[str, list[dict]]:
     # Get unique states
     unique_states = zcta_df['state'].dropna().unique()
 
+    filtered_count = 0
     for state in unique_states:
         state_zips = zcta_df[zcta_df['state'] == state].copy()
+
+        # Filter out ZIP codes with null coordinates (ensures all selections have valid coords)
+        before_filter = len(state_zips)
+        state_zips = state_zips.dropna(subset=['latitude', 'longitude'])
+        filtered_count += before_filter - len(state_zips)
 
         # Sort by zip_code for deterministic ordering
         state_zips = state_zips.sort_values('zip_code')
@@ -209,6 +215,8 @@ def build_zip_lookup(zcta_df: pd.DataFrame) -> dict[str, list[dict]]:
             for _, row in state_zips.iterrows()
         ]
 
+    if filtered_count > 0:
+        print(f"  Filtered {filtered_count:,} ZIP codes with missing coordinates")
     print(f"Built lookup for {len(lookup)} states")
     return lookup
 
@@ -397,6 +405,12 @@ def transform_geolocation(br_df: pd.DataFrame, zip_mapping: dict[str, dict]) -> 
     # Sort by zip code for consistency
     us_geo_df = us_geo_df.sort_values('geolocation_zip_code_prefix').reset_index(drop=True)
 
+    # Fill any null cities with "Unknown"
+    null_cities = us_geo_df['geolocation_city'].isnull().sum()
+    if null_cities > 0:
+        us_geo_df['geolocation_city'] = us_geo_df['geolocation_city'].fillna('Unknown')
+        print(f"  Filled {null_cities:,} records with unknown city")
+
     print(f"  Input: {len(br_df):,} Brazilian geolocation records")
     print(f"  Output: {len(us_geo_df):,} US geolocation records (unique US ZIPs)")
 
@@ -423,24 +437,33 @@ def transform_customers(br_df: pd.DataFrame, zip_mapping: dict[str, dict]) -> pd
     us_df = br_df.copy()
 
     # Normalize Brazilian zip codes (ensure 5 digits with leading zeros)
-    us_df['customer_zip_code_prefix'] = us_df['customer_zip_code_prefix'].astype(str).str.zfill(5)
+    br_zips = us_df['customer_zip_code_prefix'].astype(str).str.zfill(5)
 
-    # Map to US geography
-    us_df['customer_zip_code_prefix'] = us_df['customer_zip_code_prefix'].map(
-        lambda br_zip: zip_mapping.get(br_zip, {}).get('us_zip', br_zip)
+    # Map each BR zip to US values using the mapping dict
+    # For zips not in mapping, use a default US zip (most common state = CA)
+    default_entry = {'us_zip': '90001', 'us_city': 'Los Angeles', 'us_state': 'CA',
+                     'us_lat': 33.9731, 'us_lng': -118.2479}
+
+    us_df['customer_zip_code_prefix'] = br_zips.map(
+        lambda br_zip: zip_mapping.get(br_zip, default_entry)['us_zip']
     )
-    us_df['customer_city'] = us_df['customer_zip_code_prefix'].map(
-        lambda us_zip: next(
-            (v['us_city'] for k, v in zip_mapping.items() if v['us_zip'] == us_zip),
-            None
-        )
+    us_df['customer_city'] = br_zips.map(
+        lambda br_zip: zip_mapping.get(br_zip, default_entry)['us_city']
     )
-    us_df['customer_state'] = us_df['customer_zip_code_prefix'].map(
-        lambda us_zip: next(
-            (v['us_state'] for k, v in zip_mapping.items() if v['us_zip'] == us_zip),
-            None
-        )
+    us_df['customer_state'] = br_zips.map(
+        lambda br_zip: zip_mapping.get(br_zip, default_entry)['us_state']
     )
+
+    # Count unmapped records
+    unmapped = br_zips.apply(lambda z: z not in zip_mapping).sum()
+    if unmapped > 0:
+        print(f"  Warning: {unmapped:,} customers with unmapped BR zips (defaulted to Los Angeles, CA)")
+
+    # Fill any null cities with "Unknown"
+    null_cities = us_df['customer_city'].isnull().sum()
+    if null_cities > 0:
+        us_df['customer_city'] = us_df['customer_city'].fillna('Unknown')
+        print(f"  Filled {null_cities:,} records with unknown city")
 
     print(f"  Input: {len(br_df):,} customers")
     print(f"  Output: {len(us_df):,} customers (row count preserved)")
@@ -471,24 +494,33 @@ def transform_sellers(br_df: pd.DataFrame, zip_mapping: dict[str, dict]) -> pd.D
     us_df = br_df.copy()
 
     # Normalize Brazilian zip codes (ensure 5 digits with leading zeros)
-    us_df['seller_zip_code_prefix'] = us_df['seller_zip_code_prefix'].astype(str).str.zfill(5)
+    br_zips = us_df['seller_zip_code_prefix'].astype(str).str.zfill(5)
 
-    # Map to US geography
-    us_df['seller_zip_code_prefix'] = us_df['seller_zip_code_prefix'].map(
-        lambda br_zip: zip_mapping.get(br_zip, {}).get('us_zip', br_zip)
+    # Map each BR zip to US values using the mapping dict
+    # For zips not in mapping, use a default US zip (most common state = CA)
+    default_entry = {'us_zip': '90001', 'us_city': 'Los Angeles', 'us_state': 'CA',
+                     'us_lat': 33.9731, 'us_lng': -118.2479}
+
+    us_df['seller_zip_code_prefix'] = br_zips.map(
+        lambda br_zip: zip_mapping.get(br_zip, default_entry)['us_zip']
     )
-    us_df['seller_city'] = us_df['seller_zip_code_prefix'].map(
-        lambda us_zip: next(
-            (v['us_city'] for k, v in zip_mapping.items() if v['us_zip'] == us_zip),
-            None
-        )
+    us_df['seller_city'] = br_zips.map(
+        lambda br_zip: zip_mapping.get(br_zip, default_entry)['us_city']
     )
-    us_df['seller_state'] = us_df['seller_zip_code_prefix'].map(
-        lambda us_zip: next(
-            (v['us_state'] for k, v in zip_mapping.items() if v['us_zip'] == us_zip),
-            None
-        )
+    us_df['seller_state'] = br_zips.map(
+        lambda br_zip: zip_mapping.get(br_zip, default_entry)['us_state']
     )
+
+    # Count unmapped records
+    unmapped = br_zips.apply(lambda z: z not in zip_mapping).sum()
+    if unmapped > 0:
+        print(f"  Warning: {unmapped:,} sellers with unmapped BR zips (defaulted to Los Angeles, CA)")
+
+    # Fill any null cities with "Unknown"
+    null_cities = us_df['seller_city'].isnull().sum()
+    if null_cities > 0:
+        us_df['seller_city'] = us_df['seller_city'].fillna('Unknown')
+        print(f"  Filled {null_cities:,} records with unknown city")
 
     print(f"  Input: {len(br_df):,} sellers")
     print(f"  Output: {len(us_df):,} sellers (row count preserved)")

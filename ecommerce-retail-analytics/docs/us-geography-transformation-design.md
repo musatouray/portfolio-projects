@@ -189,7 +189,7 @@ Update `dbt/models/staging/sources.yml`:
 | ID integrity | All customer_id and seller_id unchanged |
 | Referential integrity | Every zip in customers/sellers exists in geolocation |
 | State distribution | US state % matches BR state % |
-| Coordinate validity | All lat/lng within continental US (24°-50°N, 66°-125°W) |
+| Coordinate validity | All lat/lng within US bounds including AK/HI (18°-72°N, 66°-180°W) |
 | No nulls | No null values in location columns |
 | Azure Maps compatibility | Coordinates render correctly on map visual |
 
