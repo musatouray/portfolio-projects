@@ -23,13 +23,12 @@
                       "Entity": "FCT_COHORT_RETENTION"
                     }
                   },
-                  "Property": "PERIOD_NUMBER"
+                  "Property": "PERIOD"
                 }
               },
-              "queryRef": "FCT_COHORT_RETENTION.PERIOD_NUMBER",
-              "nativeQueryRef": "Period",
-              "active": true,
-              "displayName": "Period"
+              "queryRef": "FCT_COHORT_RETENTION.PERIOD",
+              "nativeQueryRef": "PERIOD",
+              "active": true
             }
           ]
         },
@@ -40,13 +39,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DIM_COHORTS"
+                      "Entity": "FCT_COHORT_RETENTION"
                     }
                   },
-                  "Property": "COHORT_MONTH_NAME"
+                  "Property": "COHORT_MONTH"
                 }
               },
-              "queryRef": "DIM_COHORTS.COHORT_MONTH_NAME",
+              "queryRef": "FCT_COHORT_RETENTION.COHORT_MONTH",
               "nativeQueryRef": "Cohort Month",
               "active": true,
               "displayName": "Cohort Month"
@@ -56,16 +55,16 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DIM_COHORTS"
+                      "Entity": "FCT_COHORT_RETENTION"
                     }
                   },
                   "Property": "COHORT_SIZE"
                 }
               },
-              "queryRef": "DIM_COHORTS.COHORT_SIZE",
-              "nativeQueryRef": "Cohort Size",
-              "active": true,
-              "displayName": "Cohort Size"
+              "queryRef": "FCT_COHORT_RETENTION.COHORT_SIZE",
+              "nativeQueryRef": "Size",
+              "active": false,
+              "displayName": "Size"
             }
           ]
         },
@@ -79,12 +78,12 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Retention Rate"
+                  "Property": "Gross Revenue Retention (GRR) %"
                 }
               },
-              "queryRef": "_Measures.Retention Rate",
-              "nativeQueryRef": "Retention",
-              "displayName": "Retention"
+              "queryRef": "_Measures.Gross Revenue Retention (GRR) %",
+              "nativeQueryRef": "GRR",
+              "displayName": "GRR"
             }
           ],
           "fieldParameters": [
@@ -114,13 +113,14 @@
         "levels": [
           {
             "queryRefs": [
-              "DIM_COHORTS.COHORT_MONTH_NAME"
+              "FCT_COHORT_RETENTION.COHORT_MONTH"
             ],
+            "isCollapsed": true,
             "isPinned": true
           },
           {
             "queryRefs": [
-              "DIM_COHORTS.COHORT_SIZE"
+              "FCT_COHORT_RETENTION.COHORT_SIZE"
             ],
             "isCollapsed": true,
             "isPinned": true
@@ -951,6 +951,124 @@
             ],
             "metadata": "_Measures.Cohort Avg Customer Value"
           }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "FillRule": {
+                      "Input": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "_Measures"
+                            }
+                          },
+                          "Property": "Gross Revenue Retention (GRR) %"
+                        }
+                      },
+                      "FillRule": {
+                        "linearGradient3": {
+                          "min": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#1E3A5F'"
+                              }
+                            }
+                          },
+                          "mid": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#e6e6e6'"
+                              }
+                            }
+                          },
+                          "max": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#FFFFFF'"
+                              }
+                            }
+                          },
+                          "nullColoringStrategy": {
+                            "strategy": {
+                              "Literal": {
+                                "Value": "'asZero'"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "FillRule": {
+                      "Input": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "_Measures"
+                            }
+                          },
+                          "Property": "Gross Revenue Retention (GRR) %"
+                        }
+                      },
+                      "FillRule": {
+                        "linearGradient3": {
+                          "min": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#a5b0bf'"
+                              }
+                            }
+                          },
+                          "mid": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#78899f'"
+                              }
+                            }
+                          },
+                          "max": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'maxColor'"
+                              }
+                            }
+                          },
+                          "nullColoringStrategy": {
+                            "strategy": {
+                              "Literal": {
+                                "Value": "'noColor'"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "_Measures.Gross Revenue Retention (GRR) %"
+          }
         }
       ],
       "total": [
@@ -1311,7 +1429,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Cohort Period Title"
+                  "Property": "Cohort Period Subtitle"
                 }
               }
             },
@@ -1687,5 +1805,51 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "01bdd60043472a446dd6"
+  "parentGroupName": "01bdd60043472a446dd6",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "13d309da919c775108a0",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FCT_COHORT_RETENTION"
+              }
+            },
+            "Property": "PERIOD"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "e41269bfa84601aa0e49",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FCT_COHORT_RETENTION"
+              }
+            },
+            "Property": "COHORT_SIZE"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "027a84304d49d0375b08",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FCT_COHORT_RETENTION"
+              }
+            },
+            "Property": "COHORT_MONTH"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
 }

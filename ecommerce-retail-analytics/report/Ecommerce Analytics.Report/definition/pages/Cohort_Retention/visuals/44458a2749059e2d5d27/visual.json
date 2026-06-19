@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DIM_COHORTS"
+                      "Entity": "FCT_COHORT_RETENTION"
                     }
                   },
-                  "Property": "COHORT_MONTH_NAME"
+                  "Property": "COHORT_MONTH"
                 }
               },
-              "queryRef": "DIM_COHORTS.COHORT_MONTH_NAME",
-              "nativeQueryRef": "COHORT_MONTH_NAME",
+              "queryRef": "FCT_COHORT_RETENTION.COHORT_MONTH",
+              "nativeQueryRef": "COHORT_MONTH",
               "active": true
             }
           ]
@@ -42,12 +42,12 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Retention Rate"
+                  "Property": "Gross Revenue Retention (GRR) %"
                 }
               },
-              "queryRef": "_Measures.Retention Rate",
-              "nativeQueryRef": "Retention",
-              "displayName": "Retention"
+              "queryRef": "_Measures.Gross Revenue Retention (GRR) %",
+              "nativeQueryRef": "GRR",
+              "displayName": "GRR"
             }
           ],
           "fieldParameters": [
@@ -67,6 +67,24 @@
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "FCT_COHORT_RETENTION"
+                  }
+                },
+                "Property": "COHORT_MONTH"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
       }
     },
     "objects": {
@@ -1179,7 +1197,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Cohort Period Title"
+                  "Property": "Cohort Period Subtitle"
                 }
               }
             }
@@ -1265,15 +1283,15 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "b2ed72a70d5694956a02",
+        "name": "d3fe4ad849c0cc06c910",
         "field": {
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "DIM_COHORTS"
+                "Entity": "FCT_COHORT_RETENTION"
               }
             },
-            "Property": "COHORT_MONTH_NAME"
+            "Property": "COHORT_MONTH"
           }
         },
         "type": "Categorical"

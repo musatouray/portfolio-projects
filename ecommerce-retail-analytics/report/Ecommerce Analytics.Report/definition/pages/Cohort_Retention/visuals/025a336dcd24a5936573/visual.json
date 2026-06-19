@@ -340,5 +340,23 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "17881cbfcbe00dcc33db"
+  "parentGroupName": "17881cbfcbe00dcc33db",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "38137c1541d4b4b7ae80",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Param: Cohort Size"
+              }
+            },
+            "Property": "Param: Cohort Size"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
 }

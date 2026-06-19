@@ -4627,21 +4627,104 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure.entity__RFM_segment_unique_customers_FormatString": {
+			    "entity__measure.RFM_PY_revenue": {
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "_RFM Segment Unique Customers FormatString"
+			          "ConceptualProperty": "RFM PY Revenue"
 			        }
 			      },
 			      "State": "Generated",
-			      "Visibility": {
-			        "Value": "Hidden"
-			      },
 			      "Terms": [
 			        {
-			          "_RFM segment unique customers FormatString": {
+			          "RFM PY revenue": {
 			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "PY revenue": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "rfm py income": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "py income": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "rfm py profit": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "rfm py turnover": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "rfm py yield": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "py profit": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "py turnover": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "py yield": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
 			          }
 			        }
 			      ]
@@ -10364,6 +10447,9 @@ cultureInfo en-US
 			        }
 			      },
 			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
 			      "Terms": [
 			        {
 			          "r score": {
@@ -10493,6 +10579,9 @@ cultureInfo en-US
 			        }
 			      },
 			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
 			      "Terms": [
 			        {
 			          "f score": {
@@ -10622,6 +10711,9 @@ cultureInfo en-US
 			        }
 			      },
 			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
 			      "Terms": [
 			        {
 			          "m score": {
@@ -11363,12 +11455,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "customers": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
 			          "unique clientele": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -11419,53 +11505,53 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "clientele": {
+			          "unique regular": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "patron": {
+			          "unique custom": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "client": {
+			          "unique trade": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "consumer": {
+			          "unique business": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "punter": {
+			          "unique following": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        }
 			      ]
@@ -13439,12 +13525,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "customers": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
 			          "active clientele": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -13495,53 +13575,53 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "clientele": {
+			          "active regular": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "patron": {
+			          "active custom": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "client": {
+			          "active trade": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "consumer": {
+			          "active business": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "punter": {
+			          "active following": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        }
 			      ]
@@ -13558,12 +13638,6 @@ cultureInfo en-US
 			        {
 			          "cooling customers": {
 			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "customers": {
-			            "State": "Generated",
-			            "Weight": 0.97
 			          }
 			        },
 			        {
@@ -13617,53 +13691,53 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "clientele": {
+			          "cooling regular": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "patron": {
+			          "cooling custom": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "client": {
+			          "cooling trade": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "consumer": {
+			          "cooling business": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "punter": {
+			          "cooling following": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        }
 			      ]
@@ -13799,12 +13873,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "customers": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
 			          "churned clientele": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -13855,53 +13923,53 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "clientele": {
+			          "churned regular": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "patron": {
+			          "churned custom": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "client": {
+			          "churned trade": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "consumer": {
+			          "churned business": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "punter": {
+			          "churned following": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        }
 			      ]
@@ -14629,12 +14697,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "customers": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
 			          "retained clientele": {
 			            "Type": "Noun",
 			            "State": "Suggested",
@@ -14685,53 +14747,53 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "clientele": {
+			          "retained regular": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "patron": {
+			          "retained custom": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "client": {
+			          "retained trade": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "consumer": {
+			          "retained business": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        },
 			        {
-			          "punter": {
+			          "retained following": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.491
+			            "Weight": 0.485
 			          }
 			        }
 			      ]
@@ -19462,12 +19524,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "customers": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
 			          "year customers": {
 			            "State": "Generated",
 			            "Weight": 0.97
@@ -20425,12 +20481,6 @@ cultureInfo en-US
 			        {
 			          "total churn customers": {
 			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "customers": {
-			            "State": "Generated",
-			            "Weight": 0.97
 			          }
 			        },
 			        {
@@ -28739,12 +28789,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "customers": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
 			          "CLV customers": {
 			            "State": "Generated",
 			            "Weight": 0.97
@@ -28867,12 +28911,6 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "customers": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
 			          "CLV customers": {
 			            "State": "Generated",
 			            "Weight": 0.97
@@ -28992,12 +29030,6 @@ cultureInfo en-US
 			        {
 			          "platinum CLV customers": {
 			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "customers": {
-			            "State": "Generated",
-			            "Weight": 0.97
 			          }
 			        },
 			        {
@@ -31953,21 +31985,124 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure.entity__RFM_segment_revenue__FormatString": {
+			    "entity__measure.RFM_PY_orders": {
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "_RFM Segment Revenue % FormatString"
+			          "ConceptualProperty": "RFM PY Orders"
 			        }
 			      },
 			      "State": "Generated",
-			      "Visibility": {
-			        "Value": "Hidden"
-			      },
 			      "Terms": [
 			        {
-			          "_RFM segment revenue % FormatString": {
+			          "RFM PY orders": {
 			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "PY orders": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "rfm py instruction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "rfm py guideline": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "rfm py preparation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "rfm py direction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "py instruction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "py guideline": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "py preparation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "py direction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "rfm py command": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "rfm py tip": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
 			          }
 			        }
 			      ]
@@ -36363,7 +36498,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Cohort Lifetime Revenue"
+			          "ConceptualProperty": "Cohort Initial Revenue"
 			        }
 			      },
 			      "State": "Generated",
@@ -38148,7 +38283,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Cohort Period Title"
+			          "ConceptualProperty": "Cohort Period Subtitle"
 			        }
 			      },
 			      "State": "Generated",
@@ -43846,6 +43981,26 @@ cultureInfo en-US
 			            },
 			            "Weight": 0.739
 			          }
+			        },
+			        {
+			          "Segment": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "NPS": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },
@@ -43857,6 +44012,9 @@ cultureInfo en-US
 			        }
 			      },
 			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
 			      "Terms": [
 			        {
 			          "churn risk score": {
@@ -44374,6 +44532,16 @@ cultureInfo en-US
 			            },
 			            "Weight": 0.9
 			          }
+			        },
+			        {
+			          "Customers": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },
@@ -44821,71 +44989,1572 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "fct_cohort_retention.period_number": {
+			    "entity__measure.RFM_PY_customers": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "FCT_COHORT_RETENTION",
-			          "ConceptualProperty": "PERIOD_NUMBER"
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "RFM PY Customers"
 			        }
 			      },
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "Period": {
+			          "RFM PY customers": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "PY customers": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "rfm py clientele": {
+			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
+			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.9
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "rfm py patron": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "rfm py client": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "rfm py consumer": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "rfm py punter": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "py clientele": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "py patron": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "py client": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "py consumer": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "py punter": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
 			          }
 			        }
 			      ]
 			    },
-			    "dim_cohorts.cohort_month_name": {
+			    "entity__measure.RFM_segment_snapshot_title": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "DIM_COHORTS",
-			          "ConceptualProperty": "COHORT_MONTH_NAME"
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "RFM Segment Snapshot Title"
 			        }
 			      },
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "Cohort Month": {
+			          "RFM segment snapshot title": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "title": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "snapshot title": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "segment snapshot title": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "rfm segment snapshot designation": {
+			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
+			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.9
+			            "Weight": 0.771
+			          }
+			        },
+			        {
+			          "segment snapshot designation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "snapshot designation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "rfm segment snapshot name": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.748
+			          }
+			        },
+			        {
+			          "rfm segment snapshot award": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.748
+			          }
+			        },
+			        {
+			          "rfm segment snapshot call": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.748
+			          }
+			        },
+			        {
+			          "rfm segment snapshot heading": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.748
+			          }
+			        },
+			        {
+			          "rfm segment snapshot label": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.748
+			          }
+			        },
+			        {
+			          "segment snapshot name": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "segment snapshot award": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
 			          }
 			        }
 			      ]
 			    },
-			    "dim_cohorts.cohort_size": {
+			    "fct_rfm_segment.segment_index": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "DIM_COHORTS",
-			          "ConceptualProperty": "COHORT_SIZE"
+			          "ConceptualEntity": "FCT_RFM_SEGMENTS",
+			          "ConceptualProperty": "SEGMENT_INDEX"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "segment index": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "SEGMENT_INDEX": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "index": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "division index": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.6
+			          }
+			        },
+			        {
+			          "subdivision index": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.6
+			          }
+			        },
+			        {
+			          "section index": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.582
+			          }
+			        },
+			        {
+			          "sector index": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.582
+			          }
+			        },
+			        {
+			          "bit index": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.582
+			          }
+			        },
+			        {
+			          "fragment index": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.582
+			          }
+			        },
+			        {
+			          "part index": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.582
+			          }
+			        },
+			        {
+			          "piece index": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.582
+			          }
+			        },
+			        {
+			          "portion index": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.582
+			          }
+			        },
+			        {
+			          "slice index": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.582
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.RFM_customers_YoY_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "RFM Customers YoY %"
 			        }
 			      },
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "Cohort Size": {
+			          "RFM customers YoY %": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "rfm customer yoy percentage": {
+			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
+			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.9
+			            "Weight": 0.771
+			          }
+			        },
+			        {
+			          "rfm customer yoy pct": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.748
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.RFM_orders_YoY_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "RFM Orders YoY %"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "RFM orders YoY %": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "rfm order yoy percentage": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.771
+			          }
+			        },
+			        {
+			          "rfm order yoy pct": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.748
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.RFM_revenue_YoY_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "RFM Revenue YoY %"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "RFM revenue YoY %": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "rfm revenue yoy percentage": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.771
+			          }
+			        },
+			        {
+			          "rfm revenue yoy pct": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.748
+			          }
+			        },
+			        {
+			          "rfm income yoy %": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.617
+			          }
+			        },
+			        {
+			          "rfm profit yoy %": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        },
+			        {
+			          "rfm turnover yoy %": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        },
+			        {
+			          "rfm yield yoy %": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.RFM_orders_YoY_font_color": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "RFM Orders YoY Font Color"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "RFM orders YoY font color": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "rfm order yoy font hue": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.52
+			          }
+			        },
+			        {
+			          "rfm order yoy font tint": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "rfm order yoy font shade": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "rfm order yoy font dye": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "rfm order yoy font paint": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "rfm order yoy font pigment": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.RFM_revenue_YoY_font_color": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "RFM Revenue YoY Font Color"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "RFM revenue YoY font color": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "rfm income yoy font color": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.624
+			          }
+			        },
+			        {
+			          "rfm profit yoy font color": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        },
+			        {
+			          "rfm turnover yoy font color": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        },
+			        {
+			          "rfm yield yoy font color": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        },
+			        {
+			          "rfm revenue yoy font hue": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.52
+			          }
+			        },
+			        {
+			          "rfm revenue yoy font tint": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "rfm revenue yoy font shade": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "rfm revenue yoy font dye": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "rfm revenue yoy font paint": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "rfm revenue yoy font pigment": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.RFM_customers_YoY_font_color": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "RFM Customers YoY Font Color"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "RFM customers YoY font color": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "rfm customer yoy font hue": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.52
+			          }
+			        },
+			        {
+			          "rfm customer yoy font tint": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "rfm customer yoy font shade": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "rfm customer yoy font dye": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "rfm customer yoy font paint": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "rfm customer yoy font pigment": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__RFM_segment_snapshot_title_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_RFM Segment Snapshot Title FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_RFM segment snapshot title FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__RFM_PY_customers_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_RFM PY Customers FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_RFM PY customers FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__RFM_PY_orders_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_RFM PY Orders FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_RFM PY orders FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__RFM_PY_revenue_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_RFM PY Revenue FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_RFM PY revenue FormatString": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "_rfm py income formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.624
+			          }
+			        },
+			        {
+			          "_rfm py profit formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        },
+			        {
+			          "_rfm py turnover formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        },
+			        {
+			          "_rfm py yield formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__RFM_customers_YoY__FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_RFM Customers YoY % FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_RFM customers YoY % FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__RFM_orders_YoY__FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_RFM Orders YoY % FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_RFM orders YoY % FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__RFM_revenue_YoY__FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_RFM Revenue YoY % FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_RFM revenue YoY % FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__RFM_orders_YoY_font_color_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_RFM Orders YoY Font Color FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_RFM orders YoY font color FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__RFM_revenue_YoY_font_color_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_RFM Revenue YoY Font Color FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_RFM revenue YoY font color FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__RFM_customers_YoY_font_color_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_RFM Customers YoY Font Color FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_RFM customers YoY font color FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__cohort_gross_retained_revenue_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_Cohort Gross Retained Revenue FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_cohort gross retained revenue FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.cohort_net_retained_revenue": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Cohort Net Retained Revenue (NRR)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "cohort net retained revenue": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "cohort net retained income": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.771
+			          }
+			        },
+			        {
+			          "cohort net retained profit": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.748
+			          }
+			        },
+			        {
+			          "cohort net retained turnover": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.748
+			          }
+			        },
+			        {
+			          "cohort net retained yield": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.748
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.cohort_gross_retained_revenue": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Cohort Gross Retained Revenue (GRR)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "cohort gross retained revenue": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "cohort gross retained income": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.771
+			          }
+			        },
+			        {
+			          "cohort gross retained profit": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.748
+			          }
+			        },
+			        {
+			          "cohort gross retained turnover": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.748
+			          }
+			        },
+			        {
+			          "cohort gross retained yield": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.748
+			          }
+			        },
+			        {
+			          "cohort aggregate retained revenue": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.665
+			          }
+			        },
+			        {
+			          "cohort overall retained revenue": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.665
+			          }
+			        },
+			        {
+			          "cohort whole retained revenue": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.665
+			          }
+			        },
+			        {
+			          "cohort sum retained revenue": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        },
+			        {
+			          "cohort total retained revenue": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__cohort_net_retained_revenue_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_Cohort Net Retained Revenue FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_cohort net retained revenue FormatString": {
+			            "State": "Generated"
 			          }
 			        }
 			      ]
 			    }
 			  },
 			  "Relationships": {
+			    "fct_cohort_retention_has_entity__measure_cohort_gross_retained_revenue": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_cohort_retention": {
+			          "Target": {
+			            "Entity": "fct_cohort_retention"
+			          }
+			        },
+			        "entity__measure.cohort_gross_retained_revenue": {
+			          "Target": {
+			            "Entity": "entity__measure.cohort_gross_retained_revenue"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_cohort_retention"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.cohort_gross_retained_revenue"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_cohort_retentions_have_cohort_gross_retained_revenue"
+			        }
+			      ]
+			    },
+			    "fct_cohort_retention_has_entity__measure_cohort_net_retained_revenue": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_cohort_retention": {
+			          "Target": {
+			            "Entity": "fct_cohort_retention"
+			          }
+			        },
+			        "entity__measure.cohort_net_retained_revenue": {
+			          "Target": {
+			            "Entity": "entity__measure.cohort_net_retained_revenue"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_cohort_retention"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.cohort_net_retained_revenue"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_cohort_retentions_have_cohort_net_retained_revenue"
+			        }
+			      ]
+			    },
+			    "fct_rfm_segment_has_entity__measure_RFM_customers_YoY_font_color": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_rfm_segment": {
+			          "Target": {
+			            "Entity": "fct_rfm_segment"
+			          }
+			        },
+			        "entity__measure.RFM_customers_YoY_font_color": {
+			          "Target": {
+			            "Entity": "entity__measure.RFM_customers_YoY_font_color"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_rfm_segment"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.RFM_customers_YoY_font_color"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_rfm_segments_have_RFM_customers_YoY_font_color"
+			        }
+			      ]
+			    },
+			    "fct_rfm_segment_has_entity__measure_RFM_revenue_YoY_font_color": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_rfm_segment": {
+			          "Target": {
+			            "Entity": "fct_rfm_segment"
+			          }
+			        },
+			        "entity__measure.RFM_revenue_YoY_font_color": {
+			          "Target": {
+			            "Entity": "entity__measure.RFM_revenue_YoY_font_color"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_rfm_segment"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.RFM_revenue_YoY_font_color"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_rfm_segments_have_RFM_revenue_YoY_font_color"
+			        }
+			      ]
+			    },
+			    "fct_rfm_segment_has_entity__measure_RFM_orders_YoY_font_color": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_rfm_segment": {
+			          "Target": {
+			            "Entity": "fct_rfm_segment"
+			          }
+			        },
+			        "entity__measure.RFM_orders_YoY_font_color": {
+			          "Target": {
+			            "Entity": "entity__measure.RFM_orders_YoY_font_color"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_rfm_segment"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.RFM_orders_YoY_font_color"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_rfm_segments_have_RFM_orders_YoY_font_color"
+			        }
+			      ]
+			    },
+			    "fct_rfm_segment_has_entity__measure_RFM_revenue_YoY_": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_rfm_segment": {
+			          "Target": {
+			            "Entity": "fct_rfm_segment"
+			          }
+			        },
+			        "entity__measure.RFM_revenue_YoY_": {
+			          "Target": {
+			            "Entity": "entity__measure.RFM_revenue_YoY_"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_rfm_segment"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.RFM_revenue_YoY_"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_rfm_segments_have_RFM_revenue_YoY_"
+			        }
+			      ]
+			    },
+			    "fct_rfm_segment_has_entity__measure_RFM_orders_YoY_": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_rfm_segment": {
+			          "Target": {
+			            "Entity": "fct_rfm_segment"
+			          }
+			        },
+			        "entity__measure.RFM_orders_YoY_": {
+			          "Target": {
+			            "Entity": "entity__measure.RFM_orders_YoY_"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_rfm_segment"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.RFM_orders_YoY_"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_rfm_segments_have_RFM_orders_YoY_"
+			        }
+			      ]
+			    },
+			    "fct_rfm_segment_has_entity__measure_RFM_customers_YoY_": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_rfm_segment": {
+			          "Target": {
+			            "Entity": "fct_rfm_segment"
+			          }
+			        },
+			        "entity__measure.RFM_customers_YoY_": {
+			          "Target": {
+			            "Entity": "entity__measure.RFM_customers_YoY_"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_rfm_segment"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.RFM_customers_YoY_"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_rfm_segments_have_RFM_customers_YoY_"
+			        }
+			      ]
+			    },
+			    "dim_date_has_entity__measure_RFM_segment_snapshot_title": {
+			      "Binding": {
+			        "ConceptualEntity": "DIM_DATES"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "dim_date": {
+			          "Target": {
+			            "Entity": "dim_date"
+			          }
+			        },
+			        "entity__measure.RFM_segment_snapshot_title": {
+			          "Target": {
+			            "Entity": "entity__measure.RFM_segment_snapshot_title"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_date"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.RFM_segment_snapshot_title"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_dates_have_RFM_segment_snapshot_title"
+			        }
+			      ]
+			    },
+			    "fct_rfm_segment_has_entity__measure_RFM_PY_customers": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_rfm_segment": {
+			          "Target": {
+			            "Entity": "fct_rfm_segment"
+			          }
+			        },
+			        "entity__measure.RFM_PY_customers": {
+			          "Target": {
+			            "Entity": "entity__measure.RFM_PY_customers"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_rfm_segment"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.RFM_PY_customers"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_rfm_segments_have_RFM_PY_customers"
+			        }
+			      ]
+			    },
 			    "fct_rfm_segment_has_entity__measure_RFM_revenue_share_": {
 			      "Binding": {
 			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
@@ -45048,39 +46717,6 @@ cultureInfo en-US
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "fct_rfm_segments_have_churn_risk_segments"
-			        }
-			      ]
-			    },
-			    "fct_rfm_segment_has_churn_risk_score": {
-			      "Binding": {
-			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "fct_rfm_segment": {
-			          "Target": {
-			            "Entity": "fct_rfm_segment"
-			          }
-			        },
-			        "fct_rfm_segment.churn_risk_score": {
-			          "Target": {
-			            "Entity": "fct_rfm_segment.churn_risk_score"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "fct_rfm_segment"
-			            },
-			            "Object": {
-			              "Role": "fct_rfm_segment.churn_risk_score"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "fct_rfm_segments_have_churn_risk_scores"
 			        }
 			      ]
 			    },
@@ -46417,15 +48053,15 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure_has_cohort_lifetime_orders": {
+			    "fct_cohort_retention_has_entity__measure_cohort_lifetime_orders": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
 			        "entity__measure.cohort_lifetime_orders": {
@@ -46438,7 +48074,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.cohort_lifetime_orders"
@@ -46446,19 +48082,19 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_cohort_lifetime_orders"
+			          "ID": "fct_cohort_retentions_have_cohort_lifetime_orders"
 			        }
 			      ]
 			    },
-			    "entity__measure_has_cohort_lifetime_revenue": {
+			    "fct_cohort_retention_has_entity__measure_cohort_lifetime_revenue": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
 			        "entity__measure.cohort_lifetime_revenue": {
@@ -46471,7 +48107,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.cohort_lifetime_revenue"
@@ -46479,19 +48115,19 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_cohort_lifetime_revenue"
+			          "ID": "fct_cohort_retentions_have_cohort_lifetime_revenue"
 			        }
 			      ]
 			    },
-			    "entity__measure_has_cohort_avg_customer_value": {
+			    "fct_cohort_retention_has_entity__measure_cohort_avg_customer_value": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
 			        "entity__measure.cohort_avg_customer_value": {
@@ -46504,7 +48140,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.cohort_avg_customer_value"
@@ -46512,19 +48148,19 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_cohort_avg_customer_value"
+			          "ID": "fct_cohort_retentions_have_cohort_avg_customer_value"
 			        }
 			      ]
 			    },
-			    "entity__measure_has_cohort_avg_order_value": {
+			    "fct_cohort_retention_has_entity__measure_cohort_avg_order_value": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
 			        "entity__measure.cohort_avg_order_value": {
@@ -46537,7 +48173,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.cohort_avg_order_value"
@@ -46545,19 +48181,19 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_cohort_avg_order_value"
+			          "ID": "fct_cohort_retentions_have_cohort_avg_order_value"
 			        }
 			      ]
 			    },
-			    "entity__measure_has_cohort_orders": {
+			    "fct_cohort_retention_has_entity__measure_cohort_orders": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
 			        "entity__measure.cohort_orders": {
@@ -46570,7 +48206,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.cohort_orders"
@@ -46578,7 +48214,7 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_cohort_orders"
+			          "ID": "fct_cohort_retentions_have_cohort_orders"
 			        }
 			      ]
 			    },
@@ -46843,6 +48479,39 @@ cultureInfo en-US
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "CG_custom_periods_have_periods"
+			        }
+			      ]
+			    },
+			    "fct_rfm_segment_has_entity__measure_RFM_PY_orders": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_rfm_segment": {
+			          "Target": {
+			            "Entity": "fct_rfm_segment"
+			          }
+			        },
+			        "entity__measure.RFM_PY_orders": {
+			          "Target": {
+			            "Entity": "entity__measure.RFM_PY_orders"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_rfm_segment"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.RFM_PY_orders"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_rfm_segments_have_RFM_PY_orders"
 			        }
 			      ]
 			    },
@@ -49596,15 +51265,15 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure_has_category_revenue_": {
+			    "fct_order_item_has_entity__measure_category_revenue_": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_ORDER_ITEMS"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_order_item": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_order_item"
 			          }
 			        },
 			        "entity__measure.category_revenue_": {
@@ -49617,7 +51286,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_order_item"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.category_revenue_"
@@ -49625,7 +51294,7 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_category_revenue_"
+			          "ID": "fct_order_items_have_category_revenue_"
 			        }
 			      ]
 			    },
@@ -49695,15 +51364,15 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure_has_latest_cohort_size": {
+			    "fct_cohort_retention_has_entity__measure_latest_cohort_size": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
 			        "entity__measure.latest_cohort_size": {
@@ -49716,7 +51385,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.latest_cohort_size"
@@ -49724,19 +51393,19 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_latest_cohort_size"
+			          "ID": "fct_cohort_retentions_have_latest_cohort_size"
 			        }
 			      ]
 			    },
-			    "entity__measure_has_avg_P1P6_drop": {
+			    "fct_cohort_retention_has_entity__measure_avg_P1P6_drop": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
 			        "entity__measure.avg_P1P6_drop": {
@@ -49749,7 +51418,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.avg_P1P6_drop"
@@ -49757,19 +51426,19 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_avg_P1P6_drop"
+			          "ID": "fct_cohort_retentions_have_avg_P1P6_drop"
 			        }
 			      ]
 			    },
-			    "entity__measure_has_P6_retention_rate": {
+			    "fct_cohort_retention_has_entity__measure_P6_retention_rate": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
 			        "entity__measure.P6_retention_rate": {
@@ -49782,7 +51451,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.P6_retention_rate"
@@ -49790,19 +51459,19 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_P6_retention_rate"
+			          "ID": "fct_cohort_retentions_have_P6_retention_rate"
 			        }
 			      ]
 			    },
-			    "entity__measure_has_P3_retention_rate": {
+			    "fct_cohort_retention_has_entity__measure_P3_retention_rate": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
 			        "entity__measure.P3_retention_rate": {
@@ -49815,7 +51484,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.P3_retention_rate"
@@ -49823,19 +51492,19 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_P3_retention_rate"
+			          "ID": "fct_cohort_retentions_have_P3_retention_rate"
 			        }
 			      ]
 			    },
-			    "entity__measure_has_P1_retention_rate": {
+			    "fct_cohort_retention_has_entity__measure_P1_retention_rate": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
 			        "entity__measure.P1_retention_rate": {
@@ -49848,7 +51517,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.P1_retention_rate"
@@ -49856,7 +51525,7 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_P1_retention_rate"
+			          "ID": "fct_cohort_retentions_have_P1_retention_rate"
 			        }
 			      ]
 			    },
@@ -50055,72 +51724,6 @@ cultureInfo en-US
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "fct_order_items_have_unique_customers_YoY_font_color"
-			        }
-			      ]
-			    },
-			    "fct_rfm_segment_has_entity__measure_RFM_segment_revenue_": {
-			      "Binding": {
-			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "fct_rfm_segment": {
-			          "Target": {
-			            "Entity": "fct_rfm_segment"
-			          }
-			        },
-			        "entity__measure.RFM_segment_revenue_": {
-			          "Target": {
-			            "Entity": "entity__measure.RFM_segment_revenue_"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "fct_rfm_segment"
-			            },
-			            "Object": {
-			              "Role": "entity__measure.RFM_segment_revenue_"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "fct_rfm_segments_have_RFM_segment_revenue_"
-			        }
-			      ]
-			    },
-			    "fct_order_has_entity__measure_RFM_segment_revenue_": {
-			      "Binding": {
-			        "ConceptualEntity": "FCT_ORDERS"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "fct_order": {
-			          "Target": {
-			            "Entity": "fct_order"
-			          }
-			        },
-			        "entity__measure.RFM_segment_revenue_": {
-			          "Target": {
-			            "Entity": "entity__measure.RFM_segment_revenue_"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "fct_order"
-			            },
-			            "Object": {
-			              "Role": "entity__measure.RFM_segment_revenue_"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "fct_orders_have_RFM_segment_revenue_"
 			        }
 			      ]
 			    },
@@ -50784,15 +52387,15 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure_has_retention_heatmap_color": {
+			    "fct_cohort_retention_has_entity__measure_retention_heatmap_color": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
 			        "entity__measure.retention_heatmap_color": {
@@ -50805,7 +52408,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.retention_heatmap_color"
@@ -50813,7 +52416,7 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_retention_heatmap_color"
+			          "ID": "fct_cohort_retentions_have_retention_heatmap_color"
 			        }
 			      ]
 			    },
@@ -51477,15 +53080,15 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure_has_total_categories": {
+			    "dim_product_has_entity__measure_total_categories": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "DIM_PRODUCTS"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "dim_product": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "dim_product"
 			          }
 			        },
 			        "entity__measure.total_categories": {
@@ -51498,7 +53101,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "dim_product"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.total_categories"
@@ -51506,19 +53109,19 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_total_categories"
+			          "ID": "dim_products_have_total_categories"
 			        }
 			      ]
 			    },
-			    "entity__measure_has_avg_revenue_per_product": {
+			    "fct_order_item_has_entity__measure_avg_revenue_per_product": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_ORDER_ITEMS"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_order_item": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_order_item"
 			          }
 			        },
 			        "entity__measure.avg_revenue_per_product": {
@@ -51531,7 +53134,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_order_item"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.avg_revenue_per_product"
@@ -51539,7 +53142,40 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_avg_revenue_per_product"
+			          "ID": "fct_order_items_have_avg_revenue_per_product"
+			        }
+			      ]
+			    },
+			    "dim_product_has_entity__measure_avg_revenue_per_product": {
+			      "Binding": {
+			        "ConceptualEntity": "DIM_PRODUCTS"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "dim_product": {
+			          "Target": {
+			            "Entity": "dim_product"
+			          }
+			        },
+			        "entity__measure.avg_revenue_per_product": {
+			          "Target": {
+			            "Entity": "entity__measure.avg_revenue_per_product"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_product"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.avg_revenue_per_product"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_products_have_avg_revenue_per_product"
 			        }
 			      ]
 			    },
@@ -51642,15 +53278,15 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure_has_total_products": {
+			    "dim_product_has_entity__measure_total_products": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "DIM_PRODUCTS"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "dim_product": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "dim_product"
 			          }
 			        },
 			        "entity__measure.total_products": {
@@ -51663,7 +53299,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "dim_product"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.total_products"
@@ -51671,19 +53307,19 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_total_products"
+			          "ID": "dim_products_have_total_products"
 			        }
 			      ]
 			    },
-			    "entity__measure_has_product_orders": {
+			    "fct_order_item_has_entity__measure_product_orders": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_ORDER_ITEMS"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_order_item": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_order_item"
 			          }
 			        },
 			        "entity__measure.product_orders": {
@@ -51696,7 +53332,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_order_item"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.product_orders"
@@ -51704,19 +53340,19 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_product_orders"
+			          "ID": "fct_order_items_have_product_orders"
 			        }
 			      ]
 			    },
-			    "entity__measure_has_product_revenue": {
+			    "fct_order_item_has_entity__measure_product_revenue": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_ORDER_ITEMS"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_order_item": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_order_item"
 			          }
 			        },
 			        "entity__measure.product_revenue": {
@@ -51729,7 +53365,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_order_item"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.product_revenue"
@@ -51737,7 +53373,7 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_product_revenue"
+			          "ID": "fct_order_items_have_product_revenue"
 			        }
 			      ]
 			    },
@@ -52137,15 +53773,15 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure_has_total_cohorts": {
+			    "fct_cohort_retention_has_entity__measure_total_cohorts": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
 			        "entity__measure.total_cohorts": {
@@ -52158,7 +53794,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.total_cohorts"
@@ -52166,19 +53802,19 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_total_cohorts"
+			          "ID": "fct_cohort_retentions_have_total_cohorts"
 			        }
 			      ]
 			    },
-			    "entity__measure_has_cohort_churn_rate": {
+			    "fct_cohort_retention_has_entity__measure_cohort_churn_rate": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
 			        "entity__measure.cohort_churn_rate": {
@@ -52191,7 +53827,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.cohort_churn_rate"
@@ -52199,7 +53835,7 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_cohort_churn_rate"
+			          "ID": "fct_cohort_retentions_have_cohort_churn_rate"
 			        }
 			      ]
 			    },
@@ -52263,15 +53899,15 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure_has_retention_rate": {
+			    "fct_cohort_retention_has_entity__measure_retention_rate": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
 			        "entity__measure.retention_rate": {
@@ -52284,7 +53920,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.retention_rate"
@@ -52292,19 +53928,19 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_retention_rate"
+			          "ID": "fct_cohort_retentions_have_retention_rate"
 			        }
 			      ]
 			    },
-			    "entity__measure_has_retained_customers": {
+			    "fct_cohort_retention_has_entity__measure_retained_customers": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
 			        "entity__measure.retained_customers": {
@@ -52317,7 +53953,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.retained_customers"
@@ -52325,19 +53961,19 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_retained_customers"
+			          "ID": "fct_cohort_retentions_have_retained_customers"
 			        }
 			      ]
 			    },
-			    "entity__measure_has_cohort_size": {
+			    "fct_cohort_retention_has_entity__measure_cohort_size": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
 			        "entity__measure.cohort_size": {
@@ -52350,7 +53986,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.cohort_size"
@@ -52358,7 +53994,7 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_cohort_size"
+			          "ID": "fct_cohort_retentions_have_cohort_size"
 			        }
 			      ]
 			    },
@@ -52725,15 +54361,15 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure_has_executive_summary_page": {
+			    "fct_rfm_segment_has_entity__measure_executive_summary_page": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_rfm_segment": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_rfm_segment"
 			          }
 			        },
 			        "entity__measure.executive_summary_page": {
@@ -52746,7 +54382,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_rfm_segment"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.executive_summary_page"
@@ -52754,7 +54390,172 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_executive_summary_page"
+			          "ID": "fct_rfm_segments_have_executive_summary_page"
+			        }
+			      ]
+			    },
+			    "fct_order_item_has_entity__measure_executive_summary_page": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_ORDER_ITEMS"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_order_item": {
+			          "Target": {
+			            "Entity": "fct_order_item"
+			          }
+			        },
+			        "entity__measure.executive_summary_page": {
+			          "Target": {
+			            "Entity": "entity__measure.executive_summary_page"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_order_item"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.executive_summary_page"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_order_items_have_executive_summary_page"
+			        }
+			      ]
+			    },
+			    "fct_order_has_entity__measure_executive_summary_page": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_ORDERS"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_order": {
+			          "Target": {
+			            "Entity": "fct_order"
+			          }
+			        },
+			        "entity__measure.executive_summary_page": {
+			          "Target": {
+			            "Entity": "entity__measure.executive_summary_page"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_order"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.executive_summary_page"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_orders_have_executive_summary_page"
+			        }
+			      ]
+			    },
+			    "dim_product_has_entity__measure_executive_summary_page": {
+			      "Binding": {
+			        "ConceptualEntity": "DIM_PRODUCTS"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "dim_product": {
+			          "Target": {
+			            "Entity": "dim_product"
+			          }
+			        },
+			        "entity__measure.executive_summary_page": {
+			          "Target": {
+			            "Entity": "entity__measure.executive_summary_page"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_product"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.executive_summary_page"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_products_have_executive_summary_page"
+			        }
+			      ]
+			    },
+			    "dim_date_has_entity__measure_executive_summary_page": {
+			      "Binding": {
+			        "ConceptualEntity": "DIM_DATES"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "dim_date": {
+			          "Target": {
+			            "Entity": "dim_date"
+			          }
+			        },
+			        "entity__measure.executive_summary_page": {
+			          "Target": {
+			            "Entity": "entity__measure.executive_summary_page"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_date"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.executive_summary_page"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_dates_have_executive_summary_page"
+			        }
+			      ]
+			    },
+			    "CG_custom_period_has_entity__measure_executive_summary_page": {
+			      "Binding": {
+			        "ConceptualEntity": "CG Custom Periods"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "CG_custom_period": {
+			          "Target": {
+			            "Entity": "CG_custom_period"
+			          }
+			        },
+			        "entity__measure.executive_summary_page": {
+			          "Target": {
+			            "Entity": "entity__measure.executive_summary_page"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "CG_custom_period"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.executive_summary_page"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "CG_custom_periods_have_executive_summary_page"
 			        }
 			      ]
 			    },
@@ -53052,39 +54853,6 @@ cultureInfo en-US
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "fct_rfm_segments_have_avg_recency"
-			        }
-			      ]
-			    },
-			    "fct_order_item_has_entity__measure_RFM_segment_unique_customers": {
-			      "Binding": {
-			        "ConceptualEntity": "FCT_ORDER_ITEMS"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "fct_order_item": {
-			          "Target": {
-			            "Entity": "fct_order_item"
-			          }
-			        },
-			        "entity__measure.RFM_segment_unique_customers": {
-			          "Target": {
-			            "Entity": "entity__measure.RFM_segment_unique_customers"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "fct_order_item"
-			            },
-			            "Object": {
-			              "Role": "entity__measure.RFM_segment_unique_customers"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "fct_order_items_have_RFM_segment_unique_customers"
 			        }
 			      ]
 			    },
@@ -53514,105 +55282,6 @@ cultureInfo en-US
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "fct_rfm_segments_have_rfm_segments"
-			        }
-			      ]
-			    },
-			    "fct_rfm_segment_has_m_score": {
-			      "Binding": {
-			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "fct_rfm_segment": {
-			          "Target": {
-			            "Entity": "fct_rfm_segment"
-			          }
-			        },
-			        "fct_rfm_segment.m_score": {
-			          "Target": {
-			            "Entity": "fct_rfm_segment.m_score"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "fct_rfm_segment"
-			            },
-			            "Object": {
-			              "Role": "fct_rfm_segment.m_score"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "fct_rfm_segments_have_m_scores"
-			        }
-			      ]
-			    },
-			    "fct_rfm_segment_has_f_score": {
-			      "Binding": {
-			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "fct_rfm_segment": {
-			          "Target": {
-			            "Entity": "fct_rfm_segment"
-			          }
-			        },
-			        "fct_rfm_segment.f_score": {
-			          "Target": {
-			            "Entity": "fct_rfm_segment.f_score"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "fct_rfm_segment"
-			            },
-			            "Object": {
-			              "Role": "fct_rfm_segment.f_score"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "fct_rfm_segments_have_f_scores"
-			        }
-			      ]
-			    },
-			    "fct_rfm_segment_has_r_score": {
-			      "Binding": {
-			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "fct_rfm_segment": {
-			          "Target": {
-			            "Entity": "fct_rfm_segment"
-			          }
-			        },
-			        "fct_rfm_segment.r_score": {
-			          "Target": {
-			            "Entity": "fct_rfm_segment.r_score"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "fct_rfm_segment"
-			            },
-			            "Object": {
-			              "Role": "fct_rfm_segment.r_score"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "fct_rfm_segments_have_r_scores"
 			        }
 			      ]
 			    },
@@ -54426,6 +56095,39 @@ cultureInfo en-US
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "fct_cohort_retentions_have_cohort_months"
+			        }
+			      ]
+			    },
+			    "fct_rfm_segment_has_entity__measure_RFM_PY_revenue": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_RFM_SEGMENTS"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_rfm_segment": {
+			          "Target": {
+			            "Entity": "fct_rfm_segment"
+			          }
+			        },
+			        "entity__measure.RFM_PY_revenue": {
+			          "Target": {
+			            "Entity": "entity__measure.RFM_PY_revenue"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_rfm_segment"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.RFM_PY_revenue"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_rfm_segments_have_RFM_PY_revenue"
 			        }
 			      ]
 			    },
@@ -55374,15 +57076,15 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure_has_cohort_revenue": {
+			    "fct_cohort_retention_has_entity__measure_cohort_revenue": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
 			        "entity__measure.cohort_revenue": {
@@ -55395,7 +57097,7 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
 			              "Role": "entity__measure.cohort_revenue"
@@ -55403,7 +57105,7 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_cohort_revenue"
+			          "ID": "fct_cohort_retentions_have_cohort_revenue"
 			        }
 			      ]
 			    },

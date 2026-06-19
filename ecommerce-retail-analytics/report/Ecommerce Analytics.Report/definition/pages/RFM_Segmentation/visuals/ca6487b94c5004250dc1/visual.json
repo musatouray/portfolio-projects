@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "ca6487b94c5004250dc1",
   "position": {
     "x": 19.853008261949412,
@@ -74,15 +74,15 @@
                                       "Source": "_"
                                     }
                                   },
-                                  "Property": "Filtered Period Title"
+                                  "Property": "RFM Segment Snapshot Title"
                                 },
-                                "Name": "_Measures.Executive Summary Title"
+                                "Name": "_Measures.RFM Segment Snapshot Title"
                               }
                             ]
                           }
                         }
                       },
-                      "Property": "_Measures.Executive Summary Title"
+                      "Property": "_Measures.RFM Segment Snapshot Title"
                     }
                   },
                   "IncludeAllTypes": 1
@@ -93,7 +93,7 @@
                     "kind": "NaturalLanguage",
                     "annotation": {
                       "name": "ExecutiveSummaryTitle",
-                      "utterance": "Executive Summary Title"
+                      "utterance": "RFM segment snapshot title"
                     }
                   }
                 }

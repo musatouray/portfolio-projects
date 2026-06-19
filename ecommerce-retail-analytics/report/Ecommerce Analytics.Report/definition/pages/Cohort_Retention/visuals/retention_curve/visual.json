@@ -23,11 +23,11 @@
                       "Entity": "FCT_COHORT_RETENTION"
                     }
                   },
-                  "Property": "PERIOD_NUMBER"
+                  "Property": "PERIOD"
                 }
               },
-              "queryRef": "FCT_COHORT_RETENTION.PERIOD_NUMBER",
-              "nativeQueryRef": "Period",
+              "queryRef": "FCT_COHORT_RETENTION.PERIOD",
+              "nativeQueryRef": "PERIOD",
               "active": true
             }
           ]
@@ -102,7 +102,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Cohort Period Title"
+                  "Property": "Cohort Period Subtitle"
                 }
               }
             }
@@ -112,5 +112,37 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "01bdd60043472a446dd6"
+  "parentGroupName": "01bdd60043472a446dd6",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "c5a6ea82ad503609b49a",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Retention Rate"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "dacdf071a8d76d25bce1",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FCT_COHORT_RETENTION"
+              }
+            },
+            "Property": "PERIOD"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
 }

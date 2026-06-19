@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "586bea69ead09663a920",
   "position": {
     "x": 0,
-    "y": 0,
+    "y": 2.5952105178959126,
     "z": 2000,
-    "height": 267.43169952861268,
-    "width": 771.93167418520954,
+    "height": 265.09605149779514,
+    "width": 791.784682447159,
     "tabOrder": 0
   },
   "visual": {
@@ -43,11 +43,12 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Unique Customers"
+                  "Property": "RFM Unique Customers"
                 }
               },
-              "queryRef": "_Measures.Unique Customers",
-              "nativeQueryRef": "Unique Customers1"
+              "queryRef": "_Measures.RFM Unique Customers",
+              "nativeQueryRef": "Unique Customers",
+              "displayName": "Unique Customers"
             },
             {
               "field": {
@@ -102,11 +103,12 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Orders"
+                  "Property": "RFM Total Orders"
                 }
               },
-              "queryRef": "_Measures.Total Orders",
-              "nativeQueryRef": "Total Orders"
+              "queryRef": "_Measures.RFM Total Orders",
+              "nativeQueryRef": "Total Orders",
+              "displayName": "Total Orders"
             },
             {
               "field": {
@@ -116,11 +118,12 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Revenue"
+                  "Property": "RFM Total Revenue"
                 }
               },
-              "queryRef": "_Measures.Total Revenue",
-              "nativeQueryRef": "Total Revenue"
+              "queryRef": "_Measures.RFM Total Revenue",
+              "nativeQueryRef": "Total Revenue",
+              "displayName": "Total Revenue"
             }
           ]
         }
@@ -955,7 +958,8 @@
               }
             }
           ]
-        }
+        },
+        "howCreated": "User"
       }
     ]
   }

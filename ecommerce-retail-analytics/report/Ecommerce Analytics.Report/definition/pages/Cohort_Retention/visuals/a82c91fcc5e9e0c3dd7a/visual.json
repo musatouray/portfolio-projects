@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "a82c91fcc5e9e0c3dd7a",
   "position": {
-    "x": 602.94007723897118,
-    "y": 20.317032242321318,
+    "x": 1015.9722236301891,
+    "y": 21.400401605900925,
     "z": 3000,
-    "height": 32,
-    "width": 539.67208617949677,
+    "height": 31.274801955523508,
+    "width": 113.37115708877272,
     "tabOrder": 0
   },
   "visual": {
@@ -210,7 +210,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'''_Measures''[Retention Rate]'"
+                                "Value": "'''_Measures''[Gross Revenue Retention (GRR) %]'"
                               }
                             }
                           ]
@@ -672,7 +672,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "d5bab6e68106a62c313d",
+        "name": "f04c14e6b022c0d63933",
         "field": {
           "Column": {
             "Expression": {
