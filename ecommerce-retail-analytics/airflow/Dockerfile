@@ -14,6 +14,5 @@ USER airflow
 COPY requirements.txt /requirements.txt
 RUN pip install --no-cache-dir -r /requirements.txt
 
-# Copy scripts module for import
-COPY --chown=airflow:root ../scripts /opt/airflow/scripts
+# Note: Scripts are mounted via docker-compose volume (-  ../scripts:/opt/airflow/scripts)
 ENV PYTHONPATH="${PYTHONPATH}:/opt/airflow"
