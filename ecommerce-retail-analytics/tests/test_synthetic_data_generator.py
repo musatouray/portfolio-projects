@@ -301,3 +301,149 @@ class TestLoadReferenceData:
         assert hasattr(gen, "customer_ids")
         assert len(gen.customer_ids) == 3
         assert "CUST_001" in gen.customer_ids
+
+
+class TestOrderGeneration:
+    """Test order generation methods for daily orders, order IDs, and order dataframes."""
+
+    def test_daily_order_volume_growth(self):
+        """
+        Test Requirement 1: Verify 135→500 growth curve.
+
+        Tests the calculate_daily_orders method across key dates:
+        - Oct 2018: ~135 orders/day
+        - Jun 2023: ~380 orders/day
+        - Jun 2026: ~500 orders/day
+        """
+        gen = SyntheticDataGenerator(seed=42, config=CONFIG)
+
+        # Test start date (Oct 2018)
+        start_date = datetime(2018, 10, 18)
+        start_orders = gen.calculate_daily_orders(start_date)
+        assert 130 <= start_orders <= 140, f"Expected ~135 orders at start, got {start_orders}"
+
+        # Test mid date (Jun 2023)
+        mid_date = datetime(2023, 6, 19)
+        mid_orders = gen.calculate_daily_orders(mid_date)
+        assert 350 <= mid_orders <= 390, f"Expected ~360 orders at mid point, got {mid_orders}"
+
+        # Test end date (Jun 2026)
+        end_date = datetime(2026, 6, 19)
+        end_orders = gen.calculate_daily_orders(end_date)
+        assert 495 <= end_orders <= 505, f"Expected ~500 orders at end, got {end_orders}"
+
+    def test_order_id_format(self):
+        """
+        Test Requirement 2: Verify syn_YYYYMMDD_NNNNNN_HHHHHHHH format.
+
+        Order ID should be exactly 28 characters with correct structure.
+        """
+        gen = SyntheticDataGenerator(seed=42, config=CONFIG)
+        test_date = datetime(2024, 1, 15)
+        sequence = 42
+
+        order_id = gen.generate_order_id(test_date, sequence)
+
+        # Check total length (syn_YYYYMMDD_NNNNNN_HHHHHHHH = 4+8+7+9 = 28)
+        assert len(order_id) == 28, f"Expected length 28, got {len(order_id)}"
+
+        # Check format structure
+        parts = order_id.split("_")
+        assert len(parts) == 4, f"Expected 4 parts separated by underscores, got {len(parts)}"
+        assert parts[0] == "syn", f"Expected prefix 'syn', got '{parts[0]}'"
+        assert parts[1] == "20240115", f"Expected date '20240115', got '{parts[1]}'"
+        assert parts[2] == "000042", f"Expected sequence '000042', got '{parts[2]}'"
+        assert len(parts[3]) == 8, f"Expected 8-char hash, got {len(parts[3])}"
+
+        # Verify sequence is zero-padded to 6 digits
+        assert parts[2].isdigit(), "Sequence should be numeric"
+
+    def test_order_id_deterministic(self):
+        """
+        Test Requirement 3: Same inputs = same ID.
+
+        Multiple calls with same date and sequence should produce identical order IDs.
+        """
+        gen = SyntheticDataGenerator(seed=42, config=CONFIG)
+        test_date = datetime(2024, 1, 15)
+        sequence = 123
+
+        # Generate same order ID twice
+        order_id_1 = gen.generate_order_id(test_date, sequence)
+        order_id_2 = gen.generate_order_id(test_date, sequence)
+
+        assert order_id_1 == order_id_2, "Same inputs should produce same order ID"
+
+        # Generate with different sequence - should be different
+        order_id_3 = gen.generate_order_id(test_date, 124)
+        assert order_id_1 != order_id_3, "Different sequence should produce different order ID"
+
+    def test_generate_orders_returns_dataframe(self):
+        """
+        Test Requirement 4: Correct columns, non-empty.
+
+        generate_orders_for_date should return a DataFrame with all required columns.
+        """
+        gen = SyntheticDataGenerator(seed=42, config=CONFIG)
+
+        # Setup minimal customer data
+        gen.customer_ids = [f"CUST_{i:04d}" for i in range(100)]
+        gen.assign_customer_segments()
+
+        test_date = datetime(2024, 1, 15)
+        orders_df = gen.generate_orders_for_date(test_date)
+
+        # Check it's a DataFrame
+        import pandas as pd
+        assert isinstance(orders_df, pd.DataFrame), "Should return a pandas DataFrame"
+
+        # Check non-empty
+        assert len(orders_df) > 0, "Should generate at least some orders"
+
+        # Check required columns
+        required_columns = [
+            "order_id",
+            "customer_id",
+            "order_status",
+            "order_purchase_timestamp",
+            "order_approved_at",
+            "order_delivered_carrier_date",
+            "order_delivered_customer_date",
+            "order_estimated_delivery_date",
+        ]
+        for col in required_columns:
+            assert col in orders_df.columns, f"Missing required column: {col}"
+
+    def test_order_status_distribution(self):
+        """
+        Test Requirement 5: ~97% delivered.
+
+        Status distribution should match:
+        - delivered: 97%
+        - shipped: 1%
+        - canceled: 1%
+        - unavailable: 0.5%
+        - processing: 0.5%
+        """
+        gen = SyntheticDataGenerator(seed=42, config=CONFIG)
+
+        # Setup minimal customer data
+        gen.customer_ids = [f"CUST_{i:04d}" for i in range(500)]
+        gen.assign_customer_segments()
+
+        # Generate orders for a date with expected ~380 orders
+        test_date = datetime(2023, 6, 19)
+        orders_df = gen.generate_orders_for_date(test_date)
+
+        # Count status distribution
+        status_counts = orders_df["order_status"].value_counts(normalize=True)
+
+        # Check delivered is ~97% (allow 5% tolerance due to randomness)
+        delivered_pct = status_counts.get("delivered", 0)
+        assert 0.92 <= delivered_pct <= 1.0, f"Expected ~97% delivered, got {delivered_pct:.1%}"
+
+        # Check that delivered is the most common status
+        assert status_counts.idxmax() == "delivered", "Delivered should be the most common status"
+
+        # Check that we have at least some variety in statuses (not all the same)
+        assert len(status_counts) >= 2, "Should have at least 2 different statuses"

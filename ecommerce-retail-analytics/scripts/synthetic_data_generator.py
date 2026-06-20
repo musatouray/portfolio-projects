@@ -19,11 +19,13 @@ Usage:
     customer_segments = generator.assign_customer_segments()
 """
 
+import hashlib
 import os
 import random
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional
 
+import pandas as pd
 import snowflake.connector
 from dotenv import load_dotenv
 from faker import Faker
@@ -233,3 +235,191 @@ class SyntheticDataGenerator:
         )[0]
 
         return selected_customer
+
+    def calculate_daily_orders(self, date: datetime) -> int:
+        """
+        Calculate the number of orders to generate for a given date.
+
+        Uses a linear growth curve from base_daily_orders to max_daily_orders
+        over the period from backfill_start_date to growth_end_date.
+
+        Formula: base + (max - base) * days_elapsed / max_days
+
+        Args:
+            date (datetime): The date for which to calculate daily orders
+
+        Returns:
+            int: Number of orders to generate for this date
+
+        Example:
+            Oct 2018: ~135 orders/day
+            Jun 2023: ~380 orders/day
+            Jun 2026: ~500 orders/day
+        """
+        base_orders = self.config["base_daily_orders"]
+        max_orders = self.config["max_daily_orders"]
+        start_date = datetime.strptime(self.config["backfill_start_date"], "%Y-%m-%d")
+        end_date = datetime.strptime(self.config["growth_end_date"], "%Y-%m-%d")
+
+        # Calculate days elapsed and total days in growth period
+        days_elapsed = (date - start_date).days
+        max_days = (end_date - start_date).days
+
+        # Linear growth formula
+        daily_orders = base_orders + (max_orders - base_orders) * days_elapsed / max_days
+
+        return int(daily_orders)
+
+    def generate_order_id(self, date: datetime, sequence: int) -> str:
+        """
+        Generate a deterministic synthetic order ID.
+
+        Format: syn_{YYYYMMDD}_{sequence:06d}_{hash:8}
+        Example: syn_20240115_000042_a3f8c921
+
+        The hash is the first 8 characters of MD5({seed}_{date_str}_{sequence})
+        to ensure deterministic generation.
+
+        Args:
+            date (datetime): The order date
+            sequence (int): The sequence number for this date (0-indexed)
+
+        Returns:
+            str: Generated order ID (28 characters)
+        """
+        date_str = date.strftime("%Y%m%d")
+        sequence_str = f"{sequence:06d}"
+
+        # Generate deterministic hash
+        hash_input = f"{self.seed}_{date_str}_{sequence}"
+        hash_digest = hashlib.md5(hash_input.encode()).hexdigest()[:8]
+
+        order_id = f"syn_{date_str}_{sequence_str}_{hash_digest}"
+
+        return order_id
+
+    def generate_orders_for_date(self, date: datetime) -> pd.DataFrame:
+        """
+        Generate all orders for a given date.
+
+        Creates a DataFrame with order IDs, customer assignments, status,
+        and timestamp flow (purchase → approved → carrier → delivered).
+
+        Status distribution:
+        - delivered: 97%
+        - shipped: 1%
+        - canceled: 1%
+        - unavailable: 0.5%
+        - processing: 0.5%
+
+        Timestamp flow:
+        - purchase: random hour of the day
+        - approved: 0-24 hours after purchase
+        - carrier: 1-5 days after approval
+        - delivered: 3-20 days after carrier
+        - estimated: actual delivery + random variance (-3 to +5 days)
+
+        For non-delivered orders, appropriate timestamps are cleared:
+        - canceled: no carrier/delivery dates
+        - shipped: no delivery date
+        - unavailable/processing: no carrier/delivery dates
+
+        Args:
+            date (datetime): The date for which to generate orders
+
+        Returns:
+            pd.DataFrame: Orders with columns: order_id, customer_id, order_status,
+                         order_purchase_timestamp, order_approved_at,
+                         order_delivered_carrier_date, order_delivered_customer_date,
+                         order_estimated_delivery_date
+        """
+        # Reset RNG for this date for deterministic generation
+        date_seed = self.seed + int(date.strftime("%Y%m%d"))
+        date_rng = random.Random(date_seed)
+
+        # Calculate number of orders for this date
+        num_orders = self.calculate_daily_orders(date)
+
+        orders = []
+        for sequence in range(num_orders):
+            # Generate order ID
+            order_id = self.generate_order_id(date, sequence)
+
+            # Select customer
+            customer_id = self._select_customer(date)
+            if customer_id is None:
+                # No eligible customers remaining
+                break
+
+            # Increment customer's order count
+            self.customer_order_counts[customer_id] += 1
+
+            # Assign order status
+            status_roll = date_rng.random()
+            if status_roll < 0.97:
+                status = "delivered"
+            elif status_roll < 0.98:
+                status = "shipped"
+            elif status_roll < 0.99:
+                status = "canceled"
+            elif status_roll < 0.995:
+                status = "unavailable"
+            else:
+                status = "processing"
+
+            # Generate timestamp flow
+            # Purchase: random hour of the day
+            purchase_hour = date_rng.randint(0, 23)
+            purchase_minute = date_rng.randint(0, 59)
+            purchase_second = date_rng.randint(0, 59)
+            purchase_timestamp = datetime(
+                date.year, date.month, date.day,
+                purchase_hour, purchase_minute, purchase_second
+            )
+
+            # Approved: 0-24 hours after purchase
+            approved_hours = date_rng.uniform(0, 24)
+            approved_at = purchase_timestamp + timedelta(hours=approved_hours)
+
+            # Initialize carrier and delivery dates
+            carrier_date = None
+            delivered_date = None
+            estimated_date = None
+
+            # Set timestamps based on status
+            if status == "delivered":
+                # Carrier: 1-5 days after approval
+                carrier_days = date_rng.uniform(1, 5)
+                carrier_date = approved_at + timedelta(days=carrier_days)
+
+                # Delivered: 3-20 days after carrier
+                delivery_days = date_rng.uniform(3, 20)
+                delivered_date = carrier_date + timedelta(days=delivery_days)
+
+                # Estimated: actual delivery + random variance (-3 to +5 days)
+                estimate_variance = date_rng.uniform(-3, 5)
+                estimated_date = delivered_date + timedelta(days=estimate_variance)
+
+            elif status == "shipped":
+                # Carrier: 1-5 days after approval, but not yet delivered
+                carrier_days = date_rng.uniform(1, 5)
+                carrier_date = approved_at + timedelta(days=carrier_days)
+
+                # Estimated: carrier date + expected delivery time
+                estimate_days = date_rng.uniform(5, 15)
+                estimated_date = carrier_date + timedelta(days=estimate_days)
+
+            # For canceled, unavailable, processing: no carrier/delivery dates
+
+            orders.append({
+                "order_id": order_id,
+                "customer_id": customer_id,
+                "order_status": status,
+                "order_purchase_timestamp": purchase_timestamp,
+                "order_approved_at": approved_at,
+                "order_delivered_carrier_date": carrier_date,
+                "order_delivered_customer_date": delivered_date,
+                "order_estimated_delivery_date": estimated_date,
+            })
+
+        return pd.DataFrame(orders)
