@@ -65,6 +65,7 @@ def generate_batch(**context):
     conf = context["dag_run"].conf or {}
     start_date_str = conf.get("start_date", CONFIG["backfill_start_date"])
     end_date_str = conf.get("end_date", CONFIG["growth_end_date"])
+    force_regenerate = conf.get("force_regenerate", False)
 
     start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
     end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
@@ -85,8 +86,16 @@ def generate_batch(**context):
     total_orders = 0
     files_generated = []
 
+    skipped_dates = 0
     while current_date <= end_date:
         date_str = current_date.strftime("%Y-%m-%d")
+
+        # Check if files already exist (use orders as the indicator)
+        orders_file = LOCAL_DATA_DIR / "orders" / f"orders_{date_str}.csv"
+        if not force_regenerate and orders_file.exists() and orders_file.stat().st_size > 0:
+            skipped_dates += 1
+            current_date += timedelta(days=1)
+            continue
 
         # Generate all data for this date
         data = generator.generate_all_for_date(current_date)
@@ -104,6 +113,9 @@ def generate_batch(**context):
             print(f"Generated up to {date_str}, total orders: {total_orders}")
 
         current_date += timedelta(days=1)
+
+    if skipped_dates > 0:
+        print(f"Skipped {skipped_dates} dates with existing files")
 
     print(f"Generation complete: {total_orders} orders, {len(files_generated)} files")
     context["ti"].xcom_push(key="total_orders", value=total_orders)
