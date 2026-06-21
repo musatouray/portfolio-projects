@@ -142,14 +142,37 @@ services:
         fi
         mkdir -p /sources/logs /sources/dags /sources/plugins
         chown -R "${AIRFLOW_UID}:0" /sources/{logs,dags,plugins}
-        exec /entrypoint airflow version
+
+        # Run DB migration and create user
+        /entrypoint airflow db migrate
+        airflow users create \
+          --username $${_AIRFLOW_WWW_USER_USERNAME:-airflow} \
+          --firstname Admin \
+          --lastname User \
+          --role Admin \
+          --email admin@example.com \
+          --password $${_AIRFLOW_WWW_USER_PASSWORD:-airflow} || true
+
+        # Create Snowflake connection
+        airflow connections add snowflake_default \
+          --conn-type snowflake \
+          --conn-host "$${SNOWFLAKE_ACCOUNT}.snowflakecomputing.com" \
+          --conn-login "$${SNOWFLAKE_USER}" \
+          --conn-schema "$${SNOWFLAKE_SCHEMA:-RAW}" \
+          --conn-extra "{
+            \"account\": \"$${SNOWFLAKE_ACCOUNT}\",
+            \"warehouse\": \"$${SNOWFLAKE_WAREHOUSE}\",
+            \"database\": \"$${SNOWFLAKE_DATABASE}\",
+            \"role\": \"$${SNOWFLAKE_ROLE}\",
+            \"private_key_path\": \"/opt/airflow/.snowflake/rsa_key.p8\",
+            \"private_key_passphrase\": \"$${SNOWFLAKE_PRIVATE_KEY_PASSPHRASE}\"
+          }" || true
+
+        echo "Airflow initialization complete"
     environment:
       <<: *airflow-common-env
-      _AIRFLOW_DB_MIGRATE: 'true'
-      _AIRFLOW_WWW_USER_CREATE: 'true'
       _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
       _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
-      _PIP_ADDITIONAL_REQUIREMENTS: ''
     user: "0:0"
     volumes:
       - ${AIRFLOW_PROJ_DIR:-.}:/sources
