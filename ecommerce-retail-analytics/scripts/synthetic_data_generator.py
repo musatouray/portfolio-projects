@@ -124,8 +124,8 @@ class SyntheticDataGenerator:
         conn = snowflake.connector.connect(
             account=os.getenv("SNOWFLAKE_ACCOUNT"),
             user=os.getenv("SNOWFLAKE_USER"),
-            private_key_path=os.path.expanduser("~/.snowflake/rsa_key.p8"),
-            private_key_passphrase=os.getenv("SNOWFLAKE_PRIVATE_KEY_PASSPHRASE"),
+            private_key_file=os.path.expanduser("~/.snowflake/rsa_key.p8"),
+            private_key_file_pwd=os.getenv("SNOWFLAKE_PRIVATE_KEY_PASSPHRASE"),
             database=os.getenv("SNOWFLAKE_DATABASE"),
             warehouse=os.getenv("SNOWFLAKE_WAREHOUSE"),
             schema=os.getenv("SNOWFLAKE_SCHEMA"),
