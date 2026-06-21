@@ -37,7 +37,7 @@ x-airflow-common:
     - ../scripts:/opt/airflow/scripts
     - ../data:/opt/airflow/data
     - ../.env:/opt/airflow/.env
-    - ~/.snowflake/rsa_key.p8:/opt/airflow/.snowflake/rsa_key.p8:ro
+    - ~/.snowflake/rsa_key.p8:/home/airflow/.snowflake/rsa_key.p8:ro
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
