@@ -188,6 +188,9 @@ class SyntheticDataGenerator:
             cursor.close()
             conn.close()
 
+        # Assign customer segments after loading reference data
+        self.assign_customer_segments()
+
     def assign_customer_segments(self) -> dict[str, str]:
         """
         Assign each customer to a segment using weighted random distribution.
