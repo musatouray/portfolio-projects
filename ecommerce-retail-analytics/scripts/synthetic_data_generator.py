@@ -135,10 +135,10 @@ class SyntheticDataGenerator:
         try:
             cursor = conn.cursor()
 
-            # Load customer IDs
+            # Load customer IDs from MARTS schema
             cursor.execute("""
                 SELECT customer_unique_id
-                FROM dim_customers
+                FROM MARTS.dim_customers
                 ORDER BY customer_unique_id
             """)
             self.customer_ids = [row[0] for row in cursor.fetchall()]
@@ -146,7 +146,7 @@ class SyntheticDataGenerator:
             # Load product data (for backward compatibility)
             cursor.execute("""
                 SELECT product_id, product_category_name_english, price
-                FROM dim_products
+                FROM MARTS.dim_products
                 WHERE price IS NOT NULL
                 ORDER BY product_id
             """)
@@ -159,8 +159,8 @@ class SyntheticDataGenerator:
                     COALESCE(fi.seller_id, 'UNKNOWN') as seller_id,
                     COALESCE(AVG(fi.price), 100.0) as avg_price,
                     COALESCE(AVG(fi.freight_value), 10.0) as avg_freight
-                FROM dim_products p
-                LEFT JOIN fct_order_items fi ON p.product_id = fi.product_id
+                FROM MARTS.dim_products p
+                LEFT JOIN MARTS.fct_order_items fi ON p.product_id = fi.product_id
                 WHERE p.price IS NOT NULL
                 GROUP BY p.product_id, fi.seller_id
                 ORDER BY p.product_id
@@ -181,7 +181,7 @@ class SyntheticDataGenerator:
             # Load seller IDs
             cursor.execute("""
                 SELECT seller_id
-                FROM dim_sellers
+                FROM MARTS.dim_sellers
                 ORDER BY seller_id
             """)
             self.seller_ids = [row[0] for row in cursor.fetchall()]
