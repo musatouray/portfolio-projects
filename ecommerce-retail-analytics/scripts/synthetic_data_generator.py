@@ -135,18 +135,18 @@ class SyntheticDataGenerator:
         try:
             cursor = conn.cursor()
 
-            # Load customer IDs from MARTS schema
+            # Load customer IDs from RAW schema
             cursor.execute("""
-                SELECT customer_unique_id
-                FROM MARTS.dim_customers
+                SELECT DISTINCT customer_unique_id
+                FROM RAW.CUSTOMERS
                 ORDER BY customer_unique_id
             """)
             self.customer_ids = [row[0] for row in cursor.fetchall()]
 
             # Load product data (for backward compatibility)
             cursor.execute("""
-                SELECT product_id, product_category
-                FROM MARTS.dim_products
+                SELECT DISTINCT product_id, product_category_name
+                FROM RAW.PRODUCTS
                 ORDER BY product_id
             """)
             self.product_data = cursor.fetchall()
@@ -155,12 +155,12 @@ class SyntheticDataGenerator:
             cursor.execute("""
                 SELECT
                     p.product_id,
-                    COALESCE(fi.seller_id, 'UNKNOWN') as seller_id,
-                    COALESCE(AVG(fi.item_price), 100.0) as avg_price,
-                    COALESCE(AVG(fi.item_freight), 10.0) as avg_freight
-                FROM MARTS.dim_products p
-                LEFT JOIN MARTS.fct_order_items fi ON p.product_id = fi.product_id
-                GROUP BY p.product_id, fi.seller_id
+                    COALESCE(oi.seller_id, 'UNKNOWN') as seller_id,
+                    COALESCE(AVG(oi.price), 100.0) as avg_price,
+                    COALESCE(AVG(oi.freight_value), 10.0) as avg_freight
+                FROM RAW.PRODUCTS p
+                LEFT JOIN RAW.ORDER_ITEMS oi ON p.product_id = oi.product_id
+                GROUP BY p.product_id, oi.seller_id
                 ORDER BY p.product_id
             """)
             product_rows = cursor.fetchall()
@@ -178,8 +178,8 @@ class SyntheticDataGenerator:
 
             # Load seller IDs
             cursor.execute("""
-                SELECT seller_id
-                FROM MARTS.dim_sellers
+                SELECT DISTINCT seller_id
+                FROM RAW.SELLERS
                 ORDER BY seller_id
             """)
             self.seller_ids = [row[0] for row in cursor.fetchall()]
