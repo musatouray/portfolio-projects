@@ -51,10 +51,10 @@ def load_reference_data(**context):
     generator.load_reference_data()
 
     # Store counts for logging
-    context["ti"].xcom_push(key="customer_count", value=len(generator._customer_ids))
+    context["ti"].xcom_push(key="customer_count", value=len(generator.customer_ids))
     context["ti"].xcom_push(key="product_count", value=len(generator._product_data))
 
-    print(f"Loaded {len(generator._customer_ids)} customers")
+    print(f"Loaded {len(generator.customer_ids)} customers")
     print(f"Loaded {len(generator._product_data)} products")
 
     return "Reference data loaded"
