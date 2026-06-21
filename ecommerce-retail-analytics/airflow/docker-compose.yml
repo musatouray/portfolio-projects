@@ -1,3 +1,5 @@
+name: ecommerce-retail-pipeline
+
 x-airflow-common:
   &airflow-common
   build: .
