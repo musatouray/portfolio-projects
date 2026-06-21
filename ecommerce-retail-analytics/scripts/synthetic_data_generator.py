@@ -145,9 +145,8 @@ class SyntheticDataGenerator:
 
             # Load product data (for backward compatibility)
             cursor.execute("""
-                SELECT product_id, product_category_name_english, price
+                SELECT product_id, product_category
                 FROM MARTS.dim_products
-                WHERE price IS NOT NULL
                 ORDER BY product_id
             """)
             self.product_data = cursor.fetchall()
@@ -157,11 +156,10 @@ class SyntheticDataGenerator:
                 SELECT
                     p.product_id,
                     COALESCE(fi.seller_id, 'UNKNOWN') as seller_id,
-                    COALESCE(AVG(fi.price), 100.0) as avg_price,
-                    COALESCE(AVG(fi.freight_value), 10.0) as avg_freight
+                    COALESCE(AVG(fi.item_price), 100.0) as avg_price,
+                    COALESCE(AVG(fi.item_freight), 10.0) as avg_freight
                 FROM MARTS.dim_products p
                 LEFT JOIN MARTS.fct_order_items fi ON p.product_id = fi.product_id
-                WHERE p.price IS NOT NULL
                 GROUP BY p.product_id, fi.seller_id
                 ORDER BY p.product_id
             """)
