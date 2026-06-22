@@ -29,6 +29,9 @@ x-airflow-common:
     AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
     AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
 
+    # Slack notifications
+    SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL}
+
     # Project configuration
     PYTHONPATH: /opt/airflow
 
@@ -156,19 +159,21 @@ services:
           --email admin@example.com \
           --password $${_AIRFLOW_WWW_USER_PASSWORD:-airflow} || true
 
-        # Create Snowflake connection
+        # Create Snowflake connection (private key auth)
+        # Note: passphrase goes in --conn-password, key path in extras as private_key_file
+        airflow connections delete snowflake_default 2>/dev/null || true
         airflow connections add snowflake_default \
           --conn-type snowflake \
           --conn-host "$${SNOWFLAKE_ACCOUNT}.snowflakecomputing.com" \
           --conn-login "$${SNOWFLAKE_USER}" \
+          --conn-password "$${SNOWFLAKE_PRIVATE_KEY_PASSPHRASE}" \
           --conn-schema "$${SNOWFLAKE_SCHEMA:-RAW}" \
           --conn-extra "{
             \"account\": \"$${SNOWFLAKE_ACCOUNT}\",
             \"warehouse\": \"$${SNOWFLAKE_WAREHOUSE}\",
             \"database\": \"$${SNOWFLAKE_DATABASE}\",
             \"role\": \"$${SNOWFLAKE_ROLE}\",
-            \"private_key_path\": \"/home/airflow/.snowflake/rsa_key.p8\",
-            \"private_key_passphrase\": \"$${SNOWFLAKE_PRIVATE_KEY_PASSPHRASE}\"
+            \"private_key_file\": \"/home/airflow/.snowflake/rsa_key.p8\"
           }" || true
 
         echo "Airflow initialization complete"
