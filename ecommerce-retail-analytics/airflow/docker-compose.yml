@@ -3,8 +3,6 @@ name: ecommerce-retail-pipeline
 x-airflow-common:
   &airflow-common
   build: .
-  env_file:
-    - ../.env
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: LocalExecutor
@@ -27,7 +25,9 @@ x-airflow-common:
     SNOWFLAKE_SCHEMA: ${SNOWFLAKE_SCHEMA}
     SNOWFLAKE_ROLE: ${SNOWFLAKE_ROLE}
 
-    # AWS credentials loaded from env_file (../.env)
+    # AWS credentials from .env
+    AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+    AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
 
     # Project configuration
     PYTHONPATH: /opt/airflow
