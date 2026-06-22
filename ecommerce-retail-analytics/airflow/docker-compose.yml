@@ -27,9 +27,7 @@ x-airflow-common:
     SNOWFLAKE_SCHEMA: ${SNOWFLAKE_SCHEMA}
     SNOWFLAKE_ROLE: ${SNOWFLAKE_ROLE}
 
-    # AWS credentials from .env
-    AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-    AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+    # AWS credentials loaded from env_file (../.env)
 
     # Project configuration
     PYTHONPATH: /opt/airflow
