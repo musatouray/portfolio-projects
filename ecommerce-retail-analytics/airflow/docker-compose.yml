@@ -167,7 +167,7 @@ services:
             \"warehouse\": \"$${SNOWFLAKE_WAREHOUSE}\",
             \"database\": \"$${SNOWFLAKE_DATABASE}\",
             \"role\": \"$${SNOWFLAKE_ROLE}\",
-            \"private_key_path\": \"/opt/airflow/.snowflake/rsa_key.p8\",
+            \"private_key_path\": \"/home/airflow/.snowflake/rsa_key.p8\",
             \"private_key_passphrase\": \"$${SNOWFLAKE_PRIVATE_KEY_PASSPHRASE}\"
           }" || true
 
