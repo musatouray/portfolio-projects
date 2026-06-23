@@ -16,6 +16,8 @@ from airflow.operators.python import PythonOperator
 from airflow.providers.snowflake.operators.snowflake import SnowflakeOperator
 from dotenv import load_dotenv
 
+from utils.slack_alerts import slack_failure_callback
+
 # Load environment variables
 load_dotenv("/opt/airflow/.env")
 
@@ -38,6 +40,7 @@ default_args = {
     "email_on_retry": False,
     "retries": 2,
     "retry_delay": timedelta(minutes=2),
+    "on_failure_callback": slack_failure_callback,
 }
 
 
@@ -126,7 +129,7 @@ COPY_DAILY_SQL = """
 COPY INTO RAW.{table}
 FROM @RAW.raw_ecommerce_s3_stage/{folder}/{table}_{date}.csv
 FILE_FORMAT = RAW.csv_format
-ON_ERROR = 'CONTINUE';
+ON_ERROR = 'ABORT_STATEMENT';
 """
 
 
