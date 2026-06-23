@@ -20,7 +20,7 @@ from airflow.operators.python import PythonOperator
 from airflow.providers.snowflake.operators.snowflake import SnowflakeOperator
 from dotenv import load_dotenv
 
-from utils.slack_alerts import slack_failure_callback
+from utils.slack_alerts import slack_failure_callback, send_success_summary
 
 # Load environment variables
 load_dotenv("/opt/airflow/.env")
@@ -170,6 +170,44 @@ def cleanup_local_files(**context):
     return "Cleanup complete"
 
 
+def validate_copy_results(**context):
+    """Query Snowflake for row counts and send success summary to Slack."""
+    from airflow.providers.snowflake.hooks.snowflake import SnowflakeHook
+
+    hook = SnowflakeHook(snowflake_conn_id=SNOWFLAKE_CONN_ID)
+
+    # Query row counts for all tables
+    count_sql = """
+    SELECT 'ORDERS' as table_name, COUNT(*) as row_count FROM RAW.ORDERS
+    UNION ALL SELECT 'ORDER_ITEMS', COUNT(*) FROM RAW.ORDER_ITEMS
+    UNION ALL SELECT 'ORDER_PAYMENTS', COUNT(*) FROM RAW.ORDER_PAYMENTS
+    UNION ALL SELECT 'ORDER_REVIEWS', COUNT(*) FROM RAW.ORDER_REVIEWS;
+    """
+
+    results = hook.get_records(count_sql)
+    table_counts = {row[0]: row[1] for row in results}
+
+    # Log results
+    for table, count in table_counts.items():
+        print(f"{table}: {count:,} rows")
+
+    # Calculate duration from DAG start
+    dag_run = context["dag_run"]
+    if dag_run.start_date:
+        duration = (context["data_interval_end"] - dag_run.start_date).total_seconds()
+    else:
+        duration = 0
+
+    # Send success summary to Slack
+    send_success_summary(
+        dag_id=context["dag"].dag_id,
+        table_counts=table_counts,
+        duration_seconds=duration,
+    )
+
+    return table_counts
+
+
 # SQL for COPY INTO (parameterized by table)
 COPY_SQL_TEMPLATE = """
 COPY INTO RAW.{table}
@@ -248,6 +286,11 @@ with DAG(
         retry_delay=timedelta(seconds=120),
     )
 
+    validate = PythonOperator(
+        task_id="validate_copy_results",
+        python_callable=validate_copy_results,
+    )
+
     cleanup = PythonOperator(
         task_id="cleanup_local_files",
         python_callable=cleanup_local_files,
@@ -257,4 +300,5 @@ with DAG(
     # Task dependencies
     load_ref_data >> generate >> upload
     upload >> [copy_orders, copy_order_items, copy_order_payments, copy_order_reviews]
-    [copy_orders, copy_order_items, copy_order_payments, copy_order_reviews] >> cleanup
+    [copy_orders, copy_order_items, copy_order_payments, copy_order_reviews] >> validate
+    validate >> cleanup
