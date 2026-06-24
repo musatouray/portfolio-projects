@@ -29,67 +29,202 @@ For structured development workflows, see **[.claude/AGENTS.md](.claude/AGENTS.m
 
 ## Project Overview
 
-E-Commerce Analytics project using dbt + Snowflake to analyze the Olist Brazilian E-Commerce dataset. The project implements RFM segmentation, cohort analysis, customer lifetime value, and other advanced SQL analytics patterns.
+An end-to-end e-commerce analytics platform built on **Snowflake** and **dbt**. It features a fully automated data pipeline with **Airflow**, **AWS S3** for staging, **CI/CD with GitHub Actions**, real-time **Slack alerting**, advanced SQL analytical dbt modeling, and interactive **Power BI** dashboards. This project demonstrates production-grade data engineering practices—from raw data ingestion through dimensional modeling to business intelligence delivery.
+
+### The Problem It Solves
+
+Retail businesses generate massive transaction data but struggle to extract actionable insights. This platform transforms raw e-commerce data into analytics-ready models that answer critical business questions:
+
+- *Which customers are most valuable and which are about to churn?*
+- *How do customer cohorts retain and generate revenue over time?*
+- *What products are frequently purchased together?*
+- *What is the predicted lifetime value of each customer?*
+
+### Technical Scope
+
+**Data Warehouse (Snowflake)**
+- Medallion architecture with Bronze (RAW), Silver (STAGING), and Gold (MARTS) layers
+- Separate DEV and PROD databases with environment isolation
+- Private key authentication and role-based access control
+- External stage integration with AWS S3 for data loading
+
+**Transformation Layer (dbt)**
+- 20+ models across staging, intermediate, and marts layers
+- Dimensional modeling with fact and dimension tables (Kimball methodology)
+- Comprehensive test coverage: referential integrity, uniqueness, accepted values
+- Custom macros for schema management and code generation
+- Incremental processing patterns for large datasets
+
+**Orchestration (Airflow)**
+- Dockerized Airflow deployment with LocalExecutor
+- Synthetic data generation simulating real-time business operations
+- Multi-step DAGs: generate → S3 upload → Snowflake COPY → dbt build → validation
+- Slack integration for failure alerts and success notifications
+- Differentiated error handling (SKIP_FILE vs ABORT_STATEMENT)
+
+**CI/CD (GitHub Actions)**
+- Pull request validation with isolated test schemas
+- Automated production deployment on merge
+- Scheduled daily refreshes for production marts
+- Slim CI using state comparison for modified models only
+
+### Advanced Analytics Models
+
+| Model | Pattern | Business Value |
+|-------|---------|----------------|
+| **RFM Segmentation** | Monthly snapshots with segment migration tracking | Identify Champions, Loyal Customers, At-Risk, and Churned segments |
+| **Cohort Retention** | Time-based cohort analysis with GRR/NRR metrics | Measure customer retention and revenue retention by acquisition month |
+| **Customer Lifetime Value** | Predictive modeling with behavioral inputs | 12-month CLV projection using purchase frequency and monetary value |
+| **Churn Risk Scoring** | Multi-factor risk assessment | Early warning system based on recency, frequency decline, and value trends |
+| **Market Basket Analysis** | Product co-occurrence matrix | Cross-sell and bundle recommendations from purchase patterns |
+
+### Power BI Dashboards
+
+The reporting layer goes beyond basic metrics to deliver interactive analytical experiences:
+
+- **Customer Analytics**: RFM segment distribution, migration flows, CLV distributions, churn risk heatmaps
+- **Cohort Insights**: Retention curves, revenue cohort triangles, period-over-period comparisons
+- **Geographic Analysis**: State-level performance maps, regional comparisons, delivery metrics
+- **Time Intelligence**: Trend analysis, seasonality patterns, YoY/MoM growth calculations
+- **Product Performance**: Category analysis, basket analysis visualization, seller rankings
+
+All dashboards connect directly to Snowflake production marts with scheduled refresh aligned to the data pipeline.
+
+### What Makes This Production-Grade
+
+| Aspect | Implementation |
+|--------|----------------|
+| **Data Quality** | dbt tests on every model, row count validation, referential integrity checks |
+| **Observability** | Slack alerts on failure, success summaries with metrics, Airflow task logging |
+| **Environment Isolation** | DEV for development/testing, PROD for dashboards, CI schemas for PRs |
+| **Automation** | Zero manual intervention—data flows from generation to dashboard daily |
+| **Documentation** | dbt docs, implementation logs, comprehensive CLAUDE.md |
+| **Version Control** | Git-based workflow with PR reviews and protected branches |
 
 ## Tech Stack
 
 | Component | Tool | Version/Notes |
 |-----------|------|---------------|
 | Warehouse | Snowflake | DEV + PROD databases (Medallion architecture) |
-| Transform | dbt | dbt-fusion 2.0.0-preview |
-| CI/CD | GitHub Actions | Slim CI + Auto-deploy to Prod |
+| Transform | dbt | dbt-core 1.11.8, dbt-snowflake 1.11.4 |
+| Orchestration | Airflow | 2.9.3 (Dockerized) |
+| CI/CD | GitHub Actions | Slim CI + Scheduled CD |
+| Storage | AWS S3 | Raw data staging |
 | Python | uv | Package manager |
 | Visualization | Power BI | Connects to PROD.MARTS |
+| Notifications | Slack | Pipeline alerts |
 
-## Key Commands
+---
 
-```bash
-# Navigate to dbt directory first (from project root)
-cd dbt
+## Data Pipeline Architecture
 
-# Run all models and tests
-dbt build
+### End-to-End Flow
 
-# Run only models (no tests)
-dbt run
-
-# Run only tests
-dbt test
-
-# Run specific model
-dbt run --select stg_ecommerce__orders
-
-# Run staging models only
-dbt run --select staging.*
-
-# Check connection
-dbt debug
-
-# Generate documentation
-dbt docs generate
-dbt docs serve
 ```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           DAILY PIPELINE (11 AM UTC)                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  Airflow DAG: daily_synthetic_orders                                        │
+│  ┌──────────┐   ┌──────────┐   ┌──────────┐   ┌──────────┐   ┌──────────┐  │
+│  │ Generate │ → │ Upload   │ → │ COPY to  │ → │ Validate │ → │ dbt build│  │
+│  │ Synthetic│   │ to S3    │   │ Snowflake│   │ + Slack  │   │ DEV      │  │
+│  │ Data     │   │          │   │ RAW      │   │          │   │          │  │
+│  └──────────┘   └──────────┘   └──────────┘   └──────────┘   └──────────┘  │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         SCHEDULED CD (12 PM UTC)                            │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  GitHub Actions: dbt-cd.yml                                                 │
+│  ┌──────────────────────────────────────────────────────────────────────┐  │
+│  │ dbt build PROD (reads from DEV.STAGING → writes to PROD.MARTS)       │  │
+│  └──────────────────────────────────────────────────────────────────────┘  │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              POWER BI                                       │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  Connects to ECOMMERCE_RETAIL_DB_PROD.MARTS                                 │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Medallion Architecture
+
+```
+ECOMMERCE_RETAIL_DB_DEV (Bronze + Silver + Gold-Dev)
+├── RAW           ← Bronze: Source data (Airflow loads here)
+├── STAGING       ← Silver: Cleaned views (shared across environments)
+├── INTERMEDIATE  ← Gold: Dev transformations
+└── MARTS         ← Gold: Dev analytics tables
+
+ECOMMERCE_RETAIL_DB_PROD (Gold-Prod Only)
+├── INTERMEDIATE  ← Gold: Prod transformations
+└── MARTS         ← Gold: Prod analytics (Power BI connects here)
+```
+
+### Pipeline Schedules
+
+| Pipeline | Schedule (UTC) | Trigger | Target |
+|----------|----------------|---------|--------|
+| Daily Airflow DAG | 11:00 AM | Cron | DEV |
+| CD Workflow | 12:00 PM | Cron + code merge | PROD |
+| CI Workflow | On PR | Pull request | DEV (isolated schema) |
+
+---
 
 ## Project Structure
 
 ```
-ecommerce-retail-analytics/          # Project root (within portfolio-projects repo)
+ecommerce-retail-analytics/
 ├── CLAUDE.md                        # This file
 ├── README.md                        # Project overview
-├── INSTALLATION.md                  # Setup guide
-├── INSTRUCTIONS.md                  # Execution guide
+├── INSTALLATION.md                  # Complete setup guide
 ├── .env                             # Environment variables (gitignored)
+├── .env.example                     # Environment template
 ├── pyproject.toml                   # Python dependencies
 │
 ├── .claude/                         # Claude Code configuration
 │   ├── AGENTS.md                    # Agentic workflow guide
-│   ├── skills/                      # Custom skills
+│   ├── skills/                      # Custom skills (/deploy, /test, etc.)
 │   └── references/                  # Reference documentation
 │
+├── airflow/                         # Airflow orchestration
+│   ├── Dockerfile                   # Airflow + dbt image
+│   ├── docker-compose.yml           # Service definitions
+│   ├── requirements.txt             # Python dependencies (incl. dbt)
+│   ├── dbt_profiles/                # dbt profiles for Airflow
+│   │   └── profiles.yml             # Points to DEV database
+│   ├── dags/
+│   │   ├── daily_synthetic_orders.py    # Daily data pipeline
+│   │   ├── backfill_synthetic_orders.py # Historical data backfill
+│   │   └── utils/
+│   │       └── slack_alerts.py      # Slack notification utilities
+│   ├── logs/                        # Airflow logs (gitignored)
+│   ├── plugins/                     # Custom Airflow plugins
+│   └── config/                      # Airflow configuration
+│
+├── scripts/
+│   ├── download_kaggle_data.py      # Download base dataset from Kaggle
+│   ├── load_to_snowflake.py         # Initial data load
+│   ├── synthetic_data_generator.py  # Generate synthetic orders
+│   └── validate_synthetic_data.py   # Post-load validation
+│
 ├── docs/
-│   ├── AWS-SNOWFLAKE-INTEGRATION-SETUP.md  # S3 integration guide
-│   ├── CI-CD.md                            # CI/CD pipeline guide
-│   └── SQL Analytical Patterns/            # SQL pattern study guides
+│   ├── AWS-SNOWFLAKE-INTEGRATION-SETUP.md
+│   ├── CI-CD.md
+│   ├── implementation-logs/         # Development history
+│   │   ├── progress-ledger.md       # Task completion audit trail
+│   │   └── airflow-dag-hardening/   # Implementation briefs & reports
+│   ├── superpowers/
+│   │   ├── specs/                   # Design specifications
+│   │   └── plans/                   # Implementation plans
+│   └── SQL Analytical Patterns/
 │       ├── 01-rfm-analysis.md
 │       ├── 02-cohort-analysis.md
 │       ├── 03-customer-lifetime-value.md
@@ -100,14 +235,10 @@ ecommerce-retail-analytics/          # Project root (within portfolio-projects r
 │   ├── 2-warehouse-config.sql
 │   ├── 3-database-schemas-config.sql
 │   ├── 4-grant-access-config.sql
-│   ├── 5-aws-storage-integration.sql  # S3 integration (ACCOUNTADMIN)
-│   └── 6-stage-&-file-format.sql      # External stage + CSV format
+│   ├── 5-aws-storage-integration.sql
+│   └── 6-stage-&-file-format.sql
 │
-├── scripts/
-│   ├── download_kaggle_data.py
-│   └── load_to_snowflake.py
-│
-├── data/                            # Downloaded CSV data (gitignored)
+├── data/                            # Local data (gitignored)
 │
 ├── report/                          # Power BI PBIP files
 │   ├── Ecommerce Analytics.Report/
@@ -115,43 +246,81 @@ ecommerce-retail-analytics/          # Project root (within portfolio-projects r
 │
 └── dbt/
     ├── dbt_project.yml
-    ├── packages.yml                 # dbt_utils, audit_helper, codegen
-    │
+    ├── packages.yml
     ├── macros/
-    │   └── generate_schema_name.sql  # Custom schema naming
-    │
+    │   └── generate_schema_name.sql
     ├── seeds/
     │   └── rfm_segment_definitions.csv
-    │
     └── models/
-        ├── staging/                 # Clean and type raw data
-        │   ├── _sources.yml
-        │   ├── _stg_ecommerce_models.yml
-        │   ├── _docs.md
-        │   └── stg_ecommerce__*.sql
-        │
-        ├── intermediate/            # Join and enrich
-        │   ├── _int_models.yml
-        │   ├── int_orders_enriched.sql
-        │   └── int_order_items_enriched.sql
-        │
-        └── marts/                   # Fact and dimension tables
-            ├── core/                # Shared dimensions & facts
-            │   ├── dim_customers.sql
-            │   ├── dim_dates.sql
-            │   ├── dim_products.sql
-            │   ├── dim_sellers.sql
-            │   ├── fct_orders.sql
-            │   └── fct_order_items.sql
-            ├── customer/            # Customer analytics
-            │   ├── fct_rfm_segments.sql
-            │   ├── fct_cohort_retention.sql
-            │   └── fct_clv_customer.sql
-            ├── finance/             # Payment analytics
-            │   └── fct_order_payments.sql
-            └── marketing/           # Basket analysis
-                └── fct_market_basket.sql
+        ├── staging/
+        ├── intermediate/
+        └── marts/
+            ├── core/
+            ├── customer/
+            ├── finance/
+            └── marketing/
 ```
+
+---
+
+## Airflow Pipeline
+
+For setup instructions, see **[INSTALLATION.md](INSTALLATION.md#7-airflow-setup-docker)**.
+
+### DAGs
+
+| DAG | Purpose | Schedule |
+|-----|---------|----------|
+| `daily_synthetic_orders` | Generate daily synthetic data, load to Snowflake, run dbt DEV | 11 AM UTC |
+| `backfill_synthetic_orders` | One-time historical data generation (manual trigger) | Manual |
+
+### Daily DAG Tasks
+
+```
+generate_daily → upload_to_s3 → copy_* (4 tables) → validate_copy_results → dbt_build_dev → cleanup
+```
+
+1. **generate_daily**: Generate synthetic orders for previous day
+2. **upload_to_s3**: Upload CSV files to S3 bucket
+3. **copy_***: COPY INTO Snowflake RAW tables (parallel)
+4. **validate_copy_results**: Query row counts, send Slack success message
+5. **dbt_build_dev**: Run `dbt build` against DEV database
+6. **cleanup**: Remove local CSV files
+
+### Slack Notifications
+
+- **Failure alerts**: Automatic on any task failure (`on_failure_callback`)
+- **Success summary**: Row counts and duration after validation
+
+Configure via `SLACK_WEBHOOK_URL` environment variable.
+
+### Error Handling
+
+| DAG | ON_ERROR Strategy | Rationale |
+|-----|-------------------|-----------|
+| Backfill | `SKIP_FILE` | Continue with good files, log bad ones |
+| Daily | `ABORT_STATEMENT` | Fail fast, alert, investigate |
+
+---
+
+## CI/CD Workflows
+
+### dbt CI (`dbt-ci.yml`)
+
+- **Trigger**: Pull requests to main
+- **Target**: DEV database (isolated CI schema)
+- **Actions**: `dbt build --select state:modified+`
+
+### dbt CD (`dbt-cd.yml`)
+
+- **Triggers**:
+  - Push to main (when `dbt/**` files change)
+  - Daily schedule (12 PM UTC)
+  - Manual dispatch
+- **Target**: PROD database
+- **Actions**: `dbt build` (full refresh available via manual trigger)
+
+---
 
 ## Snowflake Configuration
 
@@ -161,140 +330,36 @@ ecommerce-retail-analytics/          # Project root (within portfolio-projects r
 | Role | `LEAD_DATA_ENGINEER_ROLE` |
 | S3 Stage | `raw_ecommerce_s3_stage` |
 | Storage Integration | `s3_ecommerce_integration` |
+| S3 Bucket | `ecommerce-retail-analytics-raw` |
 
-### AWS S3 Integration
+For authentication setup (private key), see **[INSTALLATION.md](INSTALLATION.md#4-set-up-snowflake-key-pair-authentication)**.
 
-For incremental data pipelines, Snowflake connects to S3 via storage integration:
+---
 
-```
-S3 Bucket (ecommerce-retail-analytics-raw/)
-    ↓
-Snowflake Storage Integration (s3_ecommerce_integration)
-    ↓
-External Stage (raw_ecommerce_s3_stage)
-    ↓
-COPY INTO RAW tables
-```
+## Synthetic Data Generation
 
-**Key Resources:**
-- **S3 Bucket**: `ecommerce-retail-analytics-raw/` (folders per table)
-- **IAM Role**: `snowflake-ecommerce-s3-role` (Snowflake assumes this)
-- **IAM User**: `snowflake-data-engineer` (Airflow/Python uploads)
+The `synthetic_data_generator.py` script generates realistic e-commerce orders with US geography:
 
-See `docs/AWS-SNOWFLAKE-INTEGRATION-SETUP.md` for complete setup guide.
+- **Orders**: 50-200 per day (configurable)
+- **Order Items**: 1-5 items per order
+- **Payments**: Credit card, boleto, voucher, debit card
+- **Reviews**: Random scores and comments
+- **Geography**: US states and cities
 
-### Medallion Architecture (2 Databases)
+Uses existing reference data (customers, sellers, products, geolocation) from Snowflake RAW tables to ensure referential integrity.
 
-```
-ECOMMERCE_RETAIL_DB_DEV (Bronze + Silver + Gold-Dev)
-├── RAW           ← Bronze: Source data (single source of truth)
-├── STAGING       ← Silver: Cleaned views (shared across environments)
-├── INTERMEDIATE  ← Gold: Dev transformations
-└── MARTS         ← Gold: Dev analytics tables
+**Data Timeline:**
+- Historical base data: 2016-2018
+- Synthetic extension: 2018-present (generated daily)
 
-ECOMMERCE_RETAIL_DB_PROD (Gold-Prod Only)
-├── INTERMEDIATE  ← Gold: Prod transformations
-└── MARTS         ← Gold: Prod analytics (dashboards connect here)
-```
+### Key Fix (June 2024)
+The generator uses `customer_id` (not `customer_unique_id`) to maintain referential integrity with the ORDERS table.
 
-| Database | Schemas | Purpose |
-|----------|---------|---------|
-| `ECOMMERCE_RETAIL_DB_DEV` | RAW, STAGING, INTERMEDIATE, MARTS | Development + Bronze/Silver layers |
-| `ECOMMERCE_RETAIL_DB_PROD` | INTERMEDIATE, MARTS | Production Gold layer only |
+---
 
-### CI/CD Environment Mapping
+## dbt Models
 
-| Environment | Database | What Gets Built |
-|-------------|----------|-----------------|
-| Local Dev | `_DEV` | All schemas |
-| CI (PR) | `_DEV.CI_PR_xxx` | Isolated test schema |
-| CD (Main) | `_PROD` | INTERMEDIATE + MARTS only |
-
-Note: Mart models are organized into subfolders (`core/`, `customer/`, `finance/`, `marketing/`) for code organization, but all deploy to the single `MARTS` schema.
-
-## dbt Conventions
-
-### Schema Naming
-
-The project uses a custom `generate_schema_name` macro that uses schema names directly (not appending to target schema):
-- Models with `+schema: staging` → `STAGING` schema (not `RAW_staging`)
-
-### Test Syntax (dbt-fusion 2.0)
-
-Tests require the `arguments:` wrapper:
-
-```yaml
-# Correct syntax for column-level tests
-columns:
-  - name: order_id
-    data_tests:
-      - not_null
-      - relationships:
-          arguments:
-            to: ref('stg_ecommerce__orders')
-            field: order_id
-  - name: payment_type
-    data_tests:
-      - accepted_values:
-          arguments:
-            values: ["credit_card", "boleto", "voucher"]
-
-# Model-level tests (NOT column-level) - place at model level
-models:
-  - name: stg_ecommerce__order_items
-    data_tests:
-      - dbt_utils.unique_combination_of_columns:
-          arguments:
-            combination_of_columns:
-              - order_id
-              - order_item_id
-```
-
-**Important**: `dbt_utils.unique_combination_of_columns` must be defined at the model level, not under a column. Placing it under a column causes a compilation error.
-
-### Staging Model Pattern
-
-All staging models follow this CTE pattern:
-
-```sql
-with source as (
-    select * from {{ source('raw', 'table_name') }}
-),
-
-renamed as (
-    select
-        -- transformations here
-    from source
-)
-
-select * from renamed
-```
-
-### Data Cleaning Conventions
-
-- `trim()` on all string columns
-- `initcap()` for city names
-- `upper()` for state codes
-- `lpad(..., 5, '0')` for zip codes
-- `::date` or `::timestamp` for date conversions
-- `::numeric(10,2)` for monetary values
-- `ROW_NUMBER()` for deduplication when needed
-
-## Source Tables (RAW Schema)
-
-| Table | Primary Key | Notes |
-|-------|-------------|-------|
-| customers | customer_id | |
-| orders | order_id | |
-| order_items | (order_id, order_item_id) | Composite key |
-| order_payments | (order_id, payment_sequential) | Composite key |
-| order_reviews | review_id | Source has duplicates, dedupe in staging |
-| products | product_id | |
-| sellers | seller_id | |
-| geolocation | zip_code | Multiple rows per zip, aggregate in staging |
-| product_category_translation | product_category_name | |
-
-## Staging Models
+### Staging (Silver Layer)
 
 | Model | Key Transformations |
 |-------|---------------------|
@@ -303,69 +368,68 @@ select * from renamed
 | stg_ecommerce__orders | Timestamp conversions, status validation |
 | stg_ecommerce__order_items | Renamed shipping_deadline |
 | stg_ecommerce__order_payments | Payment type validation |
-| stg_ecommerce__order_reviews | ROW_NUMBER deduplication on review_id |
-| stg_ecommerce__product_category_translation | Portuguese to English category translation |
-| stg_ecommerce__products | Fixed typos, joins translation for English category |
+| stg_ecommerce__order_reviews | ROW_NUMBER deduplication |
+| stg_ecommerce__products | Fixed typos, English category translation |
 | stg_ecommerce__sellers | Zip code padding, city/state formatting |
 
-## Intermediate Models
+### Marts (Gold Layer)
 
-| Model | Grain | Description |
-|-------|-------|-------------|
-| int_orders_enriched | order_id | Orders joined with customers, aggregated items/payments/reviews. Excludes canceled/unavailable orders. |
-| int_order_items_enriched | (order_id, order_item_id) | Order items joined with orders, products, sellers. Includes English category names. |
+| Domain | Models |
+|--------|--------|
+| Core | dim_customers, dim_dates, dim_products, dim_sellers, fct_orders, fct_order_items |
+| Customer | fct_rfm_segments, fct_cohort_retention, fct_clv_customer |
+| Finance | fct_order_payments |
+| Marketing | fct_market_basket |
 
-## Mart Models
+---
 
-### Core (`marts/core/`)
+## Key Commands
 
-| Model | Grain | Description |
-|-------|-------|-------------|
-| dim_customers | customer_unique_id | Pure customer dimension with attributes, location, and cohort assignment |
-| dim_dates | date | Pre-generated date dimension (2016-2028) with period start dates |
-| dim_products | product_id | Pure product dimension with English category names |
-| dim_sellers | seller_id | Pure seller dimension with location and primary category |
-| fct_orders | order_id | Order fact table with deterministic FK generation |
-| fct_order_items | (order_id, order_item_id) | Order item fact table with deterministic FK generation |
+### dbt
 
-### Customer (`marts/customer/`)
+```bash
+cd dbt
+dbt build                    # Run all models + tests
+dbt run --select staging.*   # Run only staging models
+dbt test                     # Run all tests
+dbt docs generate && dbt docs serve  # Generate docs
+```
 
-| Model | Grain | Description |
-|-------|-------|-------------|
-| fct_rfm_segments | (snapshot_month, customer_unique_id) | Monthly RFM + churn risk snapshots for segment migration analysis |
-| fct_cohort_retention | (cohort_month, period) | Self-contained cohort retention with GRR/NRR metrics |
-| fct_clv_customer | customer_unique_id | Customer Lifetime Value with 12-month projection and behavioral segments |
+### Airflow
 
-### Finance (`marts/finance/`)
+See **[INSTALLATION.md](INSTALLATION.md#7-airflow-setup-docker)** for Docker commands.
 
-| Model | Grain | Description |
-|-------|-------|-------------|
-| fct_order_payments | (order_id, payment_sequential, payment_type) | Payment line items with deterministic FK generation |
+### Git/Deployment
 
-### Marketing (`marts/marketing/`)
+```bash
+git checkout -b feature/name  # Create feature branch
+git add . && git commit -m "feat: description"
+git push -u origin feature/name
+gh pr create                  # Create PR
+gh pr merge --squash          # Merge after approval
+```
 
-| Model | Grain | Description |
-|-------|-------|-------------|
-| fct_market_basket | (product_id_a, product_id_b) | Product pair co-occurrence counts for basket analysis |
-
-## Custom Macros
-
-| Macro | Purpose |
-|-------|---------|
-| `generate_schema_name` | Uses schema names directly without appending to target |
+---
 
 ## Testing Strategy
 
-- **Sources**: Basic integrity (not_null, unique on PKs)
-- **Staging**: Full coverage (not_null, unique, relationships, accepted_values, composite key tests)
-- **Intermediate**: Key validation (not_null, unique on grain, composite key tests)
-- **Marts**: Primary key validation (not_null, unique on grain)
+| Layer | Tests |
+|-------|-------|
+| Sources | not_null, unique on PKs |
+| Staging | not_null, unique, relationships, accepted_values |
+| Intermediate | not_null, unique on grain |
+| Marts | not_null, unique on grain |
 
-## Known Data Issues
+---
 
-1. **order_reviews.review_id**: Source has duplicates - handled with ROW_NUMBER in staging
-2. **geolocation**: Multiple lat/lng per zip code - handled with GROUP BY and AVG
-3. **Source column typos**: `product_name_lenght` → fixed to `name_length` in staging
+## Known Issues & Fixes
+
+1. **order_reviews duplicates**: Handled with ROW_NUMBER in staging
+2. **geolocation multiple coords**: Handled with GROUP BY + AVG
+3. **customer_id vs customer_unique_id**: Generator uses customer_id for FK integrity
+4. **Snowflake private key auth**: Use `private_key_file` (not `private_key_path`) in connection extras
+
+---
 
 ## dbt Packages
 

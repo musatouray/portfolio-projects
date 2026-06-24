@@ -1,279 +1,221 @@
-# E-Commerce Analytics
+# E-Commerce Retail Analytics Platform
 
-An advanced SQL analytics project demonstrating production-grade data modeling patterns including RFM segmentation, cohort analysis, customer lifetime value, and funnel optimization — built with dbt, Snowflake, and Power BI.
+> **Turn raw transaction data into actionable customer insights that drive revenue growth, reduce churn, and optimize marketing spend.**
 
-## Overview
+A production-grade analytics platform demonstrating how modern data teams deliver business value—from automated data pipelines to interactive dashboards that answer the questions executives actually ask.
 
-This project builds a complete analytics pipeline for the [Olist Brazilian E-Commerce dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) from Kaggle, containing 100k orders from Brazilian marketplaces (2016-2018).
+---
 
-Beyond basic reporting, this project showcases **advanced SQL patterns** used by data teams at top companies to drive real business decisions — customer segmentation, revenue attribution, churn prediction, and operational optimization.
+## Business Impact
 
-## Key Analytics Questions
+This platform answers the critical questions that drive e-commerce profitability:
 
-### Customer Segmentation (RFM Analysis)
-- How can we segment customers into actionable groups (Champions, At-Risk, Lost) based on purchase behavior?
-- Which customer segments should marketing prioritize for retention vs. re-activation campaigns?
-- What is the revenue contribution of each RFM segment?
+| Business Question | Analytics Solution | Impact |
+|-------------------|-------------------|--------|
+| *"Which customers should we prioritize?"* | **RFM Segmentation** classifies customers into Champions, Loyal, At-Risk, and Lost segments | Focus retention efforts on high-value customers before they churn |
+| *"What's a customer worth over time?"* | **Customer Lifetime Value** predicts 12-month revenue per customer | Optimize acquisition spend based on projected ROI |
+| *"Are we retaining customers?"* | **Cohort Retention Analysis** tracks monthly cohorts with GRR/NRR metrics | Identify which acquisition channels produce sticky customers |
+| *"Who's about to leave?"* | **Churn Risk Scoring** flags at-risk customers based on behavioral signals | Trigger proactive outreach before customers disappear |
+| *"What products sell together?"* | **Market Basket Analysis** identifies co-purchase patterns | Power cross-sell recommendations and bundle offers |
 
-### Customer Lifetime Value (CLV)
-- What is the predicted lifetime value of customers acquired this quarter?
-- How does CLV vary across customer segments and acquisition channels?
-- Which customer cohorts have the highest ROI potential?
+---
 
-### Pareto Analysis (80/20 Rule)
-- Which 20% of products generate 80% of revenue?
-- Which customers drive the majority of sales volume?
-- What percentage of sellers account for most marketplace GMV?
+## What Makes This Production-Grade
 
-### Funnel & Conversion Analysis
-- What is the conversion rate from order placement to delivery confirmation?
-- Where are the biggest drop-offs in the customer journey?
-- How does review submission rate correlate with delivery performance?
+This isn't a Jupyter notebook analysis—it's a **complete data platform** built with the same tools and practices used by data teams at top tech companies:
 
-### Cohort Analysis
-- How does purchasing behavior differ between monthly acquisition cohorts?
-- What is the retention curve for customers acquired in each quarter?
-- Do newer cohorts show improving or declining engagement trends?
+| Capability | Implementation |
+|------------|----------------|
+| **Automated Pipeline** | Airflow orchestrates daily data generation, loading, and transformation |
+| **Cloud Data Warehouse** | Snowflake with medallion architecture (Bronze → Silver → Gold) |
+| **Version-Controlled Transforms** | dbt models with 20+ staging, intermediate, and mart tables |
+| **CI/CD** | GitHub Actions runs tests on every PR, deploys to production on merge |
+| **Environment Isolation** | Separate DEV and PROD databases—changes validated before reaching dashboards |
+| **Observability** | Slack alerts on pipeline failures, success summaries with row counts |
+| **Interactive Dashboards** | Power BI reports with drill-through, filtering, and time intelligence |
 
-### Churn Prediction Indicators
-- Which customers haven't purchased in 90+ days but were previously active?
-- What behavioral signals indicate a customer is at risk of churning?
-- What is our customer reactivation rate after dormancy?
+---
 
-### Market Basket Analysis
-- Which products are frequently purchased together?
-- What cross-sell opportunities exist based on co-purchase patterns?
-- How can we optimize product bundling recommendations?
+## Analytics Models
 
-### Time Intelligence & Trends
-- What is the month-over-month and year-over-year revenue growth?
-- How do 7-day and 30-day moving averages reveal sales trends?
-- What seasonal patterns exist in purchasing behavior?
+### Customer Intelligence
 
-### Seller Performance Scoring
-- How can we rank sellers using a composite score (delivery time, reviews, volume)?
-- Which sellers consistently underperform on delivery estimates?
-- What is the correlation between seller ratings and repeat purchases?
+| Model | What It Does | Key Metrics |
+|-------|--------------|-------------|
+| **fct_rfm_segments** | Monthly customer segmentation snapshots | Recency, Frequency, Monetary scores; segment classification |
+| **fct_clv_customer** | Lifetime value prediction with behavioral inputs | 12-month projected CLV, purchase probability, value tier |
+| **fct_cohort_retention** | Cohort-based retention tracking | Retention rate, GRR, NRR by acquisition month |
 
-### Geographic Performance
-- Which regions have the highest average order value?
-- How does delivery performance vary by customer location?
-- Where are the untapped market opportunities?
+### Core Analytics
 
-## Advanced SQL Patterns
+| Model | What It Does | Key Metrics |
+|-------|--------------|-------------|
+| **fct_orders** | Order-level fact table | Revenue, items, payment method, delivery performance |
+| **fct_order_items** | Line-item detail | Product, seller, price, freight, margins |
+| **fct_order_payments** | Payment breakdown | Payment type, installments, value |
+| **fct_market_basket** | Product co-occurrence | Pair frequency, support, confidence |
 
-| Pattern | Business Value | Key SQL Features |
-|---------|----------------|------------------|
-| RFM Analysis | Customer segmentation | `NTILE()`, `CASE WHEN` scoring |
-| Pareto Analysis | Focus on high-impact items | `SUM() OVER`, cumulative percentages |
-| Customer Lifetime Value | Revenue forecasting | Cohort averages, predictive aggregations |
-| Funnel Analysis | Conversion optimization | `COUNT(CASE WHEN...)`, stage ratios |
-| Cohort Analysis | Retention tracking | `DATE_TRUNC`, cohort pivots |
-| Market Basket | Cross-sell opportunities | Self-joins, co-occurrence matrices |
-| Churn Indicators | Proactive retention | `DATEDIFF`, `LAG()`, behavioral flags |
-| Time Intelligence | Trend analysis | `LAG()`, moving averages, YoY/MoM |
-| Seller Scoring | Vendor management | `PERCENT_RANK()`, weighted composites |
-| Geo Performance | Regional strategy | Location-based aggregations |
+### Dimensions
+
+| Model | What It Does |
+|-------|--------------|
+| **dim_customers** | Customer attributes, location, acquisition cohort |
+| **dim_products** | Product catalog with categories |
+| **dim_sellers** | Seller attributes, performance tier |
+| **dim_dates** | Date spine with fiscal periods, holidays |
+
+---
 
 ## Architecture
 
 ```
-┌──────────────┐      ┌──────────────┐      ┌──────────────┐      ┌──────────────┐
-│    Kaggle    │      │  Snowflake   │      │     dbt      │      │   Power BI   │
-│   (Source)   │─────▶│  (Warehouse) │─────▶│ (Transform)  │─────▶│   (Visualize)│
-└──────────────┘      └──────────────┘      └──────────────┘      └──────────────┘
-     CSV via           2-Database            GitHub Actions       Dashboards &
-    Kaggle API         Medallion              CI/CD                Reports
-```
-
-### Medallion Architecture (2-Database Pattern)
-
-```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
-│                    MEDALLION + ENVIRONMENT ARCHITECTURE                         │
+│                              DATA PIPELINE                                      │
 ├─────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                 │
-│   ECOMMERCE_RETAIL_DB_DEV                                                       │
-│   ┌─────────────────────────────────────────────────────────────────────────┐   │
-│   │ BRONZE (RAW)          │ Source data lands here (CSV from Kaggle)       │   │
-│   ├───────────────────────┼─────────────────────────────────────────────────┤   │
-│   │ SILVER (STAGING)      │ Cleaned views ─────────────────────────────┐   │   │
-│   ├───────────────────────┼────────────────────────────────────────────│───┤   │
-│   │ GOLD (INT + MARTS)    │ Dev analytics                              │   │   │
-│   └───────────────────────┴────────────────────────────────────────────│───┘   │
-│                                                                         │       │
-│   ECOMMERCE_RETAIL_DB_PROD                                              │       │
-│   ┌───────────────────────┬────────────────────────────────────────────│───┐   │
-│   │ GOLD (INT + MARTS)    │ Prod analytics  ◄───────────────────────────┘   │   │
-│   │                       │ (reads from DEV.STAGING)                        │   │
-│   └───────────────────────┴─────────────────────────────────────────────────┘   │
+│   ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐ │
+│   │ Synthetic│    │   AWS    │    │Snowflake │    │   dbt    │    │ Power BI │ │
+│   │   Data   │───▶│    S3    │───▶│   RAW    │───▶│  Models  │───▶│Dashboards│ │
+│   │Generator │    │  Stage   │    │ (Bronze) │    │(Silver/  │    │          │ │
+│   └──────────┘    └──────────┘    └──────────┘    │  Gold)   │    └──────────┘ │
+│        │                                          └──────────┘          │       │
+│        │              AIRFLOW ORCHESTRATION                             │       │
+│        └────────────────────────────────────────────────────────────────┘       │
+│                                    │                                            │
+│                            ┌───────▼───────┐                                    │
+│                            │     Slack     │                                    │
+│                            │    Alerts     │                                    │
+│                            └───────────────┘                                    │
 │                                                                                 │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│                              CI/CD (GitHub Actions)                             │
+│   PR → Lint + Test (DEV) → Merge → Deploy (PROD) → Scheduled Refresh           │
 └─────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-**Key Design Decisions:**
-- **Bronze + Silver in DEV only** - No data duplication, cost efficient
-- **Gold layer separated** - Dev and Prod environments isolated
-- **Cross-database reference** - PROD reads from DEV.STAGING (single source of truth)
-- **CI/CD with GitHub Actions** - Automated testing and deployment
+### Medallion Architecture
 
-### Data Flow
+```
+ECOMMERCE_RETAIL_DB_DEV                    ECOMMERCE_RETAIL_DB_PROD
+┌─────────────────────────┐                ┌─────────────────────────┐
+│ RAW (Bronze)            │                │                         │
+│ └─ Source tables        │                │                         │
+├─────────────────────────┤                │                         │
+│ STAGING (Silver)        │───────────────▶│ INTERMEDIATE (Gold)     │
+│ └─ Cleaned views        │  CD deploys    │ └─ Enriched models      │
+├─────────────────────────┤                ├─────────────────────────┤
+│ INTERMEDIATE (Gold)     │                │ MARTS (Gold)            │
+├─────────────────────────┤                │ └─ Fact & Dim tables    │
+│ MARTS (Gold)            │                │   (Dashboards connect)  │
+└─────────────────────────┘                └─────────────────────────┘
+        DEV                                         PROD
+```
 
-1. **Extract**: Download CSV files from Kaggle using the Kaggle API
-2. **Load**: Ingest raw CSV data into Snowflake's Bronze layer (`DEV.RAW`)
-3. **Transform**: Use dbt to build layered transformations:
-   - **Bronze (RAW)**: Raw source data, immutable
-   - **Silver (STAGING)**: Cleaned, typed, validated views
-   - **Gold (INT + MARTS)**: Business aggregates, analytics-ready tables
-4. **CI/CD**: GitHub Actions validates PRs and deploys to production
-5. **Visualize**: Connect Power BI to `PROD.MARTS` for dashboards
+---
 
 ## Tech Stack
 
-| Component | Tool | Purpose |
-|-----------|------|---------|
-| Source | Kaggle API | Download e-commerce dataset |
-| Warehouse | Snowflake | Cloud data storage and compute |
-| Transform | dbt | SQL-based data transformation |
-| Orchestration | dbt CLI | Run and test transformations |
-| Package Manager | uv | Python dependency management |
-| Visualization | Power BI | Business intelligence dashboards |
+| Layer | Technology | Purpose |
+|-------|------------|---------|
+| **Orchestration** | Airflow (Docker) | Schedule pipelines, manage dependencies |
+| **Storage** | AWS S3 | Stage raw files for loading |
+| **Warehouse** | Snowflake | Scalable cloud analytics database |
+| **Transformation** | dbt (Data Build Tool) | Version-controlled SQL models with testing |
+| **CI/CD** | GitHub Actions | Automated testing and deployment |
+| **Visualization** | Power BI | Interactive business dashboards |
+| **Alerting** | Slack | Pipeline monitoring and notifications |
+| **Languages** | Python, SQL | Data generation, advanced analytics |
 
-## Dataset Description
+---
 
-The Olist dataset includes:
+## Dashboard Highlights
 
-| Table | Description | Records |
-|-------|-------------|---------|
-| orders | Order header information | ~100k |
-| order_items | Line items for each order | ~113k |
-| order_payments | Payment details per order | ~104k |
-| order_reviews | Customer reviews and ratings | ~100k |
-| customers | Customer information | ~100k |
-| products | Product catalog | ~33k |
-| sellers | Seller information | ~3k |
-| geolocation | Brazilian zip code coordinates | ~1M |
-| product_category_translation | Portuguese to English mapping | 71 |
+The Power BI layer delivers interactive analytics across multiple domains:
 
-## Data Model
+**Customer Analytics**
+- RFM segment distribution and migration flows
+- CLV distribution by segment and cohort
+- Churn risk heatmaps with drill-through to at-risk customers
 
-### Layered Architecture (Medallion Pattern)
+**Revenue Intelligence**
+- Cohort retention triangles with GRR/NRR trends
+- Period-over-period revenue comparisons
+- Payment method and installment analysis
 
-```
-ECOMMERCE_RETAIL_DB_DEV (Bronze + Silver + Gold-Dev)
-┌─────────────────────────────────────────────────────────────────────────┐
-│ BRONZE (RAW)           Raw CSV data loaded via Python                   │
-├─────────────────────────────────────────────────────────────────────────┤
-│ SILVER (STAGING)       Cleaned, typed, validated views                  │
-│  stg_ecommerce__orders, stg_ecommerce__customers, ...                   │
-├─────────────────────────────────────────────────────────────────────────┤
-│ GOLD (INTERMEDIATE)    Joined and enriched models                       │
-│  int_orders_enriched, int_order_items_enriched                          │
-├─────────────────────────────────────────────────────────────────────────┤
-│ GOLD (MARTS)           Fact and dimension tables (Dev)                  │
-│  Core | Customer | Finance | Marketing                                  │
-└─────────────────────────────────────────────────────────────────────────┘
+**Geographic Insights**
+- State-level performance maps
+- Regional delivery performance
+- Market penetration analysis
 
-ECOMMERCE_RETAIL_DB_PROD (Gold Only - Dashboards Connect Here)
-┌─────────────────────────────────────────────────────────────────────────┐
-│ GOLD (INTERMEDIATE)    Reads from DEV.STAGING                           │
-├─────────────────────────────────────────────────────────────────────────┤
-│ GOLD (MARTS)           Production analytics tables                      │
-│  dim_* | fct_* (BI tools connect here)                                  │
-└─────────────────────────────────────────────────────────────────────────┘
-```
+**Product & Seller Performance**
+- Category revenue trends
+- Market basket visualization
+- Seller tier rankings
 
-### Dimensional Model
-
-**Core Fact Tables:**
-- `fct_orders` - Grain: one row per order with metrics and deterministic FKs
-- `fct_order_items` - Grain: one row per order item with deterministic FKs
-
-**Customer Fact Tables:**
-- `fct_rfm_segments` - Grain: one row per customer per month (RFM + churn risk snapshots)
-- `fct_cohort_retention` - Grain: one row per cohort per period with GRR/NRR metrics
-- `fct_clv_customer` - Grain: one row per customer with CLV and behavioral segments
-
-**Finance Fact Tables:**
-- `fct_order_payments` - Grain: one row per payment line item with deterministic FKs
-
-**Marketing Fact Tables:**
-- `fct_market_basket` - Grain: one row per product pair with co-occurrence counts
-
-**Dimension Tables:**
-- `dim_customers` - Pure customer dimension with attributes and cohort assignment
-- `dim_dates` - Pre-generated date dimension (2016-2028) with period start dates
-- `dim_products` - Pure product dimension with English categories
-- `dim_sellers` - Pure seller dimension with location and primary category
+---
 
 ## Project Structure
 
 ```
-ecommerce-retail-analytics/        # Project root (within portfolio-projects repo)
-├── README.md                      # Project overview (this file)
-├── CLAUDE.md                      # Claude Code project context
-├── INSTALLATION.md                # Setup and installation guide
-├── INSTRUCTIONS.md                # Detailed execution guide
-├── .env.example                   # Environment variables template
-├── pyproject.toml                 # Python dependencies (uv)
-├── uv.lock                        # Locked dependency versions
+ecommerce-retail-analytics/
+├── airflow/                    # Pipeline orchestration
+│   ├── dags/                   # DAG definitions
+│   │   ├── daily_synthetic_orders.py
+│   │   └── backfill_synthetic_orders.py
+│   ├── docker-compose.yml
+│   └── Dockerfile
 │
-├── .claude/                       # Claude Code configuration
-│   ├── AGENTS.md                  # Agentic workflow guide
-│   ├── skills/                    # Custom skills
-│   └── references/                # Reference documentation
+├── dbt/                        # Data transformations
+│   ├── models/
+│   │   ├── staging/            # Silver layer
+│   │   ├── intermediate/       # Enriched models
+│   │   └── marts/              # Fact & dimension tables
+│   │       ├── core/
+│   │       ├── customer/
+│   │       ├── finance/
+│   │       └── marketing/
+│   └── tests/
 │
-├── docs/
-│   └── SQL Analytical Patterns/   # SQL pattern study guides
-│       ├── 01-rfm-analysis.md
-│       ├── 02-cohort-analysis.md
-│       ├── 03-customer-lifetime-value.md
-│       └── 04-churn-indicators.md
-│
-├── snowflake/                     # Snowflake setup scripts
-│   ├── 1-roles-and-user-config.sql
-│   ├── 2-warehouse-config.sql
-│   ├── 3-database-schemas-config.sql  # Medallion 2-database setup
-│   ├── 4-grant-access-config.sql
-│   └── 5-verify-setup.sql
-│
-├── scripts/                       # Data extraction and loading
-│   ├── download_kaggle_data.py
+├── scripts/                    # Data generation & loading
+│   ├── synthetic_data_generator.py
 │   └── load_to_snowflake.py
 │
-├── data/                          # Downloaded data (gitignored)
-│
-├── report/                        # Power BI PBIP files
+├── report/                     # Power BI project files
 │   ├── Ecommerce Analytics.Report/
 │   └── Ecommerce Analytics.SemanticModel/
 │
-└── dbt/
-    ├── dbt_project.yml
-    ├── packages.yml
-    ├── .sqlfluff                  # SQL linting configuration
-    ├── models/
-    │   ├── staging/               # Silver layer (always in DEV)
-    │   ├── intermediate/          # Gold layer
-    │   └── marts/
-    │       ├── core/              # Shared dimensions & core facts
-    │       ├── customer/          # Customer analytics (RFM, CLV, Churn)
-    │       ├── finance/           # Revenue & payment analytics
-    │       └── marketing/         # Category & geo analytics
-    ├── macros/
-    ├── tests/
-    └── seeds/
+├── snowflake/                  # Database setup scripts
+├── docs/                       # Documentation
+└── .github/workflows/          # CI/CD pipelines
 ```
 
-## Quick Start
+---
 
-```bash
-# Clone the repository
-git clone https://github.com/musatouray/portfolio-projects.git
-cd portfolio-projects/ecommerce-retail-analytics
-```
+## Getting Started
 
-For detailed setup instructions including Snowflake key-pair authentication, see **[INSTALLATION.md](INSTALLATION.md)**.
+See **[INSTALLATION.md](INSTALLATION.md)** for complete setup instructions including:
+- Snowflake key-pair authentication
+- Airflow Docker deployment
+- AWS S3 integration
+- Power BI connection
+
+---
+
+## Skills Demonstrated
+
+| Category | Skills |
+|----------|--------|
+| **Data Engineering** | Pipeline orchestration, ELT patterns, Airflow DAGs |
+| **Analytics Engineering** | dbt modeling, data quality testing, documentation, modular SQL |
+| **Data Modeling** | Dimensional modeling (Kimball), fact/dimension design, slowly changing dimensions |
+| **Advanced SQL** | Window functions, CTEs, complex aggregations, performance optimization |
+| **Business Analytics** | RFM segmentation, cohort analysis, CLV, churn prediction, market basket |
+| **Cloud Platforms** | Snowflake, AWS S3, cloud cost optimization |
+| **DevOps** | Docker, GitHub Actions CI/CD, environment management, Slack alerting |
+| **Visualization** | Power BI, DAX measures, interactive dashboards |
+
+---
 
 ## License
 
-This project uses the [Olist Brazilian E-Commerce Public Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) released under CC BY-NC-SA 4.0.
+MIT License - See [LICENSE](LICENSE) for details.
