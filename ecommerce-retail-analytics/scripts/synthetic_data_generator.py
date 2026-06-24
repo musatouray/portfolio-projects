@@ -136,10 +136,11 @@ class SyntheticDataGenerator:
             cursor = conn.cursor()
 
             # Load customer IDs from RAW schema
+            # Note: Use customer_id (not customer_unique_id) since that's what ORDERS references
             cursor.execute("""
-                SELECT DISTINCT customer_unique_id
+                SELECT DISTINCT customer_id
                 FROM RAW.CUSTOMERS
-                ORDER BY customer_unique_id
+                ORDER BY customer_id
             """)
             self.customer_ids = [row[0] for row in cursor.fetchall()]
 
