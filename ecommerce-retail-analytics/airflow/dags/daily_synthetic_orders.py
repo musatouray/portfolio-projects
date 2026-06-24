@@ -249,9 +249,10 @@ with DAG(
         python_callable=validate_copy_results,
     )
 
-    # Run dbt to transform data into production marts
+    # Run dbt to transform data in DEV (Bronze → Silver → Gold-Dev)
+    # PROD is updated separately via CD workflow on code merge
     dbt_build = BashOperator(
-        task_id="dbt_build_prod",
+        task_id="dbt_build_dev",
         bash_command="cd /opt/airflow/dbt && dbt deps --quiet && dbt build",
         retries=2,
         retry_delay=timedelta(minutes=2),
