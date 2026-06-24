@@ -17,10 +17,10 @@ on:
       - 'ecommerce-retail-analytics/dbt/**'
       - '.github/workflows/dbt-cd.yml'
 
-  # Scheduled refresh: Run daily at 3:00 AM UTC (after Airflow DAG at 2 AM)
+  # Scheduled refresh: Run daily at 12:00 PM UTC (after Airflow DAG at 11 AM)
   # This ensures PROD marts reflect new data loaded by the daily pipeline
   schedule:
-    - cron: '0 3 * * *'
+    - cron: '0 12 * * *'
 
   # Allow manual trigger for rollbacks or re-deployments
   workflow_dispatch:

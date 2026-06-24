@@ -182,7 +182,7 @@ with DAG(
     dag_id="daily_synthetic_orders",
     default_args=default_args,
     description="Generate and load daily synthetic order data",
-    schedule_interval="0 2 * * *",  # 2:00 AM UTC daily
+    schedule_interval="0 11 * * *",  # 11:00 AM UTC daily
     start_date=datetime(2026, 6, 20),  # Start after backfill
     catchup=False,
     tags=["synthetic", "daily"],
