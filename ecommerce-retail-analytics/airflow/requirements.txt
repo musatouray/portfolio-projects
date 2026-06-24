@@ -7,3 +7,7 @@ pandas==2.1.4
 snowflake-connector-python[pandas]==3.10.0
 python-dotenv==1.0.0
 cryptography==42.0.0
+
+# dbt for data transformations
+dbt-core==1.11.8
+dbt-snowflake==1.11.4

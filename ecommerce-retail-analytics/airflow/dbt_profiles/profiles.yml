@@ -1,0 +1,18 @@
+# dbt profiles for Airflow
+# Uses environment variables from docker-compose.yml
+# Deploys to PRODUCTION database (Gold layer)
+
+ecommerce_retail_analytics:
+  target: prod
+  outputs:
+    prod:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      role: "{{ env_var('SNOWFLAKE_ROLE') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE') }}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE_PROD') }}"
+      schema: MARTS
+      private_key_path: /home/airflow/.snowflake/rsa_key.p8
+      private_key_passphrase: "{{ env_var('SNOWFLAKE_PRIVATE_KEY_PASSPHRASE') }}"
+      threads: 4

@@ -21,6 +21,7 @@ x-airflow-common:
     SNOWFLAKE_USER: ${SNOWFLAKE_USER}
     SNOWFLAKE_PRIVATE_KEY_PASSPHRASE: ${SNOWFLAKE_PRIVATE_KEY_PASSPHRASE}
     SNOWFLAKE_DATABASE: ${SNOWFLAKE_DATABASE}
+    SNOWFLAKE_DATABASE_PROD: ${SNOWFLAKE_DATABASE_PROD}
     SNOWFLAKE_WAREHOUSE: ${SNOWFLAKE_WAREHOUSE}
     SNOWFLAKE_SCHEMA: ${SNOWFLAKE_SCHEMA}
     SNOWFLAKE_ROLE: ${SNOWFLAKE_ROLE}
@@ -44,6 +45,9 @@ x-airflow-common:
     - ../data:/opt/airflow/data
     - ../.env:/opt/airflow/.env
     - ~/.snowflake/rsa_key.p8:/home/airflow/.snowflake/rsa_key.p8:ro
+    # dbt project for transformations
+    - ../dbt:/opt/airflow/dbt
+    - ./dbt_profiles:/home/airflow/.dbt:ro
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
