@@ -13,15 +13,25 @@
       "name": "2d99bc22d1ed5c3a6c5a",
       "displayName": "RFM Segmentation",
       "children": [
-        "b63a5d9d042d809838ec",
-        "a635ffa2083b012a2b18"
+        "a635ffa2083b012a2b18",
+        "b63a5d9d042d809838ec"
       ]
     },
     {
-      "name": "747a05b80a8eba196770"
+      "name": "c78a1d2b305a7047d893",
+      "displayName": "Cohort Retention",
+      "children": [
+        "b7f0bdcb01ab145085ec",
+        "747a05b80a8eba196770"
+      ]
     },
     {
-      "name": "b7f0bdcb01ab145085ec"
+      "name": "4877b66979c7866a985d",
+      "displayName": "Product Performance",
+      "children": [
+        "9d04d4bd319978b58842",
+        "7c2350b8301ebd6ce73a"
+      ]
     }
   ]
 }

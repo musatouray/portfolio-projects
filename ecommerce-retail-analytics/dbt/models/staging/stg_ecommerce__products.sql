@@ -14,8 +14,9 @@ renamed as (
 
     select
         trim(product_id) as product_id,
+        trim(s.product_name) as product_name,
         trim(product_category_name) as product_category,
-        t.product_category_english,
+        COALESCE(t.product_category_english, 'Uncategorized') as product_category_english,
         product_name_lenght::int as name_length,
         product_description_lenght::int as description_length,
         product_photos_qty::int as photos_qty,

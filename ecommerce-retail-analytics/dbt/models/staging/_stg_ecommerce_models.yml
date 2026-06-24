@@ -228,6 +228,10 @@ models:
         data_tests:
           - not_null
           - unique
+      - name: product_name
+        description: "descriptive name of the product"
+        data_tests:
+          - not_null
       - name: product_category
         description: "Category of the product in Portuguese"
       - name: product_category_english

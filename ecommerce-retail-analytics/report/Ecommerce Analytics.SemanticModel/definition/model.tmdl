@@ -33,6 +33,8 @@ ref table 'Top/Bottom Selector'
 ref table 'Param: Cohort Retention'
 ref table 'Disconnected Calendar'
 ref table 'Param: Cohort Size'
+ref table 'Param: Pareto Threshold'
+ref table 'Pareto Products'
 
 ref cultureInfo en-US
 

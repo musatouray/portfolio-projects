@@ -456,7 +456,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Jul-2018'"
+                                "Value": "'Jun-2024'"
                               }
                             }
                           ]
@@ -987,7 +987,7 @@
                     "DateSpan": {
                       "Expression": {
                         "Literal": {
-                          "Value": "datetime'2018-09-03T00:00:00'"
+                          "Value": "datetime'2024-07-31T00:00:00'"
                         }
                       },
                       "TimeUnit": 5

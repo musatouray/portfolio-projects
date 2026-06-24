@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "products_table",
   "position": {
-    "x": 24.313975108460777,
-    "y": 291.76770130152931,
-    "z": 8000,
-    "height": 768.78473676275985,
-    "width": 1171.70203856011,
+    "x": 30.363424400628517,
+    "y": 411.07405342389376,
+    "z": 0,
+    "height": 649.31015256728676,
+    "width": 1603.4223731562674,
     "tabOrder": 9000
   },
   "visual": {
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FCT_PARETO_PRODUCTS"
+                      "Entity": "DIM_PRODUCTS"
                     }
                   },
                   "Property": "PRODUCT_CATEGORY"
                 }
               },
-              "queryRef": "FCT_PARETO_PRODUCTS.PRODUCT_CATEGORY",
-              "nativeQueryRef": "Category"
+              "queryRef": "DIM_PRODUCTS.PRODUCT_CATEGORY",
+              "nativeQueryRef": "PRODUCT_CATEGORY"
             },
             {
               "field": {
@@ -37,11 +37,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Products"
+                  "Property": "Total Revenue Order Items"
                 }
               },
-              "queryRef": "_Measures.Total Products",
-              "nativeQueryRef": "Products"
+              "queryRef": "_Measures.Total Revenue Order Items",
+              "nativeQueryRef": "Total Revenue Order Items"
             },
             {
               "field": {
@@ -51,11 +51,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Product Revenue"
+                  "Property": "Running Total Product Revenue"
                 }
               },
               "queryRef": "_Measures.Product Revenue",
-              "nativeQueryRef": "Revenue"
+              "nativeQueryRef": "Running Total Product Revenue"
             },
             {
               "field": {
@@ -65,39 +65,25 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Product Orders"
-                }
-              },
-              "queryRef": "_Measures.Product Orders",
-              "nativeQueryRef": "Orders"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Avg Revenue per Product"
-                }
-              },
-              "queryRef": "_Measures.Avg Revenue per Product",
-              "nativeQueryRef": "Avg Rev"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Category Revenue %"
+                  "Property": "Product Revenue Contribution"
                 }
               },
               "queryRef": "_Measures.Category Revenue %",
-              "nativeQueryRef": "% of Total"
+              "nativeQueryRef": "Product Revenue Contribution"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Running Total Product Revenue Contribution"
+                }
+              },
+              "queryRef": "_Measures.Running Total Product Revenue Contribution",
+              "nativeQueryRef": "Running Total Product Revenue Contribution"
             }
           ]
         }
@@ -112,7 +98,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Product Revenue"
+                "Property": "Total Revenue Order Items"
               }
             },
             "direction": "Descending"
@@ -143,5 +129,23 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "f983b9403556094321ce",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DIM_PRODUCTS"
+              }
+            },
+            "Property": "PRODUCT_CATEGORY"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }

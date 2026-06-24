@@ -554,12 +554,49 @@ table _Measures
 	/// =============================================
 	/// _Product Performance Measures (Pareto)
 	/// =============================================
-	measure 'Product Revenue' = SUM(FCT_ORDER_ITEMS[ITEM_TOTAL])
-		formatString: $#,##0
+	measure 'Running Total Product Revenue' = ```
+			
+			CALCULATE(
+			    [Total Revenue Order Items],
+			    WINDOW(
+			        1, ABS,
+			        0, REL,
+			        ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]),
+			        ORDERBY([Total Revenue Order Items], DESC)
+			    )
+			)
+			
+			```
 		displayFolder: 03_Product
 		lineageTag: p1000001-0001-0001-0001-000000000001
 
-	measure 'Product Orders' = DISTINCTCOUNT(FCT_ORDER_ITEMS[ORDER_ID])
+		formatStringDefinition = ```
+				VAR __FormattedRevenue = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __FormattedRevenue <= 1E3, "$#,0.;-#,0.;0",
+				        __FormattedRevenue <= 1E4, "$#,0,.00K;-#,0,.00K;0",
+				        __FormattedRevenue <= 1E5, "$#,0,.0K;-#,0,.0K;0",
+				        __FormattedRevenue <= 1E6, "$#,0,.K;-#,0,.K;0",
+				        __FormattedRevenue <= 1E7, "$#,0,,.00M;-#,0,,.00M;0",
+				        __FormattedRevenue <= 1E8, "$#,0,,.0M;-#,0,,.0M;0",
+				        __FormattedRevenue <= 1E9, "$#,0,,.M;-#,0,,.M;0"
+				    )
+				
+				```
+
+	measure 'Running Total Product Orders' =
+			
+			CALCULATE(
+			    [Total Order Items],
+			    WINDOW(
+			        1, ABS,
+			        0, REL,
+			        ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]),
+			        ORDERBY([Total Order Items], DESC)
+			    )
+			)
 		formatString: #,##0
 		displayFolder: 03_Product
 		lineageTag: p1000002-0001-0001-0001-000000000002
@@ -569,38 +606,39 @@ table _Measures
 		displayFolder: 03_Product
 		lineageTag: p1000003-0001-0001-0001-000000000003
 
-	measure 'Top 20% Products Count' =
-			CALCULATE(
-				COUNTROWS(FCT_PARETO_PRODUCTS),
-				FCT_PARETO_PRODUCTS[PARETO_SEGMENT] = "Top 20%"
+	measure 'Running Total Product Revenue Contribution' = ```
+			
+			VAR __AllSelectedRevenue =
+			    CALCULATE(
+			        [Total Revenue Order Items],
+			        ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY])
+			    )
+			
+			VAR __CategoryTable = 
+			    ADDCOLUMNS(
+			        ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]),
+			        "@CategoryRevenue", [Total Revenue Order Items]
+			    )
+			
+			VAR __RunningTotalRevenue =
+			SUMX(
+			    WINDOW(
+			        1, ABS,
+			        0, REL,
+			        __CategoryTable,
+			        ORDERBY([@CategoryRevenue], DESC)
+			    ),
+			    [@CategoryRevenue]
 			)
-		formatString: #,##0
-		displayFolder: 03_Product
-		lineageTag: p1000004-0001-0001-0001-000000000004
-
-	measure 'Top 20% Revenue' =
-			CALCULATE(
-				SUM(FCT_PARETO_PRODUCTS[TOTAL_REVENUE]),
-				FCT_PARETO_PRODUCTS[PARETO_SEGMENT] = "Top 20%"
-			)
-		formatString: $#,##0
-		displayFolder: 03_Product
-		lineageTag: p1000005-0001-0001-0001-000000000005
-
-	measure 'Top 20% Revenue %' =
-			DIVIDE(
-				[Top 20% Revenue],
-				[Product Revenue],
-				0
-			)
-		formatString: 0.0%
-		displayFolder: 03_Product
-		lineageTag: p1000006-0001-0001-0001-000000000006
-
-	measure 'Avg Revenue per Product' = DIVIDE([Product Revenue], [Total Products], 0)
-		formatString: $#,##0
+			
+			RETURN
+			    DIVIDE( __RunningTotalRevenue, __AllSelectedRevenue, 0 )
+			    
+			```
 		displayFolder: 03_Product
 		lineageTag: p1000007-0001-0001-0001-000000000007
+
+		formatStringDefinition = "0.0%"
 
 	measure 'Total Categories' = DISTINCTCOUNT(DIM_PRODUCTS[PRODUCT_CATEGORY])
 		formatString: #,##0
@@ -1031,25 +1069,28 @@ table _Measures
 		displayFolder: 04_Funnel
 		lineageTag: e558dd58-2114-44fb-b0da-31a508c47895
 
-	measure 'Category Revenue %' = ```
+	measure 'Product Revenue Contribution' = ```
 			
-			VAR __ProductRevenue = [Product Revenue]
-			VAR __AllProductCategoryRevenue = 
+			VAR __ProductRevenue = [Total Revenue Order Items]
+			VAR __AllSelectedProductRevenue = 
 			    CALCULATE(
-			        [Product Revenue], 
+			        [Total Revenue Order Items], 
 			        ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY])
 			    )
 			
 			RETURN
-			DIVIDE(
-				__ProductRevenue,
-				__AllProductCategoryRevenue,
-			    0
-			)
+			    DIVIDE(
+			        __ProductRevenue,
+			        __AllSelectedProductRevenue,
+			        0
+			    )
+			
+			
 			```
-		formatString: 0.0%
 		displayFolder: 03_Product
 		lineageTag: 2f5b12f4-ebab-4b0a-b04b-66daa04ec37d
+
+		formatStringDefinition = "0.0%"
 
 	measure 'Max Lift' = MAX(FCT_MARKET_BASKET[LIFT])
 		formatString: 0.00
@@ -1797,19 +1838,14 @@ table _Measures
 	measure 'Total Revenue Order Items' = ```
 			
 			SUM(FCT_ORDER_ITEMS[ITEM_TOTAL])
-			// VAR __MaxDate = CALCULATE(MAX(FCT_ORDERS[ORDER_DATE]), ALLSELECTED(DIM_DATES[DATE]))
-			// RETURN
-			// CALCULATE(
-			//     SUM(FCT_ORDER_ITEMS[ITEM_TOTAL]),
-			//     KEEPFILTERS(DIM_DATES[DATE] <= __MaxDate)
-			// )
+			
 			
 			```
 		displayFolder: 00_Base\_Order Items
 		lineageTag: ab90bcb8-a812-481e-abf2-71d03a82d1ea
 
 		formatStringDefinition = ```
-				VAR __FormattedRevenue = [Total Revenue Order Items]
+				VAR __FormattedRevenue = SELECTEDMEASURE()
 				RETURN
 				    SWITCH (
 				        TRUE (),
@@ -1825,9 +1861,22 @@ table _Measures
 				```
 
 	measure 'Total Order Items' = COUNTROWS(VALUES(FCT_ORDER_ITEMS[ORDER_ID]))
-		formatString: #,0
 		displayFolder: 00_Base\_Order Items
 		lineageTag: c63af139-3662-4496-8780-b91061008cb2
+
+		formatStringDefinition =
+				VAR __FormattedOrders = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __FormattedOrders <= 1E3, "#,0;-#,0;0",
+				        __FormattedOrders <= 1E4, "#,0,K;-#,0,K;0",
+				        __FormattedOrders <= 1E5, "#,0,K;-#,0,K;0",
+				        __FormattedOrders <= 1E6, "#,0,K;-#,0,K;0",
+				        __FormattedOrders <= 1E7, "#,0,,M;-#,0,,M;0",
+				        __FormattedOrders <= 1E8, "#,0,,M;-#,0,,M;0",
+				        __FormattedOrders <= 1E9, "#,0,,M;-#,0,,M;0"
+				    )
 
 	measure 'Rank: Products by Revenue' = ```
 			
@@ -2246,9 +2295,9 @@ table _Measures
 			-- ============================================================================
 			-- Top & bottom category
 			-- ============================================================================
-			VAR __TopCatRow       = TOPN( 1, VALUES( DIM_PRODUCTS[PRODUCT_CATEGORY] ), [Product Revenue], DESC )
+			VAR __TopCatRow       = TOPN( 1, VALUES( DIM_PRODUCTS[PRODUCT_CATEGORY] ), [Running Total Product Revenue], DESC )
 			VAR __TopCategory     = MAXX( __TopCatRow, DIM_PRODUCTS[PRODUCT_CATEGORY] )
-			VAR __TopCatRevenue   = MAXX( __TopCatRow, [Product Revenue] )
+			VAR __TopCatRevenue   = MAXX( __TopCatRow, [Running Total Product Revenue] )
 			VAR __TopCatLabel     =
 			    SWITCH( TRUE(),
 			        __TopCatRevenue >= 1000000, FORMAT( __TopCatRevenue / 1000000, "$#,##0.0" ) & "M",
@@ -2259,8 +2308,8 @@ table _Measures
 			VAR __BottomCatRow    =
 			    TOPN(
 			        1,
-			        FILTER( VALUES( DIM_PRODUCTS[PRODUCT_CATEGORY] ), NOT ISBLANK( [Product Revenue] ) ),
-			        [Product Revenue],
+			        FILTER( VALUES( DIM_PRODUCTS[PRODUCT_CATEGORY] ), NOT ISBLANK( [Running Total Product Revenue] ) ),
+			        [Running Total Product Revenue],
 			        ASC
 			    )
 			VAR __BottomCategory  = MAXX( __BottomCatRow, DIM_PRODUCTS[PRODUCT_CATEGORY] )

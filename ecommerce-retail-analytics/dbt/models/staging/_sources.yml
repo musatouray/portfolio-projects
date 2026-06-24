@@ -197,6 +197,11 @@ sources:
             data_tests:
               - not_null
               - unique
+          - name: product_name
+            data_type: varchar
+            description: "Descriptive product name for display in reports"
+            data_tests:
+              - not_null
           - name: product_category_name
             data_type: varchar
             description: "category of the product, can be used to analyze sales trends by product category and calculate category-level metrics"

@@ -1,0 +1,255 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "f6735ad350884ecbc73c",
+  "position": {
+    "x": 1017.1747174210553,
+    "y": 363.19326879213344,
+    "z": 8001,
+    "height": 691.35181712200313,
+    "width": 868.86106746413907,
+    "tabOrder": 8001
+  },
+  "visual": {
+    "visualType": "shapeMap",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DIM_SELLERS"
+                    }
+                  },
+                  "Property": "STATE"
+                }
+              },
+              "queryRef": "DIM_SELLERS.STATE",
+              "nativeQueryRef": "STATE"
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Revenue Order Items"
+                }
+              },
+              "queryRef": "_Measures.Total Revenue Order Items",
+              "nativeQueryRef": "Total Revenue Order Items"
+            }
+          ]
+        },
+        "Value": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Order Items"
+                }
+              },
+              "queryRef": "_Measures.Total Order Items",
+              "nativeQueryRef": "Total Order Items"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "dataPoint": [
+        {
+          "properties": {
+            "fillRule": {
+              "linearGradient2": {
+                "min": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'minColor'"
+                      }
+                    }
+                  }
+                },
+                "max": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'maxColor'"
+                      }
+                    }
+                  }
+                },
+                "nullColoringStrategy": {
+                  "strategy": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'asZero'"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "shape": [
+        {
+          "properties": {
+            "datasourceType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'file_upload'"
+                }
+              }
+            },
+            "mapUrl": {
+              "expr": {
+                "Literal": {
+                  "Value": "''"
+                }
+              }
+            },
+            "map": {
+              "geoJson": {
+                "type": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'shared'"
+                    }
+                  }
+                },
+                "name": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'usa.states.topo'"
+                    }
+                  }
+                },
+                "content": {
+                  "expr": {
+                    "ResourcePackageItem": {
+                      "PackageName": "SharedResources",
+                      "PackageType": 2,
+                      "ItemName": "usa.states.topo"
+                    }
+                  }
+                }
+              }
+            },
+            "projectionEnum": {
+              "expr": {
+                "Literal": {
+                  "Value": "'albersUsa'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "zoom": [
+        {
+          "properties": {
+            "autoZoom": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "selectionZoom": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'State Detail'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "7444d17be04680ed0da6",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DIM_SELLERS"
+              }
+            },
+            "Property": "STATE"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "85ce0b60db0898d8e21d",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Total Order Items"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "e85d5c73b175d2242c59",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Total Revenue Order Items"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+table 'Pareto Products'
+	lineageTag: 1709ab38-b7ef-4fdb-8a2d-dd00cbcabead
+
+	column 'Pareto Category'
+		lineageTag: 9694f494-4993-4196-b4ac-55de11a22246
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Name'
+		lineageTag: 47cf18d8-a447-4d92-9c22-26e46a7f550a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Product Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Pareto Products' = calculated
+		mode: import
+		source =
+				
+				CROSSJOIN(
+				    {"Best Selling", "Others"},
+				    SELECTCOLUMNS(DIM_PRODUCTS, "Product Name", DIM_PRODUCTS[PRODUCT_CATEGORY])
+				)
+
+	annotation PBI_Id = ec34c7837f1e477fbe46fa2ab99c38fa
+

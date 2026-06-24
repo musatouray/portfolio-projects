@@ -264,6 +264,25 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Param: Pareto Threshold",
+          "nodeLineageTag": "7bf6c623-6bd0-4096-a54c-e7e43196b639",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Pareto Products",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
@@ -428,11 +447,10 @@
           "nodeIndex": "DIM_PRODUCTS",
           "nodeLineageTag": "d13f411b-6e61-4583-af51-62ff5350c900",
           "size": {
-            "height": 104,
+            "height": 300,
             "width": 234
           },
-          "zIndex": 0,
-          "expandedHeight": 300
+          "zIndex": 0
         },
         {
           "location": {
@@ -461,6 +479,19 @@
           },
           "zIndex": 0,
           "expandedHeight": 272
+        },
+        {
+          "location": {
+            "x": 1381.2000007629395,
+            "y": 47
+          },
+          "nodeIndex": "Pareto Products",
+          "nodeLineageTag": "1709ab38-b7ef-4fdb-8a2d-dd00cbcabead",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "Products",
@@ -613,6 +644,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Dates",
+  "selectedDiagram": "Products",
   "defaultDiagram": "All tables"
 }

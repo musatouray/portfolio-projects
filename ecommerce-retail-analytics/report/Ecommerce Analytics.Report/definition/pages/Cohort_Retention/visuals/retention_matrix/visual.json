@@ -1849,6 +1849,20 @@
           }
         },
         "type": "Categorical"
+      },
+      {
+        "name": "9a2f9f5e5502b2484020",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Gross Revenue Retention (GRR) %"
+          }
+        },
+        "type": "Advanced"
       }
     ]
   }
