@@ -12,6 +12,7 @@ from pathlib import Path
 import boto3
 import pandas as pd
 from airflow import DAG
+from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
 from airflow.providers.snowflake.operators.snowflake import SnowflakeOperator
 from dotenv import load_dotenv
@@ -248,6 +249,14 @@ with DAG(
         python_callable=validate_copy_results,
     )
 
+    # Run dbt to transform data into production marts
+    dbt_build = BashOperator(
+        task_id="dbt_build_prod",
+        bash_command="cd /opt/airflow/dbt && dbt deps --quiet && dbt build",
+        retries=2,
+        retry_delay=timedelta(minutes=2),
+    )
+
     cleanup = PythonOperator(
         task_id="cleanup_local_files",
         python_callable=cleanup_daily_files,
@@ -258,4 +267,4 @@ with DAG(
     generate >> upload
     upload >> [copy_orders, copy_order_items, copy_order_payments, copy_order_reviews]
     [copy_orders, copy_order_items, copy_order_payments, copy_order_reviews] >> validate
-    validate >> cleanup
+    validate >> dbt_build >> cleanup
