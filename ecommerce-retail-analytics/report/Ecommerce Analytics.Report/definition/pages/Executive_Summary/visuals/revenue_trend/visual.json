@@ -23,11 +23,11 @@
                       "Entity": "DIM_DATES"
                     }
                   },
-                  "Property": "DATE"
+                  "Property": "MONTH_YEAR"
                 }
               },
-              "queryRef": "DIM_DATES.DATE",
-              "nativeQueryRef": "DATE",
+              "queryRef": "DIM_DATES.MONTH_YEAR",
+              "nativeQueryRef": "MONTH_YEAR",
               "active": true
             }
           ]

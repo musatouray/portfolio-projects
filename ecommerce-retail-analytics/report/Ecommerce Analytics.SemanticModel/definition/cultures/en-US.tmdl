@@ -14917,16 +14917,6 @@ cultureInfo en-US
 			            },
 			            "Weight": 0.485
 			          }
-			        },
-			        {
-			          "Retention": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
 			        }
 			      ]
 			    },
@@ -16325,7 +16315,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Product Revenue"
+			          "ConceptualProperty": "Running Total Product Revenue"
 			        }
 			      },
 			      "State": "Generated",
@@ -16421,7 +16411,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Product Orders"
+			          "ConceptualProperty": "Running Total Product Orders"
 			        }
 			      },
 			      "State": "Generated",
@@ -16655,359 +16645,11 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure.top_20_products_count": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Top 20% Products Count"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "top 20% products count": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "top 20% product amount": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.757
-			          }
-			        },
-			        {
-			          "top 20 percentage product count": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.624
-			          }
-			        },
-			        {
-			          "top 20% artifact count": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.624
-			          }
-			        },
-			        {
-			          "best 20% product count": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.605
-			          }
-			        },
-			        {
-			          "first 20% product count": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.605
-			          }
-			        },
-			        {
-			          "leading 20% product count": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.605
-			          }
-			        },
-			        {
-			          "maximum 20% product count": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.605
-			          }
-			        },
-			        {
-			          "peak 20% product count": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.605
-			          }
-			        },
-			        {
-			          "upper 20% product count": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.605
-			          }
-			        },
-			        {
-			          "top 20 pct product count": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.605
-			          }
-			        }
-			      ]
-			    },
-			    "entity__measure.top_20_revenue": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Top 20% Revenue"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "top 20% revenue": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "top 20% income": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.771
-			          }
-			        },
-			        {
-			          "top 20% profit": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.748
-			          }
-			        },
-			        {
-			          "top 20% turnover": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.748
-			          }
-			        },
-			        {
-			          "top 20% yield": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.748
-			          }
-			        },
-			        {
-			          "top 20 percentage revenue": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.617
-			          }
-			        },
-			        {
-			          "best 20% revenue": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.599
-			          }
-			        },
-			        {
-			          "first 20% revenue": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.599
-			          }
-			        },
-			        {
-			          "leading 20% revenue": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.599
-			          }
-			        },
-			        {
-			          "maximum 20% revenue": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.599
-			          }
-			        },
-			        {
-			          "peak 20% revenue": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.599
-			          }
-			        }
-			      ]
-			    },
-			    "entity__measure.top_20_revenue_": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Top 20% Revenue %"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "top 20% revenue %": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "top 20% revenue percentage": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.78
-			          }
-			        },
-			        {
-			          "top 20% revenue pct": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.757
-			          }
-			        },
-			        {
-			          "top 20 percentage revenue %": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.624
-			          }
-			        },
-			        {
-			          "top 20% income %": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.624
-			          }
-			        },
-			        {
-			          "best 20% revenue %": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.605
-			          }
-			        },
-			        {
-			          "first 20% revenue %": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.605
-			          }
-			        },
-			        {
-			          "leading 20% revenue %": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.605
-			          }
-			        },
-			        {
-			          "maximum 20% revenue %": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.605
-			          }
-			        },
-			        {
-			          "peak 20% revenue %": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.605
-			          }
-			        },
-			        {
-			          "upper 20% revenue %": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.605
-			          }
-			        }
-			      ]
-			    },
 			    "entity__measure.avg_revenue_per_product": {
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Avg Revenue per Product"
+			          "ConceptualProperty": "Running Total Product Revenue Contribution"
 			        }
 			      },
 			      "State": "Generated",
@@ -21689,7 +21331,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Category Revenue %"
+			          "ConceptualProperty": "Product Revenue Contribution"
 			        }
 			      },
 			      "State": "Generated",
@@ -36494,7 +36136,7 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure.cohort_lifetime_revenue": {
+			    "entity__measure.cohort_initial_revenue": {
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
@@ -36504,18 +36146,18 @@ cultureInfo en-US
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "cohort lifetime revenue": {
+			          "cohort initial revenue": {
 			            "State": "Generated"
 			          }
 			        },
 			        {
-			          "lifetime revenue": {
+			          "initial revenue": {
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
 			        },
 			        {
-			          "cohort lifetime income": {
+			          "cohort initial income": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -36525,7 +36167,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "lifetime income": {
+			          "initial income": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -36535,7 +36177,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "cohort lifetime profit": {
+			          "cohort initial profit": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -36545,7 +36187,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "cohort lifetime turnover": {
+			          "cohort initial turnover": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -36555,7 +36197,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "cohort lifetime yield": {
+			          "cohort initial yield": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -36565,7 +36207,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "lifetime profit": {
+			          "initial profit": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -36575,7 +36217,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "lifetime turnover": {
+			          "initial turnover": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -36585,7 +36227,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "lifetime yield": {
+			          "initial yield": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -36990,11 +36632,11 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure.entity__cohort_lifetime_revenue_FormatString": {
+			    "entity__measure.entity__cohort_period_subtitle_FormatString": {
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "_Cohort Lifetime Revenue FormatString"
+			          "ConceptualProperty": "_Cohort Period Subtitle FormatString"
 			        }
 			      },
 			      "State": "Generated",
@@ -37003,48 +36645,8 @@ cultureInfo en-US
 			      },
 			      "Terms": [
 			        {
-			          "_cohort lifetime revenue FormatString": {
+			          "_cohort period subtitle FormatString": {
 			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "_cohort lifetime income formatstring": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.624
-			          }
-			        },
-			        {
-			          "_cohort lifetime profit formatstring": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.605
-			          }
-			        },
-			        {
-			          "_cohort lifetime turnover formatstring": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.605
-			          }
-			        },
-			        {
-			          "_cohort lifetime yield formatstring": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.605
 			          }
 			        }
 			      ]
@@ -38279,7 +37881,7 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure.cohort_period_title": {
+			    "entity__measure.cohort_period_subtitle": {
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
@@ -38289,120 +37891,120 @@ cultureInfo en-US
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "cohort period title": {
+			          "cohort period subtitle": {
 			            "State": "Generated"
 			          }
 			        },
 			        {
-			          "title": {
+			          "subtitle": {
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
 			        },
 			        {
-			          "period title": {
+			          "period subtitle": {
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
 			        },
 			        {
-			          "cohort period designation": {
+			          "cohort period slogan": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.762
+			            "Weight": 0.508
 			          }
 			        },
 			        {
-			          "period designation": {
+			          "cohort period description": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.75
+			            "Weight": 0.508
 			          }
 			        },
 			        {
-			          "cohort period name": {
+			          "cohort period legend": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.739
+			            "Weight": 0.508
 			          }
 			        },
 			        {
-			          "cohort period award": {
+			          "cohort period header": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.739
+			            "Weight": 0.508
 			          }
 			        },
 			        {
-			          "cohort period call": {
+			          "cohort period footer": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.739
+			            "Weight": 0.508
 			          }
 			        },
 			        {
-			          "cohort period heading": {
+			          "cohort period surtitle": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.739
+			            "Weight": 0.508
 			          }
 			        },
 			        {
-			          "cohort period label": {
+			          "cohort period supertitle": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.739
+			            "Weight": 0.508
 			          }
 			        },
 			        {
-			          "designation": {
+			          "period slogan": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.736
+			            "Weight": 0.5
 			          }
 			        },
 			        {
-			          "period name": {
+			          "period description": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.727
+			            "Weight": 0.5
 			          }
 			        },
 			        {
-			          "period award": {
+			          "period legend": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.727
+			            "Weight": 0.5
 			          }
 			        }
 			      ]
@@ -38697,11 +38299,11 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure.entity__cohort_period_title_FormatString": {
+			    "entity__measure.entity__cohort_initial_revenue_FormatString": {
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "_Cohort Period Title FormatString"
+			          "ConceptualProperty": "_Cohort Initial Revenue FormatString"
 			        }
 			      },
 			      "State": "Generated",
@@ -38710,12 +38312,12 @@ cultureInfo en-US
 			      },
 			      "Terms": [
 			        {
-			          "_cohort period title FormatString": {
+			          "_cohort initial revenue FormatString": {
 			            "State": "Generated"
 			          }
 			        },
 			        {
-			          "_cohort period designation formatstring": {
+			          "_cohort initial income formatstring": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -38725,7 +38327,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "_cohort period name formatstring": {
+			          "_cohort initial profit formatstring": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -38735,7 +38337,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "_cohort period award formatstring": {
+			          "_cohort initial turnover formatstring": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -38745,27 +38347,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "_cohort period call formatstring": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.605
-			          }
-			        },
-			        {
-			          "_cohort period heading formatstring": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.605
-			          }
-			        },
-			        {
-			          "_cohort period label formatstring": {
+			          "_cohort initial yield formatstring": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -43983,7 +43565,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "Segment": {
+			          "NPS": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -43993,7 +43575,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "NPS": {
+			          "Segment": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -46023,26 +45605,23 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure.entity__cohort_gross_retained_revenue_FormatString": {
+			    "entity__measure.net_revenue_retention_NRR_": {
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "_Cohort Gross Retained Revenue FormatString"
+			          "ConceptualProperty": "Net Revenue Retention (NRR) %"
 			        }
 			      },
 			      "State": "Generated",
-			      "Visibility": {
-			        "Value": "Hidden"
-			      },
 			      "Terms": [
 			        {
-			          "_cohort gross retained revenue FormatString": {
+			          "net revenue retention (NRR) %": {
 			            "State": "Generated"
 			          }
 			        }
 			      ]
 			    },
-			    "entity__measure.cohort_net_retained_revenue": {
+			    "entity__measure.cohort_net_retained_revenue_NRR": {
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
@@ -46052,53 +45631,19 @@ cultureInfo en-US
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "cohort net retained revenue": {
+			          "cohort net retained revenue (NRR)": {
 			            "State": "Generated"
 			          }
 			        },
 			        {
-			          "cohort net retained income": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.771
-			          }
-			        },
-			        {
-			          "cohort net retained profit": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.748
-			          }
-			        },
-			        {
-			          "cohort net retained turnover": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.748
-			          }
-			        },
-			        {
-			          "cohort net retained yield": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.748
+			          "cohort net retained revenue": {
+			            "State": "Generated",
+			            "Weight": 0.75
 			          }
 			        }
 			      ]
 			    },
-			    "entity__measure.cohort_gross_retained_revenue": {
+			    "entity__measure.cohort_gross_retained_revenue_GRR": {
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
@@ -46108,107 +45653,49 @@ cultureInfo en-US
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "cohort gross retained revenue": {
+			          "cohort gross retained revenue (GRR)": {
 			            "State": "Generated"
 			          }
 			        },
 			        {
-			          "cohort gross retained income": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.771
-			          }
-			        },
-			        {
-			          "cohort gross retained profit": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.748
-			          }
-			        },
-			        {
-			          "cohort gross retained turnover": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.748
-			          }
-			        },
-			        {
-			          "cohort gross retained yield": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.748
-			          }
-			        },
-			        {
-			          "cohort aggregate retained revenue": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.665
-			          }
-			        },
-			        {
-			          "cohort overall retained revenue": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.665
-			          }
-			        },
-			        {
-			          "cohort whole retained revenue": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.665
-			          }
-			        },
-			        {
-			          "cohort sum retained revenue": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.599
-			          }
-			        },
-			        {
-			          "cohort total retained revenue": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.599
+			          "cohort gross retained revenue": {
+			            "State": "Generated",
+			            "Weight": 0.75
 			          }
 			        }
 			      ]
 			    },
-			    "entity__measure.entity__cohort_net_retained_revenue_FormatString": {
+			    "entity__measure.gross_revenue_retention_GRR_": {
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "_Cohort Net Retained Revenue FormatString"
+			          "ConceptualProperty": "Gross Revenue Retention (GRR) %"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "gross revenue retention (GRR) %": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "GRR": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__cohort_gross_retained_revenue_GRR_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_Cohort Gross Retained Revenue (GRR) FormatString"
 			        }
 			      },
 			      "State": "Generated",
@@ -46217,7 +45704,64 @@ cultureInfo en-US
 			      },
 			      "Terms": [
 			        {
-			          "_cohort net retained revenue FormatString": {
+			          "_cohort gross retained revenue (GRR) FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__cohort_net_retained_revenue_NRR_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_Cohort Net Retained Revenue (NRR) FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_cohort net retained revenue (NRR) FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__gross_revenue_retention_GRR__FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_Gross Revenue Retention (GRR) % FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_gross revenue retention (GRR) % FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__net_revenue_retention_NRR__FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_Net Revenue Retention (NRR) % FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_net revenue retention (NRR) % FormatString": {
 			            "State": "Generated"
 			          }
 			        }
@@ -46225,7 +45769,7 @@ cultureInfo en-US
 			    }
 			  },
 			  "Relationships": {
-			    "fct_cohort_retention_has_entity__measure_cohort_gross_retained_revenue": {
+			    "fct_cohort_retention_has_entity__measure_gross_revenue_retention_GRR_": {
 			      "Binding": {
 			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
@@ -46236,9 +45780,9 @@ cultureInfo en-US
 			            "Entity": "fct_cohort_retention"
 			          }
 			        },
-			        "entity__measure.cohort_gross_retained_revenue": {
+			        "entity__measure.gross_revenue_retention_GRR_": {
 			          "Target": {
-			            "Entity": "entity__measure.cohort_gross_retained_revenue"
+			            "Entity": "entity__measure.gross_revenue_retention_GRR_"
 			          }
 			        }
 			      },
@@ -46249,16 +45793,16 @@ cultureInfo en-US
 			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
-			              "Role": "entity__measure.cohort_gross_retained_revenue"
+			              "Role": "entity__measure.gross_revenue_retention_GRR_"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "fct_cohort_retentions_have_cohort_gross_retained_revenue"
+			          "ID": "fct_cohort_retentions_have_gross_revenue_retention_GRR_"
 			        }
 			      ]
 			    },
-			    "fct_cohort_retention_has_entity__measure_cohort_net_retained_revenue": {
+			    "fct_cohort_retention_has_entity__measure_cohort_gross_retained_revenue_GRR": {
 			      "Binding": {
 			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
@@ -46269,9 +45813,9 @@ cultureInfo en-US
 			            "Entity": "fct_cohort_retention"
 			          }
 			        },
-			        "entity__measure.cohort_net_retained_revenue": {
+			        "entity__measure.cohort_gross_retained_revenue_GRR": {
 			          "Target": {
-			            "Entity": "entity__measure.cohort_net_retained_revenue"
+			            "Entity": "entity__measure.cohort_gross_retained_revenue_GRR"
 			          }
 			        }
 			      },
@@ -46282,12 +45826,78 @@ cultureInfo en-US
 			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
-			              "Role": "entity__measure.cohort_net_retained_revenue"
+			              "Role": "entity__measure.cohort_gross_retained_revenue_GRR"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "fct_cohort_retentions_have_cohort_net_retained_revenue"
+			          "ID": "fct_cohort_retentions_have_cohort_gross_retained_revenue_GRR"
+			        }
+			      ]
+			    },
+			    "fct_cohort_retention_has_entity__measure_cohort_net_retained_revenue_NRR": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_cohort_retention": {
+			          "Target": {
+			            "Entity": "fct_cohort_retention"
+			          }
+			        },
+			        "entity__measure.cohort_net_retained_revenue_NRR": {
+			          "Target": {
+			            "Entity": "entity__measure.cohort_net_retained_revenue_NRR"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_cohort_retention"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.cohort_net_retained_revenue_NRR"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_cohort_retentions_have_cohort_net_retained_revenue_NRR"
+			        }
+			      ]
+			    },
+			    "fct_cohort_retention_has_entity__measure_net_revenue_retention_NRR_": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_cohort_retention": {
+			          "Target": {
+			            "Entity": "fct_cohort_retention"
+			          }
+			        },
+			        "entity__measure.net_revenue_retention_NRR_": {
+			          "Target": {
+			            "Entity": "entity__measure.net_revenue_retention_NRR_"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_cohort_retention"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.net_revenue_retention_NRR_"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_cohort_retentions_have_net_revenue_retention_NRR_"
 			        }
 			      ]
 			    },
@@ -47809,20 +47419,20 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure_has_cohort_period_title": {
+			    "fct_cohort_retention_has_entity__measure_cohort_period_subtitle": {
 			      "Binding": {
-			        "ConceptualEntity": "_Measures"
+			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
 			      "State": "Generated",
 			      "Roles": {
-			        "entity__measure": {
+			        "fct_cohort_retention": {
 			          "Target": {
-			            "Entity": "entity__measure"
+			            "Entity": "fct_cohort_retention"
 			          }
 			        },
-			        "entity__measure.cohort_period_title": {
+			        "entity__measure.cohort_period_subtitle": {
 			          "Target": {
-			            "Entity": "entity__measure.cohort_period_title"
+			            "Entity": "entity__measure.cohort_period_subtitle"
 			          }
 			        }
 			      },
@@ -47830,15 +47440,48 @@ cultureInfo en-US
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "entity__measure"
+			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
-			              "Role": "entity__measure.cohort_period_title"
+			              "Role": "entity__measure.cohort_period_subtitle"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_cohort_period_title"
+			          "ID": "fct_cohort_retentions_have_cohort_period_subtitle"
+			        }
+			      ]
+			    },
+			    "disconnected_calendar_has_entity__measure_cohort_period_subtitle": {
+			      "Binding": {
+			        "ConceptualEntity": "Disconnected Calendar"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "disconnected_calendar": {
+			          "Target": {
+			            "Entity": "disconnected_calendar"
+			          }
+			        },
+			        "entity__measure.cohort_period_subtitle": {
+			          "Target": {
+			            "Entity": "entity__measure.cohort_period_subtitle"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "disconnected_calendar"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.cohort_period_subtitle"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "disconnected_calendars_have_cohort_period_subtitle"
 			        }
 			      ]
 			    },
@@ -48086,7 +47729,7 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "fct_cohort_retention_has_entity__measure_cohort_lifetime_revenue": {
+			    "fct_cohort_retention_has_entity__measure_cohort_initial_revenue": {
 			      "Binding": {
 			        "ConceptualEntity": "FCT_COHORT_RETENTION"
 			      },
@@ -48097,9 +47740,9 @@ cultureInfo en-US
 			            "Entity": "fct_cohort_retention"
 			          }
 			        },
-			        "entity__measure.cohort_lifetime_revenue": {
+			        "entity__measure.cohort_initial_revenue": {
 			          "Target": {
-			            "Entity": "entity__measure.cohort_lifetime_revenue"
+			            "Entity": "entity__measure.cohort_initial_revenue"
 			          }
 			        }
 			      },
@@ -48110,12 +47753,12 @@ cultureInfo en-US
 			              "Role": "fct_cohort_retention"
 			            },
 			            "Object": {
-			              "Role": "entity__measure.cohort_lifetime_revenue"
+			              "Role": "entity__measure.cohort_initial_revenue"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "fct_cohort_retentions_have_cohort_lifetime_revenue"
+			          "ID": "fct_cohort_retentions_have_cohort_initial_revenue"
 			        }
 			      ]
 			    },

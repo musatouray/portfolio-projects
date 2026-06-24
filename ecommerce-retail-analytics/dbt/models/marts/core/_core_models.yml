@@ -125,6 +125,11 @@ models:
           - unique
           - not_null
 
+      - name: product_name
+        description: Descriptive product name for display in reports and analytics
+        data_tests:
+          - not_null
+
       - name: product_category
         description: Product category name in English (translated from Portuguese)
 

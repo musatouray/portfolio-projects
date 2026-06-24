@@ -15,6 +15,7 @@ final AS (
         p.product_id,
 
         -- Clean, descriptive text descriptors
+        p.product_name,
         p.product_category_english AS product_category,
 
         -- Immutable physical specifications
