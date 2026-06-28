@@ -27,8 +27,9 @@
                 }
               },
               "queryRef": "DIM_DATES.YEAR",
-              "nativeQueryRef": "YEAR",
-              "active": true
+              "nativeQueryRef": "Year",
+              "active": true,
+              "displayName": "Year"
             },
             {
               "field": {
@@ -42,8 +43,9 @@
                 }
               },
               "queryRef": "DIM_DATES.MONTH_NAME",
-              "nativeQueryRef": "MONTH_NAME",
-              "active": true
+              "nativeQueryRef": "Month Name",
+              "active": true,
+              "displayName": "Month Name"
             }
           ]
         },

@@ -455,7 +455,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Jun-2024'"
+                                "Value": "'Dec-2025'"
                               }
                             }
                           ]
@@ -971,7 +971,7 @@
                     "DateSpan": {
                       "Expression": {
                         "Literal": {
-                          "Value": "datetime'2024-07-31T00:00:00'"
+                          "Value": "datetime'2026-06-30T00:00:00'"
                         }
                       },
                       "TimeUnit": 5
@@ -985,6 +985,20 @@
         "howCreated": "User",
         "isHiddenInViewMode": true,
         "isLockedInViewMode": true
+      },
+      {
+        "name": "5c598174929e60056682",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Disconnected Calendar"
+              }
+            },
+            "Property": "Month Year"
+          }
+        },
+        "type": "Categorical"
       }
     ]
   }
