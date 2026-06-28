@@ -1279,23 +1279,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "01bdd60043472a446dd6",
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "d3fe4ad849c0cc06c910",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "FCT_COHORT_RETENTION"
-              }
-            },
-            "Property": "COHORT_MONTH"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
-  }
+  "parentGroupName": "01bdd60043472a446dd6"
 }

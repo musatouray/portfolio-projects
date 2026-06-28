@@ -1,16 +1,16 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "0ef62cdd41ffe2183a6f",
   "position": {
     "x": 1136.2927669927517,
-    "y": 178.67707435754474,
-    "z": 0,
-    "height": 409.906229408485,
-    "width": 760.25343403112174,
-    "tabOrder": 7000
+    "y": 416.91317350093772,
+    "z": 1000,
+    "height": 279.1099396827006,
+    "width": 754.41431395407778,
+    "tabOrder": 3000
   },
   "visual": {
-    "visualType": "areaChart",
+    "visualType": "lineClusteredColumnComboChart",
     "query": {
       "queryState": {
         "Category": {
@@ -23,29 +23,27 @@
                       "Entity": "DIM_DATES"
                     }
                   },
-                  "Property": "MONTH_YEAR"
+                  "Property": "YEAR"
                 }
               },
-              "queryRef": "DIM_DATES.MONTH_YEAR",
-              "nativeQueryRef": "Date | Start of Month",
-              "active": true,
-              "displayName": "Date | Start of Month"
-            }
-          ],
-          "fieldParameters": [
+              "queryRef": "DIM_DATES.YEAR",
+              "nativeQueryRef": "YEAR",
+              "active": true
+            },
             {
-              "parameterExpr": {
+              "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Param: Date Granularity"
+                      "Entity": "DIM_DATES"
                     }
                   },
-                  "Property": "Param: Date Granularity"
+                  "Property": "MONTH_NAME"
                 }
               },
-              "index": 0,
-              "length": 1
+              "queryRef": "DIM_DATES.MONTH_NAME",
+              "nativeQueryRef": "MONTH_NAME",
+              "active": true
             }
           ]
         },
@@ -59,15 +57,233 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Cumulative Revenue"
+                  "Property": "Blank"
                 }
               },
-              "queryRef": "_Measures.Cumulative Revenue",
-              "nativeQueryRef": "Cumulative Revenue"
+              "queryRef": "_Measures.Blank",
+              "nativeQueryRef": "Blank",
+              "hidden": true
+            },
+            {
+              "field": {
+                "NativeVisualCalculation": {
+                  "Language": "dax",
+                  "Expression": "\n DIVIDE(\n    [Blank] - PREVIOUS([Blank]),\n    PREVIOUS([Blank])\n )",
+                  "Name": "MoM Growth %",
+                  "DataType": "Double"
+                }
+              },
+              "queryRef": "select",
+              "nativeQueryRef": "MoM Growth %",
+              "format": "0.0%;-0.0%;0.0%"
+            },
+            {
+              "field": {
+                "NativeVisualCalculation": {
+                  "Language": "dax",
+                  "Expression": "\r\nSWITCH(\r\n   TRUE(),\r\n   [MoM Growth %] > 0, \"#b4d9b5\",\r\n   [MoM Growth %] < 0, \"#e7a3bd\",\r\n      \"#a5b0bf\"\r\n)",
+                  "Name": "MoM Color",
+                  "DataType": "Text"
+                }
+              },
+              "queryRef": "select1",
+              "nativeQueryRef": "MoM Color",
+              "hidden": true
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "DIM_DATES"
+                  }
+                },
+                "Property": "MONTH_INITIAL"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
       }
+    },
+    "objects": {
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "SelectRef": {
+                      "ExpressionName": "select1"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableBackground": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "backgroundTransparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "30D"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "SelectRef": {
+                      "ExpressionName": "select1"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "gridlineShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "y1AxisReferenceLine": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "displayName": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Y-Axis Constant Line 1'"
+                }
+              }
+            },
+            "style": {
+              "expr": {
+                "Literal": {
+                  "Value": "'dashed'"
+                }
+              }
+            },
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            },
+            "lineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'back'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "1"
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "concatenateLabels": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "zoom": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "visualContainerObjects": {
       "title": [
@@ -82,8 +298,13 @@
             },
             "text": {
               "expr": {
-                "Literal": {
-                  "Value": "'Cumulative Revenue'"
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Time Series MoM Title"
                 }
               }
             }
@@ -101,6 +322,37 @@
                       "Value": "'#E0E0E0'"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Time Series Subtitle"
                 }
               }
             }

@@ -2363,48 +2363,6 @@
         },
         "isHiddenInViewMode": true,
         "isLockedInViewMode": true
-      },
-      {
-        "name": "c7b9a486e0745eabe806",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "RFM Unique Customers"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "52d6e911b930d1e01b33",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "RFM Total Orders"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "ce4beb22de890db12a1c",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "RFM Total Revenue"
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

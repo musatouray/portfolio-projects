@@ -112,37 +112,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "01bdd60043472a446dd6",
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "c5a6ea82ad503609b49a",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Retention Rate"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "dacdf071a8d76d25bce1",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "FCT_COHORT_RETENTION"
-              }
-            },
-            "Property": "PERIOD"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
-  }
+  "parentGroupName": "01bdd60043472a446dd6"
 }

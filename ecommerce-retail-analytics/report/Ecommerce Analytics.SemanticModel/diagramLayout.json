@@ -277,9 +277,36 @@
         },
         {
           "location": {},
-          "nodeIndex": "Pareto Products",
+          "nodeIndex": "Pareto Product Segments",
           "size": {
             "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "CG Pareto Metric",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "TBL Moving Averages",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "CG: Order Items Metrics",
+          "size": {
+            "height": 128,
             "width": 234
           },
           "zIndex": 0
@@ -450,7 +477,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 1
         },
         {
           "location": {
@@ -463,7 +490,7 @@
             "height": 176,
             "width": 234
           },
-          "zIndex": 0,
+          "zIndex": 2,
           "expandedHeight": 300
         },
         {
@@ -477,7 +504,7 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 0,
+          "zIndex": 3,
           "expandedHeight": 272
         },
         {
@@ -485,8 +512,7 @@
             "x": 1381.2000007629395,
             "y": 47
           },
-          "nodeIndex": "Pareto Products",
-          "nodeLineageTag": "1709ab38-b7ef-4fdb-8a2d-dd00cbcabead",
+          "nodeIndex": "Pareto Product Segments",
           "size": {
             "height": 128,
             "width": 234

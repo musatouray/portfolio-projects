@@ -34,7 +34,10 @@ ref table 'Param: Cohort Retention'
 ref table 'Disconnected Calendar'
 ref table 'Param: Cohort Size'
 ref table 'Param: Pareto Threshold'
-ref table 'Pareto Products'
+ref table 'Pareto Product Segments'
+ref table 'CG Pareto Metric'
+ref table 'TBL Moving Averages'
+ref table 'CG: Order Items Metrics'
 
 ref cultureInfo en-US
 

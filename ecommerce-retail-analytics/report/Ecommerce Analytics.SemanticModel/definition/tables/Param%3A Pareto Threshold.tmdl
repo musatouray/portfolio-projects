@@ -21,7 +21,7 @@ table 'Param: Pareto Threshold'
 
 	partition 'Param: Pareto Threshold' = calculated
 		mode: import
-		source = GENERATESERIES(0.01, 1.01, 0.01)
+		source = GENERATESERIES(0.10, 1.01, 0.10)
 
 	annotation PBI_Id = 54cdf3106fc4442591f8db0b863f9468
 

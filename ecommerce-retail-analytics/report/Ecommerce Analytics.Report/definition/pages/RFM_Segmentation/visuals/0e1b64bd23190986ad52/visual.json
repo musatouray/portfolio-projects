@@ -1069,48 +1069,6 @@
         },
         "isHiddenInViewMode": true,
         "isLockedInViewMode": true
-      },
-      {
-        "name": "9da10d8a118d06c8bc92",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Label Placeholder"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "ce4bb659d4a5b610a052",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "RFM Revenue Share %"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "fb0db1ddd7b005803742",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "RFM Remaining %"
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

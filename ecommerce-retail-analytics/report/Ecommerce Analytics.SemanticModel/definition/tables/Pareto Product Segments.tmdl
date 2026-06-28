@@ -1,0 +1,22 @@
+table 'Pareto Product Segments'
+	lineageTag: 1709ab38-b7ef-4fdb-8a2d-dd00cbcabead
+
+	column Segment
+		lineageTag: 67032289-1682-4667-97f6-b06c2aa73807
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Segment]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Pareto Product Segments' = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				   "Segment", STRING,
+				   {{"Best-selling"}, {"Others"}}
+				)
+
+	annotation PBI_Id = ec34c7837f1e477fbe46fa2ab99c38fa
+

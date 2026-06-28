@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "f6520bad0bdf1c2316e8",
   "position": {
     "x": 0,
@@ -609,7 +609,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Filtered Period Title"
+                  "Property": "Custom Period Title"
                 }
               }
             },

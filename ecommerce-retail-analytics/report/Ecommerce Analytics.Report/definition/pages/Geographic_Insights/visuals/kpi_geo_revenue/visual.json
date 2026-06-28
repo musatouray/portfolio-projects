@@ -1,10 +1,10 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "kpi_geo_revenue",
   "position": {
     "x": 260.50687616207978,
     "y": 136.6213839427796,
-    "z": 3000,
+    "z": 1000,
     "height": 171.35563409772357,
     "width": 219.98358431464513,
     "tabOrder": 2000

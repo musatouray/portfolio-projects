@@ -34,7 +34,7 @@ table DIM_PRODUCTS
 	column NAME_LENGTH
 		dataType: double
 		lineageTag: e3c7ecf3-9b53-40be-bb7d-cd9e778d792e
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: NAME_LENGTH
 
 		annotation SummarizationSetBy = Automatic
@@ -44,7 +44,7 @@ table DIM_PRODUCTS
 	column DESCRIPTION_LENGTH
 		dataType: double
 		lineageTag: cb5ce0a8-8c72-4d2b-a4da-ccbbf360e38b
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: DESCRIPTION_LENGTH
 
 		annotation SummarizationSetBy = Automatic
@@ -54,7 +54,7 @@ table DIM_PRODUCTS
 	column PHOTOS_QTY
 		dataType: double
 		lineageTag: b45e2e60-5296-4a4e-9d38-056b94d33585
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: PHOTOS_QTY
 
 		annotation SummarizationSetBy = Automatic
@@ -64,7 +64,7 @@ table DIM_PRODUCTS
 	column WEIGHT_G
 		dataType: double
 		lineageTag: 4d5dd002-afb9-4ea5-896d-030a841b9dc2
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: WEIGHT_G
 
 		annotation SummarizationSetBy = Automatic
@@ -74,7 +74,7 @@ table DIM_PRODUCTS
 	column LENGTH_CM
 		dataType: double
 		lineageTag: 08bf5ad5-6d94-4d78-b905-4cc2ba5c4862
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: LENGTH_CM
 
 		annotation SummarizationSetBy = Automatic
@@ -84,7 +84,7 @@ table DIM_PRODUCTS
 	column HEIGHT_CM
 		dataType: double
 		lineageTag: 645837bc-b0ab-4a41-967c-d1ab90148b1e
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: HEIGHT_CM
 
 		annotation SummarizationSetBy = Automatic
@@ -94,7 +94,7 @@ table DIM_PRODUCTS
 	column WIDTH_CM
 		dataType: double
 		lineageTag: 2e46e63d-7810-41b8-b57e-6e084ee54a35
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: WIDTH_CM
 
 		annotation SummarizationSetBy = Automatic
@@ -122,6 +122,14 @@ table DIM_PRODUCTS
 		sourceColumn: UPDATED_AT
 
 		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRODUCT_NAME
+		dataType: string
+		lineageTag: e1278c07-67ec-4ddb-9346-6f8421ba6f12
+		summarizeBy: none
+		sourceColumn: PRODUCT_NAME
 
 		annotation SummarizationSetBy = Automatic
 

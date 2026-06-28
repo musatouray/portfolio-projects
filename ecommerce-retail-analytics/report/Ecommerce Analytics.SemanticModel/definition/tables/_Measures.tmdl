@@ -142,7 +142,7 @@ table _Measures
 		lineageTag: t1000005-0001-0001-0001-000000000005
 
 		formatStringDefinition = ```
-				VAR __FormattedRevenue = [Prior Year Revenue]
+				VAR __FormattedRevenue = SELECTEDMEASURE()
 				RETURN
 				    SWITCH (
 				        TRUE (),
@@ -586,26 +586,6 @@ table _Measures
 				
 				```
 
-	measure 'Running Total Product Orders' =
-			
-			CALCULATE(
-			    [Total Order Items],
-			    WINDOW(
-			        1, ABS,
-			        0, REL,
-			        ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]),
-			        ORDERBY([Total Order Items], DESC)
-			    )
-			)
-		formatString: #,##0
-		displayFolder: 03_Product
-		lineageTag: p1000002-0001-0001-0001-000000000002
-
-	measure 'Total Products' = COUNTROWS(DIM_PRODUCTS)
-		formatString: #,##0
-		displayFolder: 03_Product
-		lineageTag: p1000003-0001-0001-0001-000000000003
-
 	measure 'Running Total Product Revenue Contribution' = ```
 			
 			VAR __AllSelectedRevenue =
@@ -639,11 +619,6 @@ table _Measures
 		lineageTag: p1000007-0001-0001-0001-000000000007
 
 		formatStringDefinition = "0.0%"
-
-	measure 'Total Categories' = DISTINCTCOUNT(DIM_PRODUCTS[PRODUCT_CATEGORY])
-		formatString: #,##0
-		displayFolder: 03_Product
-		lineageTag: p1000008-0001-0001-0001-000000000008
 
 	/// =============================================
 	/// _Market Basket Measures
@@ -1115,59 +1090,6 @@ table _Measures
 		displayFolder: 10_Geographic
 		lineageTag: a984eace-ced3-49f3-b9f7-5f01320c9227
 
-	/// =============================================
-	/// _Time Series Measures (Moving Averages)
-	/// =============================================
-	measure '7-Day MA Revenue' = SUM(FCT_DAILY_REVENUE_TIME_SERIES[ROLLING_AVG_REVENUE_7D])
-		formatString: $#,##0
-		displayFolder: 09_Time Series
-		lineageTag: ts100001-0001-0001-0001-000000000001
-
-	measure '28-Day MA Revenue' = SUM(FCT_DAILY_REVENUE_TIME_SERIES[ROLLING_AVG_REVENUE_28D])
-		formatString: $#,##0
-		displayFolder: 09_Time Series
-		lineageTag: ts100002-0001-0001-0001-000000000002
-
-	measure '90-Day MA Revenue' = SUM(FCT_DAILY_REVENUE_TIME_SERIES[ROLLING_AVG_REVENUE_90D])
-		formatString: $#,##0
-		displayFolder: 09_Time Series
-		lineageTag: ts100003-0001-0001-0001-000000000003
-
-	measure 'Daily Revenue' = SUM(FCT_DAILY_REVENUE_TIME_SERIES[TOTAL_REVENUE])
-		formatString: $#,##0
-		displayFolder: 09_Time Series
-		lineageTag: ts100004-0001-0001-0001-000000000004
-
-	measure 'Daily Orders' = SUM(FCT_DAILY_REVENUE_TIME_SERIES[TOTAL_ORDERS])
-		formatString: #,##0
-		displayFolder: 09_Time Series
-		lineageTag: ts100005-0001-0001-0001-000000000005
-
-	measure 'TS YTD Revenue' = SUM(FCT_DAILY_REVENUE_TIME_SERIES[YTD_REVENUE])
-		formatString: $#,##0
-		displayFolder: 09_Time Series
-		lineageTag: ts100006-0001-0001-0001-000000000006
-
-	/// Recomputes MoM growth from the daily fact instead of SUM-ing pre-aggregated
-	/// percentages (which produced nonsense when sliced over >1 day).
-	measure 'TS Revenue MoM %' =
-			VAR _Curr = [Daily Revenue]
-			VAR _Prev = CALCULATE([Daily Revenue], DATEADD(DIM_DATES[DATE], -1, MONTH))
-			RETURN DIVIDE(_Curr - _Prev, _Prev)
-		formatString: 0.0%;-0.0%;0.0%
-		displayFolder: 09_Time Series
-		lineageTag: ts100007-0001-0001-0001-000000000007
-
-	/// Recomputes YoY growth from the daily fact instead of SUM-ing pre-aggregated
-	/// percentages. Requires DIM_DATES to be marked as a Date Table for correct results.
-	measure 'TS Revenue YoY %' =
-			VAR _Curr = [Daily Revenue]
-			VAR _Prev = CALCULATE([Daily Revenue], SAMEPERIODLASTYEAR(DIM_DATES[DATE]))
-			RETURN DIVIDE(_Curr - _Prev, _Prev)
-		formatString: 0.0%;-0.0%;0.0%
-		displayFolder: 09_Time Series
-		lineageTag: ts100008-0001-0001-0001-000000000008
-
 	measure 'CLV Segment Color' =
 			VAR Segment = SELECTEDVALUE(FCT_CLV_CUSTOMER[CLV_SEGMENT])
 			RETURN
@@ -1435,7 +1357,7 @@ table _Measures
 		displayFolder: 11_Custom Period
 		lineageTag: 9b396797-0bce-44e0-95ec-355c3161eda0
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"isText":true}
 
 	measure 'Positive Color' = "#2E7D32"
 		displayFolder: 14_Viz Helpers\_Sentiment Colors
@@ -1482,12 +1404,12 @@ table _Measures
 			)
 			
 			```
-		displayFolder: 14_Viz Helpers\_Titles
+		displayFolder: 14_Viz Helpers\_Titles\Global
 		lineageTag: f4756d35-9a2f-45fa-8d1a-948dda46ebb7
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Filtered Period Title' = ```
+	measure 'Custom Period Title' = ```
 			
 			VAR __SelectedPeriod = SELECTEDVALUE('CG Custom Periods'[Period])
 			VAR __StartAndEndDate = CALCULATE([Start and End Dates], REMOVEFILTERS(DIM_DATES))
@@ -1501,10 +1423,10 @@ table _Measures
 			)
 			
 			```
-		displayFolder: 14_Viz Helpers\_Titles
+		displayFolder: 14_Viz Helpers\_Titles\Global
 		lineageTag: 2590a5e0-a730-4bc7-a55f-c7735a75b8f2
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"isText":true}
 
 	measure 'Formatted AOV Absolute And Relative' = ```
 			
@@ -2832,7 +2754,7 @@ table _Measures
 			"Top and Bottom " & __SelectedTopN & " Products by Revenue"
 			
 			```
-		displayFolder: 14_Viz Helpers\_Titles
+		displayFolder: 14_Viz Helpers\_Titles\Global
 		lineageTag: afa28cb6-18ed-4979-a0c6-29023d515313
 
 		annotation PBI_FormatHint = {"isText":true}
@@ -2932,7 +2854,7 @@ table _Measures
 			    "Showing Cohorts >= " & __SelectedSize,
 			    "Choose Cohort Size"
 			)
-		displayFolder: 14_Viz Helpers\_Titles
+		displayFolder: 14_Viz Helpers\_Titles\Cohorts
 		lineageTag: 8b95907a-24bc-4d39-aef4-439cd2297e5e
 
 		annotation PBI_FormatHint = {"isText":true}
@@ -2983,7 +2905,7 @@ table _Measures
 			)
 			
 			```
-		displayFolder: 14_Viz Helpers\_Titles
+		displayFolder: 14_Viz Helpers\_Titles\Cohorts
 		lineageTag: e91ece7a-8afb-458f-8245-5e963e09ace7
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -3000,7 +2922,7 @@ table _Measures
 			"Cohort Period: " & __Space & __Space & __FormattedMinDate & __Space & " - " & __Space & __FormattedMaxDate
 			
 			```
-		displayFolder: 14_Viz Helpers\_Titles
+		displayFolder: 14_Viz Helpers\_Titles\Cohorts
 		lineageTag: ff2173a8-29ac-4a91-b5fd-27068b58322f
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -3032,7 +2954,7 @@ table _Measures
 			)
 			
 			```
-		displayFolder: 14_Viz Helpers\_Titles
+		displayFolder: 14_Viz Helpers\_Titles\Cohorts
 		lineageTag: d8f416d8-745d-48da-984c-9db23e1c2ece
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -3174,7 +3096,7 @@ table _Measures
 			"Snapshot month is as of " & FORMAT(__MaxSnapshotDate, "MMM YYYY")
 			
 			```
-		displayFolder: 14_Viz Helpers\_Titles
+		displayFolder: 14_Viz Helpers\_Titles\RFM
 		lineageTag: 1ec7f50d-a0fa-4c23-a273-322e6b2d0494
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -3386,6 +3308,429 @@ table _Measures
 				    "0%"
 				)
 				```
+
+	measure 'Pareto Title' = ```
+			
+			VAR __Threshold = [Param: Pareto Threshold Value]
+			VAR __AllRevenue = CALCULATE([Total Revenue Order Items], ALLSELECTED(DIM_PRODUCTS))
+			
+			-- 1. Snapshot each category's revenue
+			VAR __CategoryTable = 
+			    ADDCOLUMNS(
+			        ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]), 
+			        "@CategoryRevenue", [Total Revenue Order Items]
+			    )
+			
+			-- 2. Build the running total array
+			VAR __TableWithRunningTotal = 
+			    ADDCOLUMNS(
+			        __CategoryTable,
+			        "@RunningPct",
+			        DIVIDE(
+			            SUMX(
+			                WINDOW(
+			                    1, ABS, 0, REL,
+			                    __CategoryTable,
+			                    ORDERBY([@CategoryRevenue], DESC)
+			                ),
+			                [@CategoryRevenue]
+			            ),
+			            __AllRevenue,
+			            0
+			        )
+			    )
+			
+			-- 3. Strictly count only rows whose cumulative sum is below or equal to the threshold
+			VAR __BestSellingCategories = 
+			    FILTER(
+			        __TableWithRunningTotal,
+			        [@RunningPct] <= __Threshold
+			    )
+			
+			-- 4. Calculate total count and total absolute revenue for the true best-sellers
+			VAR __CategoryCount = COUNTROWS(__BestSellingCategories)
+			VAR __BestSellingRevenue = SUMX(__BestSellingCategories, [@CategoryRevenue])
+			
+			-- 5. Format the revenue number into dynamic millions ($XX.XM)
+			VAR __FormattedRevenue = 
+			    "$" & FORMAT(DIVIDE(__BestSellingRevenue, 1000000), "0.0") & "M"
+			
+			-- 6. Combine everything into your exact layout
+			RETURN
+			    "Top " & __CategoryCount & " categories generate " & __FormattedRevenue & ", which is " & FORMAT(__Threshold, "0%") & " of the revenue"
+			
+			
+			
+			```
+		displayFolder: 03_Product
+		lineageTag: cae551be-770d-49bf-8a6f-66029327ea68
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Selected Pareto Segment' = SELECTEDVALUE('Pareto Product Segments'[Segment])
+		displayFolder: 03_Product
+		lineageTag: 3c7e5a2f-d8f2-4894-a80b-90ab7b4d382c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Pareto Matrix Color' = ```
+			
+			IF([Selected Pareto Segment] = "Best-selling", "#F5F5F5")
+			
+			```
+		displayFolder: 14_Viz Helpers\_Color
+		lineageTag: fb4d1682-3b38-4586-baaf-9e0d53f0957f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Pareto Best-selling Revenue' = ```
+			
+			VAR __Threshold = [Param: Pareto Threshold Value]
+			VAR __AllRevenue = CALCULATE([Total Revenue Order Items], ALLSELECTED(DIM_PRODUCTS))
+			
+			RETURN
+			    SUMX(
+			        FILTER(
+			            ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]),
+			            VAR _RunRev = [Running Total Product Revenue]
+			                
+			            VAR _CurrentPct = DIVIDE(_RunRev, __AllRevenue, 0)
+			            RETURN
+			                _CurrentPct <= __Threshold
+			        ),
+			        [Total Revenue Order Items]
+			    )
+			
+			
+			```
+		displayFolder: 03_Product
+		lineageTag: 9304614b-cb94-4b20-bc19-53e6670979d6
+
+		formatStringDefinition = ```
+				VAR __FormattedRevenue = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __FormattedRevenue <= 1E3, "$#,0.;-#,0.;0",
+				        __FormattedRevenue <= 1E4, "$#,0,.00K;-#,0,.00K;0",
+				        __FormattedRevenue <= 1E5, "$#,0,.0K;-#,0,.0K;0",
+				        __FormattedRevenue <= 1E6, "$#,0,.K;-#,0,.K;0",
+				        __FormattedRevenue <= 1E7, "$#,0,,.00M;-#,0,,.00M;0",
+				        __FormattedRevenue <= 1E8, "$#,0,,.0M;-#,0,,.0M;0",
+				        __FormattedRevenue <= 1E9, "$#,0,,.M;-#,0,,.M;0"
+				    )
+				
+				```
+
+	measure 'Pareto Others Revenue' = ```
+			
+			VAR __Threshold = [Param: Pareto Threshold Value]
+			VAR __AllRevenue = CALCULATE([Total Revenue Order Items], ALLSELECTED(DIM_PRODUCTS))
+			
+			RETURN
+			    SUMX(
+			        FILTER(
+			            ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]),
+			            VAR _RunRev = [Running Total Product Revenue]
+			               
+			            VAR _CurrentPct = DIVIDE(_RunRev, __AllRevenue, 0)
+			            RETURN
+			                _CurrentPct > __Threshold
+			        ),
+			        [Total Revenue Order Items]
+			    )
+			
+			
+			```
+		displayFolder: 03_Product
+		lineageTag: d58732cc-ff79-4883-b277-f4c3ea2d4c9f
+
+		formatStringDefinition = ```
+				VAR __FormattedRevenue = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __FormattedRevenue <= 1E3, "$#,0.;-#,0.;0",
+				        __FormattedRevenue <= 1E4, "$#,0,.00K;-#,0,.00K;0",
+				        __FormattedRevenue <= 1E5, "$#,0,.0K;-#,0,.0K;0",
+				        __FormattedRevenue <= 1E6, "$#,0,.K;-#,0,.K;0",
+				        __FormattedRevenue <= 1E7, "$#,0,,.00M;-#,0,,.00M;0",
+				        __FormattedRevenue <= 1E8, "$#,0,,.0M;-#,0,,.0M;0",
+				        __FormattedRevenue <= 1E9, "$#,0,,.M;-#,0,,.M;0"
+				    )
+				
+				```
+
+	measure 'AOV Order Items' = ```
+			
+			DIVIDE([Total Revenue Order Items], [Total Order Items], 0)
+			
+			```
+		displayFolder: 00_Base\_Order Items
+		lineageTag: b606986a-3c62-4731-90b0-c18f7df44f47
+
+		formatStringDefinition =
+				VAR __FormattedAOV = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __FormattedAOV <= 1E3, "$#,0.0;-#,0.0;0",
+				        __FormattedAOV <= 1E4, "$#,0,.00K;-#,0,.00K;0",
+				        __FormattedAOV <= 1E5, "$$#,0,.0K;-#,0,.0K;0",
+				        __FormattedAOV <= 1E6, "$#,0,.0K;-#,0,.0K;0",
+				        __FormattedAOV <= 1E7, "$#,0,,.00M;-#,0,,.00M;0",
+				        __FormattedAOV <= 1E8, "$#,0,,.0M;-#,0,,.0M;0",
+				        __FormattedAOV <= 1E9, "$#,0,,.M;-#,0,,.M;0"
+				    )
+
+	measure 'Time Series Subtitle' = ```
+			
+			VAR __StartAndEndDate = CALCULATE([Start and End Dates], KEEPFILTERS(DIM_DATES))
+			VAR __Space = REPT(UNICHAR(160), 2)
+			
+			RETURN
+			"Period: " & __Space  & __Space & "    " & __Space & __Space & __StartAndEndDate
+			
+			```
+		displayFolder: 14_Viz Helpers\_Titles\TimeSeries
+		lineageTag: ca0e67cf-97bd-4c11-9ecf-8f17b0262d2e
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Prior Year Time Series Calculation Group' = ```
+			
+			-- 1. Detect which metric is currently selected on the page
+			VAR __IsRevenueActive = ISFILTERED('CG: Order Items Metrics'[Metric]) && SELECTEDVALUE('CG: Order Items Metrics'[Metric]) = "Revenue"
+			VAR __IsOrdersActive  = ISFILTERED('CG: Order Items Metrics'[Metric]) && SELECTEDVALUE('CG: Order Items Metrics'[Metric]) = "Orders"
+			VAR __IsAOVActive     = ISFILTERED('CG: Order Items Metrics'[Metric]) && SELECTEDVALUE('CG: Order Items Metrics'[Metric]) = "AOV"
+			
+			-- 2. Fetch the true current value based on the active selection
+			VAR __CurrentValue = 
+			    SWITCH(
+			        TRUE(),
+			        __IsRevenueActive, [Total Revenue Order Items],
+			        __IsOrdersActive,  [Total Order Items],
+			        __IsAOVActive,     [AOV Order Items],
+			        [Total Revenue Order Items]    -- Default fallback if nothing is clicked
+			    )
+			
+			-- 3. Calculate the prior year value by explicitly clearing the Year page filter inside CALCULATE
+			VAR __PriorYearValue = 
+			    CALCULATE(
+			        SWITCH(
+			            TRUE(),
+			            __IsRevenueActive, [Total Revenue Order Items],
+			            __IsOrdersActive,  [Total Order Items],
+			            __IsAOVActive,     [AOV Order Items],
+			            [Total Revenue Order Items]
+			        ),
+			        SAMEPERIODLASTYEAR(DIM_DATES[DATE]),
+			        REMOVEFILTERS(DIM_DATES[YEAR]) -- ignores current year filter
+			    )
+			
+			-- 4. Compute the final percentage shift
+			RETURN
+			    //DIVIDE(__CurrentValue - __PriorYearValue, __PriorYearValue)
+			__PriorYearValue
+			```
+		displayFolder: 08_Time Intelligence\_PY
+		lineageTag: df2de7c9-48c8-44fa-a5bf-e12d904d6d6c
+
+		formatStringDefinition = ""
+
+	measure 'Time Series Products Selected Filters' =
+			
+			VAR __AllCategoryCount = CALCULATE(COUNTROWS(VALUES(DIM_PRODUCTS[PRODUCT_CATEGORY])), ALL(DIM_PRODUCTS))
+			VAR __SelectedCategoryCount = COUNTROWS(VALUES(DIM_PRODUCTS[PRODUCT_CATEGORY]))
+			
+			VAR __SelectedProductsText =
+			    SWITCH(
+			        TRUE(),
+			        __SelectedCategoryCount = __AllCategoryCount, "All Products",
+			        CONCATENATEX(
+			            VALUES(DIM_PRODUCTS[PRODUCT_CATEGORY]),
+			            DIM_PRODUCTS[PRODUCT_CATEGORY],
+			            ", "
+			        )
+			    )
+			RETURN
+			" " & __SelectedProductsText
+		displayFolder: 14_Viz Helpers\_Titles\TimeSeries
+		lineageTag: d0a3a83f-095e-4148-95e5-c47ec6ba9e40
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Time Series Selected Years Filters' =
+			
+			VAR __AllYears = CALCULATE(COUNTROWS(VALUES(DIM_DATES[YEAR])), ALL(DIM_Dates))
+			VAR __SelectedYears = COUNTROWS(VALUES(DIM_DATES[YEAR]))
+			VAR __StartAndEndYear = [Start and End Dates]
+			VAR __SelectedYearsText =
+			    SWITCH(
+			        TRUE(),
+			        __SelectedYears = __AllYears, __StartAndEndYear,
+			        CONCATENATEX(
+			            VALUES(DIM_DATES[YEAR]),
+			            DIM_DATES[YEAR],
+			            ", "
+			        )
+			    )
+			RETURN
+			" " & __SelectedYearsText
+		displayFolder: 14_Viz Helpers\_Titles\TimeSeries
+		lineageTag: 9cdad35c-c1b7-4b90-af6a-7adeee7c0372
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Time Series Moving Averages Title' =
+			
+			VAR __SelectedMetric = SELECTEDVALUE('CG: Order Items Metrics'[Metric])
+			VAR __SelectedMovingAvg = SELECTEDVALUE('TBL Moving Averages'[Dsiplay Name])
+			VAR __FormattedMovingAvg =
+			    SWITCH(
+			        __SelectedMovingAvg,
+			        "3M", "3 Months",
+			        "6M", "6 Months",
+			        "9M", "9 Months",
+			        "12M", "12 Months"
+			    )
+			
+			RETURN
+			SWITCH(
+			    __SelectedMetric,
+			    "Orders", "Orders vs " &  __FormattedMovingAvg & " Moving Average",
+			    "Revenue", "Revenue vs " &  __FormattedMovingAvg & " Moving Average",
+			    "AOV", "AOV vs " &  __FormattedMovingAvg & " Moving Average"
+			)
+		displayFolder: 14_Viz Helpers\_Titles\TimeSeries
+		lineageTag: e966f9de-4ce1-49a6-bd61-f47106c1d445
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Time Series MoM Title' =
+			
+			VAR __SelectedMetric = SELECTEDVALUE('CG: Order Items Metrics'[Metric])
+			
+			RETURN
+			SWITCH(
+			    __SelectedMetric,
+			    "Orders", "Orders MoM Growth",
+			    "Revenue", "Revenue MoM Growth ",
+			    "AOV", "AOV MoM Growth "
+			)
+		displayFolder: 14_Viz Helpers\_Titles\TimeSeries
+		lineageTag: e2bc9e70-6e4f-4b34-929c-165b9b7f7b40
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Time Series Moving Averages Legend' = ```
+			
+			VAR __SelectedMetric = SELECTEDVALUE('CG: Order Items Metrics'[Metric], "Revenue") 
+			VAR __SelectedMovingAvg = SELECTEDVALUE('TBL Moving Averages'[Dsiplay Name], "3M") 
+			
+			-- Colors
+			VAR __ActualColor = "#1E3A5F" 
+			VAR __MAColor = "#A5B0BF" 
+			VAR __TextColor = "#607D8B" 
+			
+			-- Calculate width dynamically 
+			VAR __TextLength = LEN(__SelectedMetric & __SelectedMovingAvg) 
+			VAR __Width = 200 + (__TextLength * 7) 
+			
+			-- Calculate dynamic X offset upfront to completely remove the illegal nested RETURN 
+			VAR __FirstBlockEnd = 25 + (LEN(__SelectedMetric) * 8) 
+			
+			
+			RETURN 
+			    "<svg xmlns=""http://w3.org"" width=""" & __Width & """ height=""30"" viewBox=""0 0 " & __Width & " 30"">" & 
+			    
+			    -- Actual Metric
+			    "<circle cx=""15"" cy=""15"" r=""6"" fill=""" & __ActualColor & """ />" & 
+			    "<text x=""28"" y=""20"" font-family=""Segoe UI, Arial"" font-size=""12"" font-weight=""400"" fill=""" & __TextColor & """>" & __SelectedMetric & "</text>" & 
+			    
+			    -- Moving Average
+			    "<circle cx=""" & (__FirstBlockEnd + 15) & """ cy=""15"" r=""6"" fill=""" & __MAColor & """ />" & 
+			    "<text x=""" & (__FirstBlockEnd + 28) & """ y=""20"" font-family=""Segoe UI, Arial"" font-size=""12"" font-weight=""400"" fill=""" & __TextColor & """>" & 
+			        __SelectedMovingAvg & " Moving Average" & 
+			    "</text>" & 
+			    
+			    "</svg>"
+			
+			```
+		displayFolder: 14_Viz Helpers\_Titles\TimeSeries
+		lineageTag: 6594f2f8-0aa4-4d79-9047-4e797be1655c
+		dataCategory: ImageUrl
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Time Series Current and PY Title' =
+			
+			VAR __SelectedMetric = SELECTEDVALUE('CG: Order Items Metrics'[Metric])
+			
+			RETURN
+			SWITCH(
+			    __SelectedMetric,
+			    "Orders", "Orders and Orders (PY)",
+			    "Revenue", "Revenue and Revenue (PY)",
+			    "AOV", "AOV and AOV (PY)"
+			)
+		displayFolder: 14_Viz Helpers\_Titles\TimeSeries
+		lineageTag: 7f972461-8b69-40c1-8922-73ea1f8dcbb8
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Time Series Current and PY Subtitle' =
+			
+			VAR __Current = MAX(DIM_DATES[YEAR])
+			VAR __PY = __Current - 1
+			VAR __Space = REPT(UNICHAR(160), 2)
+			
+			RETURN
+			"Period: " & __Space  & __Current & "  vs  " & __Space & __PY
+		displayFolder: 14_Viz Helpers\_Titles\TimeSeries
+		lineageTag: 7f2aefd2-07d1-4dbb-a42f-0f803114e14b
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Time Series Current and PY Legend' = ```
+			
+			VAR __SelectedMetric = SELECTEDVALUE('CG: Order Items Metrics'[Metric], "Revenue") 
+			VAR __PriorYear = "PY" 
+			
+			-- Colors
+			VAR __ActualColor = "#1E3A5F" 
+			VAR __MAColor = "#A5B0BF" 
+			VAR __TextColor = "#607D8B" 
+			
+			-- Calculate width dynamically 
+			VAR __TextLength = LEN(__SelectedMetric & __PriorYear) 
+			VAR __Width = 200 + (__TextLength * 7) 
+			
+			-- Calculate dynamic X offset upfront to completely remove the illegal nested RETURN 
+			VAR __FirstBlockEnd = 20 + (LEN(__SelectedMetric) * 8) 
+			
+			
+			RETURN 
+			    "<svg xmlns=""http://w3.org"" width=""" & __Width & """ height=""30"" viewBox=""0 0 " & __Width & " 30"">" & 
+			    
+			    -- Actual Metric
+			    "<circle cx=""15"" cy=""15"" r=""6"" fill=""" & __ActualColor & """ />" & 
+			    "<text x=""28"" y=""20"" font-family=""Segoe UI, Arial"" font-size=""12"" font-weight=""400"" fill=""" & __TextColor & """>" & __SelectedMetric & "</text>" & 
+			    
+			    -- Moving Average
+			    "<circle cx=""" & (__FirstBlockEnd + 15) & """ cy=""15"" r=""6"" fill=""" & __MAColor & """ />" & 
+			    "<text x=""" & (__FirstBlockEnd + 28) & """ y=""20"" font-family=""Segoe UI, Arial"" font-size=""12"" font-weight=""400"" fill=""" & __TextColor & """>" & 
+			        __PriorYear & 
+			    "</text>" & 
+			    
+			    "</svg>"
+			
+			```
+		displayFolder: 14_Viz Helpers\_Titles\TimeSeries
+		lineageTag: e975d772-1f79-40fb-b600-9f88091e1c49
+		dataCategory: ImageUrl
+
+		annotation PBI_FormatHint = {"isText":true}
 
 	/// Hidden column for calculated table
 	column Value

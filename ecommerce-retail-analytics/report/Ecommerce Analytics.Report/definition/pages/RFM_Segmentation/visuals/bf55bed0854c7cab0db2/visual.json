@@ -662,20 +662,6 @@
         "howCreated": "User",
         "isHiddenInViewMode": true,
         "isLockedInViewMode": true
-      },
-      {
-        "name": "f248916c55413ab8638e",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DIM_DATES"
-              }
-            },
-            "Property": "DATE"
-          }
-        },
-        "type": "Categorical"
       }
     ]
   }

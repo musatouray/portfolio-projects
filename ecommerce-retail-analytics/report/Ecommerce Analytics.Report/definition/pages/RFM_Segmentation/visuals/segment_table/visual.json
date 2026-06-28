@@ -657,7 +657,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Filtered Period Title"
+                  "Property": "Custom Period Title"
                 }
               }
             },
