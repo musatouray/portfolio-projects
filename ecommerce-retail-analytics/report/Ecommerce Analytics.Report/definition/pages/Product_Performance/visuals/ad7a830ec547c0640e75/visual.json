@@ -988,20 +988,6 @@
                 }
               }
             },
-            "showSentenceFormat": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "sentenceTemplate": {
-              "expr": {
-                "Literal": {
-                  "Value": "'{PRODUCT_CATEGORY} revenue is {Total Revenue Order Items}, contributing {Product Revenue Contribution} of generated revenue in {Custom Period Title}'"
-                }
-              }
-            }
           }
         }
       ],

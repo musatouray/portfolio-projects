@@ -914,20 +914,6 @@
                 }
               }
             },
-            "showSentenceFormat": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "sentenceTemplate": {
-              "expr": {
-                "Literal": {
-                  "Value": "'{RFM_SEGMENT} has average recency of {Avg Recency (Days)} days and average monetary value of {Avg Monetary}'"
-                }
-              }
-            },
             "themedValueFontColor": {
               "solid": {
                 "color": {
