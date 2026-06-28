@@ -1,10 +1,10 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "kpi_states",
   "position": {
     "x": 24.313975108460777,
     "y": 136.6213839427796,
-    "z": 5000,
+    "z": 3000,
     "height": 171.35563409772357,
     "width": 219.98358431464513,
     "tabOrder": 1000

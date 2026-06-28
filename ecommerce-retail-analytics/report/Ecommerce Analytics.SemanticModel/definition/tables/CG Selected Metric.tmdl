@@ -5,6 +5,7 @@ table 'CG Selected Metric'
 		precedence: 20
 
 		calculationItem Orders =
+				
 				VAR __IsTrendVisual = ISINSCOPE(DIM_DATES[DATE]) || ISINSCOPE(DIM_DATES[MONTH_YEAR])
 				VAR __IsDummyMeasure = ISSELECTEDMEASURE([Blank])
 				
@@ -28,6 +29,7 @@ table 'CG Selected Metric'
 					)
 
 		calculationItem Revenue =
+				
 				VAR __IsTrendVisual = ISINSCOPE(DIM_DATES[DATE]) || ISINSCOPE(DIM_DATES[MONTH_YEAR])
 				VAR __IsDummyMeasure = ISSELECTEDMEASURE([Blank])
 				
@@ -51,6 +53,7 @@ table 'CG Selected Metric'
 					)
 
 		calculationItem AOV =
+				
 				VAR __IsTrendVisual = ISINSCOPE(DIM_DATES[DATE]) || ISINSCOPE(DIM_DATES[MONTH_YEAR])
 				VAR __IsDummyMeasure = ISSELECTEDMEASURE([Blank])
 				

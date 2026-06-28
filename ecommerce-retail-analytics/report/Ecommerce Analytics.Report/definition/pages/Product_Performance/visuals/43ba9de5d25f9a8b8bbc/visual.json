@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "43ba9de5d25f9a8b8bbc",
+  "position": {
+    "x": 30,
+    "y": 411,
+    "z": 0,
+    "height": 638.87378985250132,
+    "width": 1589.3634244006284,
+    "tabOrder": 9027
+  },
+  "visualGroup": {
+    "displayName": "Products Pareto",
+    "groupMode": "ScaleMode"
+  }
+}

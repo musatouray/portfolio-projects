@@ -73,6 +73,26 @@
       "type": "RegisteredResources",
       "items": [
         {
+          "name": "Bar_dark15102461703272674.svg",
+          "path": "Bar_dark15102461703272674.svg",
+          "type": "Image"
+        },
+        {
+          "name": "Bar1227261043388127.svg",
+          "path": "Bar1227261043388127.svg",
+          "type": "Image"
+        },
+        {
+          "name": "Bar29004998585609176.svg",
+          "path": "Bar29004998585609176.svg",
+          "type": "Image"
+        },
+        {
+          "name": "Bar48621850930718347.svg",
+          "path": "Bar48621850930718347.svg",
+          "type": "Image"
+        },
+        {
           "name": "E-Commerce Analytics.json",
           "path": "E-Commerce Analytics.json",
           "type": "CustomTheme"
@@ -125,6 +145,26 @@
         {
           "name": "Notification22144491582886972.svg",
           "path": "Notification22144491582886972.svg",
+          "type": "Image"
+        },
+        {
+          "name": "Table_dark7781935669805419.svg",
+          "path": "Table_dark7781935669805419.svg",
+          "type": "Image"
+        },
+        {
+          "name": "Table11163338316063354.svg",
+          "path": "Table11163338316063354.svg",
+          "type": "Image"
+        },
+        {
+          "name": "Table254106876610925.svg",
+          "path": "Table254106876610925.svg",
+          "type": "Image"
+        },
+        {
+          "name": "Table8319628818217297.svg",
+          "path": "Table8319628818217297.svg",
           "type": "Image"
         }
       ]

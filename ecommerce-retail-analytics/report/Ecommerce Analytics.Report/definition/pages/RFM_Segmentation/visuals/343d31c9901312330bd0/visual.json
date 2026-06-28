@@ -7,7 +7,7 @@
     "z": 12000,
     "height": 419.93660101476456,
     "width": 463.2169749355063,
-    "tabOrder": 8001
+    "tabOrder": 8000
   },
   "visual": {
     "visualType": "columnChart",
@@ -522,34 +522,6 @@
   },
   "filterConfig": {
     "filters": [
-      {
-        "name": "f81e1a6f5bda0305a816",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "FCT_RFM_SEGMENTS"
-              }
-            },
-            "Property": "RFM_SEGMENT"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "f28b61a034394b5900c5",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "RFM Unique Customers"
-          }
-        },
-        "type": "Advanced"
-      },
       {
         "name": "e72d8ef5be07e4c28ba0",
         "field": {

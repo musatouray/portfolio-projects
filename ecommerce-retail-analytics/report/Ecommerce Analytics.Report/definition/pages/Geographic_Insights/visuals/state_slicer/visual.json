@@ -1,10 +1,10 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "state_slicer",
   "position": {
     "x": 1500.5196066935794,
     "y": 112.30740883431884,
-    "z": 7000,
+    "z": 4000,
     "height": 96.098092095344981,
     "width": 395.97045176636124,
     "tabOrder": 0

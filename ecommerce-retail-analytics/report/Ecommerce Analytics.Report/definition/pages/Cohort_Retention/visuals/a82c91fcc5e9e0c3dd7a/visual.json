@@ -668,23 +668,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "01bdd60043472a446dd6",
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "f04c14e6b022c0d63933",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Param: Cohort Retention"
-              }
-            },
-            "Property": "Param: Cohort Retention"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
-  }
+  "parentGroupName": "01bdd60043472a446dd6"
 }

@@ -15,10 +15,6 @@ relationship 2d7872ae-530c-6898-8ef9-0c9566077e24
 	fromColumn: FCT_ORDERS.DELIVERY_DATE_KEY
 	toColumn: DIM_DATES.DATE_KEY
 
-relationship d9594cdf-72cd-af06-8fb4-6173abdd5fd4
-	fromColumn: 'Param: Date Granularity'.ID
-	toColumn: 'TBL Date Granularity'.ID
-
 relationship d5055622-1df6-3534-7c7b-f66d6677f095
 	fromColumn: FCT_ORDERS.CUSTOMER_KEY
 	toColumn: DIM_CUSTOMERS.CUSTOMER_KEY
@@ -65,4 +61,8 @@ relationship 16edd9b6-3bb0-43aa-e6b2-aa2c502f50c8
 relationship 7a60a67e-f80d-9850-c1f7-88aa28204296
 	fromColumn: FCT_COHORT_RETENTION.COHORT_DATE_KEY
 	toColumn: DIM_DATES.DATE
+
+relationship d9594cdf-72cd-af06-8fb4-6173abdd5fd4
+	fromColumn: 'Param: Date Granularity'.ID
+	toColumn: 'TBL Date Granularity'.ID
 

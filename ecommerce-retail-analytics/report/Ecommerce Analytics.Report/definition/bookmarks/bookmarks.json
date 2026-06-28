@@ -32,6 +32,22 @@
         "9d04d4bd319978b58842",
         "7c2350b8301ebd6ce73a"
       ]
+    },
+    {
+      "name": "1a6a33b979e9befdf39c",
+      "displayName": "Products Pareto",
+      "children": [
+        "143e278a793d5ef93f95",
+        "80d4eac0f5aebf8b31f2"
+      ]
+    },
+    {
+      "name": "0e1a84ad64d0f91787de",
+      "displayName": "Time Series",
+      "children": [
+        "5d0ad419107d7779cf2a",
+        "d1227b1ef3fe0130c333"
+      ]
     }
   ]
 }

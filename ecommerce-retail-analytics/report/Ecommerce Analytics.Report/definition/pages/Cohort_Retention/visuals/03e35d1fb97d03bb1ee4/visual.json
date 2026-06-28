@@ -163,9 +163,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": -0.3
+                    "Literal": {
+                      "Value": "'#90A4AE'"
                     }
                   }
                 }
@@ -493,9 +492,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": -0.3
+                    "Literal": {
+                      "Value": "'#90A4AE'"
                     }
                   }
                 }
@@ -932,20 +930,6 @@
   "parentGroupName": "17881cbfcbe00dcc33db",
   "filterConfig": {
     "filters": [
-      {
-        "name": "6615c8a3ecb4c39b1127",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Disconnected Calendar"
-              }
-            },
-            "Property": "Month Year"
-          }
-        },
-        "type": "Categorical"
-      },
       {
         "name": "d14575474c642e2150db",
         "field": {

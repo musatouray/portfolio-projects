@@ -1,0 +1,46 @@
+table 'CG Pareto Metric'
+	lineageTag: c82c1bff-b97c-421a-b8ea-86f09bcb0f3c
+
+	calculationGroup
+		precedence: 21
+
+		calculationItem Metrics = ```
+				
+				VAR __RunningTotalRevenuePct = [Running Total Product Revenue Contribution]
+				VAR __Threshold = [Param: Pareto Threshold Value]
+				VAR __ParetoSegment = SELECTEDVALUE('Pareto Product Segments'[Segment])
+				
+				RETURN
+				    IF(
+				        ISINSCOPE(DIM_PRODUCTS[PRODUCT_CATEGORY]),
+				        SWITCH(
+				            TRUE(),
+				            __ParetoSegment = "Best-selling" && __RunningTotalRevenuePct <= __Threshold, SELECTEDMEASURE(),
+				            __ParetoSegment = "Others" && __RunningTotalRevenuePct > __Threshold, SELECTEDMEASURE()
+				        ),
+				        IF(
+				            ISSELECTEDMEASURE([Selected Pareto Segment]),
+				            SELECTEDMEASURE()
+				        )
+				    )
+				
+				```
+
+	column Metric
+		dataType: string
+		lineageTag: b427d1d3-11a5-424f-a196-28246ada8894
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordinal
+		dataType: int64
+		formatString: 0
+		lineageTag: 6677f1c5-0c4a-4aab-8a18-48c05f01157d
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+

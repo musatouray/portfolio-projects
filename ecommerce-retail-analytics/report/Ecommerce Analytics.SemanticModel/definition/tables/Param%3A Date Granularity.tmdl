@@ -31,7 +31,7 @@ table 'Param: Date Granularity'
 		isHidden
 		formatString: 0
 		lineageTag: bcd29aff-0684-4c14-b3c9-74f767bb7bb3
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: [Value3]
 
 		annotation SummarizationSetBy = Automatic
@@ -56,8 +56,8 @@ table 'Param: Date Granularity'
 		mode: import
 		source =
 				{
-				    ("Date", NAMEOF('DIM_DATES'[DATE]),                                     0, 1, "D"),
-				    ("Date | Start of Week", NAMEOF('DIM_DATES'[ISO_YEAR_WEEK]),            1, 2, "W"),
+				    // ("Date", NAMEOF('DIM_DATES'[DATE]),                                     0, 1, "D"),
+				    // ("Date | Start of Week", NAMEOF('DIM_DATES'[ISO_YEAR_WEEK]),            1, 2, "W"),
 				    ("Date | Start of Month", NAMEOF('DIM_DATES'[MONTH_YEAR]),              2, 3, "M"),
 				    ("Date | Start of Quarter", NAMEOF('DIM_DATES'[YEAR_QUARTER]),          3, 4, "Q"),
 				    ("Year", NAMEOF('DIM_DATES'[YEAR]),                                     4, 5, "Y")

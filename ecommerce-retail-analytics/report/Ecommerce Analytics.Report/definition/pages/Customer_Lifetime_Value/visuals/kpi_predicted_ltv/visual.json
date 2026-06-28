@@ -1,10 +1,10 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "kpi_predicted_ltv",
   "position": {
     "x": 495.54196887720065,
     "y": 142.41042563527029,
-    "z": 6000,
+    "z": 5000,
     "height": 165.56659240523291,
     "width": 219.98358431464513,
     "tabOrder": 3000

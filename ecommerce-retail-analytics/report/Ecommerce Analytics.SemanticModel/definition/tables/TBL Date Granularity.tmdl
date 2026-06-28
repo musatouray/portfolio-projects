@@ -55,8 +55,8 @@ table 'TBL Date Granularity'
 				    "Name Short", STRING,
 				    "Name General", STRING,
 				    {
-				        {1, "Daily", "Daily", "D", "Day"}, 
-				        {2, "Weekly", "Weekly", "W", "Week"},
+				        // {1, "Daily", "Daily", "D", "Day"}, 
+				        // {2, "Weekly", "Weekly", "W", "Week"},
 				        {3, "Monthly", "Monthly", "M", "Month"},
 				        {4,  "Quarterly", "Quarterly", "Q", "Quarter"},
 				        {5, "Yearly", "Yearly", "Y", "Year"}
