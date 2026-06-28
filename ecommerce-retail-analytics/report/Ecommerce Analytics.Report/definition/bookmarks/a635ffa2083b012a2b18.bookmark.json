@@ -20,31 +20,6 @@
     "sections": {
       "rfm_segmentation_page": {
         "visualContainers": {
-          "kpi_atrisk": {
-            "filters": {
-              "byExpr": [
-                {
-                  "name": "8e566e842e33adb44853",
-                  "type": "Advanced",
-                  "expression": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "_Measures"
-                        }
-                      },
-                      "Property": "At Risk Count"
-                    }
-                  },
-                  "howCreated": 0
-                }
-              ]
-            },
-            "singleVisual": {
-              "visualType": "card",
-              "objects": {}
-            }
-          },
           "segment_table": {
             "filters": {
               "byExpr": [

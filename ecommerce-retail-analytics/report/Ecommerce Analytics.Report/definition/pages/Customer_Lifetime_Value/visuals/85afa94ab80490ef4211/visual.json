@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "85afa94ab80490ef4211",
+  "position": {
+    "x": 30.363424400628517,
+    "y": 97,
+    "z": 12002,
+    "height": 80.579857063206447,
+    "width": 1860.3436565462011,
+    "tabOrder": 2000
+  },
+  "visualGroup": {
+    "displayName": "Grp Page Title",
+    "groupMode": "ScaleMode"
+  }
+}

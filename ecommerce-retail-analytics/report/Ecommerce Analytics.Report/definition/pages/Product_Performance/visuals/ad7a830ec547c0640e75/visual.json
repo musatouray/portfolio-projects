@@ -27,8 +27,9 @@
                 }
               },
               "queryRef": "DIM_PRODUCTS.PRODUCT_CATEGORY",
-              "nativeQueryRef": "PRODUCT_CATEGORY",
-              "active": true
+              "nativeQueryRef": "Product",
+              "active": true,
+              "displayName": "Product"
             }
           ]
         },
@@ -46,7 +47,8 @@
                 }
               },
               "queryRef": "Param: Pareto Threshold.Param: Pareto Threshold Value",
-              "nativeQueryRef": "Param: Pareto Threshold Value"
+              "nativeQueryRef": "Threshold",
+              "displayName": "Threshold"
             },
             {
               "field": {
@@ -60,7 +62,8 @@
                 }
               },
               "queryRef": "_Measures.Product Revenue Contribution",
-              "nativeQueryRef": "Product Revenue Contribution"
+              "nativeQueryRef": "Revenue Contribution",
+              "displayName": "Revenue Contribution"
             },
             {
               "field": {
@@ -74,7 +77,8 @@
                 }
               },
               "queryRef": "_Measures.Filtered Period Title",
-              "nativeQueryRef": "Filtered Period Title"
+              "nativeQueryRef": "Period",
+              "displayName": "Period"
             }
           ]
         },
@@ -92,13 +96,14 @@
                 }
               },
               "queryRef": "_Measures.Total Revenue Order Items",
-              "nativeQueryRef": "Total Revenue Order Items"
+              "nativeQueryRef": "Revenue",
+              "displayName": "Revenue"
             },
             {
               "field": {
                 "NativeVisualCalculation": {
                   "Language": "dax",
-                  "Expression": "DIVIDE([Total Revenue Order Items], COLLAPSEALL([Total Revenue Order Items], ROWS))",
+                  "Expression": "DIVIDE([Revenue], COLLAPSEALL([Revenue], ROWS))",
                   "Name": "Percent of grand total"
                 }
               },
@@ -110,7 +115,7 @@
               "field": {
                 "NativeVisualCalculation": {
                   "Language": "dax",
-                  "Expression": "\r\n// \"#b4d9b5\", \"#e7a3bd\"\r\nIF([Running sum] <= [Param: Pareto Threshold Value], \"#4A6FA5\", \"#DDE6F5\")\r\n",
+                  "Expression": "\r\n// \"#b4d9b5\", \"#e7a3bd\"\r\nIF([Running sum] <= [Threshold], \"#4A6FA5\", \"#DDE6F5\")\r\n",
                   "Name": "Pareto Bars Color"
                 }
               },
@@ -126,7 +131,7 @@
               "field": {
                 "NativeVisualCalculation": {
                   "Language": "dax",
-                  "Expression": "RUNNINGSUM([Percent of grand total], ORDERBY([Total Revenue Order Items], DESC))",
+                  "Expression": "RUNNINGSUM([Percent of grand total], ORDERBY([Revenue], DESC))",
                   "Name": "Running sum"
                 }
               },
@@ -138,7 +143,7 @@
               "field": {
                 "NativeVisualCalculation": {
                   "Language": "dax",
-                  "Expression": "IF([Running sum] > [Param: Pareto Threshold Value], [Running sum], BLANK())",
+                  "Expression": "IF([Running sum] > [Threshold], [Running sum], BLANK())",
                   "Name": "Red line"
                 }
               },
@@ -150,7 +155,7 @@
               "field": {
                 "NativeVisualCalculation": {
                   "Language": "dax",
-                  "Expression": "IF([Running sum] <= [Param: Pareto Threshold Value], [Running sum], BLANK())",
+                  "Expression": "IF([Running sum] <= [Threshold], [Running sum], BLANK())",
                   "Name": "Green line"
                 }
               },
@@ -162,7 +167,7 @@
               "field": {
                 "NativeVisualCalculation": {
                   "Language": "dax",
-                  "Expression": "\nVAR __Threshold = [Param: Pareto Threshold Value]\nVAR __PreviousRunningSum = [Running sum] - [Percent of grand total]\nRETURN\nIF(__PreviousRunningSum < __Threshold && [Running sum] >= __Threshold, [Running sum], BLANK())",
+                  "Expression": "\nVAR __Threshold = [Threshold]\nVAR __PreviousRunningSum = [Running sum] - [Percent of grand total]\nRETURN\nIF(__PreviousRunningSum < __Threshold && [Running sum] >= __Threshold, [Running sum], BLANK())",
                   "Name": "Cut-off"
                 }
               },
@@ -987,7 +992,7 @@
                   "Value": "true"
                 }
               }
-            },
+            }
           }
         }
       ],

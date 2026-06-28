@@ -1805,5 +1805,65 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "01bdd60043472a446dd6"
+  "parentGroupName": "01bdd60043472a446dd6",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "bc14f1d2d56ff002169d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FCT_COHORT_RETENTION"
+              }
+            },
+            "Property": "PERIOD"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "764ccb9a08206fe0191a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FCT_COHORT_RETENTION"
+              }
+            },
+            "Property": "COHORT_MONTH"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "405223bd6df9bb50eafd",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FCT_COHORT_RETENTION"
+              }
+            },
+            "Property": "COHORT_SIZE"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "fcc0b9f9437187ecb19f",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Gross Revenue Retention (GRR) %"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
 }
