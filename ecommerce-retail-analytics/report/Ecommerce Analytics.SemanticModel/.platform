@@ -5,6 +5,7 @@
     "displayName": "Ecommerce Analytics"
   },
   "config": {
-    "version": "2.0"
+    "version": "2.0",
+    "logicalId": "ee5bbcec-e278-404d-81c8-8b716c53deba"
   }
 }
