@@ -32,7 +32,7 @@ This isn't a Jupyter notebook analysis—it's a **complete data platform** built
 | **CI/CD** | GitHub Actions runs tests on every PR, deploys to production on merge |
 | **Environment Isolation** | Separate DEV and PROD databases—changes validated before reaching dashboards |
 | **Observability** | Slack alerts on pipeline failures, success summaries with row counts |
-| **Interactive Dashboards** | Power BI reports with drill-through, filtering, and time intelligence |
+| **Interactive Dashboards** | Power BI reports deployed via Fabric Git integration (`fabric-prod` branch) |
 
 ---
 
@@ -76,7 +76,7 @@ This isn't a Jupyter notebook analysis—it's a **complete data platform** built
 │   ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐ │
 │   │ Synthetic│    │   AWS    │    │Snowflake │    │   dbt    │    │ Power BI │ │
 │   │   Data   │───▶│    S3    │───▶│   RAW    │───▶│  Models  │───▶│Dashboards│ │
-│   │Generator │    │  Stage   │    │ (Bronze) │    │(Silver/  │    │          │ │
+│   │Generator │    │  Stage   │    │ (Bronze) │    │(Silver/  │    │ (Fabric) │ │
 │   └──────────┘    └──────────┘    └──────────┘    │  Gold)   │    └──────────┘ │
 │        │                                          └──────────┘          │       │
 │        │              AIRFLOW ORCHESTRATION                             │       │
@@ -88,8 +88,8 @@ This isn't a Jupyter notebook analysis—it's a **complete data platform** built
 │                            └───────────────┘                                    │
 │                                                                                 │
 ├─────────────────────────────────────────────────────────────────────────────────┤
-│                              CI/CD (GitHub Actions)                             │
-│   PR → Lint + Test (DEV) → Merge → Deploy (PROD) → Scheduled Refresh           │
+│                              CI/CD (GitHub Actions + Fabric Git)                │
+│   PR → Test (DEV) → main → Deploy dbt (PROD) → fabric-prod → Fabric Sync       │
 └─────────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -122,7 +122,7 @@ ECOMMERCE_RETAIL_DB_DEV                    ECOMMERCE_RETAIL_DB_PROD
 | **Warehouse** | Snowflake | Scalable cloud analytics database |
 | **Transformation** | dbt (Data Build Tool) | Version-controlled SQL models with testing |
 | **CI/CD** | GitHub Actions | Automated testing and deployment |
-| **Visualization** | Power BI | Interactive business dashboards |
+| **Visualization** | Power BI + Microsoft Fabric | Interactive dashboards with Git-based deployment |
 | **Alerting** | Slack | Pipeline monitoring and notifications |
 | **Languages** | Python, SQL | Data generation, advanced analytics |
 
@@ -180,7 +180,7 @@ ecommerce-retail-analytics/
 │   ├── synthetic_data_generator.py
 │   └── load_to_snowflake.py
 │
-├── report/                     # Power BI project files
+├── report/                     # Power BI project files (syncs to Fabric via fabric-prod branch)
 │   ├── Ecommerce Analytics.Report/
 │   └── Ecommerce Analytics.SemanticModel/
 │

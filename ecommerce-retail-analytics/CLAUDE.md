@@ -320,6 +320,25 @@ Configure via `SLACK_WEBHOOK_URL` environment variable.
 - **Target**: PROD database
 - **Actions**: `dbt build` (full refresh available via manual trigger)
 
+### Fabric Git Integration
+
+Power BI reports are deployed to Microsoft Fabric via Git integration:
+
+| Branch | Fabric Workspace | Purpose |
+|--------|------------------|---------|
+| `main` | (Dev workspace) | Development and testing |
+| `fabric-prod` | Production workspace | End-user dashboards |
+
+**Workflow:**
+```
+feature branch → PR → main → PR/merge → fabric-prod → Fabric auto-syncs
+```
+
+**Fabric Settings:**
+- **Branch**: `fabric-prod`
+- **Folder**: `ecommerce-retail-analytics/report`
+- Fabric only syncs the `report/` folder (ignores dbt, airflow, scripts)
+
 ---
 
 ## Snowflake Configuration
@@ -408,6 +427,19 @@ git push -u origin feature/name
 gh pr create                  # Create PR
 gh pr merge --squash          # Merge after approval
 ```
+
+### Promoting to Fabric Production
+
+After merging to `main`, promote report changes to the Fabric production workspace:
+
+```bash
+git checkout fabric-prod
+git merge main
+git push
+# Fabric workspace auto-syncs from fabric-prod branch
+```
+
+Or create a PR from `main` to `fabric-prod` for review before promoting.
 
 ---
 

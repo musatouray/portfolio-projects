@@ -400,6 +400,60 @@ Connect dimension tables to fact tables using the appropriate keys (customer_key
 
 ---
 
+## 13. Microsoft Fabric Git Integration
+
+The Power BI reports are deployed to Microsoft Fabric via Git integration, enabling version control and CI/CD for dashboards.
+
+### Branch Strategy
+
+| Branch | Purpose | Fabric Workspace |
+|--------|---------|------------------|
+| `main` | Development, testing, PR validation | Dev workspace (optional) |
+| `fabric-prod` | Production reports | **Production workspace** |
+
+### Connect Fabric Workspace to Git
+
+1. In your Fabric workspace, go to **Workspace settings** → **Git integration**
+2. Connect to your GitHub repository
+3. Configure:
+   - **Branch**: `fabric-prod`
+   - **Folder**: `ecommerce-retail-analytics/report`
+4. Choose **"Update from Git"** to sync
+
+Fabric only syncs the `report/` folder—dbt, airflow, and scripts are ignored.
+
+### Deployment Workflow
+
+```
+feature branch → PR → main (test) → merge to fabric-prod → Fabric auto-syncs
+```
+
+**Promote changes to production:**
+
+```bash
+git checkout fabric-prod
+git merge main
+git push
+# Fabric workspace automatically syncs
+```
+
+### Troubleshooting Fabric Sync
+
+**Conflict errors after workspace recreation:**
+If you delete and recreate a Fabric workspace, the `.platform` files contain stale `logicalId` values. Remove them:
+
+```bash
+# The logicalId fields in these files reference old workspace items
+# Remove logicalId from both .platform files, commit, and push
+# Fabric will assign new IDs on next sync
+```
+
+Files affected:
+- `report/Ecommerce Analytics.Report/.platform`
+- `report/Ecommerce Analytics.SemanticModel/.platform`
+
+---
+
 ## Troubleshooting
 
 ### Python version errors
