@@ -626,6 +626,20 @@
           "selector": {
             "id": "time_trends_page"
           }
+        },
+        {
+          "properties": {
+            "showPage": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "4a746f2522d10a05705e"
+          }
         }
       ]
     },

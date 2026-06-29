@@ -1,16 +1,16 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "588b92d1c06e3f28e94e",
+  "name": "13751151e2a133f3db54",
   "position": {
     "x": 0,
     "y": 0,
-    "z": 5000,
-    "height": 67.152883632891673,
-    "width": 1919.9026813320493,
-    "tabOrder": 5000
+    "z": 6003,
+    "height": 67.733792893709762,
+    "width": 1920,
+    "tabOrder": 2000
   },
   "visualGroup": {
-    "displayName": "Nav ",
+    "displayName": "Grp Nav ",
     "groupMode": "ScaleMode"
   }
 }
