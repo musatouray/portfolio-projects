@@ -92,7 +92,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Revenue Order Items"
+                  "Property": "Order Items Total Revenue"
                 }
               },
               "queryRef": "_Measures.Total Revenue Order Items",
@@ -188,7 +188,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Total Revenue Order Items"
+                "Property": "Order Items Total Revenue"
               }
             },
             "direction": "Descending"

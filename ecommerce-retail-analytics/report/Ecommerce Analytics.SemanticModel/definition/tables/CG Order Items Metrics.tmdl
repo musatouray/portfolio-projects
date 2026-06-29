@@ -16,7 +16,7 @@ table 'CG Order Items Metrics'
 				    NOT __IsTrendVisual, SELECTEDMEASURE(),
 				    __IsMoMGrowth, [Time Series MoM Growth %],
 				    __IsPriorYearMeasure, [Time Series PY],
-				    [Total Order Items]
+				    [Order Items Total Orders]
 				)
 				```
 
@@ -44,7 +44,7 @@ table 'CG Order Items Metrics'
 				    NOT __IsTrendVisual, SELECTEDMEASURE(),
 				   __IsMoMGrowth, [Time Series MoM Growth %],
 				   __IsPriorYearMeasure, [Time Series PY],
-				    [Total Revenue Order Items]
+				    [Order Items Total Revenue]
 				)
 				
 				```
@@ -73,7 +73,7 @@ table 'CG Order Items Metrics'
 				    NOT __IsTrendVisual, SELECTEDMEASURE(),
 				    __IsMoMGrowth, [Time Series MoM Growth %],
 				    __IsPriorYearMeasure, [Time Series PY],
-				    [AOV Order Items]
+				    [Order Items AOV]
 				)
 				
 				```
