@@ -1,0 +1,17 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "e4dbcf1c89a1b438e1ad",
+  "position": {
+    "x": 1650.1353337726191,
+    "y": 66.328754625171086,
+    "z": 5000,
+    "height": 1013.6712453748289,
+    "width": 269.76734755943028,
+    "tabOrder": 0
+  },
+  "visualGroup": {
+    "displayName": "Grp Filter Pane",
+    "groupMode": "ScaleMode"
+  },
+  "isHidden": true
+}
