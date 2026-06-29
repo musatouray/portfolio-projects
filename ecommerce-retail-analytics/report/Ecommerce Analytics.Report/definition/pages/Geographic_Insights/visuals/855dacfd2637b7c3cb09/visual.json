@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
-  "name": "11991841388240186f01",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "855dacfd2637b7c3cb09",
   "position": {
-    "x": 1763.4142632672715,
+    "x": 0,
     "y": 0,
-    "z": 9031,
-    "height": 63.062496832074615,
-    "width": 156.48841806477773,
-    "tabOrder": 3000
+    "z": 1000,
+    "height": 63.544984540524091,
+    "width": 231.6043425814234,
+    "tabOrder": 8011
   },
   "visual": {
     "visualType": "textbox",
@@ -19,7 +19,13 @@
               {
                 "textRuns": [
                   {
-                    "value": ""
+                    "value": "E-Commerce Analytics",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontFamily": "Segoe UI Semibold",
+                      "fontSize": "14pt",
+                      "color": "#ffffff"
+                    }
                   }
                 ]
               }
@@ -106,7 +112,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Filter-Noti-bg'"
+                  "Value": "'Ecom Analytics'"
                 }
               }
             }
@@ -116,5 +122,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "588b92d1c06e3f28e94e"
+  "parentGroupName": "13751151e2a133f3db54"
 }

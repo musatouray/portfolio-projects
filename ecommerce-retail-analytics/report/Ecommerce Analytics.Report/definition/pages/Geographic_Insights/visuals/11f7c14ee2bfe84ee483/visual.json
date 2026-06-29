@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
-  "name": "f2eb0d1340ec0c5a75ac",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "11f7c14ee2bfe84ee483",
   "position": {
-    "x": 290.78817983678852,
+    "x": 290.69597069597069,
     "y": 0,
-    "z": 9000,
+    "z": 2000,
     "height": 63.062496832074615,
-    "width": 1473,
-    "tabOrder": 1000
+    "width": 1629.3040293040292,
+    "tabOrder": 8017
   },
   "visual": {
     "visualType": "pageNavigator",
@@ -626,6 +626,20 @@
           "selector": {
             "id": "time_trends_page"
           }
+        },
+        {
+          "properties": {
+            "showPage": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "4a746f2522d10a05705e"
+          }
         }
       ]
     },
@@ -710,5 +724,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "588b92d1c06e3f28e94e"
+  "parentGroupName": "13751151e2a133f3db54"
 }

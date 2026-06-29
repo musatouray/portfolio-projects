@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
-  "name": "0440befd8921b9199057",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "97a451e4bb1acc3cba0e",
   "position": {
-    "x": 1771.5890313751331,
-    "y": 0,
-    "z": 9125,
-    "height": 66.565968878300978,
-    "width": 74.7407369861625,
-    "tabOrder": 5000
+    "x": 1715.5334786355113,
+    "y": 10.4398094176086,
+    "z": 6000,
+    "height": 59.559024785848244,
+    "width": 66.565968878300978,
+    "tabOrder": 8016
   },
   "visual": {
     "visualType": "image",
@@ -20,23 +20,14 @@
                 "name": {
                   "expr": {
                     "Literal": {
-                      "Value": "'Filter Grey.png'"
+                      "Value": "''"
                     }
                   }
                 },
                 "url": {
                   "expr": {
-                    "ResourcePackageItem": {
-                      "PackageName": "RegisteredResources",
-                      "PackageType": 1,
-                      "ItemName": "Filter_Grey8922756142565182.png"
-                    }
-                  }
-                },
-                "scaling": {
-                  "expr": {
                     "Literal": {
-                      "Value": "'Normal'"
+                      "Value": "''"
                     }
                   }
                 }
@@ -91,6 +82,74 @@
           "selector": {
             "id": "hover"
           }
+        },
+        {
+          "properties": {
+            "sourceFile": {
+              "image": {
+                "name": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'Filter.svg'"
+                    }
+                  }
+                },
+                "url": {
+                  "expr": {
+                    "ResourcePackageItem": {
+                      "PackageName": "RegisteredResources",
+                      "PackageType": 1,
+                      "ItemName": "Filter6302317244178767.svg"
+                    }
+                  }
+                },
+                "scaling": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'Normal'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "sourceFile": {
+              "image": {
+                "name": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'Filter Blue.png'"
+                    }
+                  }
+                },
+                "url": {
+                  "expr": {
+                    "ResourcePackageItem": {
+                      "PackageName": "RegisteredResources",
+                      "PackageType": 1,
+                      "ItemName": "Filter_Blue971168401278887.png"
+                    }
+                  }
+                },
+                "scaling": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'Normal'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "press"
+          }
         }
       ]
     },
@@ -118,6 +177,13 @@
                   "Value": "'Filters'"
                 }
               }
+            },
+            "bookmark": {
+              "expr": {
+                "Literal": {
+                  "Value": "'5d0ad419107d7779cf2a'"
+                }
+              }
             }
           }
         }
@@ -138,5 +204,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "588b92d1c06e3f28e94e"
+  "parentGroupName": "d6e12f34893b5dcd2296"
 }
