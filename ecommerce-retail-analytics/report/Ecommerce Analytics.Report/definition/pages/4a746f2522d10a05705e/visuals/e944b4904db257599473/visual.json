@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Revenue"
+                  "Property": "Order Items Total Revenue"
                 }
               },
-              "queryRef": "_Measures.Total Revenue",
-              "nativeQueryRef": "Total Revenue"
+              "queryRef": "_Measures.Total Revenue Order Items",
+              "nativeQueryRef": "Order Items Total Revenue"
             },
             {
               "field": {
@@ -37,11 +37,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Orders"
+                  "Property": "Order Items Total Orders"
                 }
               },
-              "queryRef": "_Measures.Total Orders",
-              "nativeQueryRef": "Total Orders"
+              "queryRef": "_Measures.Total Order Items",
+              "nativeQueryRef": "Order Items Total Orders"
             },
             {
               "field": {
@@ -51,11 +51,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Average Order Value"
+                  "Property": "Order Items AOV"
                 }
               },
-              "queryRef": "_Measures.Average Order Value",
-              "nativeQueryRef": "Average Order Value"
+              "queryRef": "_Measures.AOV Order Items",
+              "nativeQueryRef": "Order Items AOV"
             },
             {
               "field": {
@@ -112,7 +112,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Total Revenue"
+                "Property": "Order Items Total Revenue"
               }
             },
             "direction": "Descending"
@@ -253,6 +253,48 @@
           "selector": {
             "metadata": "_Measures.Total Customers"
           }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Revenue Order Items"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Order Items"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.AOV Order Items"
+          }
         }
       ],
       "shadowCustom": [
@@ -261,7 +303,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -299,7 +341,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             }
@@ -316,6 +358,27 @@
               "expr": {
                 "Literal": {
                   "Value": "12L"
+                }
+              }
+            },
+            "paddingIndividual": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "topMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "10L"
+                }
+              }
+            },
+            "bottomMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "10L"
                 }
               }
             }
@@ -614,6 +677,90 @@
             "metadata": "_Measures.Total Revenue",
             "id": "field-f89ffaf2-944f-06ec-5e74-7b04d81cd6a6",
             "order": 1
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Order Items PY Revenue"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Measures.Total Revenue Order Items",
+            "id": "field-454bf6da-0bb0-116a-c6fb-afad3a3d4a25",
+            "order": 0
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Order Items PY Orders"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Measures.Total Order Items",
+            "id": "field-124fe4b2-92ce-02b6-af02-639a8ce9adf4",
+            "order": 0
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Order Items PY AOV"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Measures.AOV Order Items",
+            "id": "field-be67937e-eaae-8346-6d1e-05974c30ffbf",
+            "order": 0
           }
         }
       ],
@@ -1121,6 +1268,87 @@
             "metadata": "_Measures.Total Customers",
             "id": "field-8b09fa23-68e4-2282-d058-9eb5d3e74ebf"
           }
+        },
+        {
+          "properties": {
+            "detailValue": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Formatted Order Items Revenue Absolute and Relative"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Measures.Total Revenue Order Items",
+            "id": "field-454bf6da-0bb0-116a-c6fb-afad3a3d4a25"
+          }
+        },
+        {
+          "properties": {
+            "detailValue": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Formatted Order Items Orders Absolute And Relative"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Measures.Total Order Items",
+            "id": "field-124fe4b2-92ce-02b6-af02-639a8ce9adf4"
+          }
+        },
+        {
+          "properties": {
+            "detailValue": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Formatted Order Items AOV Absolute And Relative"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Measures.AOV Order Items",
+            "id": "field-be67937e-eaae-8346-6d1e-05974c30ffbf"
+          }
         }
       ],
       "referenceLabelTitle": [
@@ -1425,6 +1653,72 @@
             "metadata": "_Measures.Total Revenue",
             "id": "field-f89ffaf2-944f-06ec-5e74-7b04d81cd6a6"
           }
+        },
+        {
+          "properties": {
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'PY '"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Revenue Order Items",
+            "id": "field-454bf6da-0bb0-116a-c6fb-afad3a3d4a25"
+          }
+        },
+        {
+          "properties": {
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'PY '"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Order Items",
+            "id": "field-124fe4b2-92ce-02b6-af02-639a8ce9adf4"
+          }
+        },
+        {
+          "properties": {
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'PY '"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.AOV Order Items",
+            "id": "field-be67937e-eaae-8346-6d1e-05974c30ffbf"
+          }
         }
       ],
       "label": [
@@ -1550,6 +1844,48 @@
           },
           "selector": {
             "metadata": "_Measures.Total Customers"
+          }
+        },
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Revenue'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Revenue Order Items"
+          }
+        },
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Orders'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Order Items"
+          }
+        },
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Avg Order Value'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.AOV Order Items"
           }
         }
       ],
@@ -1821,6 +2157,51 @@
             "metadata": "_Measures.Total Revenue",
             "id": "field-c87f1ca0-ec60-6594-b4fb-62c449b5f520"
           }
+        },
+        {
+          "properties": {
+            "valueDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Revenue Order Items",
+            "id": "field-454bf6da-0bb0-116a-c6fb-afad3a3d4a25"
+          }
+        },
+        {
+          "properties": {
+            "valueDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Order Items",
+            "id": "field-124fe4b2-92ce-02b6-af02-639a8ce9adf4"
+          }
+        },
+        {
+          "properties": {
+            "valueDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.AOV Order Items",
+            "id": "field-be67937e-eaae-8346-6d1e-05974c30ffbf"
+          }
         }
       ],
       "cardCalloutArea": [
@@ -1972,7 +2353,7 @@
             "fit": {
               "expr": {
                 "Literal": {
-                  "Value": "'Fill'"
+                  "Value": "'Fit'"
                 }
               }
             },
@@ -1986,7 +2367,7 @@
             "imageAreaSize": {
               "expr": {
                 "Literal": {
-                  "Value": "50L"
+                  "Value": "45L"
                 }
               }
             },
@@ -2130,6 +2511,119 @@
             "metadata": "_Measures.Total Revenue"
           }
         }
+      ],
+      "accentBar": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0078D4'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "50D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Order Items"
+          }
+        },
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "50D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.AOV Order Items"
+          }
+        },
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "50D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.On-Time Delivery Rate"
+          }
+        },
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "50D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Average Review Score"
+          }
+        },
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "50D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Customers"
+          }
+        }
+      ],
+      "shapeCustomRectangle": [
+        {
+          "properties": {
+            "rectangleRoundedCurve": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -2172,7 +2666,7 @@
             "shadowDistance": {
               "expr": {
                 "Literal": {
-                  "Value": "1D"
+                  "Value": "2D"
                 }
               }
             },
@@ -2190,7 +2684,7 @@
             "shadowSpread": {
               "expr": {
                 "Literal": {
-                  "Value": "1D"
+                  "Value": "0D"
                 }
               }
             },
@@ -2218,7 +2712,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             }
@@ -2238,7 +2732,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             }
@@ -2251,7 +2745,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             }
@@ -2264,28 +2758,28 @@
             "top": {
               "expr": {
                 "Literal": {
-                  "Value": "0D"
+                  "Value": "10D"
                 }
               }
             },
             "left": {
               "expr": {
                 "Literal": {
-                  "Value": "0D"
+                  "Value": "10D"
                 }
               }
             },
             "bottom": {
               "expr": {
                 "Literal": {
-                  "Value": "0D"
+                  "Value": "10D"
                 }
               }
             },
             "right": {
               "expr": {
                 "Literal": {
-                  "Value": "0D"
+                  "Value": "10D"
                 }
               }
             }
@@ -2307,5 +2801,93 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "4e23f2a4cd7c7f617af6",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "On-Time Delivery Rate"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ed088cd3d0c460f0cd7b",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Average Review Score"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "2dad2eb230779cf34bcb",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Unique Customers"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "6358f98f385eab2f77f2",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Order Items Total Revenue"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "6e03eeccd00f92598989",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Order Items Total Orders"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "dfc118421d26e624a718",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Order Items AOV"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

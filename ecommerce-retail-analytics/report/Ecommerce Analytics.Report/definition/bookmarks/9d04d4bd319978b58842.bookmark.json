@@ -78,7 +78,7 @@
                           "Entity": "_Measures"
                         }
                       },
-                      "Property": "Total Revenue Order Items"
+                      "Property": "Order Items Total Revenue"
                     }
                   },
                   "howCreated": 0
@@ -98,7 +98,7 @@
                           "Entity": "_Measures"
                         }
                       },
-                      "Property": "Total Revenue Order Items"
+                      "Property": "Order Items Total Revenue"
                     }
                   }
                 }

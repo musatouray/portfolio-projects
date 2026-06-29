@@ -11,7 +11,7 @@ function 'Format.YoYAbsoluteAndRelative' = ```
 			VAR __FormatGrowthAbsolute = 
 				SWITCH (
 					TRUE (),
-					__GrowthAbsoluteVariance <= 1E3, "+#,0;-#,0;0",
+					__GrowthAbsoluteVariance <= 1E3, "+#,0.0;-#,0.0;0",
 					__GrowthAbsoluteVariance <= 1E4, "+#,0,.00K;-#,0,.00K;0",
 					__GrowthAbsoluteVariance <= 1E5, "+#,0,.0K;-#,0,.0K;0",
 					__GrowthAbsoluteVariance <= 1E6, "+#,0,K;-#,0,K;0",

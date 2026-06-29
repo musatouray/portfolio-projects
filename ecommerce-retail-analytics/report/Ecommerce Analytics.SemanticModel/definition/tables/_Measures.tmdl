@@ -5,7 +5,7 @@ table _Measures
 	/// _Base Measures - Core Metrics
 	/// =============================================
 	measure 'Total Revenue' = SUM(FCT_ORDERS[TOTAL_PAYMENT_VALUE])
-		displayFolder: 00_Base
+		displayFolder: 00_Base\Fct_Orders
 		lineageTag: b1000001-0001-0001-0001-000000000001
 
 		formatStringDefinition = ```
@@ -25,7 +25,7 @@ table _Measures
 				```
 
 	measure 'Total Orders' = COUNTROWS(FCT_ORDERS)
-		displayFolder: 00_Base
+		displayFolder: 00_Base\Fct_Orders
 		lineageTag: b1000002-0001-0001-0001-000000000002
 
 		formatStringDefinition =
@@ -43,7 +43,7 @@ table _Measures
 				    )
 
 	measure 'Unique Customers' = DISTINCTCOUNT(FCT_ORDER_ITEMS[CUSTOMER_KEY])
-		displayFolder: 00_Base
+		displayFolder: 00_Base\Fct_Orders
 		lineageTag: b1000003-0001-0001-0001-000000000003
 
 		formatStringDefinition =
@@ -61,7 +61,7 @@ table _Measures
 				    )
 
 	measure 'Average Order Value' = DIVIDE([Total Revenue], [Total Orders], 0)
-		displayFolder: 00_Base
+		displayFolder: 00_Base\Fct_Orders
 		lineageTag: b1000004-0001-0001-0001-000000000004
 
 		formatStringDefinition =
@@ -80,12 +80,12 @@ table _Measures
 
 	measure 'Average Review Score' = AVERAGE(FCT_ORDERS[REVIEW_SCORE])
 		formatString: 0.0
-		displayFolder: 00_Base
+		displayFolder: 00_Base\Fct_Orders
 		lineageTag: b1000005-0001-0001-0001-000000000005
 
 	measure 'Total Freight' = SUM(FCT_ORDERS[TOTAL_FREIGHT_VALUE])
 		formatString: $#,##0
-		displayFolder: 00_Base
+		displayFolder: 00_Base\Fct_Orders
 		lineageTag: b1000006-0001-0001-0001-000000000006
 
 	/// Share of orders with ORDER_STATUS = 'delivered'. Storage-engine-friendly
@@ -101,7 +101,7 @@ table _Measures
 			    0
 			)
 		formatString: 0.0%
-		displayFolder: 00_Base
+		displayFolder: 00_Base\Fct_Orders
 		lineageTag: b1000007-0001-0001-0001-000000000007
 
 	/// Of delivered orders, share that arrived on/before the estimated date.
@@ -129,7 +129,7 @@ table _Measures
 			
 			```
 		formatString: 0.0%;-0.0%;0.0%
-		displayFolder: 00_Base
+		displayFolder: 00_Base\Fct_Orders
 		lineageTag: b1000008-0001-0001-0001-000000000008
 
 	measure 'Prior Year Revenue' = ```
@@ -138,7 +138,7 @@ table _Measures
 			TimeIntelligence.PY([Total Revenue])
 			
 			```
-		displayFolder: 08_Time Intelligence\_PY
+		displayFolder: 08_Time Intelligence\_PY\Fct_Orders
 		lineageTag: t1000005-0001-0001-0001-000000000005
 
 		formatStringDefinition = ```
@@ -166,7 +166,7 @@ table _Measures
 			DIVIDE(CurrentPeriod - PriorYear, PriorYear, 0)
 			```
 		formatString: 0.0%;-0.0%;0.0%
-		displayFolder: 08_Time Intelligence\_YoY
+		displayFolder: 08_Time Intelligence\_YoY\Fct_Orders
 		lineageTag: t1000007-0001-0001-0001-000000000007
 
 	measure 'Prior Year Orders' = ```
@@ -175,11 +175,11 @@ table _Measures
 			TimeIntelligence.PY([Total Orders])
 			
 			```
-		displayFolder: 08_Time Intelligence\_PY
+		displayFolder: 08_Time Intelligence\_PY\Fct_Orders
 		lineageTag: t1000010-0001-0001-0001-000000000010
 
 		formatStringDefinition =
-				VAR __FormattedOrders = [Prior Year Orders]
+				VAR __FormattedOrders = SELECTEDMEASURE()
 				RETURN
 				    SWITCH (
 				        TRUE (),
@@ -201,7 +201,7 @@ table _Measures
 			DIVIDE(CurrentPeriod - PriorYear, PriorYear, 0)
 			```
 		formatString: 0.0%;-0.0%;0.0%
-		displayFolder: 08_Time Intelligence\_YoY
+		displayFolder: 08_Time Intelligence\_YoY\Fct_Orders
 		lineageTag: t1000011-0001-0001-0001-000000000011
 
 	measure 'Avg Recency (Days)' = ```
@@ -557,12 +557,12 @@ table _Measures
 	measure 'Running Total Product Revenue' = ```
 			
 			CALCULATE(
-			    [Total Revenue Order Items],
+			    [Order Items Total Revenue],
 			    WINDOW(
 			        1, ABS,
 			        0, REL,
 			        ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]),
-			        ORDERBY([Total Revenue Order Items], DESC)
+			        ORDERBY([Order Items Total Revenue], DESC)
 			    )
 			)
 			
@@ -590,14 +590,14 @@ table _Measures
 			
 			VAR __AllSelectedRevenue =
 			    CALCULATE(
-			        [Total Revenue Order Items],
+			        [Order Items Total Revenue],
 			        ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY])
 			    )
 			
 			VAR __CategoryTable = 
 			    ADDCOLUMNS(
 			        ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]),
-			        "@CategoryRevenue", [Total Revenue Order Items]
+			        "@CategoryRevenue", [Order Items Total Revenue]
 			    )
 			
 			VAR __RunningTotalRevenue =
@@ -739,7 +739,7 @@ table _Measures
 			Format.YoYAbsoluteAndRelative([Total Revenue], [Prior Year Revenue])
 			
 			```
-		displayFolder: 14_Viz Helpers\_KPI Cards
+		displayFolder: 14_Viz Helpers\_KPI Cards\Fct_Orders
 		lineageTag: c02e2e7c-0b31-489e-837f-27310bb80b03
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -762,7 +762,7 @@ table _Measures
 			Format.YoYAbsoluteAndRelative([Total Orders], [Prior Year Orders])
 			 
 			```
-		displayFolder: 14_Viz Helpers\_KPI Cards
+		displayFolder: 14_Viz Helpers\_KPI Cards\Fct_Orders
 		lineageTag: 8bf52ab6-3b72-4965-a156-d70d0f0696ee
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -812,7 +812,7 @@ table _Measures
 			TimeIntelligence.PY([Unique Customers])
 			
 			```
-		displayFolder: 08_Time Intelligence\_PY
+		displayFolder: 08_Time Intelligence\_PY\Fct_Orders
 		lineageTag: 404ab817-ecde-4fbb-b7ef-80b00977e4f9
 
 		formatStringDefinition =
@@ -838,7 +838,7 @@ table _Measures
 			DIVIDE(CurrentPeriod - PriorYear, PriorYear)
 			```
 		formatString: 0.0%;-0.0%;0.0%
-		displayFolder: 08_Time Intelligence\_YoY
+		displayFolder: 08_Time Intelligence\_YoY\Fct_Orders
 		lineageTag: 51dc3bae-2fd1-4920-9da5-e0d98256c624
 
 	/// Running total of revenue. ALLSELECTED preserves the user's date slicer
@@ -1046,10 +1046,10 @@ table _Measures
 
 	measure 'Product Revenue Contribution' = ```
 			
-			VAR __ProductRevenue = [Total Revenue Order Items]
+			VAR __ProductRevenue = [Order Items Total Revenue]
 			VAR __AllSelectedProductRevenue = 
 			    CALCULATE(
-			        [Total Revenue Order Items], 
+			        [Order Items Total Revenue], 
 			        ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY])
 			    )
 			
@@ -1127,30 +1127,6 @@ table _Measures
 		lineageTag: meta0001-0001-0001-0001-000000000001
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	/// =============================================
-	/// _Role-Playing Date Dimension (Delivery Date)
-	/// Activates the inactive FCT_ORDERS[DELIVERY_DATE_KEY] relationship.
-	/// =============================================
-	measure 'Revenue by Delivery Date' =
-			
-			CALCULATE(
-				[Total Revenue],
-				USERELATIONSHIP(FCT_ORDERS[DELIVERY_DATE_KEY], DIM_DATES[DATE_KEY])
-			)
-		formatString: $#,##0
-		displayFolder: 08_Time Intelligence\_Delivery
-		lineageTag: rp100001-0001-0001-0001-000000000001
-
-	measure 'Orders by Delivery Date' =
-			
-			CALCULATE(
-				[Total Orders],
-				USERELATIONSHIP(FCT_ORDERS[DELIVERY_DATE_KEY], DIM_DATES[DATE_KEY])
-			)
-		formatString: #,##0
-		displayFolder: 08_Time Intelligence\_Delivery
-		lineageTag: rp100002-0001-0001-0001-000000000002
 
 	measure 'Max Selected Metric' = ```
 			
@@ -1434,7 +1410,7 @@ table _Measures
 			Format.YoYAbsoluteAndRelative([Average Order Value], [Prior Year AOV])
 			 
 			```
-		displayFolder: 14_Viz Helpers\_KPI Cards
+		displayFolder: 14_Viz Helpers\_KPI Cards\Fct_Orders
 		lineageTag: 74d052ee-36c8-45ce-a56c-4e12d9b2773a
 		dataCategory: Uncategorized
 
@@ -1446,11 +1422,11 @@ table _Measures
 			TimeIntelligence.PY([Average Order Value])
 			
 			```
-		displayFolder: 08_Time Intelligence\_PY
+		displayFolder: 08_Time Intelligence\_PY\Fct_Orders
 		lineageTag: 13e120a0-ecd3-4ed8-a5fc-83258638d79c
 
 		formatStringDefinition = ```
-				VAR __FormattedAOV = [Prior Year AOV]
+				VAR __FormattedAOV = SELECTEDMEASURE()
 				RETURN
 				    SWITCH (
 				        TRUE (),
@@ -1496,7 +1472,7 @@ table _Measures
 			DIVIDE(CurrentPeriod - PriorYear, PriorYear, 0)
 			```
 		formatString: 0.0%;-0.0%;0.0%
-		displayFolder: 08_Time Intelligence\_YoY
+		displayFolder: 08_Time Intelligence\_YoY\Fct_Orders
 		lineageTag: 004e1151-a154-420a-94e5-824a50e5ecbf
 
 	/// Avg Order Value (AOV) YoY font color using UDF color function with 0% transparency
@@ -1653,7 +1629,7 @@ table _Measures
 			
 			```
 		formatString: 0.0%;-0.0%;0.0%
-		displayFolder: 08_Time Intelligence\_PY
+		displayFolder: 08_Time Intelligence\_PY\Fct_Orders
 		lineageTag: 949c7835-888f-498d-9af9-f1f1c9095f65
 
 	measure 'Formatted On-Time Delivery Absolute And Relative' = ```
@@ -1662,7 +1638,7 @@ table _Measures
 			Format.YoYAbsoluteAndRelative([On-Time Delivery Rate], [Prior Year On-Time Delivery])
 			
 			```
-		displayFolder: 14_Viz Helpers\_KPI Cards
+		displayFolder: 14_Viz Helpers\_KPI Cards\Fct_Orders
 		lineageTag: c05d2a3d-b62a-410d-8ce5-848d2908dc5b
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -1673,7 +1649,7 @@ table _Measures
 			TimeIntelligence.PY([Average Review Score])
 			
 			```
-		displayFolder: 08_Time Intelligence\_PY
+		displayFolder: 08_Time Intelligence\_PY\Fct_Orders
 		lineageTag: ff7f2184-fd44-4b2d-ade4-64532dd40028
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -1682,7 +1658,7 @@ table _Measures
 			
 			// Using UDF Function
 			Format.YoYAbsoluteAndRelative([Average Review Score], [Prior Year Avg Review Score])
-		displayFolder: 14_Viz Helpers\_KPI Cards
+		displayFolder: 14_Viz Helpers\_KPI Cards\Fct_Orders
 		lineageTag: 4a6ef895-dda1-448e-b73f-87886eccb7ad
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -1696,7 +1672,7 @@ table _Measures
 			DIVIDE(CurrentPeriod - PriorYear, PriorYear, 0)
 			```
 		formatString: 0.0%;-0.0%;0.0%
-		displayFolder: 08_Time Intelligence\_YoY
+		displayFolder: 08_Time Intelligence\_YoY\Fct_Orders
 		lineageTag: 2dc808c5-aec1-42a2-9003-00f3bca4b0d8
 
 	measure 'Avg Review Score YoY %' = ```
@@ -1708,7 +1684,7 @@ table _Measures
 			DIVIDE(CurrentPeriod - PriorYear, PriorYear, 0)
 			```
 		formatString: 0.0%;-0.0%;0.0%
-		displayFolder: 08_Time Intelligence\_YoY
+		displayFolder: 08_Time Intelligence\_YoY\Fct_Orders
 		lineageTag: 2076f224-95f4-45e0-a219-c7d018ebb5fc
 
 	/// Avg Review Score YoY font color using UDF color function with 0% transparency
@@ -1757,13 +1733,13 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isText":true}
 
-	measure 'Total Revenue Order Items' = ```
+	measure 'Order Items Total Revenue' = ```
 			
 			SUM(FCT_ORDER_ITEMS[ITEM_TOTAL])
 			
 			
 			```
-		displayFolder: 00_Base\_Order Items
+		displayFolder: 00_Base\Fct_Order_Items
 		lineageTag: ab90bcb8-a812-481e-abf2-71d03a82d1ea
 
 		formatStringDefinition = ```
@@ -1782,8 +1758,10 @@ table _Measures
 				
 				```
 
-	measure 'Total Order Items' = COUNTROWS(VALUES(FCT_ORDER_ITEMS[ORDER_ID]))
-		displayFolder: 00_Base\_Order Items
+	measure 'Order Items Total Orders' =
+			
+			DISTINCTCOUNT(FCT_ORDER_ITEMS[ORDER_ID])
+		displayFolder: 00_Base\Fct_Order_Items
 		lineageTag: c63af139-3662-4496-8780-b91061008cb2
 
 		formatStringDefinition =
@@ -1803,13 +1781,13 @@ table _Measures
 	measure 'Rank: Products by Revenue' = ```
 			
 			VAR __SelectedTopBottomN = SELECTEDVALUE('Top/Bottom Selector'[Top/Bottom N])
-			VAR __Revenue = [Total Revenue Order Items]
+			VAR __Revenue = [Order Items Total Revenue]
 			
 			-- Create a virtual table of all categories where revenue is greatert han 0
 			VAR __ActiveCategories = 
 			    FILTER(
 			        ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]),
-			        [Total Revenue Order Items] > 0
+			        [Order Items Total Revenue] > 0
 			    )
 			VAR __TotalCount = COUNTROWS(__ActiveCategories)
 			
@@ -1817,14 +1795,14 @@ table _Measures
 			VAR __TopRank = 
 			    IF(
 			        __Revenue > 0 && ISINSCOPE(DIM_PRODUCTS[PRODUCT_CATEGORY]),
-			        RANKX(__ActiveCategories, [Total Revenue Order Items], __Revenue, DESC, Dense)
+			        RANKX(__ActiveCategories, [Order Items Total Revenue], __Revenue, DESC, Dense)
 			    )
 			
 			-- Bottom ranking 
 			VAR __BottomRank = 
 			    IF(
 			        __Revenue > 0 && ISINSCOPE(DIM_PRODUCTS[PRODUCT_CATEGORY]),
-			        RANKX(__ActiveCategories, [Total Revenue Order Items], __Revenue, ASC, Dense)
+			        RANKX(__ActiveCategories, [Order Items Total Revenue], __Revenue, ASC, Dense)
 			    )
 			
 			-- Define the two consecutive middle rows
@@ -1850,10 +1828,10 @@ table _Measures
 	measure 'Display Category' = ```
 			
 			VAR __SelectedTopBottomN = SELECTEDVALUE('Top/Bottom Selector'[Top/Bottom N])
-			VAR __Revenue = [Total Revenue Order Items]
-			VAR __ActiveCategories = FILTER(ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]), [Total Revenue Order Items] > 0)
+			VAR __Revenue = [Order Items Total Revenue]
+			VAR __ActiveCategories = FILTER(ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]), [Order Items Total Revenue] > 0)
 			VAR __TotalCount = COUNTROWS(__ActiveCategories)
-			VAR __TopRank = RANKX(__ActiveCategories, [Total Revenue Order Items], __Revenue, DESC, Dense)
+			VAR __TopRank = RANKX(__ActiveCategories, [Order Items Total Revenue], __Revenue, DESC, Dense)
 			
 			-- Define the two middle rows
 			VAR __MiddleRankValue1 = INT(__TotalCount / 2)
@@ -1875,14 +1853,14 @@ table _Measures
 	measure 'Display Rank Number' = ```
 			
 			VAR __SelectedTopBottomN = SELECTEDVALUE('Top/Bottom Selector'[Top/Bottom N])
-			VAR __CurrentRevenue = [Total Revenue Order Items]
+			VAR __CurrentRevenue = [Order Items Total Revenue]
 			
 			-- 1. Create a global active table ignoring the local visual row context
 			VAR __GlobalActiveCategories = 
 			    CALCULATETABLE(
 			        FILTER(
 			            ALL(DIM_PRODUCTS[PRODUCT_CATEGORY]), 
-			            [Total Revenue Order Items] > 0
+			            [Order Items Total Revenue] > 0
 			        ),
 			        ALLSELECTED() -- Respects date slicers/page filters, ignores the table row filter
 			    )
@@ -1894,7 +1872,7 @@ table _Measures
 			        __CurrentRevenue > 0,
 			        RANKX(
 			            __GlobalActiveCategories, 
-			            [Total Revenue Order Items], 
+			            [Order Items Total Revenue], 
 			            __CurrentRevenue, 
 			            DESC, 
 			            Dense
@@ -1941,10 +1919,10 @@ table _Measures
 
 	measure 'Display Revenue Value' = ```
 			
-			VAR __Revenue = [Total Revenue Order Items]
-			VAR __ActiveCategories = FILTER(ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]), [Total Revenue Order Items] > 0)
+			VAR __Revenue = [Order Items Total Revenue]
+			VAR __ActiveCategories = FILTER(ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]), [Order Items Total Revenue] > 0)
 			VAR __TotalCount = COUNTROWS(__ActiveCategories)
-			VAR __TopRank = RANKX(__ActiveCategories, [Total Revenue Order Items], __Revenue, DESC, Dense)
+			VAR __TopRank = RANKX(__ActiveCategories, [Order Items Total Revenue], __Revenue, DESC, Dense)
 			
 			-- Define the two middle rows
 			VAR __MiddleRankValue1 = INT(__TotalCount / 2)
@@ -1982,13 +1960,13 @@ table _Measures
 	measure 'Ranking Sort Order' = ```
 			
 			VAR __SelectedTopBottomN = SELECTEDVALUE('Top/Bottom Selector'[Top/Bottom N])
-			VAR __CurrentRevenue = [Total Revenue Order Items]
+			VAR __CurrentRevenue = [Order Items Total Revenue]
 			
 			VAR __GlobalActiveCategories = 
 			    CALCULATETABLE(
 			        FILTER(
 			            ALL(DIM_PRODUCTS[PRODUCT_CATEGORY]), 
-			            [Total Revenue Order Items] > 0
+			            [Order Items Total Revenue] > 0
 			        ),
 			        ALLSELECTED()
 			    )
@@ -1997,7 +1975,7 @@ table _Measures
 			VAR __GlobalTopRank = 
 			    IF(
 			        __CurrentRevenue > 0,
-			        RANKX(__GlobalActiveCategories, [Total Revenue Order Items], __CurrentRevenue, DESC, Dense)
+			        RANKX(__GlobalActiveCategories, [Order Items Total Revenue], __CurrentRevenue, DESC, Dense)
 			    )
 			VAR __GlobalBottomRank = (__TotalCount - __GlobalTopRank + 1)
 			
@@ -2030,10 +2008,10 @@ table _Measures
 
 	measure 'Display Orders Total' = ```
 			
-			VAR __TotalOrders = [Total Order Items]
-			VAR __ActiveCategories = FILTER(ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]), [Total Order Items] > 0)
+			VAR __TotalOrders = [Order Items Total Orders]
+			VAR __ActiveCategories = FILTER(ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]), [Order Items Total Orders] > 0)
 			VAR __TotalCount = COUNTROWS(__ActiveCategories)
-			VAR __TopRank = RANKX(__ActiveCategories, [Total Order Items], __TotalOrders, DESC, Dense)
+			VAR __TopRank = RANKX(__ActiveCategories, [Order Items Total Orders], __TotalOrders, DESC, Dense)
 			
 			-- Define the two middle rows
 			VAR __MiddleRankValue1 = INT(__TotalCount / 2)
@@ -2061,19 +2039,19 @@ table _Measures
 
 	measure 'Display % of Grand Total' = ```
 			
-			VAR __Revenue = [Total Revenue Order Items]
+			VAR __Revenue = [Order Items Total Revenue]
 			
 			-- 1. Calculate the true global grand total revenue across all active categories, ignoring the visual filter
 			VAR __GlobalGrandTotalRevenue = 
 			    CALCULATE(
-			        [Total Revenue Order Items],
+			        [Order Items Total Revenue],
 			        REMOVEFILTERS(DIM_PRODUCTS[PRODUCT_CATEGORY])
 			    )
 			
 			-- 2. Figure out the ranks to identify the middle separator rows
-			VAR __ActiveCategories = FILTER(ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]), [Total Revenue Order Items] > 0)
+			VAR __ActiveCategories = FILTER(ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]), [Order Items Total Revenue] > 0)
 			VAR __TotalCount = COUNTROWS(__ActiveCategories)
-			VAR __TopRank = RANKX(__ActiveCategories, [Total Revenue Order Items], __Revenue, DESC, Dense)
+			VAR __TopRank = RANKX(__ActiveCategories, [Order Items Total Revenue], __Revenue, DESC, Dense)
 			
 			VAR __MiddleRankValue1 = INT(__TotalCount / 2)
 			VAR __MiddleRankValue2 = __MiddleRankValue1 + 1
@@ -2105,7 +2083,7 @@ table _Measures
 			Format.YoYAbsoluteAndRelative([Unique Customers], [Prior Year Customers])
 			 
 			```
-		displayFolder: 14_Viz Helpers\_KPI Cards
+		displayFolder: 14_Viz Helpers\_KPI Cards\Fct_Orders
 		lineageTag: 80cf5b2c-83fc-4e03-98e3-52b5fcd7759e
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -3312,13 +3290,13 @@ table _Measures
 	measure 'Pareto Title' = ```
 			
 			VAR __Threshold = [Param: Pareto Threshold Value]
-			VAR __AllRevenue = CALCULATE([Total Revenue Order Items], ALLSELECTED(DIM_PRODUCTS))
+			VAR __AllRevenue = CALCULATE([Order Items Total Revenue], ALLSELECTED(DIM_PRODUCTS))
 			
 			-- 1. Snapshot each category's revenue
 			VAR __CategoryTable = 
 			    ADDCOLUMNS(
 			        ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]), 
-			        "@CategoryRevenue", [Total Revenue Order Items]
+			        "@CategoryRevenue", [Order Items Total Revenue]
 			    )
 			
 			-- 2. Build the running total array
@@ -3386,7 +3364,7 @@ table _Measures
 	measure 'Pareto Best-selling Revenue' = ```
 			
 			VAR __Threshold = [Param: Pareto Threshold Value]
-			VAR __AllRevenue = CALCULATE([Total Revenue Order Items], ALLSELECTED(DIM_PRODUCTS))
+			VAR __AllRevenue = CALCULATE([Order Items Total Revenue], ALLSELECTED(DIM_PRODUCTS))
 			
 			RETURN
 			    SUMX(
@@ -3398,7 +3376,7 @@ table _Measures
 			            RETURN
 			                _CurrentPct <= __Threshold
 			        ),
-			        [Total Revenue Order Items]
+			        [Order Items Total Revenue]
 			    )
 			
 			
@@ -3425,7 +3403,7 @@ table _Measures
 	measure 'Pareto Others Revenue' = ```
 			
 			VAR __Threshold = [Param: Pareto Threshold Value]
-			VAR __AllRevenue = CALCULATE([Total Revenue Order Items], ALLSELECTED(DIM_PRODUCTS))
+			VAR __AllRevenue = CALCULATE([Order Items Total Revenue], ALLSELECTED(DIM_PRODUCTS))
 			
 			RETURN
 			    SUMX(
@@ -3437,7 +3415,7 @@ table _Measures
 			            RETURN
 			                _CurrentPct > __Threshold
 			        ),
-			        [Total Revenue Order Items]
+			        [Order Items Total Revenue]
 			    )
 			
 			
@@ -3461,12 +3439,12 @@ table _Measures
 				
 				```
 
-	measure 'AOV Order Items' = ```
+	measure 'Order Items AOV' = ```
 			
-			DIVIDE([Total Revenue Order Items], [Total Order Items], 0)
+			DIVIDE([Order Items Total Revenue], [Order Items Total Orders], 0)
 			
 			```
-		displayFolder: 00_Base\_Order Items
+		displayFolder: 00_Base\Fct_Order_Items
 		lineageTag: b606986a-3c62-4731-90b0-c18f7df44f47
 
 		formatStringDefinition =
@@ -3508,10 +3486,10 @@ table _Measures
 			VAR __CurrentValue = 
 			    SWITCH(
 			        TRUE(),
-			        __IsRevenueActive, [Total Revenue Order Items],
-			        __IsOrdersActive,  [Total Order Items],
-			        __IsAOVActive,     [AOV Order Items],
-			        [Total Revenue Order Items]    -- Default fallback
+			        __IsRevenueActive, [Order Items Total Revenue],
+			        __IsOrdersActive,  [Order Items Total Orders],
+			        __IsAOVActive,     [Order Items AOV],
+			        [Order Items Total Revenue]    -- Default fallback
 			    )
 			
 			-- 3. Calculate the prior year value 
@@ -3519,10 +3497,10 @@ table _Measures
 			    CALCULATE(
 			        SWITCH(
 			            TRUE(),
-			            __IsRevenueActive, [Total Revenue Order Items],
-			            __IsOrdersActive,  [Total Order Items],
-			            __IsAOVActive,     [AOV Order Items],
-			            [Total Revenue Order Items]
+			            __IsRevenueActive, [Order Items Total Revenue],
+			            __IsOrdersActive,  [Order Items Total Orders],
+			            __IsAOVActive,     [Order Items AOV],
+			            [Order Items Total Revenue]
 			        ),
 			        SAMEPERIODLASTYEAR(DIM_DATES[DATE]),
 			        REMOVEFILTERS(DIM_DATES[YEAR]) -- ignores current year filter
@@ -3746,9 +3724,9 @@ table _Measures
 			VAR __CurrentMonth = 
 			    SWITCH(
 			        __SelectedMetric,
-			        "Revenue", [Total Revenue Order Items],
-			        "Orders",  [Total Order Items],
-			        "AOV",     [AOV Order Items]
+			        "Revenue", [Order Items Total Revenue],
+			        "Orders",  [Order Items Total Orders],
+			        "AOV",     [Order Items AOV]
 			    )
 			
 			-- 3. Prior Month 
@@ -3756,9 +3734,9 @@ table _Measures
 			    CALCULATE(
 			        SWITCH(
 			            __SelectedMetric,
-			            "Revenue", [Total Revenue Order Items],
-			            "Orders",  [Total Order Items],
-			            "AOV",     [AOV Order Items]
+			            "Revenue", [Order Items Total Revenue],
+			            "Orders",  [Order Items Total Orders],
+			            "AOV",     [Order Items AOV]
 			        ),
 			        DATEADD(DIM_DATES[DATE], -1, MONTH),
 			        KEEPFILTERS(DIM_DATES[YEAR])
@@ -3772,6 +3750,148 @@ table _Measures
 		lineageTag: f6f74a08-073a-46d7-96be-110ef21223bf
 
 		formatStringDefinition = "0.0%;-0.0%;0.0%"
+
+	measure 'Order Items PY Revenue' = ```
+			
+			// Using UDF function to dynamically calculate SPLY
+			TimeIntelligence.PY([Order Items Total Revenue])
+			
+			```
+		displayFolder: 08_Time Intelligence\_PY\Fct_Order_Items
+		lineageTag: b247e177-b5b5-4e97-af51-139cf610746f
+
+		formatStringDefinition = ```
+				VAR __FormattedRevenue = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __FormattedRevenue <= 1E3, "$#,0.;-#,0.;0",
+				        __FormattedRevenue <= 1E4, "$#,0,.00K;-#,0,.00K;0",
+				        __FormattedRevenue <= 1E5, "$$#,0,.0K;-#,0,.0K;0",
+				        __FormattedRevenue <= 1E6, "$#,0,.K;-#,0,.K;0",
+				        __FormattedRevenue <= 1E7, "$#,0,,.00M;-#,0,,.00M;0",
+				        __FormattedRevenue <= 1E8, "$#,0,,.0M;-#,0,,.0M;0",
+				        __FormattedRevenue <= 1E9, "$#,0,,.M;-#,0,,.M;0"
+				    )
+				
+				```
+
+	measure 'Order Items PY Orders' = ```
+			
+			// Using UDF function to dynamically calculate SPLY
+			TimeIntelligence.PY([Order Items Total Orders])
+			
+			```
+		displayFolder: 08_Time Intelligence\_PY\Fct_Order_Items
+		lineageTag: 1f1cde85-031a-4d8f-b3c6-eb32f14d3ac0
+
+		formatStringDefinition =
+				VAR __FormattedOrders = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __FormattedOrders <= 1E3, "#,0;-#,0;0",
+				        __FormattedOrders <= 1E4, "#,0,K;-#,0,K;0",
+				        __FormattedOrders <= 1E5, "#,0,K;-#,0,K;0",
+				        __FormattedOrders <= 1E6, "#,0,K;-#,0,K;0",
+				        __FormattedOrders <= 1E7, "#,0,,M;-#,0,,M;0",
+				        __FormattedOrders <= 1E8, "#,0,,M;-#,0,,M;0",
+				        __FormattedOrders <= 1E9, "#,0,,M;-#,0,,M;0"
+				    )
+
+	measure 'Order Items PY AOV' = ```
+			
+			// Using UDF function to dynamically calculate SPLY
+			TimeIntelligence.PY([Order Items AOV])
+			
+			```
+		displayFolder: 08_Time Intelligence\_PY\Fct_Order_Items
+		lineageTag: 0af78987-8d05-4b92-b2b5-5af58aa544f4
+
+		formatStringDefinition = ```
+				VAR __FormattedAOV = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __FormattedAOV <= 1E3, "$#,0.0;-#,0.0;0",
+				        __FormattedAOV <= 1E4, "$#,0,.00K;-#,0,.00K;0",
+				        __FormattedAOV <= 1E5, "$$#,0,.0K;-#,0,.0K;0",
+				        __FormattedAOV <= 1E6, "$#,0,.0K;-#,0,.0K;0",
+				        __FormattedAOV <= 1E7, "$#,0,,.00M;-#,0,,.00M;0",
+				        __FormattedAOV <= 1E8, "$#,0,,.0M;-#,0,,.0M;0",
+				        __FormattedAOV <= 1E9, "$#,0,,.M;-#,0,,.M;0"
+				    )
+				
+				```
+
+	measure 'Order Items Revenue YoY %' = ```
+			
+			VAR CurrentPeriod = [Order Items Total Revenue]
+			VAR PriorYear = [Order Items PY Revenue]
+			
+			RETURN 
+			DIVIDE(CurrentPeriod - PriorYear, PriorYear)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 08_Time Intelligence\_YoY\Fct_Order_Items
+		lineageTag: 767747a2-2dc4-41e3-b4c9-d11218559fdf
+
+	measure 'Order Items Orders YoY %' = ```
+			
+			VAR CurrentPeriod = [Order Items Total Orders]
+			VAR PriorYear = [Order Items PY Orders]
+			
+			RETURN 
+			DIVIDE(CurrentPeriod - PriorYear, PriorYear)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 08_Time Intelligence\_YoY\Fct_Order_Items
+		lineageTag: 4046586b-f0a1-4a19-8d6b-9ed011a5a185
+
+	measure 'Order Items AOV YoY %' = ```
+			
+			VAR CurrentPeriod = [Order Items AOV]
+			VAR PriorYear = [Order Items PY AOV]
+			
+			RETURN 
+			DIVIDE(CurrentPeriod - PriorYear, PriorYear)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 08_Time Intelligence\_YoY\Fct_Order_Items
+		lineageTag: 78053612-4332-41a6-b0bb-c4b016d17786
+
+	measure 'Formatted Order Items Revenue Absolute and Relative' = ```
+			
+			// Using UDF Function
+			Format.YoYAbsoluteAndRelative([Order Items Total Revenue], [Order Items PY Revenue])
+			
+			```
+		displayFolder: 14_Viz Helpers\_KPI Cards\Fct_Order_Items
+		lineageTag: 8174097d-69e3-498f-bab8-07904721541c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Formatted Order Items Orders Absolute And Relative' = ```
+			
+			// Using UDF Function
+			Format.YoYAbsoluteAndRelative([Order Items Total Orders], [Order Items PY Orders])
+			 
+			```
+		displayFolder: 14_Viz Helpers\_KPI Cards\Fct_Order_Items
+		lineageTag: 4c0865a8-a49b-4b68-b709-c1f1d9ee3bb5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Formatted Order Items AOV Absolute And Relative' = ```
+			
+			// Using UDF Function
+			Format.YoYAbsoluteAndRelative([Order Items AOV], [Order Items PY AOV])
+			 
+			```
+		displayFolder: 14_Viz Helpers\_KPI Cards\Fct_Order_Items
+		lineageTag: c7883337-f52d-4d5f-bc6c-0d7240ba8fd1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	/// Hidden column for calculated table
 	column Value
