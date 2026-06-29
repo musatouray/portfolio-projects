@@ -985,20 +985,6 @@
         "howCreated": "User",
         "isHiddenInViewMode": true,
         "isLockedInViewMode": true
-      },
-      {
-        "name": "5c598174929e60056682",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Disconnected Calendar"
-              }
-            },
-            "Property": "Month Year"
-          }
-        },
-        "type": "Categorical"
       }
     ]
   }

@@ -37,7 +37,8 @@ ref table 'Param: Pareto Threshold'
 ref table 'Pareto Product Segments'
 ref table 'CG Pareto Metric'
 ref table 'TBL Moving Averages'
-ref table 'CG: Order Items Metrics'
+ref table 'CG Order Items Metrics'
+ref table 'CG Rolling Averages'
 
 ref cultureInfo en-US
 

@@ -304,7 +304,16 @@
         },
         {
           "location": {},
-          "nodeIndex": "CG: Order Items Metrics",
+          "nodeIndex": "CG Order Items Metrics",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "CG Rolling Averages",
           "size": {
             "height": 128,
             "width": 234

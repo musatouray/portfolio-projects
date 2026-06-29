@@ -852,7 +852,7 @@ table _Measures
 				)
 			)
 		formatString: $#,##0
-		displayFolder: 08_Time Intelligence
+		displayFolder: 09_Time Series
 		lineageTag: 87359a09-a8f0-4bff-915d-b8459844a18d
 
 	measure 'Cumulative Orders' =
@@ -864,7 +864,7 @@ table _Measures
 				)
 			)
 		formatString: #,##0
-		displayFolder: 08_Time Intelligence
+		displayFolder: 09_Time Series
 		lineageTag: 2bcc1bb1-d1f0-4cac-a2ac-0c0d1ff83e45
 
 	/// =============================================
@@ -3497,12 +3497,12 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isText":true}
 
-	measure 'Prior Year Time Series Calculation Group' = ```
+	measure 'Time Series PY' = ```
 			
 			-- 1. Detect which metric is currently selected on the page
-			VAR __IsRevenueActive = ISFILTERED('CG: Order Items Metrics'[Metric]) && SELECTEDVALUE('CG: Order Items Metrics'[Metric]) = "Revenue"
-			VAR __IsOrdersActive  = ISFILTERED('CG: Order Items Metrics'[Metric]) && SELECTEDVALUE('CG: Order Items Metrics'[Metric]) = "Orders"
-			VAR __IsAOVActive     = ISFILTERED('CG: Order Items Metrics'[Metric]) && SELECTEDVALUE('CG: Order Items Metrics'[Metric]) = "AOV"
+			VAR __IsRevenueActive = ISFILTERED('CG Order Items Metrics'[Orders Metric]) && SELECTEDVALUE('CG Order Items Metrics'[Orders Metric]) = "Revenue"
+			VAR __IsOrdersActive  = ISFILTERED('CG Order Items Metrics'[Orders Metric]) && SELECTEDVALUE('CG Order Items Metrics'[Orders Metric]) = "Orders"
+			VAR __IsAOVActive     = ISFILTERED('CG Order Items Metrics'[Orders Metric]) && SELECTEDVALUE('CG Order Items Metrics'[Orders Metric]) = "AOV"
 			
 			-- 2. Fetch the true current value based on the active selection
 			VAR __CurrentValue = 
@@ -3511,10 +3511,10 @@ table _Measures
 			        __IsRevenueActive, [Total Revenue Order Items],
 			        __IsOrdersActive,  [Total Order Items],
 			        __IsAOVActive,     [AOV Order Items],
-			        [Total Revenue Order Items]    -- Default fallback if nothing is clicked
+			        [Total Revenue Order Items]    -- Default fallback
 			    )
 			
-			-- 3. Calculate the prior year value by explicitly clearing the Year page filter inside CALCULATE
+			-- 3. Calculate the prior year value 
 			VAR __PriorYearValue = 
 			    CALCULATE(
 			        SWITCH(
@@ -3528,12 +3528,10 @@ table _Measures
 			        REMOVEFILTERS(DIM_DATES[YEAR]) -- ignores current year filter
 			    )
 			
-			-- 4. Compute the final percentage shift
 			RETURN
-			    //DIVIDE(__CurrentValue - __PriorYearValue, __PriorYearValue)
 			__PriorYearValue
 			```
-		displayFolder: 08_Time Intelligence\_PY
+		displayFolder: 09_Time Series
 		lineageTag: df2de7c9-48c8-44fa-a5bf-e12d904d6d6c
 
 		formatStringDefinition = ""
@@ -3584,7 +3582,7 @@ table _Measures
 
 	measure 'Time Series Moving Averages Title' =
 			
-			VAR __SelectedMetric = SELECTEDVALUE('CG: Order Items Metrics'[Metric])
+			VAR __SelectedMetric = SELECTEDVALUE('CG Order Items Metrics'[Orders Metric])
 			VAR __SelectedMovingAvg = SELECTEDVALUE('TBL Moving Averages'[Dsiplay Name])
 			VAR __FormattedMovingAvg =
 			    SWITCH(
@@ -3609,7 +3607,7 @@ table _Measures
 
 	measure 'Time Series MoM Title' =
 			
-			VAR __SelectedMetric = SELECTEDVALUE('CG: Order Items Metrics'[Metric])
+			VAR __SelectedMetric = SELECTEDVALUE('CG Order Items Metrics'[Orders Metric])
 			
 			RETURN
 			SWITCH(
@@ -3625,7 +3623,7 @@ table _Measures
 
 	measure 'Time Series Moving Averages Legend' = ```
 			
-			VAR __SelectedMetric = SELECTEDVALUE('CG: Order Items Metrics'[Metric], "Revenue") 
+			VAR __SelectedMetric = SELECTEDVALUE('CG Order Items Metrics'[Orders Metric], "Revenue") 
 			VAR __SelectedMovingAvg = SELECTEDVALUE('TBL Moving Averages'[Dsiplay Name], "3M") 
 			
 			-- Colors
@@ -3665,7 +3663,7 @@ table _Measures
 
 	measure 'Time Series Current and PY Title' =
 			
-			VAR __SelectedMetric = SELECTEDVALUE('CG: Order Items Metrics'[Metric])
+			VAR __SelectedMetric = SELECTEDVALUE('CG Order Items Metrics'[Orders Metric])
 			
 			RETURN
 			SWITCH(
@@ -3694,7 +3692,7 @@ table _Measures
 
 	measure 'Time Series Current and PY Legend' = ```
 			
-			VAR __SelectedMetric = SELECTEDVALUE('CG: Order Items Metrics'[Metric], "Revenue") 
+			VAR __SelectedMetric = SELECTEDVALUE('CG Order Items Metrics'[Orders Metric], "Revenue") 
 			VAR __PriorYear = "PY" 
 			
 			-- Colors
@@ -3731,6 +3729,49 @@ table _Measures
 		dataCategory: ImageUrl
 
 		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Time Series Blank Placeholder' = BLANK()
+		displayFolder: 09_Time Series
+		lineageTag: 765f3a0d-34ad-4056-8cfd-758bcf1323e7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Time Series MoM Growth %' = ```
+			
+			
+			-- Detect which metric is currently selected
+			VAR __SelectedMetric = SELECTEDVALUE('CG Order Items Metrics'[Orders Metric], "Revenue")
+			
+			-- Current Month 
+			VAR __CurrentMonth = 
+			    SWITCH(
+			        __SelectedMetric,
+			        "Revenue", [Total Revenue Order Items],
+			        "Orders",  [Total Order Items],
+			        "AOV",     [AOV Order Items]
+			    )
+			
+			-- 3. Prior Month 
+			VAR __PriorMonth = 
+			    CALCULATE(
+			        SWITCH(
+			            __SelectedMetric,
+			            "Revenue", [Total Revenue Order Items],
+			            "Orders",  [Total Order Items],
+			            "AOV",     [AOV Order Items]
+			        ),
+			        DATEADD(DIM_DATES[DATE], -1, MONTH),
+			        KEEPFILTERS(DIM_DATES[YEAR])
+			    )
+			
+			RETURN
+			DIVIDE( __CurrentMonth - __PriorMonth, __PriorMonth)
+			
+			```
+		displayFolder: 09_Time Series
+		lineageTag: f6f74a08-073a-46d7-96be-110ef21223bf
+
+		formatStringDefinition = "0.0%;-0.0%;0.0%"
 
 	/// Hidden column for calculated table
 	column Value

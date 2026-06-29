@@ -1,0 +1,110 @@
+table 'CG Order Items Metrics'
+	lineageTag: e1fa6f2d-cf31-4171-8307-46990e4d5130
+
+	calculationGroup
+		precedence: 22
+
+		calculationItem Orders = ```
+				
+				VAR __IsTrendVisual = ISINSCOPE(DIM_DATES[DATE]) || ISINSCOPE(DIM_DATES[MONTH_YEAR]) || ISINSCOPE(DIM_DATES[MONTH_NAME])
+				VAR __IsMoMGrowth = ISSELECTEDMEASURE([Time Series MoM Growth %])
+				VAR __IsPriorYearMeasure = ISSELECTEDMEASURE([Time Series PY])
+				
+				RETURN 
+				SWITCH(
+				    TRUE(),
+				    NOT __IsTrendVisual, SELECTEDMEASURE(),
+				    __IsMoMGrowth, [Time Series MoM Growth %],
+				    __IsPriorYearMeasure, [Time Series PY],
+				    [Total Order Items]
+				)
+				```
+
+			formatStringDefinition = ```
+					VAR __IsTrendVisual = ISINSCOPE(DIM_DATES[DATE]) || ISINSCOPE(DIM_DATES[MONTH_YEAR]) || ISINSCOPE(DIM_DATES[MONTH_NAME])
+					VAR __IsMoMGrowth = ISSELECTEDMEASURE([Time Series MoM Growth %])
+					RETURN 
+					SWITCH(
+					    TRUE(),
+					    NOT __IsTrendVisual, SELECTEDMEASUREFORMATSTRING(),
+					   __IsTrendVisual && __IsMoMGrowth, SELECTEDMEASUREFORMATSTRING(),
+					    "#,##0"
+					)
+					```
+
+		calculationItem Revenue = ```
+				
+				VAR __IsTrendVisual = ISINSCOPE(DIM_DATES[DATE]) || ISINSCOPE(DIM_DATES[MONTH_YEAR]) || ISINSCOPE(DIM_DATES[MONTH_NAME])
+				VAR __IsMoMGrowth = ISSELECTEDMEASURE([Time Series MoM Growth %])
+				VAR __IsPriorYearMeasure = ISSELECTEDMEASURE([Time Series PY])
+				
+				RETURN 
+				SWITCH(
+				    TRUE(),
+				    NOT __IsTrendVisual, SELECTEDMEASURE(),
+				   __IsMoMGrowth, [Time Series MoM Growth %],
+				   __IsPriorYearMeasure, [Time Series PY],
+				    [Total Revenue Order Items]
+				)
+				
+				```
+
+			formatStringDefinition = ```
+					VAR __IsTrendVisual = ISINSCOPE(DIM_DATES[DATE]) || ISINSCOPE(DIM_DATES[MONTH_YEAR]) || ISINSCOPE(DIM_DATES[MONTH_NAME])
+					VAR __IsMoMGrowth = ISSELECTEDMEASURE([Time Series MoM Growth %])
+					RETURN 
+					SWITCH(
+					    TRUE(),
+					    NOT __IsTrendVisual, SELECTEDMEASUREFORMATSTRING(),
+					   __IsTrendVisual && __IsMoMGrowth, SELECTEDMEASUREFORMATSTRING(),
+					    "$#,##0"
+					)
+					```
+
+		calculationItem AOV = ```
+				
+				VAR __IsTrendVisual = ISINSCOPE(DIM_DATES[DATE]) || ISINSCOPE(DIM_DATES[MONTH_YEAR]) || ISINSCOPE(DIM_DATES[MONTH_NAME]) 
+				VAR __IsMoMGrowth = ISSELECTEDMEASURE([Time Series MoM Growth %])
+				VAR __IsPriorYearMeasure = ISSELECTEDMEASURE([Time Series PY])
+				
+				RETURN 
+				SWITCH(
+				    TRUE(),
+				    NOT __IsTrendVisual, SELECTEDMEASURE(),
+				    __IsMoMGrowth, [Time Series MoM Growth %],
+				    __IsPriorYearMeasure, [Time Series PY],
+				    [AOV Order Items]
+				)
+				
+				```
+
+			formatStringDefinition = ```
+					VAR __IsTrendVisual = ISINSCOPE(DIM_DATES[DATE]) || ISINSCOPE(DIM_DATES[MONTH_YEAR]) || ISINSCOPE(DIM_DATES[MONTH_NAME])
+					VAR __IsMoMGrowth = ISSELECTEDMEASURE([Time Series MoM Growth %])
+					RETURN 
+					SWITCH(
+					    TRUE(),
+					    NOT __IsTrendVisual, SELECTEDMEASUREFORMATSTRING(),
+					   __IsTrendVisual && __IsMoMGrowth, SELECTEDMEASUREFORMATSTRING(),
+					    "$#,##0.0"
+					)
+					```
+
+	column 'Orders Metric'
+		dataType: string
+		lineageTag: 84ccd351-2e1b-4921-bd30-ad5156fdc7bd
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordinal
+		dataType: int64
+		formatString: 0
+		lineageTag: e76e8da1-517d-4e83-b01b-4c73a65c256e
+		summarizeBy: none
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+

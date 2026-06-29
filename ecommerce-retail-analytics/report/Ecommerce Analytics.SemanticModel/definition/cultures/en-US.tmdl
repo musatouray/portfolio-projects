@@ -31902,142 +31902,74 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure.prior_year_time_series_calculation_group": {
+			    "entity__measure.time_series_PY": {
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Prior Year Time Series Calculation Group"
+			          "ConceptualProperty": "Time Series PY"
 			        }
 			      },
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "prior year time series calculation group": {
+			          "time series PY": {
 			            "State": "Generated"
 			          }
 			        },
 			        {
-			          "calculation group": {
+			          "series PY": {
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
 			        },
 			        {
-			          "series calculation group": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "time series calculation group": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "year time series calculation group": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "year time series calculation category": {
+			          "duration series py": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.78
+			            "Weight": 0.609
 			          }
 			        },
 			        {
-			          "year time series calculation organization": {
+			          "interval series py": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.78
+			            "Weight": 0.609
 			          }
 			        },
 			        {
-			          "time series calculation category": {
+			          "moment series py": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.771
+			            "Weight": 0.609
 			          }
 			        },
 			        {
-			          "time series calculation organization": {
+			          "period series py": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.771
+			            "Weight": 0.591
 			          }
 			        },
 			        {
-			          "series calculation category": {
+			          "timetable series py": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.762
-			          }
-			        },
-			        {
-			          "series calculation organization": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.762
-			          }
-			        },
-			        {
-			          "year time series calculation bracket": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.757
-			          }
-			        },
-			        {
-			          "year time series calculation class": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.757
-			          }
-			        },
-			        {
-			          "year time series calculation crew": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.757
-			          }
-			        },
-			        {
-			          "year time series calculation team": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.757
+			            "Weight": 0.591
 			          }
 			        },
 			        {
@@ -46560,18 +46492,73 @@ cultureInfo en-US
 			    "CG_order_items_metrics": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "CG: Order Items Metrics"
+			          "ConceptualEntity": "CG Order Items Metrics"
 			        }
 			      },
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "CG: order items metrics": {
+			          "CG order items metrics": {
 			            "State": "Generated"
 			          }
 			        },
 			        {
-			          "CG: order item metrics": {
+			          "CG order item metrics": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.78
+			          }
+			        },
+			        {
+			          "metrics": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "items metrics": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "item metrics": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.7566
+			          }
+			        },
+			        {
+			          "order items metrics": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "order item metrics": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.7566
+			          }
+			        }
+			      ]
+			    },
+			    "CG_order_items_metrics.orders_metric": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "CG Order Items Metrics",
+			          "ConceptualProperty": "Orders Metric"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "orders metric": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "order metric": {
 			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.78
@@ -46579,26 +46566,10 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "CG_order_items_metrics.metric": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "CG: Order Items Metrics",
-			          "ConceptualProperty": "Metric"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "metric": {
-			            "State": "Generated"
-			          }
-			        }
-			      ]
-			    },
 			    "CG_order_items_metrics.ordinal": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "CG: Order Items Metrics",
+			          "ConceptualEntity": "CG Order Items Metrics",
 			          "ConceptualProperty": "Ordinal"
 			        }
 			      },
@@ -47104,11 +47075,11 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "entity__measure.entity__prior_year_time_series_calculation_group_FormatString": {
+			    "entity__measure.entity__time_series_blank_placeholder_FormatString": {
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "_Prior Year Time Series Calculation Group FormatString"
+			          "ConceptualProperty": "_Time Series Blank Placeholder FormatString"
 			        }
 			      },
 			      "State": "Generated",
@@ -47117,7 +47088,7 @@ cultureInfo en-US
 			      },
 			      "Terms": [
 			        {
-			          "_prior year time series calculation group FormatString": {
+			          "_time series blank placeholder FormatString": {
 			            "State": "Generated"
 			          }
 			        }
@@ -48066,12 +48037,578 @@ cultureInfo en-US
 			          }
 			        }
 			      ]
+			    },
+			    "entity__measure.time_series_blank_placeholder": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Time Series Blank Placeholder"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "time series blank placeholder": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "placeholder": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "blank placeholder": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "series blank placeholder": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "duration series blank placeholder": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.617
+			          }
+			        },
+			        {
+			          "interval series blank placeholder": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.617
+			          }
+			        },
+			        {
+			          "moment series blank placeholder": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.617
+			          }
+			        },
+			        {
+			          "period series blank placeholder": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        },
+			        {
+			          "timetable series blank placeholder": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        },
+			        {
+			          "AC": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__time_series_PY_FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_Time Series PY FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_time series PY FormatString": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "_ duration series py formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.624
+			          }
+			        },
+			        {
+			          "_ interval series py formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.624
+			          }
+			        },
+			        {
+			          "_ moment series py formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.624
+			          }
+			        },
+			        {
+			          "_ period series py formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        },
+			        {
+			          "_ timetable series py formatstring": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.time_series_MoM_growth_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Time Series MoM Growth %"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "time series MoM growth %": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "time series mom growth percentage": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.78
+			          }
+			        },
+			        {
+			          "time series mom growth pct": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        },
+			        {
+			          "duration series mom growth %": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.624
+			          }
+			        },
+			        {
+			          "interval series mom growth %": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.624
+			          }
+			        },
+			        {
+			          "moment series mom growth %": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.624
+			          }
+			        },
+			        {
+			          "period series mom growth %": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        },
+			        {
+			          "timetable series mom growth %": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity__time_series_MoM_growth__FormatString": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "_Time Series MoM Growth % FormatString"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "_time series MoM growth % FormatString": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "CG_rolling_average": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "CG Rolling Averages"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "CG rolling average": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "rolling average": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "cg rolling mode": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.482
+			          }
+			        },
+			        {
+			          "cg rolling norm": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.482
+			          }
+			        },
+			        {
+			          "rolling mode": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.475
+			          }
+			        },
+			        {
+			          "rolling norm": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.475
+			          }
+			        },
+			        {
+			          "cg rolling mean": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.468
+			          }
+			        },
+			        {
+			          "cg rolling median": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.468
+			          }
+			        },
+			        {
+			          "rolling mean": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.461
+			          }
+			        },
+			        {
+			          "rolling median": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.461
+			          }
+			        }
+			      ]
+			    },
+			    "CG_rolling_average.metric": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "CG Rolling Averages",
+			          "ConceptualProperty": "Metric"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "metric": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "CG_rolling_average.ordinal": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "CG Rolling Averages",
+			          "ConceptualProperty": "Ordinal"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "ordinal": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
 			    }
 			  },
 			  "Relationships": {
+			    "CG_rolling_average_has_ordinal": {
+			      "Binding": {
+			        "ConceptualEntity": "CG Rolling Averages"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "CG_rolling_average": {
+			          "Target": {
+			            "Entity": "CG_rolling_average"
+			          }
+			        },
+			        "CG_rolling_average.ordinal": {
+			          "Target": {
+			            "Entity": "CG_rolling_average.ordinal"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "CG_rolling_average"
+			            },
+			            "Object": {
+			              "Role": "CG_rolling_average.ordinal"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "CG_rolling_averages_have_ordinals"
+			        }
+			      ]
+			    },
+			    "CG_rolling_average_has_metric": {
+			      "Binding": {
+			        "ConceptualEntity": "CG Rolling Averages"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "CG_rolling_average": {
+			          "Target": {
+			            "Entity": "CG_rolling_average"
+			          }
+			        },
+			        "CG_rolling_average.metric": {
+			          "Target": {
+			            "Entity": "CG_rolling_average.metric"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "CG_rolling_average"
+			            },
+			            "Object": {
+			              "Role": "CG_rolling_average.metric"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "CG_rolling_averages_have_metrics"
+			        }
+			      ]
+			    },
+			    "fct_order_item_has_entity__measure_time_series_MoM_growth_": {
+			      "Binding": {
+			        "ConceptualEntity": "FCT_ORDER_ITEMS"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fct_order_item": {
+			          "Target": {
+			            "Entity": "fct_order_item"
+			          }
+			        },
+			        "entity__measure.time_series_MoM_growth_": {
+			          "Target": {
+			            "Entity": "entity__measure.time_series_MoM_growth_"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fct_order_item"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.time_series_MoM_growth_"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fct_order_items_have_time_series_MoM_growth_"
+			        }
+			      ]
+			    },
+			    "CG_order_items_metrics_has_entity__measure_time_series_MoM_growth_": {
+			      "Binding": {
+			        "ConceptualEntity": "CG Order Items Metrics"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "CG_order_items_metrics": {
+			          "Target": {
+			            "Entity": "CG_order_items_metrics"
+			          }
+			        },
+			        "entity__measure.time_series_MoM_growth_": {
+			          "Target": {
+			            "Entity": "entity__measure.time_series_MoM_growth_"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "CG_order_items_metrics"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.time_series_MoM_growth_"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "CG_order_items_metrics_have_time_series_MoM_growth_"
+			        }
+			      ]
+			    },
+			    "entity__measure_has_time_series_blank_placeholder": {
+			      "Binding": {
+			        "ConceptualEntity": "_Measures"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "entity__measure": {
+			          "Target": {
+			            "Entity": "entity__measure"
+			          }
+			        },
+			        "entity__measure.time_series_blank_placeholder": {
+			          "Target": {
+			            "Entity": "entity__measure.time_series_blank_placeholder"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "entity__measure"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.time_series_blank_placeholder"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "Phrasing_measures_have_time_series_blank_placeholder"
+			        }
+			      ]
+			    },
 			    "CG_order_items_metrics_has_entity__measure_time_series_current_and_PY_legend": {
 			      "Binding": {
-			        "ConceptualEntity": "CG: Order Items Metrics"
+			        "ConceptualEntity": "CG Order Items Metrics"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -48137,7 +48674,7 @@ cultureInfo en-US
 			    },
 			    "CG_order_items_metrics_has_entity__measure_time_series_current_and_PY_title": {
 			      "Binding": {
-			        "ConceptualEntity": "CG: Order Items Metrics"
+			        "ConceptualEntity": "CG Order Items Metrics"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -48203,7 +48740,7 @@ cultureInfo en-US
 			    },
 			    "CG_order_items_metrics_has_entity__measure_time_series_moving_averages_legend": {
 			      "Binding": {
-			        "ConceptualEntity": "CG: Order Items Metrics"
+			        "ConceptualEntity": "CG Order Items Metrics"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -48236,7 +48773,7 @@ cultureInfo en-US
 			    },
 			    "CG_order_items_metrics_has_entity__measure_time_series_MoM_title": {
 			      "Binding": {
-			        "ConceptualEntity": "CG: Order Items Metrics"
+			        "ConceptualEntity": "CG Order Items Metrics"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -48302,7 +48839,7 @@ cultureInfo en-US
 			    },
 			    "CG_order_items_metrics_has_entity__measure_time_series_moving_averages_title": {
 			      "Binding": {
-			        "ConceptualEntity": "CG: Order Items Metrics"
+			        "ConceptualEntity": "CG Order Items Metrics"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -48335,7 +48872,7 @@ cultureInfo en-US
 			    },
 			    "CG_order_items_metrics_has_ordinal": {
 			      "Binding": {
-			        "ConceptualEntity": "CG: Order Items Metrics"
+			        "ConceptualEntity": "CG Order Items Metrics"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -48366,9 +48903,9 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "CG_order_items_metrics_has_metric": {
+			    "CG_order_items_metrics_has_orders_metric": {
 			      "Binding": {
-			        "ConceptualEntity": "CG: Order Items Metrics"
+			        "ConceptualEntity": "CG Order Items Metrics"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -48377,9 +48914,9 @@ cultureInfo en-US
 			            "Entity": "CG_order_items_metrics"
 			          }
 			        },
-			        "CG_order_items_metrics.metric": {
+			        "CG_order_items_metrics.orders_metric": {
 			          "Target": {
-			            "Entity": "CG_order_items_metrics.metric"
+			            "Entity": "CG_order_items_metrics.orders_metric"
 			          }
 			        }
 			      },
@@ -48390,12 +48927,12 @@ cultureInfo en-US
 			              "Role": "CG_order_items_metrics"
 			            },
 			            "Object": {
-			              "Role": "CG_order_items_metrics.metric"
+			              "Role": "CG_order_items_metrics.orders_metric"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "CG_order_items_metrics_have_metrics"
+			          "ID": "CG_order_items_metrics_have_orders_metrics"
 			        }
 			      ]
 			    },
@@ -51151,7 +51688,7 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
-			    "fct_order_item_has_entity__measure_prior_year_time_series_calculation_group": {
+			    "fct_order_item_has_entity__measure_time_series_PY": {
 			      "Binding": {
 			        "ConceptualEntity": "FCT_ORDER_ITEMS"
 			      },
@@ -51162,9 +51699,9 @@ cultureInfo en-US
 			            "Entity": "fct_order_item"
 			          }
 			        },
-			        "entity__measure.prior_year_time_series_calculation_group": {
+			        "entity__measure.time_series_PY": {
 			          "Target": {
-			            "Entity": "entity__measure.prior_year_time_series_calculation_group"
+			            "Entity": "entity__measure.time_series_PY"
 			          }
 			        }
 			      },
@@ -51175,18 +51712,18 @@ cultureInfo en-US
 			              "Role": "fct_order_item"
 			            },
 			            "Object": {
-			              "Role": "entity__measure.prior_year_time_series_calculation_group"
+			              "Role": "entity__measure.time_series_PY"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "fct_order_items_have_prior_year_time_series_calculation_group"
+			          "ID": "fct_order_items_have_time_series_PY"
 			        }
 			      ]
 			    },
-			    "CG_order_items_metrics_has_entity__measure_prior_year_time_series_calculation_group": {
+			    "CG_order_items_metrics_has_entity__measure_time_series_PY": {
 			      "Binding": {
-			        "ConceptualEntity": "CG: Order Items Metrics"
+			        "ConceptualEntity": "CG Order Items Metrics"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -51195,9 +51732,9 @@ cultureInfo en-US
 			            "Entity": "CG_order_items_metrics"
 			          }
 			        },
-			        "entity__measure.prior_year_time_series_calculation_group": {
+			        "entity__measure.time_series_PY": {
 			          "Target": {
-			            "Entity": "entity__measure.prior_year_time_series_calculation_group"
+			            "Entity": "entity__measure.time_series_PY"
 			          }
 			        }
 			      },
@@ -51208,12 +51745,12 @@ cultureInfo en-US
 			              "Role": "CG_order_items_metrics"
 			            },
 			            "Object": {
-			              "Role": "entity__measure.prior_year_time_series_calculation_group"
+			              "Role": "entity__measure.time_series_PY"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "CG_order_items_metrics_have_prior_year_time_series_calculation_group"
+			          "ID": "CG_order_items_metrics_have_time_series_PY"
 			        }
 			      ]
 			    },
