@@ -62,7 +62,3 @@ relationship 7a60a67e-f80d-9850-c1f7-88aa28204296
 	fromColumn: FCT_COHORT_RETENTION.COHORT_DATE_KEY
 	toColumn: DIM_DATES.DATE
 
-relationship d9594cdf-72cd-af06-8fb4-6173abdd5fd4
-	fromColumn: 'Param: Date Granularity'.ID
-	toColumn: 'TBL Date Granularity'.ID
-

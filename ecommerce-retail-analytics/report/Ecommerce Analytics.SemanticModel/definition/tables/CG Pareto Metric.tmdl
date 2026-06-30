@@ -6,7 +6,7 @@ table 'CG Pareto Metric'
 
 		calculationItem Metrics = ```
 				
-				VAR __RunningTotalRevenuePct = [Running Total Product Revenue Contribution]
+				VAR __RunningTotalRevenuePct = [Running Total Product Revenue %]
 				VAR __Threshold = [Param: Pareto Threshold Value]
 				VAR __ParetoSegment = SELECTEDVALUE('Pareto Product Segments'[Segment])
 				

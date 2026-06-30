@@ -4,7 +4,7 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 1058.4000244140625,
+        "x": 2974.2078327898894,
         "y": 0
       },
       "nodes": [
@@ -156,31 +156,6 @@
         },
         {
           "location": {
-            "x": 3258.2078327898894,
-            "y": 441.87294536297088
-          },
-          "nodeIndex": "Param: Date Granularity",
-          "nodeLineageTag": "5d57ac8c-7267-4dbc-a5d3-e0a4d9202ed7",
-          "size": {
-            "height": 152,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 3542.2078327898894,
-            "y": 417.87294536297088
-          },
-          "nodeIndex": "TBL Date Granularity",
-          "size": {
-            "height": 200,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
             "x": 3826.2078327898894,
             "y": 453.87294536297088
           },
@@ -266,7 +241,10 @@
           "zIndex": 0
         },
         {
-          "location": {},
+          "location": {
+            "x": 5530.2078327898889,
+            "y": 246.20074194252322
+          },
           "nodeIndex": "Param: Pareto Threshold",
           "nodeLineageTag": "7bf6c623-6bd0-4096-a54c-e7e43196b639",
           "size": {
@@ -276,7 +254,10 @@
           "zIndex": 0
         },
         {
-          "location": {},
+          "location": {
+            "x": 5814.2078327898889,
+            "y": 258.20074194252322
+          },
           "nodeIndex": "Pareto Product Segments",
           "size": {
             "height": 200,
@@ -285,7 +266,10 @@
           "zIndex": 0
         },
         {
-          "location": {},
+          "location": {
+            "x": 6098.2078327898889,
+            "y": 294.20074194252322
+          },
           "nodeIndex": "CG Pareto Metric",
           "size": {
             "height": 128,
@@ -294,16 +278,10 @@
           "zIndex": 0
         },
         {
-          "location": {},
-          "nodeIndex": "TBL Moving Averages",
-          "size": {
-            "height": 200,
-            "width": 234
+          "location": {
+            "x": 6382.2078327898889,
+            "y": 294.20074194252322
           },
-          "zIndex": 0
-        },
-        {
-          "location": {},
           "nodeIndex": "CG Order Items Metrics",
           "size": {
             "height": 128,
@@ -312,7 +290,10 @@
           "zIndex": 0
         },
         {
-          "location": {},
+          "location": {
+            "x": 6666.2078327898889,
+            "y": 294.20074194252322
+          },
           "nodeIndex": "CG Rolling Averages",
           "size": {
             "height": 128,
@@ -330,47 +311,6 @@
     },
     {
       "ordinal": 1,
-      "scrollPosition": {
-        "x": 0,
-        "y": 0
-      },
-      "nodes": [
-        {
-          "location": {
-            "x": 829.20000076293945,
-            "y": 199
-          },
-          "nodeIndex": "Param: Date Granularity",
-          "nodeLineageTag": "5d57ac8c-7267-4dbc-a5d3-e0a4d9202ed7",
-          "size": {
-            "height": 200,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 261.20000076293945,
-            "y": 198
-          },
-          "nodeIndex": "TBL Date Granularity",
-          "nodeLineageTag": "93a32270-f729-4bec-82d7-d63f62d9b863",
-          "size": {
-            "height": 200,
-            "width": 234
-          },
-          "zIndex": 0
-        }
-      ],
-      "name": "Param: Date Granularity",
-      "zoomValue": 100,
-      "pinKeyFieldsToTop": false,
-      "showExtraHeaderInfo": false,
-      "hideKeyFieldsWhenCollapsed": false,
-      "tablesLocked": false
-    },
-    {
-      "ordinal": 2,
       "scrollPosition": {
         "x": 0,
         "y": 0
@@ -469,7 +409,7 @@
       "tablesLocked": false
     },
     {
-      "ordinal": 3,
+      "ordinal": 2,
       "scrollPosition": {
         "x": 0,
         "y": 2
@@ -526,7 +466,7 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 4
         }
       ],
       "name": "Products",
@@ -537,7 +477,7 @@
       "tablesLocked": false
     },
     {
-      "ordinal": 4,
+      "ordinal": 3,
       "scrollPosition": {
         "x": 0,
         "y": 0
@@ -580,7 +520,7 @@
       "tablesLocked": false
     },
     {
-      "ordinal": 5,
+      "ordinal": 4,
       "scrollPosition": {
         "x": 0,
         "y": 0
@@ -679,6 +619,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Products",
+  "selectedDiagram": "All tables",
   "defaultDiagram": "All tables"
 }

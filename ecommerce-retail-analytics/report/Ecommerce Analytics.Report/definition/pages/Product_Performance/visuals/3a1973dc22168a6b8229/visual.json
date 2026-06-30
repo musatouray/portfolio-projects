@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "ad7a830ec547c0640e75",
+  "name": "3a1973dc22168a6b8229",
   "position": {
     "x": 0,
-    "y": 0.075748977027894959,
-    "z": 1000,
+    "y": 0,
+    "z": 2500,
     "height": 637.63191241319885,
-    "width": 1589,
-    "tabOrder": 1000
+    "width": 1589.408484971362,
+    "tabOrder": 9002
   },
   "visual": {
     "visualType": "lineStackedColumnComboChart",
@@ -33,8 +33,43 @@
             }
           ]
         },
-        "Tooltips": {
+        "Y": {
           "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Order Items Total Revenue"
+                }
+              },
+              "queryRef": "_Measures.Total Revenue Order Items",
+              "nativeQueryRef": "Revenue",
+              "displayName": "Revenue"
+            }
+          ]
+        },
+        "Y2": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Running Total Product Revenue %"
+                }
+              },
+              "queryRef": "_Measures.Running Total Product Revenue Contribution",
+              "nativeQueryRef": "Revenue Cumulative %",
+              "displayName": "Revenue Cumulative %",
+              "format": "0%;-0%;0%"
+            },
             {
               "field": {
                 "Measure": {
@@ -58,122 +93,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Product Revenue Contribution"
+                  "Property": "Pareto Cutoff Marker"
                 }
               },
-              "queryRef": "_Measures.Product Revenue Contribution",
-              "nativeQueryRef": "Revenue Contribution",
-              "displayName": "Revenue Contribution"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Custom Period Title"
-                }
-              },
-              "queryRef": "_Measures.Filtered Period Title",
-              "nativeQueryRef": "Period",
-              "displayName": "Period"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Order Items Total Revenue"
-                }
-              },
-              "queryRef": "_Measures.Total Revenue Order Items",
-              "nativeQueryRef": "Revenue",
-              "displayName": "Revenue"
-            },
-            {
-              "field": {
-                "NativeVisualCalculation": {
-                  "Language": "dax",
-                  "Expression": "DIVIDE([Revenue], COLLAPSEALL([Revenue], ROWS))",
-                  "Name": "Percent of grand total"
-                }
-              },
-              "queryRef": "select",
-              "nativeQueryRef": "Percent of grand total",
-              "hidden": true
-            },
-            {
-              "field": {
-                "NativeVisualCalculation": {
-                  "Language": "dax",
-                  "Expression": "\r\n// \"#b4d9b5\", \"#e7a3bd\"\r\nIF([Running sum] <= [Threshold], \"#4A6FA5\", \"#DDE6F5\")\r\n",
-                  "Name": "Pareto Bars Color"
-                }
-              },
-              "queryRef": "select2",
-              "nativeQueryRef": "Pareto Bars Color",
-              "hidden": true
-            }
-          ]
-        },
-        "Y2": {
-          "projections": [
-            {
-              "field": {
-                "NativeVisualCalculation": {
-                  "Language": "dax",
-                  "Expression": "RUNNINGSUM([Percent of grand total], ORDERBY([Revenue], DESC))",
-                  "Name": "Running sum"
-                }
-              },
-              "queryRef": "select1",
-              "nativeQueryRef": "Running sum",
-              "format": "0%;-0%;0%"
-            },
-            {
-              "field": {
-                "NativeVisualCalculation": {
-                  "Language": "dax",
-                  "Expression": "IF([Running sum] > [Threshold], [Running sum], BLANK())",
-                  "Name": "Red line"
-                }
-              },
-              "queryRef": "select3",
-              "nativeQueryRef": "Red line",
-              "format": "0%;-0%;0%"
-            },
-            {
-              "field": {
-                "NativeVisualCalculation": {
-                  "Language": "dax",
-                  "Expression": "IF([Running sum] <= [Threshold], [Running sum], BLANK())",
-                  "Name": "Green line"
-                }
-              },
-              "queryRef": "select4",
-              "nativeQueryRef": "Green line",
-              "format": "0%;-0%;0%"
-            },
-            {
-              "field": {
-                "NativeVisualCalculation": {
-                  "Language": "dax",
-                  "Expression": "\nVAR __Threshold = [Threshold]\nVAR __PreviousRunningSum = [Running sum] - [Percent of grand total]\nRETURN\nIF(__PreviousRunningSum < __Threshold && [Running sum] >= __Threshold, [Running sum], BLANK())",
-                  "Name": "Cut-off"
-                }
-              },
-              "queryRef": "select5",
-              "nativeQueryRef": "Cut-off",
-              "format": "0%;-0%;0%"
+              "queryRef": "_Measures.Pareto Cutoff Marker",
+              "nativeQueryRef": "Pareto Cutoff Marker"
             }
           ]
         }
@@ -203,7 +127,7 @@
             "areaShow": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             }
@@ -211,7 +135,21 @@
         },
         {
           "properties": {
-            "strokeShow": {
+            "lineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'dashed'"
+                }
+              }
+            },
+            "lineChartType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'linear'"
+                }
+              }
+            },
+            "areaShow": {
               "expr": {
                 "Literal": {
                   "Value": "false"
@@ -224,36 +162,78 @@
                   "Value": "false"
                 }
               }
-            },
-            "areaShow": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Pareto Cut-off"
+          }
+        },
+        {
+          "properties": {
+            "markerColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
                 }
               }
             },
-            "areaMatchStrokeColor": {
+            "markerSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "5D"
+                }
+              }
+            },
+            "strokeWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "2D"
+                }
+              }
+            },
+            "lineChartType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'linear'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Running Total Product Revenue Contribution"
+          }
+        },
+        {
+          "properties": {
+            "showMarker": {
               "expr": {
                 "Literal": {
                   "Value": "false"
                 }
               }
             },
-            "areaColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 8,
-                      "Percent": 0
-                    }
-                  }
+            "lineChartType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'linear'"
+                }
+              }
+            },
+            "lineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'dashed'"
                 }
               }
             }
           },
           "selector": {
-            "metadata": "select1"
+            "metadata": "Param: Pareto Threshold.Param: Pareto Threshold Value"
           }
         },
         {
@@ -261,84 +241,13 @@
             "markerSize": {
               "expr": {
                 "Literal": {
-                  "Value": "5D"
-                }
-              }
-            },
-            "markerColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": 0
-                    }
-                  }
-                }
-              }
-            },
-            "strokeTransparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "50D"
+                  "Value": "8D"
                 }
               }
             }
           },
           "selector": {
-            "metadata": "select3"
-          }
-        },
-        {
-          "properties": {
-            "markerSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "5D"
-                }
-              }
-            },
-            "markerColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": 0
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "select4"
-          }
-        },
-        {
-          "properties": {
-            "markerSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "7D"
-                }
-              }
-            },
-            "markerColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 2,
-                      "Percent": 0
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "select5"
+            "metadata": "_Measures.Pareto Cutoff Marker"
           }
         }
       ],
@@ -398,52 +307,31 @@
         },
         {
           "properties": {
-            "enableBackground": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "enableValueDataLabel": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "enableDetailDataLabel": {
+            "showSeries": {
               "expr": {
                 "Literal": {
                   "Value": "false"
                 }
               }
-            },
-            "labelDisplayUnits": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
-                }
-              }
-            },
-            "labelPrecision": {
-              "expr": {
-                "Literal": {
-                  "Value": "0L"
-                }
-              }
-            },
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Pareto Cut-off"
+          }
+        },
+        {
+          "properties": {
             "labelPosition": {
               "expr": {
                 "Literal": {
-                  "Value": "'Above'"
+                  "Value": "'Auto'"
                 }
               }
             },
-            "backgroundTransparency": {
+            "enableBackground": {
               "expr": {
                 "Literal": {
-                  "Value": "30D"
+                  "Value": "false"
                 }
               }
             },
@@ -456,60 +344,32 @@
             }
           },
           "selector": {
-            "metadata": "select1"
+            "metadata": "_Measures.Running Total Product Revenue Contribution"
           }
         },
         {
           "properties": {
-            "dynamicLabelValue": {
+            "showSeries": {
               "expr": {
-                "NativeVisualCalculation": {
-                  "Language": "dax",
-                  "Expression": "RUNNINGSUM([Percent of grand total], ORDERBY([Total Revenue Order Items], DESC))",
-                  "Name": "Running sum"
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }
           },
           "selector": {
-            "data": [
-              {
-                "dataViewWildcard": {
-                  "matchingOption": 1
-                }
-              }
-            ],
-            "metadata": "select1",
-            "highlightMatching": 1
+            "metadata": "Param: Pareto Threshold.Param: Pareto Threshold Value"
           }
         },
         {
           "properties": {
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "SelectRef": {
-                      "ExpressionName": "select2"
-                    }
-                  }
+            "labelPosition": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Above'"
                 }
               }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "dataViewWildcard": {
-                  "matchingOption": 1
-                }
-              }
-            ],
-            "metadata": "select1"
-          }
-        },
-        {
-          "properties": {
+            },
             "enableBackground": {
               "expr": {
                 "Literal": {
@@ -522,128 +382,8 @@
                 "color": {
                   "expr": {
                     "ThemeDataColor": {
-                      "ColorId": 6,
+                      "ColorId": 4,
                       "Percent": 0.6
-                    }
-                  }
-                }
-              }
-            },
-            "labelPosition": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Above'"
-                }
-              }
-            },
-            "backgroundTransparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "30D"
-                }
-              }
-            },
-            "showSeries": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "select3"
-          }
-        },
-        {
-          "properties": {
-            "labelPosition": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Above'"
-                }
-              }
-            },
-            "enableBackground": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "backgroundColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 9,
-                      "Percent": 0.6
-                    }
-                  }
-                }
-              }
-            },
-            "showSeries": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "select4"
-          }
-        },
-        {
-          "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "11D"
-                }
-              }
-            },
-            "bold": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": 0
-                    }
-                  }
-                }
-              }
-            },
-            "enableBackground": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "backgroundTransparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "30D"
-                }
-              }
-            },
-            "backgroundColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 2,
-                      "Percent": 0
                     }
                   }
                 }
@@ -659,7 +399,7 @@
             "titleShowBlankAs": {
               "expr": {
                 "Literal": {
-                  "Value": "'Cut-off'"
+                  "Value": "'Pareto Cutoff'"
                 }
               }
             },
@@ -670,21 +410,56 @@
                 }
               }
             },
-            "titleColor": {
+            "color": {
               "solid": {
                 "color": {
                   "expr": {
                     "ThemeDataColor": {
-                      "ColorId": 8,
-                      "Percent": 0.6
+                      "ColorId": 2,
+                      "Percent": 0
                     }
                   }
+                }
+              }
+            },
+            "backgroundTransparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "30D"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'''Segoe UI Semibold'', wf_segoe-ui_semibold, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            },
+            "titleLabelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
                 }
               }
             }
           },
           "selector": {
-            "metadata": "select5"
+            "metadata": "_Measures.Pareto Cutoff Marker"
           }
         }
       ],
@@ -694,7 +469,14 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "legendMarkerRendering": {
+              "expr": {
+                "Literal": {
+                  "Value": "'lineOnly'"
                 }
               }
             }
@@ -727,7 +509,7 @@
             "borderShow": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -765,8 +547,71 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "SelectRef": {
-                      "ExpressionName": "select2"
+                    "Conditional": {
+                      "Cases": [
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 0,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "_Measures"
+                                    }
+                                  },
+                                  "Property": "Pareto Category Color Flag"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "'Outside Threshold'"
+                                }
+                              }
+                            },
+                            "Annotations": {
+                              "PowerBI.SQExprEvaluationKind": 1,
+                              "PowerBI.SQExprTextOperatorOption": 2
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#b7c5db'"
+                            }
+                          }
+                        },
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 0,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "_Measures"
+                                    }
+                                  },
+                                  "Property": "Pareto Category Color Flag"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "'Within Threshold'"
+                                }
+                              }
+                            },
+                            "Annotations": {
+                              "PowerBI.SQExprEvaluationKind": 1,
+                              "PowerBI.SQExprTextOperatorOption": 2
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#4A6FA5'"
+                            }
+                          }
+                        }
+                      ]
                     }
                   }
                 }
@@ -790,75 +635,16 @@
                 "color": {
                   "expr": {
                     "ThemeDataColor": {
-                      "ColorId": 8,
+                      "ColorId": 2,
                       "Percent": 0.6
                     }
                   }
                 }
               }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "100D"
-                }
-              }
             }
           },
           "selector": {
-            "metadata": "select3"
-          }
-        },
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 8,
-                      "Percent": 0
-                    }
-                  }
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "60D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "select4"
-          }
-        },
-        {
-          "properties": {
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "90D"
-                }
-              }
-            },
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 8,
-                      "Percent": 0
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "select1"
+            "metadata": "_Measures.Pareto Cut-off"
           }
         },
         {
@@ -877,7 +663,45 @@
             }
           },
           "selector": {
-            "metadata": "select5"
+            "metadata": "_Measures.Running Total Product Revenue Contribution"
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0.6
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Param: Pareto Threshold.Param: Pareto Threshold Value"
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 4,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Pareto Cutoff Marker"
           }
         }
       ],
@@ -889,8 +713,8 @@
                 "color": {
                   "expr": {
                     "ThemeDataColor": {
-                      "ColorId": 8,
-                      "Percent": 0.6
+                      "ColorId": 4,
+                      "Percent": 0
                     }
                   }
                 }
@@ -905,30 +729,11 @@
             }
           },
           "selector": {
-            "metadata": "select3"
+            "metadata": "_Measures.Running Total Product Revenue Contribution"
           }
         },
         {
           "properties": {
-            "borderColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 8,
-                      "Percent": 0
-                    }
-                  }
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "30D"
-                }
-              }
-            },
             "borderColorMatchFill": {
               "expr": {
                 "Literal": {
@@ -938,33 +743,7 @@
             }
           },
           "selector": {
-            "metadata": "select4"
-          }
-        },
-        {
-          "properties": {
-            "borderColorMatchFill": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "borderColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 2,
-                      "Percent": 0
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "select5"
+            "metadata": "_Measures.Pareto Cutoff Marker"
           }
         }
       ]
@@ -1035,5 +814,51 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "43ba9de5d25f9a8b8bbc"
+  "parentGroupName": "43ba9de5d25f9a8b8bbc",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "9178956e972cbcfba6f7",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DIM_PRODUCTS"
+              }
+            },
+            "Property": "PRODUCT_CATEGORY"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "9c183d4f2fd7f671215b",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Order Items Total Revenue"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "38b92f9870a11be42f39",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Running Total Product Revenue %"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
 }
