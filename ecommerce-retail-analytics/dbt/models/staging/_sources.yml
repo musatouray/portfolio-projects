@@ -67,10 +67,6 @@ sources:
       # Order Items
       - name: order_items
         description: "Order items information, can be used to analyze order details and calculate total order value"
-        loaded_at_field: METADATA$START_SCAN_TIME
-        freshness:
-          warn_after: {count: 25, period: hour}
-          error_after: {count: 49, period: hour}
         columns:
           - name: order_id
             data_type: varchar
@@ -97,10 +93,6 @@ sources:
       # Order Payments
       - name: order_payments
         description: "Order payments information, can be used to analyze payment details and calculate total payment amount for each order"
-        loaded_at_field: METADATA$START_SCAN_TIME
-        freshness:
-          warn_after: {count: 25, period: hour}
-          error_after: {count: 49, period: hour}
         columns:
           - name: order_id
             data_type: varchar
@@ -121,10 +113,6 @@ sources:
       # Order Reviews
       - name: order_reviews
         description: "Order reviews information, can be used to analyze customer feedback and satisfaction"
-        loaded_at_field: METADATA$START_SCAN_TIME
-        freshness:
-          warn_after: {count: 25, period: hour}
-          error_after: {count: 49, period: hour}
         columns:
           - name: review_id
             data_type: varchar
@@ -157,10 +145,6 @@ sources:
       # Orders
       - name: orders
         description: "Order header information"
-        loaded_at_field: METADATA$START_SCAN_TIME
-        freshness:
-          warn_after: {count: 25, period: hour}
-          error_after: {count: 49, period: hour}
         columns:
           - name: order_id
             data_type: varchar
