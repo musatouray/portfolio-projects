@@ -118,34 +118,31 @@ Without freshness checks, stale RAW data (e.g., Airflow failing silently for 48 
 **Files:**
 - Modify: `dbt/models/staging/_sources.yml`
 
-- [ ] **Step 1: Identify the timestamp column available in RAW**
+**Tables that receive freshness checks (loaded daily by Airflow):**
+- `orders`
+- `order_items`
+- `order_payments`
+- `order_reviews`
 
-Each RAW table needs a `loaded_at_field` — a timestamp column that reflects when the row arrived. For Snowflake COPY INTO tables the natural choice is a `METADATA$START_SCAN_TIME` pseudocolumn or a column explicitly set during load.
+**Tables that do NOT get freshness checks (static reference data, not loaded daily):**
+- `customers` — one-time historical load only
+- `geolocation` — static reference data
+- `sellers`, `products`, `product_category_translation` — static reference data
 
-Run this in Snowflake to confirm what's available in each table:
-```sql
-DESC TABLE ECOMMERCE_RETAIL_DB_DEV.RAW.ORDERS;
-```
-If there is no `created_at` or `loaded_at` column, use Snowflake's `METADATA$START_SCAN_TIME`. Note which column name exists across tables before proceeding.
+- [ ] **Step 1: Add a freshness block to each of the 4 daily tables in `_sources.yml`**
 
-- [ ] **Step 2: Add a freshness block to each source table in `_sources.yml`**
-
-Immediately after the `name:` line of each source table (customers, orders, order_items, order_payments, order_reviews, geolocation), add:
+Immediately after the `description:` line of each qualifying table, before `columns:`, add:
 
 ```yaml
-      - name: orders
-        description: "..."
-        loaded_at_field: METADATA$START_SCAN_TIME   # or the actual timestamp column name
+        loaded_at_field: METADATA$START_SCAN_TIME
         freshness:
-          warn_after: {count: 25, period: hour}     # warn if data is >25h old (allows 1h delay after 24h schedule)
-          error_after: {count: 49, period: hour}    # error if >2 days stale
-        columns:
-          ...
+          warn_after: {count: 25, period: hour}
+          error_after: {count: 49, period: hour}
 ```
 
-Apply the same `loaded_at_field` and `freshness` block to: `customers`, `order_items`, `order_payments`, `order_reviews`. Skip `geolocation` — it's static reference data, not loaded daily.
+`METADATA$START_SCAN_TIME` is a Snowflake pseudocolumn that reflects the COPY INTO load timestamp — the correct field when no explicit `loaded_at` column exists.
 
-- [ ] **Step 3: Test the freshness check locally**
+- [ ] **Step 2: Test the freshness check locally**
 
 ```bash
 cd dbt
@@ -153,16 +150,18 @@ dbt source freshness
 ```
 Expected output:
 ```
-Found 5 sources, testing freshness...
+Found 4 sources with freshness checks...
 ok  [25h warn, 49h error] raw.orders .......... [ok, freshness: Xh Xm Xs]
+ok  [25h warn, 49h error] raw.order_items ..... [ok, freshness: Xh Xm Xs]
+ok  [25h warn, 49h error] raw.order_payments .. [ok, freshness: Xh Xm Xs]
+ok  [25h warn, 49h error] raw.order_reviews ... [ok, freshness: Xh Xm Xs]
 ```
-If you see `ERROR: loaded_at_field not found`, the column name doesn't exist — go back to Step 1 and pick the right column.
 
-- [ ] **Step 4: Commit**
+- [ ] **Step 3: Commit**
 
 ```bash
 git add dbt/models/staging/_sources.yml
-git commit -m "feat(dbt): add source freshness checks to all daily-loaded RAW tables"
+git commit -m "feat(dbt): add source freshness checks to daily-loaded RAW tables"
 ```
 
 ---
