@@ -25,8 +25,6 @@ ref table FCT_ORDERS
 ref table FCT_ORDER_PAYMENTS
 ref table FCT_RFM_SEGMENTS
 ref table _Measures
-ref table 'Param: Date Granularity'
-ref table 'TBL Date Granularity'
 ref table 'CG Selected Metric'
 ref table 'CG Custom Periods'
 ref table 'Top/Bottom Selector'
@@ -36,7 +34,6 @@ ref table 'Param: Cohort Size'
 ref table 'Param: Pareto Threshold'
 ref table 'Pareto Product Segments'
 ref table 'CG Pareto Metric'
-ref table 'TBL Moving Averages'
 ref table 'CG Order Items Metrics'
 ref table 'CG Rolling Averages'
 

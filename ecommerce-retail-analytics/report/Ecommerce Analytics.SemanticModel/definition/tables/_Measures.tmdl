@@ -586,7 +586,7 @@ table _Measures
 				
 				```
 
-	measure 'Running Total Product Revenue Contribution' = ```
+	measure 'Running Total Product Revenue %' = ```
 			
 			VAR __AllSelectedRevenue =
 			    CALCULATE(
@@ -1044,7 +1044,7 @@ table _Measures
 		displayFolder: 04_Funnel
 		lineageTag: e558dd58-2114-44fb-b0da-31a508c47895
 
-	measure 'Product Revenue Contribution' = ```
+	measure 'Product Revenue % of Grand Total' = ```
 			
 			VAR __ProductRevenue = [Order Items Total Revenue]
 			VAR __AllSelectedProductRevenue = 
@@ -3890,6 +3890,90 @@ table _Measures
 			```
 		displayFolder: 14_Viz Helpers\_KPI Cards\Fct_Order_Items
 		lineageTag: c7883337-f52d-4d5f-bc6c-0d7240ba8fd1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Pareto Cutoff Marker' = ```
+			
+			VAR __Threshold = [Param: Pareto Threshold Value]
+			
+			-- 1. Grab the baseline running total table layout
+			VAR __CategoryTable = 
+			    ADDCOLUMNS( 
+			        ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]), 
+			        "@CategoryPct", [Product Revenue % of Grand Total] 
+			    )
+			
+			-- 2. Fetch the running total for the CURRENT category on the axis step
+			VAR __CurrentRunningTotal = [Running Total Product Revenue %]
+			
+			-- 3. Calculate the running total up to the PREVIOUS category
+			VAR __PreviousRunningTotal = 
+			    SUMX(
+			        WINDOW(
+			            1, ABS,
+			            -1, REL,
+			            __CategoryTable,
+			            ORDERBY([@CategoryPct], DESC)
+			        ),
+			        [@CategoryPct]
+			    )
+			
+			-- 4. Identify if this specific category is the one that crosses the threshold line
+			VAR __IsIntersectionCategory = 
+			    __CurrentRunningTotal >= __Threshold && 
+			    (__PreviousRunningTotal < __Threshold || ISBLANK(__PreviousRunningTotal))
+			
+			RETURN
+			    IF(
+			        __IsIntersectionCategory && NOT ISBLANK([Order Items Total Revenue]),
+			        __CurrentRunningTotal
+			    )
+			
+			```
+		formatString: 0%;-0%;0%
+		displayFolder: 03_Product
+		lineageTag: c30950be-ae72-467d-8f2a-0ff8c3428c98
+
+	measure 'Pareto Category Color Flag' = ```
+			
+			VAR __Threshold = [Param: Pareto Threshold Value]
+			
+			-- 1. Grab the baseline running total table layout using your percentage measure
+			VAR __CategoryTable = 
+			    ADDCOLUMNS( 
+			        ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]), 
+			        "@CategoryPct", [Product Revenue % of Grand Total] 
+			    )
+			
+			-- 2. Fetch the running total for the CURRENT category on the axis step
+			VAR __CurrentRunningTotal = [Running Total Product Revenue %]
+			
+			-- 3. Directly calculate the previous running total by summing the percentages up to 1 row ago
+			VAR __PreviousRunningTotal = 
+			    SUMX(
+			        WINDOW(
+			            1, ABS,
+			            -1, REL,
+			            __CategoryTable,
+			            ORDERBY([@CategoryPct], DESC)
+			        ),
+			        [@CategoryPct]
+			    )
+			
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK([Order Items Total Revenue]), BLANK(),
+			        
+			        -- Keeps categories under the limit, plus the single category that breaches the threshold line
+			        __CurrentRunningTotal <= __Threshold || __PreviousRunningTotal < __Threshold, "Within Threshold",
+			        "Outside Threshold"
+			    )
+			
+			```
+		displayFolder: 03_Product
+		lineageTag: 7cda3bb6-03ec-42b2-824e-abdac550e69c
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 

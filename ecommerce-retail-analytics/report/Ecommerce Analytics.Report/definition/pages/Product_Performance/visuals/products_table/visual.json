@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "products_table",
   "position": {
-    "x": 0.363424400628519,
+    "x": 0.36342440062851722,
     "y": 0.074053423893758463,
     "z": 0,
     "height": 638.79973642860762,
@@ -103,7 +103,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Product Revenue Contribution"
+                  "Property": "Product Revenue % of Grand Total"
                 }
               },
               "queryRef": "_Measures.Product Revenue Contribution",
@@ -118,7 +118,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Running Total Product Revenue Contribution"
+                  "Property": "Running Total Product Revenue %"
                 }
               },
               "queryRef": "_Measures.Running Total Product Revenue Contribution",
@@ -138,7 +138,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Product Revenue Contribution"
+                "Property": "Product Revenue % of Grand Total"
               }
             },
             "direction": "Descending"
@@ -657,24 +657,6 @@
       ]
     },
     "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "text": {
-              "expr": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Pareto Title"
-                }
-              }
-            }
-          }
-        }
-      ],
       "dropShadow": [
         {
           "properties": {
@@ -705,6 +687,31 @@
           }
         }
       ],
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Pareto Table'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
       "subTitle": [
         {
           "properties": {
@@ -712,19 +719,6 @@
               "expr": {
                 "Literal": {
                   "Value": "' '"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "spacing": [
-        {
-          "properties": {
-            "spaceBelowSubTitle": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
                 }
               }
             }

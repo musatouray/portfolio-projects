@@ -1,7 +1,7 @@
 table 'Param: Pareto Threshold'
 	lineageTag: 7bf6c623-6bd0-4096-a54c-e7e43196b639
 
-	measure 'Param: Pareto Threshold Value' = SELECTEDVALUE('Param: Pareto Threshold'[Param: Pareto Threshold], 0.08)
+	measure 'Param: Pareto Threshold Value' = SELECTEDVALUE('Param: Pareto Threshold'[Param: Pareto Threshold], 0.80)
 		lineageTag: c1289e25-a569-45d0-b6f1-c6c44c9ae536
 
 		formatStringDefinition = "0%"
@@ -21,7 +21,7 @@ table 'Param: Pareto Threshold'
 
 	partition 'Param: Pareto Threshold' = calculated
 		mode: import
-		source = GENERATESERIES(0.10, 1.01, 0.10)
+		source = GENERATESERIES(0.01, 1.01, 0.01)
 
 	annotation PBI_Id = 54cdf3106fc4442591f8db0b863f9468
 

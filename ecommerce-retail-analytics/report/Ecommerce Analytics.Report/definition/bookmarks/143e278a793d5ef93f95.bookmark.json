@@ -7,10 +7,11 @@
     "targetVisualNames": [
       "43ba9de5d25f9a8b8bbc",
       "0d8aac30636a2efdf629",
-      "e2edf10ce2333c648eed",
-      "a05af22850b4e424ea41",
       "378f645491d317a15c50",
-      "ad7a830ec547c0640e75",
+      "3a1973dc22168a6b8229",
+      "a05af22850b4e424ea41",
+      "286de9ea1f3be86d7b8d",
+      "e2edf10ce2333c648eed",
       "products_table"
     ],
     "suppressData": true
@@ -24,6 +25,12 @@
           "04ecf6b411012246e17a": {
             "singleVisual": {
               "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "0d8aac30636a2efdf629": {
+            "singleVisual": {
+              "visualType": "actionButton",
               "objects": {}
             }
           },
@@ -49,7 +56,7 @@
             "filters": {
               "byExpr": [
                 {
-                  "name": "8559b6e070723d5bb96d",
+                  "name": "a9a177b13684c1a2d75d",
                   "type": "Advanced",
                   "expression": {
                     "Column": {
@@ -99,7 +106,7 @@
                                     },
                                     "Right": {
                                       "Literal": {
-                                        "Value": "0.7999999999999999D"
+                                        "Value": "0.8000000000000005D"
                                       }
                                     }
                                   }
@@ -117,7 +124,7 @@
                         "numericStart": {
                           "expr": {
                             "Literal": {
-                              "Value": "0.7999999999999999D"
+                              "Value": "0.8000000000000005D"
                             }
                           }
                         },
@@ -173,11 +180,17 @@
               "objects": {}
             }
           },
+          "378f645491d317a15c50": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
           "645bbfb20877402a49d3": {
             "filters": {
               "byExpr": [
                 {
-                  "name": "5227cefd92004033f132",
+                  "name": "7c13438c069f687ed1fb",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -208,7 +221,7 @@
             "filters": {
               "byExpr": [
                 {
-                  "name": "c1cb051eaa8ceff38196",
+                  "name": "6cf69bcc2e66f39097a6",
                   "type": "Categorical",
                   "expression": {
                     "Column": {
@@ -261,7 +274,7 @@
                                       [
                                         {
                                           "Literal": {
-                                            "Value": "'Last 6 Months'"
+                                            "Value": "'Last Quarter'"
                                           }
                                         }
                                       ]
@@ -316,7 +329,7 @@
             "filters": {
               "byExpr": [
                 {
-                  "name": "e6e744d6ac15208de855",
+                  "name": "320f8d4b4bead8f84456",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -331,7 +344,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "d79dd8905ab5ef622a4f",
+                  "name": "88c8976d76bae81148b9",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -346,7 +359,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "8cc4889e7bdbdcdc9229",
+                  "name": "4a5f430663460affebd8",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -361,7 +374,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "033362612627758b5d98",
+                  "name": "a85813c4e08a43a2a624",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -376,7 +389,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "1e2ab1330ae115b67be2",
+                  "name": "9c316ad0bb661ab8b069",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -391,7 +404,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "e756626d0d4b2c2fb7ab",
+                  "name": "a3c5b9de28941c3539bd",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -427,6 +440,15 @@
               ]
             }
           },
+          "a05af22850b4e424ea41": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
           "a2e68ee26d55142b87dc": {
             "singleVisual": {
               "visualType": "pageNavigator",
@@ -443,6 +465,15 @@
             "singleVisual": {
               "visualType": "shape",
               "objects": {}
+            }
+          },
+          "e2edf10ce2333c648eed": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
             }
           },
           "efb37008ed810dadd711": {
@@ -506,7 +537,7 @@
               },
               "byExpr": [
                 {
-                  "name": "a27c79750784b315d0ed",
+                  "name": "68b721c5344fd1340f1c",
                   "type": "Categorical",
                   "expression": {
                     "Column": {
@@ -589,96 +620,6 @@
             "filters": {
               "byExpr": [
                 {
-                  "name": "d088bc19214a02b322cb",
-                  "type": "Advanced",
-                  "expression": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "_Measures"
-                        }
-                      },
-                      "Property": "Order Items Total Revenue"
-                    }
-                  },
-                  "howCreated": 0
-                },
-                {
-                  "name": "c729d18d1d8106373106",
-                  "type": "Categorical",
-                  "expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "Pareto Product Segments"
-                        }
-                      },
-                      "Property": "Segment"
-                    }
-                  },
-                  "howCreated": 0
-                },
-                {
-                  "name": "9437adcd51352bce365b",
-                  "type": "Categorical",
-                  "expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "DIM_PRODUCTS"
-                        }
-                      },
-                      "Property": "PRODUCT_CATEGORY"
-                    }
-                  },
-                  "howCreated": 0
-                },
-                {
-                  "name": "46f442f8482e50e008e5",
-                  "type": "Advanced",
-                  "expression": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "_Measures"
-                        }
-                      },
-                      "Property": "Running Total Product Revenue"
-                    }
-                  },
-                  "howCreated": 0
-                },
-                {
-                  "name": "cd84e809b32c971538e9",
-                  "type": "Advanced",
-                  "expression": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "_Measures"
-                        }
-                      },
-                      "Property": "Product Revenue Contribution"
-                    }
-                  },
-                  "howCreated": 0
-                },
-                {
-                  "name": "62817fa704c280a1e25a",
-                  "type": "Advanced",
-                  "expression": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "_Measures"
-                        }
-                      },
-                      "Property": "Running Total Product Revenue Contribution"
-                    }
-                  },
-                  "howCreated": 0
-                },
-                {
                   "name": "6a5a6fbb1562a5d010c2",
                   "type": "Categorical",
                   "filter": {
@@ -733,7 +674,37 @@
                   "howCreated": 1
                 },
                 {
-                  "name": "e5aaca586173597ad4b4",
+                  "name": "10ef78097cfd9d6f9a11",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Pareto Product Segments"
+                        }
+                      },
+                      "Property": "Segment"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "a7a86a9aafb4909a8209",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DIM_PRODUCTS"
+                        }
+                      },
+                      "Property": "PRODUCT_CATEGORY"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "ee57f03a6a490dd0ae5b",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -743,6 +714,66 @@
                         }
                       },
                       "Property": "Order Items Total Orders"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "e0c1d9bce782948af14c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Order Items Total Revenue"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "c463db7882d803833689",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Running Total Product Revenue"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "53c6f6b219d1e2d11204",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Product Revenue % of Grand Total"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "92c3d74bad49e677a74c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Running Total Product Revenue %"
                     }
                   },
                   "howCreated": 0
@@ -762,7 +793,7 @@
                           "Entity": "_Measures"
                         }
                       },
-                      "Property": "Order Items Total Revenue"
+                      "Property": "Product Revenue % of Grand Total"
                     }
                   }
                 }
@@ -833,11 +864,11 @@
               }
             }
           },
-          "ad7a830ec547c0640e75": {
+          "3a1973dc22168a6b8229": {
             "filters": {
               "byExpr": [
                 {
-                  "name": "a1903be82e7452c86b30",
+                  "name": "9178956e972cbcfba6f7",
                   "type": "Categorical",
                   "expression": {
                     "Column": {
@@ -852,7 +883,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "3b68143e22329a65587d",
+                  "name": "9c183d4f2fd7f671215b",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -867,22 +898,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "deb4c2ea5520d82e1429",
-                  "type": "Advanced",
-                  "expression": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "Param: Pareto Threshold"
-                        }
-                      },
-                      "Property": "Param: Pareto Threshold Value"
-                    }
-                  },
-                  "howCreated": 0
-                },
-                {
-                  "name": "e929b24059f777a0ef9b",
+                  "name": "38b92f9870a11be42f39",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -891,13 +907,13 @@
                           "Entity": "_Measures"
                         }
                       },
-                      "Property": "Product Revenue Contribution"
+                      "Property": "Running Total Product Revenue %"
                     }
                   },
                   "howCreated": 0
                 },
                 {
-                  "name": "7fd35ff42ffdc5b39f87",
+                  "name": "1b0d2f2ba93def145f31",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -906,7 +922,7 @@
                           "Entity": "_Measures"
                         }
                       },
-                      "Property": "Custom Period Title"
+                      "Property": "Pareto Cutoff Marker"
                     }
                   },
                   "howCreated": 0
@@ -947,30 +963,28 @@
               }
             }
           },
-          "378f645491d317a15c50": {
+          "286de9ea1f3be86d7b8d": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "2d5b9161b97fc6a2d7f6",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Pareto Title"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
             "singleVisual": {
-              "visualType": "actionButton",
-              "objects": {}
-            }
-          },
-          "0d8aac30636a2efdf629": {
-            "singleVisual": {
-              "visualType": "actionButton",
-              "objects": {}
-            }
-          },
-          "a05af22850b4e424ea41": {
-            "singleVisual": {
-              "visualType": "actionButton",
-              "objects": {},
-              "display": {
-                "mode": "hidden"
-              }
-            }
-          },
-          "e2edf10ce2333c648eed": {
-            "singleVisual": {
-              "visualType": "actionButton",
+              "visualType": "cardVisual",
               "objects": {},
               "display": {
                 "mode": "hidden"
@@ -980,7 +994,7 @@
         },
         "visualContainerGroups": {
           "1deb160ad0b0d25c10a4": {
-            "isHidden": false
+            "isHidden": true
           }
         }
       }

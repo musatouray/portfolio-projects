@@ -3,11 +3,7 @@
   "tabOrder": [
     "CG Custom Periods",
     "CG Selected Metric",
-    "UDF Colors",
-    "Script 5",
-    "Script 1",
-    "Script 2",
-    "Script 3"
+    "UDF Colors"
   ],
-  "defaultTab": "Script 3"
+  "defaultTab": "UDF Colors"
 }

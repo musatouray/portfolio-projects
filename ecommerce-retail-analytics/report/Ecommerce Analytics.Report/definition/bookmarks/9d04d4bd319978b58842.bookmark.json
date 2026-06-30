@@ -63,7 +63,7 @@
                           "Entity": "_Measures"
                         }
                       },
-                      "Property": "Product Revenue Contribution"
+                      "Property": "Product Revenue % of Grand Total"
                     }
                   },
                   "howCreated": 0
