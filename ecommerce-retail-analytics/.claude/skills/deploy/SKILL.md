@@ -93,6 +93,22 @@ After PR is created:
 gh pr checks --watch
 ```
 
+### Step 8: Deploy to Fabric Production
+
+After the PR is merged to `main`, deploy to the Fabric production workspace:
+
+```bash
+# Switch to fabric-prod, merge main, and push
+git checkout fabric-prod
+git merge main
+git push
+
+# Return to main branch
+git checkout main
+```
+
+This triggers Fabric Git integration to auto-sync the `report/` folder to the production workspace.
+
 ## Output Checklist
 
 - [ ] Feature branch created
@@ -101,9 +117,12 @@ gh pr checks --watch
 - [ ] Pushed to remote
 - [ ] PR opened with full context
 - [ ] CI pipeline started
+- [ ] Merged to main
+- [ ] Deployed to fabric-prod
 
 ## Next Steps
 1. Monitor CI for any failures
 2. Request review from team members
 3. Address feedback
 4. Merge when approved
+5. Deploy to fabric-prod after merge
