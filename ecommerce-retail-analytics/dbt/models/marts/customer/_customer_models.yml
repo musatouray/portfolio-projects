@@ -248,6 +248,11 @@ models:
       Self-contained model calculating all metrics from orders. Includes absorbed behavioral
       segments from dim_customers (lifecycle, value, satisfaction). Excludes canceled/unavailable orders.
       Use this for customer valuation, segmentation, and identifying high-value customers.
+    data_tests:
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "predicted_clv_12m >= 0"
+          name: fct_clv_customer_predicted_clv_non_negative
     columns:
       - name: customer_key
         description: Surrogate key matching dim_customers for star schema joins
