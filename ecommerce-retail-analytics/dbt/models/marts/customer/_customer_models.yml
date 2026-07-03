@@ -66,7 +66,7 @@ models:
         description: Weighted average review score (1-5 scale) through snapshot month. NULL if no reviews.
 
       - name: r_score
-        description: Recency score from 1-5 (5 = most recent), calculated within snapshot month
+        description: Recency score from 1-5 (5 = most recent) using absolute day thresholds
         data_tests:
           - not_null
           - accepted_values:
@@ -74,7 +74,7 @@ models:
                 values: [1, 2, 3, 4, 5]
 
       - name: f_score
-        description: Frequency score from 1-5 (5 = most frequent), calculated within snapshot month
+        description: Frequency score from 1-5 (5 = most frequent) using absolute order count thresholds
         data_tests:
           - not_null
           - accepted_values:
@@ -82,12 +82,15 @@ models:
                 values: [1, 2, 3, 4, 5]
 
       - name: m_score
-        description: Monetary score from 1-5 (5 = highest spend), calculated within snapshot month
+        description: Monetary score from 1-5 (5 = highest spend) using absolute revenue thresholds
         data_tests:
           - not_null
           - accepted_values:
               arguments:
                 values: [1, 2, 3, 4, 5]
+
+      - name: rfm_combined_score
+        description: Sum of R + F + M scores (range 3-15). Higher indicates better overall customer value.
 
       - name: churn_status
         description: >
@@ -137,17 +140,22 @@ models:
                   - Low
 
       - name: rfm_segment
-        description: Business segment classification based on RFM scores
+        description: >
+          Business segment classification based on RFM scores using absolute thresholds.
+          Segments are mutually exclusive and evaluated in priority order.
         data_tests:
           - not_null
           - accepted_values:
               arguments:
                 values:
                   - Champions
-                  - Loyalists
                   - New Customers
-                  - At Risk / Hibernating
-                  - General Pool
+                  - Loyal Customers
+                  - Potential Loyalists
+                  - At Risk
+                  - Hibernating
+                  - Need Attention
+                  - Lost
 
       - name: created_at
         description: Timestamp when the record was created
