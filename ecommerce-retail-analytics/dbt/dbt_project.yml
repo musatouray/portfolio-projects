@@ -48,6 +48,28 @@ vars:
   # Market basket analysis thresholds
   market_basket_min_pair_count: 5
 
+  # RFM Scoring Thresholds (absolute values, not percentiles)
+  # Recency: Days since last purchase (lower is better)
+  rfm_recency_score_5: 30    # 0-30 days = score 5 (most recent)
+  rfm_recency_score_4: 60    # 31-60 days = score 4
+  rfm_recency_score_3: 90    # 61-90 days = score 3
+  rfm_recency_score_2: 180   # 91-180 days = score 2
+  # 180+ days = score 1 (least recent)
+
+  # Frequency: Total order count (higher is better)
+  rfm_frequency_score_5: 5   # 5+ orders = score 5 (most frequent)
+  rfm_frequency_score_4: 4   # 4 orders = score 4
+  rfm_frequency_score_3: 3   # 3 orders = score 3
+  rfm_frequency_score_2: 2   # 2 orders = score 2
+  # 1 order = score 1 (least frequent)
+
+  # Monetary: Total revenue (higher is better)
+  rfm_monetary_score_5: 500  # $500+ = score 5 (highest value)
+  rfm_monetary_score_4: 300  # $300-499 = score 4
+  rfm_monetary_score_3: 150  # $150-299 = score 3
+  rfm_monetary_score_2: 75   # $75-149 = score 2
+  # <$75 = score 1 (lowest value)
+
 models:
   ecommerce_retail_analytics:
     # MEDALLION ARCHITECTURE:

@@ -1,8 +1,16 @@
 -- Consolidated RFM and Churn Risk fact table with monthly snapshots
 -- Combines RFM scoring with churn risk metrics for unified customer health analysis
--- Self-contained model calculating all metrics from int_orders_enriched
+-- Uses ABSOLUTE thresholds (not NTILE percentiles) for business-meaningful segments
+--
+-- Key design decisions:
+-- 1. Absolute thresholds prevent skewed data from producing meaningless quintiles
+-- 2. Segment priority: New Customers checked before Champions to prevent overlap
+-- 3. Incremental processing for scalability (only recent months on incremental runs)
 
 {{ config(
+    materialized='incremental',
+    unique_key='rfm_snapshot_key',
+    incremental_strategy='merge',
     cluster_by=['snapshot_month', 'churn_risk_segment', 'rfm_segment']
 ) }}
 
@@ -18,13 +26,17 @@ WITH orders AS (
     WHERE order_status NOT IN ('canceled', 'unavailable')
 ),
 
--- Standard Date Spine generation engine
+-- Date Spine: Generate all months with order activity
 months AS (
-    SELECT DISTINCT DATE_TRUNC('MONTH', order_date) AS snapshot_month FROM orders
+    SELECT DISTINCT DATE_TRUNC('MONTH', order_date) AS snapshot_month
+    FROM orders
+    {% if is_incremental() %}
+    -- On incremental runs, only process recent months (current + 2 prior for late arrivals)
+    WHERE DATE_TRUNC('MONTH', order_date) >= DATE_TRUNC('MONTH', CURRENT_DATE()) - INTERVAL '2 MONTHS'
+    {% endif %}
 ),
 
--- Pre-compute each customer's first snapshot month to eliminate anachronistic cross-join rows
--- (a full CROSS JOIN produces 2.28M rows; ~60% predate each customer's first order)
+-- Pre-compute each customer's first snapshot month to eliminate anachronistic rows
 customer_first_months AS (
     SELECT
         customer_unique_id,
@@ -33,20 +45,17 @@ customer_first_months AS (
     GROUP BY 1
 ),
 
+-- Aggregate customer metrics up to each snapshot month
 customer_snapshots AS (
     SELECT
         m.snapshot_month,
         c.customer_unique_id,
         MAX(o.order_date) AS last_purchase_date,
-        -- Fix: COUNT(DISTINCT order_id) — previously COUNT(DISTINCT order_date) undercounted
-        -- customers who placed multiple orders on the same calendar date
         COUNT(DISTINCT o.order_id) AS total_orders,
         COALESCE(SUM(o.revenue), 0) AS total_revenue,
         COALESCE(SUM(o.review_count), 0) AS total_reviews,
         COALESCE(SUM(o.total_score), 0) AS total_scores
     FROM months m
-    -- Fix: inner join on first_snapshot_month replaces the CROSS JOIN,
-    -- only pairing each customer with months on or after their first order month
     JOIN customer_first_months c ON m.snapshot_month >= c.first_snapshot_month
     LEFT JOIN orders o ON o.customer_unique_id = c.customer_unique_id
         AND o.order_date <= LAST_DAY(m.snapshot_month)
@@ -60,27 +69,53 @@ base_metrics AS (
         customer_unique_id,
         total_orders,
         total_revenue,
-        -- Fix: cap reference date at CURRENT_DATE() so the final partial month
-        -- measures recency to today rather than the future end-of-month
-        DATEDIFF('DAY', last_purchase_date, LEAST(LAST_DAY(snapshot_month), (SELECT MAX(order_date) FROM orders))) AS recency_days,
+        -- Cap reference date at max order date to avoid measuring recency to future
+        DATEDIFF('DAY', last_purchase_date,
+            LEAST(LAST_DAY(snapshot_month), (SELECT MAX(order_date) FROM orders))
+        ) AS recency_days,
         (total_orders = 1) AS is_single_purchaser,
         total_scores / NULLIF(total_reviews, 0) AS average_rating
     FROM customer_snapshots
 ),
 
+-- RFM Scoring using ABSOLUTE thresholds (not percentile-based NTILE)
+-- This ensures scores reflect actual business value, not relative ranking
 rfm_scores AS (
     SELECT
         *,
-        NTILE(5) OVER (PARTITION BY snapshot_month ORDER BY recency_days DESC) AS r_score,
-        NTILE(5) OVER (PARTITION BY snapshot_month ORDER BY total_orders ASC) AS f_score,
-        NTILE(5) OVER (PARTITION BY snapshot_month ORDER BY total_revenue ASC) AS m_score
+        -- Recency Score: Lower recency_days = higher score (more recent = better)
+        CASE
+            WHEN recency_days <= {{ var('rfm_recency_score_5') }} THEN 5
+            WHEN recency_days <= {{ var('rfm_recency_score_4') }} THEN 4
+            WHEN recency_days <= {{ var('rfm_recency_score_3') }} THEN 3
+            WHEN recency_days <= {{ var('rfm_recency_score_2') }} THEN 2
+            ELSE 1
+        END AS r_score,
+
+        -- Frequency Score: Higher order count = higher score
+        CASE
+            WHEN total_orders >= {{ var('rfm_frequency_score_5') }} THEN 5
+            WHEN total_orders >= {{ var('rfm_frequency_score_4') }} THEN 4
+            WHEN total_orders >= {{ var('rfm_frequency_score_3') }} THEN 3
+            WHEN total_orders >= {{ var('rfm_frequency_score_2') }} THEN 2
+            ELSE 1
+        END AS f_score,
+
+        -- Monetary Score: Higher revenue = higher score
+        CASE
+            WHEN total_revenue >= {{ var('rfm_monetary_score_5') }} THEN 5
+            WHEN total_revenue >= {{ var('rfm_monetary_score_4') }} THEN 4
+            WHEN total_revenue >= {{ var('rfm_monetary_score_3') }} THEN 3
+            WHEN total_revenue >= {{ var('rfm_monetary_score_2') }} THEN 2
+            ELSE 1
+        END AS m_score
     FROM base_metrics
 ),
 
 calculated_risk AS (
     SELECT
         *,
-        -- 1. Churn Status Tiers
+        -- Churn Status Tiers
         CASE
             WHEN recency_days >= {{ var('churn_churned_days') }} THEN 'Churned'
             WHEN recency_days >= {{ var('churn_at_risk_days') }} THEN 'At Risk'
@@ -88,7 +123,7 @@ calculated_risk AS (
             ELSE 'Active'
         END AS churn_status,
 
-        -- 2. NPS Tiers
+        -- NPS Tiers based on average review rating
         CASE
             WHEN average_rating IS NULL THEN 'unknown'
             WHEN average_rating >= {{ var('customer_promoter_threshold') }} THEN 'promoter'
@@ -96,7 +131,7 @@ calculated_risk AS (
             ELSE 'detractor'
         END AS customer_nps_segment,
 
-        -- 3. Consolidated Composite Churn Risk Score (0-100)
+        -- Composite Churn Risk Score (0-100)
         (
             CASE
                 WHEN recency_days >= {{ var('churn_churned_days') }} THEN 40
@@ -111,8 +146,10 @@ calculated_risk AS (
                 ELSE 0
             END +
             CASE WHEN total_revenue < {{ var('churn_low_value_threshold') }} THEN 15 ELSE 0 END
-        ) AS churn_risk_score
+        ) AS churn_risk_score,
 
+        -- Combined RFM score for segment qualification
+        (r_score + f_score + m_score) AS rfm_combined_score
     FROM rfm_scores
 )
 
@@ -120,22 +157,29 @@ SELECT
     {{ dbt_utils.generate_surrogate_key(['snapshot_month', 'customer_unique_id']) }} AS rfm_snapshot_key,
     {{ dbt_utils.generate_surrogate_key(['customer_unique_id']) }} AS customer_key,
 
-    -- Numeric date key for easier time-series analysis
+    -- Date keys for joining
     TO_NUMERIC(TO_CHAR(snapshot_month, 'YYYYMMDD')) AS snapshot_date_key,
     snapshot_month,
     customer_unique_id,
+
+    -- Core metrics
     recency_days,
     total_orders,
     total_revenue,
     average_rating,
+
+    -- RFM Scores (1-5 scale, absolute thresholds)
     r_score,
     f_score,
     m_score,
+    rfm_combined_score,
+
+    -- Churn metrics
     churn_status,
     customer_nps_segment,
     churn_risk_score,
 
-    -- Risk Segments based on composite churn_risk_score thresholds
+    -- Churn Risk Segment based on composite score
     CASE
         WHEN churn_risk_score >= 75 THEN 'Critical'
         WHEN churn_risk_score >= 50 THEN 'High'
@@ -143,25 +187,43 @@ SELECT
         ELSE 'Low'
     END AS churn_risk_segment,
 
-    -- RFM Behavioral Segments
-    -- "New Customers" broadened from (r>=4 AND f_score=1) to (r>=4 AND total_orders<=2).
-    -- The old f_score=1 condition was too narrow due to NTILE ties in a dataset of mostly
-    -- single-purchase customers; using total_orders directly is more semantically accurate.
+    -- RFM Behavioral Segments 
     CASE
-        WHEN r_score >= 4 AND f_score >= 4 AND m_score >= 4 THEN 'Champions'
-        WHEN r_score >= 3 AND f_score >= 3 THEN 'Loyalists'
+        -- New Customers: Recent but few orders 
         WHEN r_score >= 4 AND total_orders <= 2 THEN 'New Customers'
-        WHEN r_score = 1 THEN 'At Risk / Hibernating'
-        ELSE 'General Pool'
+
+        -- Champions: Elite customers - high on ALL three dimensions
+        WHEN r_score >= 4 AND f_score >= 4 AND m_score >= 4 THEN 'Champions'
+
+        -- Loyal Customers: Strong on recency and frequency, decent monetary
+        WHEN r_score >= 3 AND f_score >= 3 AND m_score >= 3 THEN 'Loyal Customers'
+
+        -- Potential Loyalists: Recent with moderate engagement
+        WHEN r_score >= 4 AND f_score >= 2 THEN 'Potential Loyalists'
+
+        -- At Risk: Were good customers but haven't purchased recently
+        WHEN r_score <= 2 AND f_score >= 3 AND m_score >= 3 THEN 'At Risk'
+
+        -- Hibernating: Low recency, were somewhat engaged
+        WHEN r_score <= 2 AND f_score >= 2 THEN 'Hibernating'
+
+        -- Lost: Very low engagement across the board
+        WHEN r_score = 1 AND f_score = 1 THEN 'Lost'
+
+        -- Need Attention: Everyone else - moderate engagement
+        ELSE 'Need Attention'
     END AS rfm_segment,
 
-    -- Sort index for RFM segments (Champions first, General Pool last)
+    -- Segment sort index for consistent ordering in reports
     CASE
-        WHEN r_score >= 4 AND f_score >= 4 AND m_score >= 4 THEN 1  -- Champions
-        WHEN r_score >= 3 AND f_score >= 3 THEN 2                   -- Loyalists
-        WHEN r_score >= 4 AND total_orders <= 2 THEN 3              -- New Customers
-        WHEN r_score = 1 THEN 4                                     -- At Risk / Hibernating
-        ELSE 5                                                      -- General Pool
+        WHEN r_score >= 4 AND total_orders <= 2 THEN 2                            -- New Customers
+        WHEN r_score >= 4 AND f_score >= 4 AND m_score >= 4 THEN 1                -- Champions
+        WHEN r_score >= 3 AND f_score >= 3 AND m_score >= 3 THEN 3                -- Loyal Customers
+        WHEN r_score >= 4 AND f_score >= 2 THEN 4                                 -- Potential Loyalists
+        WHEN r_score <= 2 AND f_score >= 3 AND m_score >= 3 THEN 5                -- At Risk
+        WHEN r_score <= 2 AND f_score >= 2 THEN 6                                 -- Hibernating
+        WHEN r_score = 1 AND f_score = 1 THEN 8                                   -- Lost
+        ELSE 7                                                                     -- Need Attention
     END AS segment_index,
 
     -- Metadata

@@ -1,6 +1,9 @@
 rfm_segment,segment_description,recommended_action,priority
-Champions,"Best customers — recent, frequent, and high spenders. R≥4 F≥4 M≥4.",Reward with loyalty programs and early product access,1
-Loyalists,"Consistent buyers with good recency and frequency. R≥3 F≥3.",Upsell and cross-sell opportunities to increase monetary value,2
-New Customers,"Recent first- or second-time buyers. R≥4 with ≤2 total orders.",Welcome series and onboarding to drive the second purchase,3
-At Risk / Hibernating,"Low recency — haven't purchased in a long time. R=1.",Re-engagement campaigns or sunset from active lists,4
-General Pool,"Mid-range customers who don't fit other segments.",Monitor and test different engagement strategies,5
+Champions,"Elite customers — recent (R≥4), frequent (F≥4, meaning 4+ orders), and high spenders (M≥4, meaning $300+). Must have 3+ orders to qualify.",Reward with VIP programs and exclusive early access. Maintain relationship with personalized outreach.,1
+New Customers,"Recent first- or second-time buyers (R≥4 with ≤2 total orders). High potential but unproven loyalty.",Welcome series and onboarding campaigns. Focus on driving the critical second and third purchases.,2
+Loyal Customers,"Consistent buyers with solid engagement across all dimensions (R≥3, F≥3, M≥3). Reliable revenue contributors.",Upsell and cross-sell opportunities. Consider loyalty program enrollment to deepen relationship.,3
+Potential Loyalists,"Recent purchasers showing early signs of engagement (R≥4, F≥2). Could become loyal with nurturing.",Targeted campaigns to increase purchase frequency. Offer incentives for repeat purchases.,4
+At Risk,"Previously valuable customers now disengaging (R≤2 but F≥3, M≥3). High recovery potential if acted upon quickly.",Urgent win-back campaigns with personalized offers. Understand why they stopped buying.,5
+Hibernating,"Inactive customers with some purchase history (R≤2, F≥2). May be winnable with the right offer.",Re-engagement campaigns with significant incentives. Test different reactivation strategies.,6
+Need Attention,"Mid-range customers with moderate engagement. Don't fit specific segments but represent opportunity.",Monitor behavior and test engagement strategies. Segment further based on response.,7
+Lost,"Minimal engagement across all dimensions (R=1, F=1). Likely churned permanently.",Sunset from active campaigns to protect sender reputation. Consider one final win-back attempt.,8
