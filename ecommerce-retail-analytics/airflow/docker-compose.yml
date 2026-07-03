@@ -7,14 +7,14 @@ x-airflow-common:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: LocalExecutor
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-    AIRFLOW__CORE__FERNET_KEY: ''
+    AIRFLOW__CORE__FERNET_KEY: '${AIRFLOW_FERNET_KEY}'
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
-    AIRFLOW__CORE__DEFAULT_TIMEZONE: 'America/New_York'
-    AIRFLOW__WEBSERVER__DEFAULT_UI_TIMEZONE: 'America/New_York'
+    AIRFLOW__CORE__DEFAULT_TIMEZONE: 'UTC'
+    AIRFLOW__WEBSERVER__DEFAULT_UI_TIMEZONE: 'UTC'
     AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
-    TZ: 'America/New_York'
+    TZ: 'UTC'
 
     # Snowflake credentials from .env
     SNOWFLAKE_ACCOUNT: ${SNOWFLAKE_ACCOUNT}
@@ -68,6 +68,11 @@ services:
       interval: 10s
       retries: 5
       start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
     restart: always
 
   airflow-webserver:
@@ -81,6 +86,11 @@ services:
       timeout: 10s
       retries: 5
       start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 3G
     restart: always
     depends_on:
       <<: *airflow-common-depends-on
@@ -96,6 +106,11 @@ services:
       timeout: 10s
       retries: 5
       start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 3G
     restart: always
     depends_on:
       <<: *airflow-common-depends-on

@@ -74,12 +74,13 @@ final AS (
             ELSE 'detractor'
         END AS customer_satisfaction_segment,
 
-        -- 12-Month Equity Projection Vector
+        -- Linear CLV projection over the configured horizon (clv_prediction_horizon_days var).
+        -- GREATEST(1, ...) clamps customer lifespan to avoid division-by-zero and
+        -- unrealistic same-day projections (brand-new customers default to one day of revenue).
         COALESCE(
-            CASE
-                WHEN DATEDIFF('DAY', cc.first_order_date, CURRENT_DATE()) = 0 THEN ca.total_lifetime_revenue
-                ELSE (ca.total_lifetime_revenue / NULLIF(DATEDIFF('DAY', cc.first_order_date, CURRENT_DATE()), 0)) * 365
-            END,
+            (ca.total_lifetime_revenue
+                / NULLIF(GREATEST(1, DATEDIFF('DAY', cc.first_order_date, CURRENT_DATE())), 0))
+            * {{ var('clv_prediction_horizon_days') }},
             0
         ) AS predicted_clv_12m,
 

@@ -1,9 +1,6 @@
 rfm_segment,segment_description,recommended_action,priority
-Champions,"Best customers - recent, frequent, high spenders",Reward with loyalty programs and early access to new products,1
-Cant Lose Them,"High-value customers slipping away - were great but haven't bought recently",Urgent win-back campaigns and personal outreach,2
-Loyal,Frequent buyers with decent recency,Upsell and cross-sell opportunities,3
-Potential Loyalists,Recent customers with growth potential,Nurture with targeted recommendations to increase frequency,4
-New Customers,Just made their first purchase,Welcome series and onboarding to drive second purchase,5
-At Risk,Were engaged but recency is declining,Re-engagement campaigns before they churn,6
-Need Attention,Middle-of-the-road customers not fitting other segments,Monitor and test different engagement strategies,7
-Hibernating,Low engagement across the board - dormant customers,Low-cost reactivation attempts or let go,8
+Champions,"Best customers — recent, frequent, and high spenders. R≥4 F≥4 M≥4.",Reward with loyalty programs and early product access,1
+Loyalists,"Consistent buyers with good recency and frequency. R≥3 F≥3.",Upsell and cross-sell opportunities to increase monetary value,2
+New Customers,"Recent first- or second-time buyers. R≥4 with ≤2 total orders.",Welcome series and onboarding to drive the second purchase,3
+At Risk / Hibernating,"Low recency — haven't purchased in a long time. R=1.",Re-engagement campaigns or sunset from active lists,4
+General Pool,"Mid-range customers who don't fit other segments.",Monitor and test different engagement strategies,5
