@@ -4,7 +4,7 @@
   "position": {
     "x": 1650.1353337726191,
     "y": 66.328754625171086,
-    "z": 8000,
+    "z": 9000,
     "height": 1013.6712453748289,
     "width": 269.76734755943028,
     "tabOrder": 0
@@ -12,6 +12,5 @@
   "visualGroup": {
     "displayName": "Grp Filter Pane",
     "groupMode": "ScaleMode"
-  },
-  "isHidden": true
+  }
 }

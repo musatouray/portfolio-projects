@@ -316,7 +316,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Last 12 Months'"
+                                "Value": "'YTD'"
                               }
                             }
                           ]

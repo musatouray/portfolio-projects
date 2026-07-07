@@ -4,7 +4,7 @@
   "position": {
     "x": 30.363424400628517,
     "y": 207.87267474276447,
-    "z": 6000,
+    "z": 7000,
     "height": 290.78817983678852,
     "width": 1860.3436565462011,
     "tabOrder": 7000
@@ -2311,7 +2311,49 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "11271ea198aa01b05142",
+        "name": "f716aaa58a0f27a4ef4e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "RFM Unique Customers"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "546295834e087d199a08",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "RFM Total Orders"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "f9ce5210e097632e94f4",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "RFM Total Revenue"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "733e7f40ea94532bb00f",
         "field": {
           "Column": {
             "Expression": {
@@ -2322,47 +2364,7 @@
             "Property": "RFM_SEGMENT"
           }
         },
-        "type": "Advanced",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "f",
-              "Entity": "FCT_RFM_SEGMENTS",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "Not": {
-                  "Expression": {
-                    "Comparison": {
-                      "ComparisonKind": 0,
-                      "Left": {
-                        "Column": {
-                          "Expression": {
-                            "SourceRef": {
-                              "Source": "f"
-                            }
-                          },
-                          "Property": "RFM_SEGMENT"
-                        }
-                      },
-                      "Right": {
-                        "Literal": {
-                          "Value": "null"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        },
-        "isHiddenInViewMode": true,
-        "isLockedInViewMode": true
+        "type": "Categorical"
       }
     ]
   }

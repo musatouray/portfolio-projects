@@ -63,7 +63,7 @@
               },
               "queryRef": "FCT_COHORT_RETENTION.COHORT_SIZE",
               "nativeQueryRef": "Size",
-              "active": false,
+              "active": true,
               "displayName": "Size"
             }
           ]
@@ -115,7 +115,6 @@
             "queryRefs": [
               "FCT_COHORT_RETENTION.COHORT_MONTH"
             ],
-            "isCollapsed": true,
             "isPinned": true
           },
           {

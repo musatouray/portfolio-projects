@@ -345,7 +345,7 @@ table DIM_DATES
 		mode: import
 		source =
 				let
-				    Source = Snowflake.Databases("SVIPRYH-HOB47754.snowflakecomputing.com","ECOMMERCE_RETAIL_WH",[Implementation="1.0"]),
+				    Source = Snowflake.Databases("IFBLGEP-XM39851.snowflakecomputing.com","ECOMMERCE_RETAIL_WH",[Implementation="1.0"]),
 				    ECOMMERCE_RETAIL_DB_PROD_Database = Source{[Name="ECOMMERCE_RETAIL_DB_PROD",Kind="Database"]}[Data],
 				    MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name="MARTS",Kind="Schema"]}[Data],
 				    DIM_DATES_Table = MARTS_Schema{[Name="DIM_DATES",Kind="Table"]}[Data]

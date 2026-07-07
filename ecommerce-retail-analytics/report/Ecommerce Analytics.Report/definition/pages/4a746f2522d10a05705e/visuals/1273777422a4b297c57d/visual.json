@@ -522,51 +522,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "c6696564c5bb0ad23099",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DIM_DATES"
-              }
-            },
-            "Property": "YEAR"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "30afb059d22b258d8640",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DIM_DATES"
-              }
-            },
-            "Property": "MONTH_NAME"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "aba280de17493ca0180b",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Time Series MoM Growth %"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

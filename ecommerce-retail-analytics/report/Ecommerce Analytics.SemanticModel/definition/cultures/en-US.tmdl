@@ -16502,7 +16502,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "Threshold %": {
+			          "Revenue Cumulative %": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -16512,7 +16512,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "Revenue Cumulative %": {
+			          "Threshold %": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -23149,16 +23149,6 @@ cultureInfo en-US
 			            },
 			            "Weight": 0.727
 			          }
-			        },
-			        {
-			          "Period": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
 			        }
 			      ]
 			    },
@@ -24723,7 +24713,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "Total Revenue": {
+			          "Revenue": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -24733,7 +24723,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "Revenue": {
+			          "Total Revenue": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
