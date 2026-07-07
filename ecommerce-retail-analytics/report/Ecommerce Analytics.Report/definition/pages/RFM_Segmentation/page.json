@@ -60,11 +60,6 @@
   "visibility": "HiddenInViewMode",
   "visualInteractions": [
     {
-      "source": "5ae70d96c0be39537e27",
-      "target": "bf55bed0854c7cab0db2",
-      "type": "DataFilter"
-    },
-    {
       "source": "b15defde10bbc71ab25d",
       "target": "ca6487b94c5004250dc1",
       "type": "NoFilter"

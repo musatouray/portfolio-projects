@@ -4,7 +4,7 @@
   "position": {
     "x": 30.413235728088797,
     "y": 528.72240573446675,
-    "z": 10000,
+    "z": 11000,
     "height": 526.38292606307539,
     "width": 670.26092585364927,
     "tabOrder": 9000
@@ -20,25 +20,6 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DIM_CUSTOMERS"
-                    }
-                  },
-                  "Property": "STATE"
-                }
-              },
-              "queryRef": "DIM_CUSTOMERS.STATE",
-              "nativeQueryRef": "STATE",
-              "active": true
-            }
-          ]
-        },
-        "Series": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
                       "Entity": "FCT_RFM_SEGMENTS"
                     }
                   },
@@ -46,7 +27,8 @@
                 }
               },
               "queryRef": "FCT_RFM_SEGMENTS.RFM_SEGMENT",
-              "nativeQueryRef": "RFM_SEGMENT"
+              "nativeQueryRef": "RFM_SEGMENT",
+              "active": true
             }
           ]
         },

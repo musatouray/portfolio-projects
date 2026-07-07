@@ -685,23 +685,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "f582b9b567806bdfa584",
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "c2502d78bd1a54b4fdb1",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "CG Order Items Metrics"
-              }
-            },
-            "Property": "Orders Metric"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
-  }
+  "parentGroupName": "f582b9b567806bdfa584"
 }

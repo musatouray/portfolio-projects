@@ -7,7 +7,7 @@
     "z": 2500,
     "height": 637.63191241319885,
     "width": 1589.408484971362,
-    "tabOrder": 9002
+    "tabOrder": 5000
   },
   "visual": {
     "visualType": "lineStackedColumnComboChart",
@@ -814,51 +814,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "43ba9de5d25f9a8b8bbc",
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "9178956e972cbcfba6f7",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DIM_PRODUCTS"
-              }
-            },
-            "Property": "PRODUCT_CATEGORY"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "9c183d4f2fd7f671215b",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Order Items Total Revenue"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "38b92f9870a11be42f39",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Running Total Product Revenue %"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
-  }
+  "parentGroupName": "43ba9de5d25f9a8b8bbc"
 }

@@ -2611,7 +2611,8 @@ table _Measures
 			    "Loyalists", "#4B617F",
 			    "New Customers", "#78899F",
 			    "At Risk / Hibernating", "#A5B0BF",
-			    "General Pool", "#B7C5DB"
+			    "General Pool", "#B7C5DB",
+			    "#1E3A5F"
 			)
 			
 			```
@@ -2957,18 +2958,15 @@ table _Measures
 
 	measure 'RFM Unique Customers' = ```
 			
-			VAR __MaxSnapshotDate = 
-			    CALCULATE(
-			        MAX(DIM_DATES[DATE]), 
-			        ALLSELECTED(DIM_DATES)
-			    )
-			VAR __FormattedMaxSnapShotDate = (YEAR(__MaxSnapshotDate) * 10000) +(MONTH(__MaxSnapshotDate) * 100) + 01
+			VAR __LatestSnapshot = [RFM Latest Snapshot]
 			
 			RETURN
-			CALCULATE(
-				DISTINCTCOUNT(FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID]),
-			    FCT_RFM_SEGMENTS[SNAPSHOT_DATE_KEY] = __FormattedMaxSnapShotDate,
-				REMOVEFILTERS(DIM_DATES)
+			IF(
+			    NOT(ISBLANK(__LatestSnapshot)),
+			    CALCULATE(
+			        COUNTROWS(FCT_RFM_SEGMENTS),
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshot
+			    )
 			)
 			
 			```
@@ -2989,21 +2987,18 @@ table _Measures
 				        __UniqueCustomers <= 1E9, "#,0,,M;-#,0,,M;0"
 				    )
 
-	measure 'RFM Total Orders' = ```
+	measure 'RFM Total Orders' =
 			
-			VAR __MaxSnapshotDate = 
-			    CALCULATE(
-			        MAX(DIM_DATES[DATE]), 
-			        ALLSELECTED(DIM_DATES)
-			    )
-			VAR __FormattedMaxSnapShotDate = (YEAR(__MaxSnapshotDate) * 10000) +(MONTH(__MaxSnapshotDate) * 100) + 01
+			VAR __LatestSnapshot = [RFM Latest Snapshot]
 			
 			RETURN
-			CALCULATE(
-				SUM(FCT_RFM_SEGMENTS[TOTAL_ORDERS]),
-			    FCT_RFM_SEGMENTS[SNAPSHOT_DATE_KEY] = __FormattedMaxSnapShotDate
+			IF(
+			    NOT(ISBLANK(__LatestSnapshot)),
+			    CALCULATE(
+			        SUM(FCT_RFM_SEGMENTS[TOTAL_ORDERS]),
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshot
+			    )
 			)
-			```
 		displayFolder: 01_Segments\RFM
 		lineageTag: 05945a0d-7f49-4422-b859-922320f64dc5
 
@@ -3023,18 +3018,17 @@ table _Measures
 
 	measure 'RFM Total Revenue' = ```
 			
-			VAR __MaxSnapshotDate = 
-			    CALCULATE(
-			        MAX(DIM_DATES[DATE]), 
-			        ALLSELECTED(DIM_DATES[DATE])
-			    )
-			VAR __FormattedMaxSnapShotDate = (YEAR(__MaxSnapshotDate) * 10000) +(MONTH(__MaxSnapshotDate) * 100) + 01
+			VAR __LatestSnapshot = [RFM Latest Snapshot]
 			
 			RETURN
-			CALCULATE(
-				SUM(FCT_RFM_SEGMENTS[TOTAL_REVENUE]),
-			    FCT_RFM_SEGMENTS[SNAPSHOT_DATE_KEY] = __FormattedMaxSnapShotDate
+			IF(
+			   NOT(ISBLANK(__LatestSnapshot)),
+			    CALCULATE(
+			        SUM(FCT_RFM_SEGMENTS[TOTAL_REVENUE]),
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshot
+			    )
 			)
+			
 			```
 		displayFolder: 01_Segments\RFM
 		lineageTag: c362ddda-133e-4b1b-9dcf-7b749c9da826
@@ -3081,8 +3075,16 @@ table _Measures
 
 	measure 'RFM PY Customers' =
 			
-			// Using UDF function to dynamically calculate SPLY
-			TimeIntelligence.PY([RFM Unique Customers])
+			VAR __PYMonth = [RFM PY Snapshot]
+			
+			RETURN
+			IF(
+			    NOT(ISBLANK(__PYMonth)),
+			    CALCULATE(
+			        COUNTROWS(FCT_RFM_SEGMENTS),
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __PYMonth
+			    )
+			)
 		displayFolder: 01_Segments\RFM
 		lineageTag: 49172a40-82fe-473e-80af-d275ae9beb0b
 
@@ -3102,8 +3104,16 @@ table _Measures
 
 	measure 'RFM PY Orders' =
 			
-			// Using UDF function to dynamically calculate SPLY
-			TimeIntelligence.PY([RFM Total Orders])
+			VAR __PYMonth = [RFM PY Snapshot]
+			
+			RETURN
+			IF(
+			    NOT(ISBLANK(__PYMonth)),
+			    CALCULATE(
+			        SUM(FCT_RFM_SEGMENTS[TOTAL_ORDERS]),
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __PYMonth
+			    )
+			)
 		displayFolder: 01_Segments\RFM
 		lineageTag: c196e6a7-96b1-46af-a8ba-95df621ad989
 
@@ -3123,8 +3133,16 @@ table _Measures
 
 	measure 'RFM PY Revenue' =
 			
-			// Using UDF function to dynamically calculate SPLY
-			TimeIntelligence.PY([RFM Total Revenue])
+			VAR __PYMonth = [RFM PY Snapshot]
+			
+			RETURN
+			IF(
+			    NOT(ISBLANK(__PYMonth)),
+			    CALCULATE(
+			        SUM(FCT_RFM_SEGMENTS[TOTAL_REVENUE]),
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __PYMonth
+			    )
+			)
 		displayFolder: 01_Segments\RFM
 		lineageTag: 0e51533e-a949-48bb-9f30-24a1842a3215
 
@@ -3976,6 +3994,50 @@ table _Measures
 		lineageTag: 7cda3bb6-03ec-42b2-824e-abdac550e69c
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'RFM Latest Snapshot' = SELECTEDVALUE('Disconnected Calendar'[MONTH_START_DATE])
+		displayFolder: 01_Segments\RFM
+		lineageTag: 81640380-77e9-4b8a-a8b4-f884b9f0d7df
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'RFM PY Snapshot' = ```
+			
+			VAR PriorYearSnapshot = [RFM Latest Snapshot]                                                                                      
+			RETURN                                                                                                                             
+			IF(                                                                                                                                
+			    NOT(ISBLANK(PriorYearSnapshot)),                                                                                                                        
+			    EDATE(PriorYearSnapshot, -12)                                                                                                    
+			) 
+			```
+		displayFolder: 01_Segments\RFM
+		lineageTag: 33afbc92-c33b-4eea-94a9-c68ff175549e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'RFM Period Revenue' = ```
+			
+			VAR __SelectedMonth = [RFM Latest Snapshot]                                   
+			VAR __MonthEnd = EOMONTH(__SelectedMonth, 0)                                                                                       
+			VAR __CustomersInSegment =                                                                                                         
+			    CALCULATETABLE(                                                                                                                
+			        VALUES(FCT_RFM_SEGMENTS[CUSTOMER_KEY]),                                                                                    
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __SelectedMonth                                                                         
+			    )                                                                                                                              
+			RETURN                                                                                                                             
+			IF(                                                                                                                                
+			    NOT ISBLANK(__SelectedMonth),                                                                                                  
+			    CALCULATE(                                                                                                                     
+			        SUM(FCT_ORDERS[TOTAL_PAYMENT_VALUE]),                                                                                      
+			        FCT_ORDERS[ORDER_DATE] >= __SelectedMonth,                                                                                 
+			        FCT_ORDERS[ORDER_DATE] <= __MonthEnd,                                                                                      
+			        TREATAS(__CustomersInSegment, FCT_ORDERS[CUSTOMER_KEY])                                                                    
+			    )                                                                                                                              
+			)                     
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 01_Segments\RFM
+		lineageTag: d72446b8-8ed8-468b-849a-d0e67339498a
 
 	/// Hidden column for calculated table
 	column Value
