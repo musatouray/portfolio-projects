@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "343d31c9901312330bd0",
   "position": {
-    "x": 735.76635665260972,
-    "y": 543.92902359851121,
-    "z": 13000,
-    "height": 419.93660101476456,
-    "width": 463.2169749355063,
+    "x": 823.31593086319629,
+    "y": 529.02427898018152,
+    "z": 9000,
+    "height": 525.5208069339551,
+    "width": 568.73029550408035,
     "tabOrder": 8000
   },
   "visual": {
@@ -391,7 +391,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             },
@@ -411,7 +411,7 @@
             "position": {
               "expr": {
                 "Literal": {
-                  "Value": "'LeftCenter'"
+                  "Value": "'Top'"
                 }
               }
             },
@@ -425,7 +425,7 @@
             "titleText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Segments'"
+                  "Value": "'NPS:'"
                 }
               }
             }
@@ -458,7 +458,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             }
@@ -483,8 +483,13 @@
           "properties": {
             "text": {
               "expr": {
-                "Literal": {
-                  "Value": "' '"
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "RFM Segment Snapshot Title"
                 }
               }
             }
@@ -497,7 +502,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             }
@@ -510,7 +515,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             }

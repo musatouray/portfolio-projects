@@ -4,7 +4,7 @@
   "position": {
     "x": 30.363424400628517,
     "y": 207.87267474276447,
-    "z": 7000,
+    "z": 5000,
     "height": 290.78817983678852,
     "width": 1860.3436565462011,
     "tabOrder": 7000
@@ -2187,6 +2187,19 @@
             }
           }
         }
+      ],
+      "smallMultiplesOverFlow": [
+        {
+          "properties": {
+            "overFlowStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -2221,7 +2234,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Customer Segmentation'"
+                  "Value": "'Customer Segments Lifetime Value'"
                 }
               }
             }
