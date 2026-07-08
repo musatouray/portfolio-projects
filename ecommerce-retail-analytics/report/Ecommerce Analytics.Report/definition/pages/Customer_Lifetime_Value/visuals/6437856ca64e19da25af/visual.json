@@ -1,0 +1,125 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "6437856ca64e19da25af",
+  "position": {
+    "x": 44.377312585533986,
+    "y": 449.61224593238381,
+    "z": 4000,
+    "height": 536.03122307263425,
+    "width": 927.25226823457854,
+    "tabOrder": 6001
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Historical CLV"
+                }
+              },
+              "queryRef": "_Measures.Total Historical CLV",
+              "nativeQueryRef": "Total Historical CLV"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Revenue"
+                }
+              },
+              "queryRef": "_Measures.Total Revenue",
+              "nativeQueryRef": "Total Revenue"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Predicted CLV"
+                }
+              },
+              "queryRef": "_Measures.Total Predicted CLV",
+              "nativeQueryRef": "Total Predicted CLV"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "High Value Customers"
+                }
+              },
+              "queryRef": "_Measures.High Value Customers",
+              "nativeQueryRef": "High Value Customers"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Medium Value Customers"
+                }
+              },
+              "queryRef": "_Measures.Medium Value Customers",
+              "nativeQueryRef": "Medium Value Customers"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Low Value Customers"
+                }
+              },
+              "queryRef": "_Measures.Low Value Customers",
+              "nativeQueryRef": "Low Value Customers"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Total Historical CLV"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

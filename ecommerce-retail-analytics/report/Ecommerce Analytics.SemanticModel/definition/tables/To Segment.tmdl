@@ -1,0 +1,37 @@
+/// Disconnected segment dimension for the "to" (current snapshot) axis of the
+/// RFM segment-migration visuals. Not related to any table; used only by the
+/// transition measures via SELECTEDVALUE.
+table 'To Segment'
+	lineageTag: f2a20001-0001-4001-8001-000000000001
+
+	column 'To Segment'
+		lineageTag: f2a20001-0001-4001-8001-000000000002
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [To Segment]
+		sortByColumn: 'To Index'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'To Index'
+		isHidden
+		lineageTag: f2a20001-0001-4001-8001-000000000003
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [To Index]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'To Segment' = calculated
+		mode: import
+		source =
+				DISTINCT (
+				    SELECTCOLUMNS (
+				        FCT_RFM_SEGMENTS,
+				        "To Segment", FCT_RFM_SEGMENTS[RFM_SEGMENT],
+				        "To Index", FCT_RFM_SEGMENTS[SEGMENT_INDEX]
+				    )
+				)
+
+	annotation PBI_Id = b2f0c2d34e5f4a6b8c9d0e1f2a3b4c5e
+

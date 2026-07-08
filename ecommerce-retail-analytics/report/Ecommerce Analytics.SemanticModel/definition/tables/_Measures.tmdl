@@ -285,7 +285,7 @@ table _Measures
 	/// =============================================
 	/// _CLV Segment Measures
 	/// =============================================
-	measure 'Total Historical CLV' = SUM(FCT_CLV_CUSTOMER[HISTORICAL_CLV])
+	measure 'Total Historical CLV' = SUM(FCT_CLV_CUSTOMER[TOTAL_LIFETIME_REVENUE])
 		formatString: $#,##0
 		displayFolder: 01_Segments\CLV
 		lineageTag: c1000001-0001-0001-0001-000000000001
@@ -295,7 +295,7 @@ table _Measures
 		displayFolder: 01_Segments\CLV
 		lineageTag: c1000002-0001-0001-0001-000000000002
 
-	measure 'Total Predicted CLV' = SUM(FCT_CLV_CUSTOMER[PREDICTED_CLV])
+	measure 'Total Predicted CLV' = SUM(FCT_CLV_CUSTOMER[PREDICTED_CLV_12M])
 		formatString: $#,##0
 		displayFolder: 01_Segments\CLV
 		lineageTag: c1000003-0001-0001-0001-000000000003
@@ -305,28 +305,31 @@ table _Measures
 		displayFolder: 01_Segments\CLV
 		lineageTag: c1000004-0001-0001-0001-000000000004
 
-	measure 'Platinum CLV Customers' =
+	measure 'High Value Customers' =
+			
 			CALCULATE(
 				COUNTROWS(FCT_CLV_CUSTOMER),
-				FCT_CLV_CUSTOMER[CLV_SEGMENT] = "Platinum"
+				FCT_CLV_CUSTOMER[CUSTOMER_VALUE_SEGMENT] = "high_value"
 			)
 		formatString: #,##0
 		displayFolder: 01_Segments\CLV
 		lineageTag: c1000005-0001-0001-0001-000000000005
 
-	measure 'Gold CLV Customers' =
+	measure 'Medium Value Customers' =
+			
 			CALCULATE(
 				COUNTROWS(FCT_CLV_CUSTOMER),
-				FCT_CLV_CUSTOMER[CLV_SEGMENT] = "Gold"
+				FCT_CLV_CUSTOMER[CUSTOMER_VALUE_SEGMENT] = "medium_value"
 			)
 		formatString: #,##0
 		displayFolder: 01_Segments\CLV
 		lineageTag: c1000006-0001-0001-0001-000000000006
 
-	measure 'Silver CLV Customers' =
+	measure 'Low Value Customers' =
+			
 			CALCULATE(
 				COUNTROWS(FCT_CLV_CUSTOMER),
-				FCT_CLV_CUSTOMER[CLV_SEGMENT] = "Silver"
+				FCT_CLV_CUSTOMER[CUSTOMER_VALUE_SEGMENT] = "low_value"
 			)
 		formatString: #,##0
 		displayFolder: 01_Segments\CLV
@@ -930,20 +933,42 @@ table _Measures
 		displayFolder: 01_Segments\RFM
 		lineageTag: r1000012-0001-0001-0001-000000000012
 
-	measure 'Platinum CLV Revenue %' =
+	measure 'High Value CLV Revenue %' = ```
+			
+			VAR __HistoricalCLV = [Total Historical CLV]
+			VAR __HighValue = 
+			    CALCULATE(
+			        SUM(FCT_CLV_CUSTOMER[TOTAL_LIFETIME_REVENUE]), 
+			        FCT_CLV_CUSTOMER[CUSTOMER_VALUE_SEGMENT] = "high_value"
+			    )
+			
+			RETURN
 			DIVIDE(
-				CALCULATE(SUM(FCT_CLV_CUSTOMER[HISTORICAL_CLV]), FCT_CLV_CUSTOMER[CLV_SEGMENT] = "Platinum"),
-				[Total Historical CLV]
+				__HighValue,
+			    __HistoricalCLV
 			)
+			
+			```
 		formatString: 0.0%
 		displayFolder: 01_Segments\CLV
 		lineageTag: c1eabe31-6a5c-460c-b83b-68a173c3a788
 
-	measure 'Gold CLV Revenue %' =
+	measure 'Medium Value CLV Revenue %' = ```
+			
+			VAR __HistoricalCLV = [Total Historical CLV]
+			VAR __MediumValue = 
+			    CALCULATE(
+			        SUM(FCT_CLV_CUSTOMER[TOTAL_LIFETIME_REVENUE]), 
+			        FCT_CLV_CUSTOMER[CUSTOMER_VALUE_SEGMENT] = "medium_value"
+			    )
+			
+			RETURN
 			DIVIDE(
-				CALCULATE(SUM(FCT_CLV_CUSTOMER[HISTORICAL_CLV]), FCT_CLV_CUSTOMER[CLV_SEGMENT] = "Gold"),
-				[Total Historical CLV]
+				__MediumValue,
+			    __HistoricalCLV
 			)
+			
+			```
 		formatString: 0.0%
 		displayFolder: 01_Segments\CLV
 		lineageTag: e233b5ae-578d-4c21-acae-c2c9289907df
@@ -3060,8 +3085,8 @@ table _Measures
 			
 			VAR __MaxSnapshotDate = 
 			    CALCULATE(
-			        MAX(DIM_DATES[DATE]), 
-			        ALLSELECTED(DIM_DATES)
+			        MAX('Disconnected Calendar'[MONTH_START_DATE]), 
+			        ALLSELECTED('Disconnected Calendar')
 			    )
 			
 			RETURN
@@ -3579,7 +3604,7 @@ table _Measures
 	measure 'Time Series Moving Averages Title' =
 			
 			VAR __SelectedMetric = SELECTEDVALUE('CG Order Items Metrics'[Orders Metric])
-			VAR __SelectedMovingAvg = SELECTEDVALUE('TBL Moving Averages'[Dsiplay Name])
+			VAR __SelectedMovingAvg = SELECTEDVALUE('CG Rolling Averages'[Metric])
 			VAR __FormattedMovingAvg =
 			    SWITCH(
 			        __SelectedMovingAvg,
@@ -3620,7 +3645,7 @@ table _Measures
 	measure 'Time Series Moving Averages Legend' = ```
 			
 			VAR __SelectedMetric = SELECTEDVALUE('CG Order Items Metrics'[Orders Metric], "Revenue") 
-			VAR __SelectedMovingAvg = SELECTEDVALUE('TBL Moving Averages'[Dsiplay Name], "3M") 
+			VAR __SelectedMovingAvg = SELECTEDVALUE('CG Rolling Averages'[Metric], "3M") 
 			
 			-- Colors
 			VAR __ActualColor = "#1E3A5F" 
@@ -4038,6 +4063,101 @@ table _Measures
 		formatString: \$#,0;(\$#,0);\$#,0
 		displayFolder: 01_Segments\RFM
 		lineageTag: d72446b8-8ed8-468b-849a-d0e67339498a
+
+	/// =============================================
+	/// _RFM Segment Migration (Transition) Measures
+	/// Powers the migration heatmap (matrix) and the Deneb Sankey.
+	/// 'From Segment' / 'To Segment' are disconnected dimensions; each cell/link
+	/// counts customers who were in From Segment at the prior snapshot and in
+	/// To Segment at the latest (or slicer-selected) snapshot. Cumulative snapshots
+	/// guarantee every prior-month customer also exists in the current month.
+	/// =============================================
+	measure 'Transition Count' = ```
+			
+			VAR ToMonth =
+			    MAXX ( ALLSELECTED ( FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] ), FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] )
+			VAR FromMonth = EDATE ( ToMonth, -1 )
+			VAR FromSeg = SELECTEDVALUE ( 'From Segment'[From Segment] )
+			VAR ToSeg = SELECTEDVALUE ( 'To Segment'[To Segment] )
+			VAR FromCustomers =
+			    CALCULATETABLE (
+			        VALUES ( FCT_RFM_SEGMENTS[CUSTOMER_KEY] ),
+			        REMOVEFILTERS ( FCT_RFM_SEGMENTS ),
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = FromMonth,
+			        FCT_RFM_SEGMENTS[RFM_SEGMENT] = FromSeg
+			    )
+			VAR ToCustomers =
+			    CALCULATETABLE (
+			        VALUES ( FCT_RFM_SEGMENTS[CUSTOMER_KEY] ),
+			        REMOVEFILTERS ( FCT_RFM_SEGMENTS ),
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = ToMonth,
+			        FCT_RFM_SEGMENTS[RFM_SEGMENT] = ToSeg
+			    )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( FromSeg ) && NOT ISBLANK ( ToSeg ),
+			        COUNTROWS ( INTERSECT ( FromCustomers, ToCustomers ) )
+			    )
+			
+			```
+		formatString: #,##0
+		displayFolder: 01_Segments\RFM\Transitions
+		lineageTag: rt100001-0001-0001-0001-000000000001
+
+	/// Share of the source segment (prior snapshot) that moved to this target segment.
+	measure 'Transition % of Source' = ```
+			
+			VAR ToMonth =
+			    MAXX ( ALLSELECTED ( FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] ), FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] )
+			VAR FromMonth = EDATE ( ToMonth, -1 )
+			VAR FromSeg = SELECTEDVALUE ( 'From Segment'[From Segment] )
+			VAR SourceSize =
+			    CALCULATE (
+			        DISTINCTCOUNT ( FCT_RFM_SEGMENTS[CUSTOMER_KEY] ),
+			        REMOVEFILTERS ( FCT_RFM_SEGMENTS ),
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = FromMonth,
+			        FCT_RFM_SEGMENTS[RFM_SEGMENT] = FromSeg
+			    )
+			RETURN
+			    DIVIDE ( [Transition Count], SourceSize )
+			
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 01_Segments\RFM\Transitions
+		lineageTag: rt100002-0001-0001-0001-000000000002
+
+	/// Dynamic subtitle for the migration visuals, e.g. "Segment migration: May 2026 -> Jun 2026".
+	measure 'Transition Window Label' = ```
+			
+			VAR ToMonth =
+			    MAXX ( ALLSELECTED ( FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] ), FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] )
+			VAR FromMonth = EDATE ( ToMonth, -1 )
+			RETURN
+			    "Segment migration:  " & FORMAT ( FromMonth, "MMM yyyy" ) & "   " & UNICHAR ( 8594 ) & "   " & FORMAT ( ToMonth, "MMM yyyy" )
+			
+			```
+		displayFolder: 01_Segments\RFM\Transitions
+		lineageTag: rt100003-0001-0001-0001-000000000003
+
+	measure 'Low Value CLV Revenue %' = ```
+			
+			VAR __HistoricalCLV = [Total Historical CLV]
+			VAR __LowValue = 
+			    CALCULATE(
+			        SUM(FCT_CLV_CUSTOMER[TOTAL_LIFETIME_REVENUE]), 
+			        FCT_CLV_CUSTOMER[CUSTOMER_VALUE_SEGMENT] = "low_value"
+			    )
+			
+			RETURN
+			DIVIDE(
+				__LowValue,
+			    __HistoricalCLV
+			)
+			
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 01_Segments\CLV
+		lineageTag: 5397585f-eb39-40ec-8578-bf754b59ba13
 
 	/// Hidden column for calculated table
 	column Value

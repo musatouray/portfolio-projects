@@ -25756,7 +25756,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Gold CLV Revenue %"
+			          "ConceptualProperty": "Medium Value CLV Revenue %"
 			        }
 			      },
 			      "State": "Generated",
@@ -25871,7 +25871,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Platinum CLV Revenue %"
+			          "ConceptualProperty": "High Value CLV Revenue %"
 			        }
 			      },
 			      "State": "Generated",
@@ -26118,7 +26118,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Silver CLV Customers"
+			          "ConceptualProperty": "Low Value Customers"
 			        }
 			      },
 			      "State": "Generated",
@@ -26240,7 +26240,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Gold CLV Customers"
+			          "ConceptualProperty": "Medium Value Customers"
 			        }
 			      },
 			      "State": "Generated",
@@ -26362,7 +26362,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Platinum CLV Customers"
+			          "ConceptualProperty": "High Value Customers"
 			        }
 			      },
 			      "State": "Generated",

@@ -36,6 +36,8 @@ ref table 'Pareto Product Segments'
 ref table 'CG Pareto Metric'
 ref table 'CG Order Items Metrics'
 ref table 'CG Rolling Averages'
+ref table 'From Segment'
+ref table 'To Segment'
 
 ref cultureInfo en-US
 

@@ -1,0 +1,84 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "cf813cd09b17658d1a6a",
+  "position": {
+    "x": 971,
+    "y": 450,
+    "z": 4001,
+    "height": 536,
+    "width": 919,
+    "tabOrder": 6002
+  },
+  "visual": {
+    "visualType": "multiRowCard",
+    "autoSelectVisualType": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "High Value CLV Revenue %"
+                }
+              },
+              "queryRef": "_Measures.High Value CLV Revenue %",
+              "nativeQueryRef": "High Value CLV Revenue %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Medium Value CLV Revenue %"
+                }
+              },
+              "queryRef": "_Measures.Medium Value CLV Revenue %",
+              "nativeQueryRef": "Medium Value CLV Revenue %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Low Value CLV Revenue %"
+                }
+              },
+              "queryRef": "_Measures.Low Value CLV Revenue %",
+              "nativeQueryRef": "Low Value CLV Revenue %"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "High Value CLV Revenue %"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
