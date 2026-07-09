@@ -4,6 +4,7 @@ table FCT_COHORT_RETENTION
 	column COHORT_RETENTION_KEY
 		dataType: string
 		isHidden
+		isAvailableInMdx: false
 		lineageTag: 7fa257d0-ad3d-43e3-b687-c79e5754ef9b
 		summarizeBy: none
 		sourceColumn: COHORT_RETENTION_KEY
@@ -24,62 +25,37 @@ table FCT_COHORT_RETENTION
 		annotation UnderlyingDateTimeDataType = Date
 
 	column ACTIVE_CUSTOMERS
-		dataType: double
+		dataType: int64
+		formatString: 0
 		lineageTag: 0906f4ab-37c1-42e4-8aab-a94ac2acf6b8
 		summarizeBy: none
 		sourceColumn: ACTIVE_CUSTOMERS
 
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation SummarizationSetBy = User
 
 	column COHORT_SIZE
-		dataType: double
+		dataType: int64
 		formatString: #,0
 		lineageTag: 8f2daaf8-b784-4f89-b5bb-2d057b98f34e
 		summarizeBy: none
 		sourceColumn: COHORT_SIZE
 
-		annotation SummarizationSetBy = Automatic
-
-	column CREATED_AT
-		dataType: dateTime
-		isHidden
-		formatString: General Date
-		lineageTag: 85eb295a-1d78-4c3e-889a-cd5f2442f5d9
-		summarizeBy: none
-		sourceColumn: CREATED_AT
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
-	column UPDATED_AT
-		dataType: dateTime
-		isHidden
-		formatString: General Date
-		lineageTag: 6350ed7b-9d95-494a-b678-6eee1adb2b84
-		summarizeBy: none
-		sourceColumn: UPDATED_AT
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column PERIOD_ORDERS
-		dataType: double
+		dataType: int64
 		formatString: #,0
 		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 		summarizeBy: none
 		sourceColumn: PERIOD_ORDERS
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column PERIOD_REVENUE
-		dataType: double
+		dataType: decimal
 		formatString: \$#,0.00;-\$#,0.00;\$#,0.00
 		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678901
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: PERIOD_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -91,14 +67,12 @@ table FCT_COHORT_RETENTION
 		summarizeBy: none
 		sourceColumn: PERIOD
 
-		changedProperty = DataType
-
 		annotation SummarizationSetBy = User
 
 	column GROSS_RETAINED_REVENUE
-		dataType: double
+		dataType: decimal
 		lineageTag: 1b5773b2-11f4-4a7d-aa78-de10c0822ac7
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: GROSS_RETAINED_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -106,9 +80,9 @@ table FCT_COHORT_RETENTION
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column NET_RETAINED_REVENUE
-		dataType: double
+		dataType: decimal
 		lineageTag: 097592ff-6511-486f-acbc-f65798e88502
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: NET_RETAINED_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -116,9 +90,9 @@ table FCT_COHORT_RETENTION
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column COHORT_INITIAL_REVENUE
-		dataType: double
+		dataType: decimal
 		lineageTag: ca1a625b-7ea1-45d4-aff1-96b27c148da9
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: COHORT_INITIAL_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -126,8 +100,10 @@ table FCT_COHORT_RETENTION
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column COHORT_DATE_KEY
-		dataType: double
+		dataType: int64
 		isHidden
+		formatString: 0
+		isAvailableInMdx: false
 		lineageTag: 4589f4ec-1063-48fe-b858-df8edb73e658
 		summarizeBy: none
 		sourceColumn: COHORT_DATE_KEY
@@ -136,8 +112,6 @@ table FCT_COHORT_RETENTION
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	partition FCT_COHORT_RETENTION = m
 		mode: import
 		source =
@@ -145,9 +119,11 @@ table FCT_COHORT_RETENTION
 				    Source = Snowflake.Databases("IFBLGEP-XM39851.snowflakecomputing.com","ECOMMERCE_RETAIL_WH",[Implementation="1.0"]),
 				    ECOMMERCE_RETAIL_DB_PROD_Database = Source{[Name="ECOMMERCE_RETAIL_DB_PROD",Kind="Database"]}[Data],
 				    MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name="MARTS",Kind="Schema"]}[Data],
-				    FCT_COHORT_RETENTION_Table = MARTS_Schema{[Name="FCT_COHORT_RETENTION",Kind="Table"]}[Data]
+				    FCT_COHORT_RETENTION_Table = MARTS_Schema{[Name="FCT_COHORT_RETENTION",Kind="Table"]}[Data],
+				    RemoveMetadaColumns = fnRemoveMetadataColumns( FCT_COHORT_RETENTION_Table ),
+				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"COHORT_RETENTION_KEY", type text}, {"COHORT_DATE_KEY", Int64.Type}, {"COHORT_MONTH", type date}, {"COHORT_SIZE", Int64.Type}, {"PERIOD", Int64.Type}, {"ACTIVE_CUSTOMERS", Int64.Type}, {"PERIOD_ORDERS", Int64.Type}, {"PERIOD_REVENUE", Currency.Type}, {"GROSS_RETAINED_REVENUE", Currency.Type}, {"NET_RETAINED_REVENUE", Currency.Type}, {"COHORT_INITIAL_REVENUE", Currency.Type}})
 				in
-				    FCT_COHORT_RETENTION_Table
+				    #"Changed Type"
 
 	annotation PBI_ResultType = Table
 

@@ -4,7 +4,9 @@ table DIM_SELLERS
 	column SELLER_KEY
 		dataType: string
 		isHidden
+		isAvailableInMdx: false
 		lineageTag: 5951b6c8-3555-4b50-9cea-9997bcdbcdc0
+		isDefaultLabel
 		summarizeBy: none
 		sourceColumn: SELLER_KEY
 
@@ -15,6 +17,7 @@ table DIM_SELLERS
 	column SELLER_ID
 		dataType: string
 		isHidden
+		isAvailableInMdx: false
 		lineageTag: 72bc7d81-1126-4eb1-84d3-e9c342125d5c
 		summarizeBy: none
 		sourceColumn: SELLER_ID
@@ -24,7 +27,8 @@ table DIM_SELLERS
 		annotation SummarizationSetBy = Automatic
 
 	column ZIP_CODE
-		dataType: string
+		dataType: int64
+		formatString: 0
 		lineageTag: 1e09f937-706f-4157-970c-a89f6f50b73a
 		summarizeBy: none
 		sourceColumn: ZIP_CODE
@@ -75,30 +79,6 @@ table DIM_SELLERS
 
 		annotation SummarizationSetBy = Automatic
 
-	column CREATED_AT
-		dataType: dateTime
-		isHidden
-		formatString: General Date
-		lineageTag: 32c9cb89-823f-4a36-9166-41b75a4cc09f
-		summarizeBy: none
-		sourceColumn: CREATED_AT
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
-	column UPDATED_AT
-		dataType: dateTime
-		isHidden
-		formatString: General Date
-		lineageTag: 3136d8f3-2e34-46eb-a7be-330fdf2eaf89
-		summarizeBy: none
-		sourceColumn: UPDATED_AT
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
 	partition DIM_SELLERS = m
 		mode: import
 		source =
@@ -106,9 +86,11 @@ table DIM_SELLERS
 				    Source = Snowflake.Databases("IFBLGEP-XM39851.snowflakecomputing.com","ECOMMERCE_RETAIL_WH",[Implementation="1.0"]),
 				    ECOMMERCE_RETAIL_DB_PROD_Database = Source{[Name="ECOMMERCE_RETAIL_DB_PROD",Kind="Database"]}[Data],
 				    MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name="MARTS",Kind="Schema"]}[Data],
-				    DIM_SELLERS_Table = MARTS_Schema{[Name="DIM_SELLERS",Kind="Table"]}[Data]
+				    DIM_SELLERS_Table = MARTS_Schema{[Name="DIM_SELLERS",Kind="Table"]}[Data],
+				    RemoveMetadaColumns = fnRemoveMetadataColumns( DIM_SELLERS_Table ),
+				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"SELLER_KEY", type text}, {"SELLER_ID", type text}, {"ZIP_CODE", Int64.Type}, {"CITY", type text}, {"STATE", type text}, {"LATITUDE", type number}, {"LONGITUDE", type number}, {"PRIMARY_PRODUCT_CATEGORY", type text}})
 				in
-				    DIM_SELLERS_Table
+				    #"Changed Type"
 
 	annotation PBI_NavigationStepName = Navigation
 

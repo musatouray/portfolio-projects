@@ -140,8 +140,8 @@ table 'CG Rolling Averages'
 		dataType: int64
 		formatString: 0
 		lineageTag: 9b3d0961-5ec3-49b3-aac0-eed66f663e33
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Ordinal
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 

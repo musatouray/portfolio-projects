@@ -14,6 +14,7 @@ table 'Param: Cohort Retention'
 
 	column 'Param: Cohort Retention Fields'
 		isHidden
+		isAvailableInMdx: false
 		lineageTag: 8808e350-3e3d-4688-a83a-c4ab0aa7553c
 		summarizeBy: none
 		sourceColumn: [Value2]
@@ -31,10 +32,10 @@ table 'Param: Cohort Retention'
 		isHidden
 		formatString: 0
 		lineageTag: 6f653ba3-4e76-4c4a-b8ce-3f85078bc5c2
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: [Value3]
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	partition 'Param: Cohort Retention' = calculated
 		mode: import

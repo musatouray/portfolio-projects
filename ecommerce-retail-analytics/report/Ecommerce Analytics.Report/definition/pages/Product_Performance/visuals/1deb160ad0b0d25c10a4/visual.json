@@ -12,6 +12,5 @@
   "visualGroup": {
     "displayName": "Grp Filter Pane",
     "groupMode": "ScaleMode"
-  },
-  "isHidden": true
+  }
 }

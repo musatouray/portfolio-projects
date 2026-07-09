@@ -4,6 +4,7 @@ table FCT_MARKET_BASKET
 	column BASKET_PAIR_KEY
 		dataType: string
 		isHidden
+		isAvailableInMdx: false
 		lineageTag: 5f97b91b-50ad-4ea5-af08-d032885afb3e
 		summarizeBy: none
 		sourceColumn: BASKET_PAIR_KEY
@@ -13,62 +14,36 @@ table FCT_MARKET_BASKET
 		annotation SummarizationSetBy = Automatic
 
 	column PAIR_COUNT
-		dataType: double
+		dataType: int64
+		formatString: 0
 		lineageTag: 21055157-b651-43e1-835c-9836b681ec8c
 		summarizeBy: none
 		sourceColumn: PAIR_COUNT
 
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation SummarizationSetBy = User
 
 	column PRODUCT_A_ORDER_COUNT
-		dataType: double
+		dataType: int64
+		formatString: 0
 		lineageTag: b2589798-2f37-435a-bad1-c739a9200337
 		summarizeBy: none
 		sourceColumn: PRODUCT_A_ORDER_COUNT
 
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation SummarizationSetBy = User
 
 	column PRODUCT_B_ORDER_COUNT
-		dataType: double
+		dataType: int64
+		formatString: 0
 		lineageTag: e6249191-c1b7-428f-b6ef-71d5c308cb1e
 		summarizeBy: none
 		sourceColumn: PRODUCT_B_ORDER_COUNT
 
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column CREATED_AT
-		dataType: dateTime
-		isHidden
-		formatString: General Date
-		lineageTag: ec6e4ef1-c06e-4f7a-8784-2172ac2282cd
-		summarizeBy: none
-		sourceColumn: CREATED_AT
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
-	column UPDATED_AT
-		dataType: dateTime
-		isHidden
-		formatString: General Date
-		lineageTag: d2bde83a-c815-449e-8a29-b2f9a828cbdc
-		summarizeBy: none
-		sourceColumn: UPDATED_AT
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column PRODUCT_KEY_A
 		dataType: string
 		isHidden
+		isAvailableInMdx: false
 		lineageTag: 131c6ec1-cc1d-434e-b228-b26043aecbd8
 		summarizeBy: none
 		sourceColumn: PRODUCT_KEY_A
@@ -80,6 +55,7 @@ table FCT_MARKET_BASKET
 	column PRODUCT_KEY_B
 		dataType: string
 		isHidden
+		isAvailableInMdx: false
 		lineageTag: d9ff213a-3bba-4fd8-9141-d1f43701d994
 		summarizeBy: none
 		sourceColumn: PRODUCT_KEY_B
@@ -95,9 +71,11 @@ table FCT_MARKET_BASKET
 				    Source = Snowflake.Databases("IFBLGEP-XM39851.snowflakecomputing.com","ECOMMERCE_RETAIL_WH",[Implementation="1.0"]),
 				    ECOMMERCE_RETAIL_DB_PROD_Database = Source{[Name="ECOMMERCE_RETAIL_DB_PROD",Kind="Database"]}[Data],
 				    MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name="MARTS",Kind="Schema"]}[Data],
-				    FCT_MARKET_BASKET_Table = MARTS_Schema{[Name="FCT_MARKET_BASKET",Kind="Table"]}[Data]
+				    FCT_MARKET_BASKET_Table = MARTS_Schema{[Name="FCT_MARKET_BASKET",Kind="Table"]}[Data],
+				    RemoveMetadaColumns = fnRemoveMetadataColumns( FCT_MARKET_BASKET_Table ),
+				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"BASKET_PAIR_KEY", type text}, {"PRODUCT_KEY_A", type text}, {"PRODUCT_KEY_B", type text}, {"PAIR_COUNT", Int64.Type}, {"PRODUCT_A_ORDER_COUNT", Int64.Type}, {"PRODUCT_B_ORDER_COUNT", Int64.Type}})
 				in
-				    FCT_MARKET_BASKET_Table
+				    #"Changed Type"
 
 	annotation PBI_ResultType = Table
 
