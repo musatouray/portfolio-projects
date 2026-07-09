@@ -58,7 +58,7 @@ relationship 16edd9b6-3bb0-43aa-e6b2-aa2c502f50c8
 	fromColumn: FCT_RFM_SEGMENTS.SNAPSHOT_DATE_KEY
 	toColumn: DIM_DATES.DATE_KEY
 
-relationship 7a60a67e-f80d-9850-c1f7-88aa28204296
+relationship b4e431a3-7c46-b3d0-bf6c-60491d325e67
 	fromColumn: FCT_COHORT_RETENTION.COHORT_DATE_KEY
-	toColumn: DIM_DATES.DATE
+	toColumn: DIM_DATES.DATE_KEY
 

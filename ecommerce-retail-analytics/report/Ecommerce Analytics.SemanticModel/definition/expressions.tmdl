@@ -1,0 +1,36 @@
+expression fnRemoveMetadataColumns = ```
+		let 
+		    Source = (InputTable as table) as table => 
+		    let
+		        // Get a list of all column names from the input table
+		        SourceColumns = Table.ColumnNames(InputTable),
+		        
+		        // Define a list of columns to exclude
+		        ColumnsToExclude = {
+		            "created_at", "updated_at", "year_start_date", "quarter_start_date", "week_start_date", "iso_", "year_week", 
+		            "name_length", "description_length", "photos_qty", "weight_g", "height_cm", "length_cm", "width_cm"
+		        },
+		        
+		        // Filter out the columns to exclude
+		        ColumnsToKeep = List.Select(SourceColumns, (col) => 
+		            let 
+		                // Convert to lowercase 
+		                LowerCol = Text.Lower(col)
+		            in 
+		                // If false, the ORIGINAL 'col' value is kept in the list
+		                not List.AnyTrue(List.Transform(ColumnsToExclude, each Text.Contains(LowerCol, _)))
+		        ),
+		        
+		        // 4. Selects the columns to keep
+		        FilteredTable = Table.SelectColumns(InputTable, ColumnsToKeep, MissingField.Ignore)
+		    in 
+		        FilteredTable
+		in 
+		    Source
+		```
+	lineageTag: 6fbcfb40-6656-4c2b-a6cb-34c2f30babd0
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Function
+

@@ -682,57 +682,6 @@ table _Measures
 		displayFolder: 10_Geographic
 		lineageTag: g1000002-0001-0001-0001-000000000002
 
-	measure 'Total States' = DISTINCTCOUNT(FCT_GEO_PERFORMANCE[STATE])
-		formatString: #,##0
-		displayFolder: 10_Geographic
-		lineageTag: g1000003-0001-0001-0001-000000000003
-
-	measure 'Total Cities' = SUM(FCT_GEO_PERFORMANCE[UNIQUE_CITIES])
-		formatString: #,##0
-		displayFolder: 10_Geographic
-		lineageTag: g1000004-0001-0001-0001-000000000004
-
-	measure 'Geo AOV' = DIVIDE([Geo Revenue], [Geo Orders], 0)
-		formatString: $#,##0.00
-		displayFolder: 10_Geographic
-		lineageTag: g1000005-0001-0001-0001-000000000005
-
-	measure 'Geo Avg Review' = AVERAGE(FCT_GEO_PERFORMANCE[AVERAGE_REVIEW_SCORE])
-		formatString: 0.0
-		displayFolder: 10_Geographic
-		lineageTag: g1000006-0001-0001-0001-000000000006
-
-	measure 'Geo Delivery Rate' =
-			DIVIDE(
-				SUM(FCT_GEO_PERFORMANCE[DELIVERED_ORDERS]),
-				SUM(FCT_GEO_PERFORMANCE[TOTAL_ORDERS]),
-				0
-			)
-		formatString: 0.0%
-		displayFolder: 10_Geographic
-		lineageTag: g1000007-0001-0001-0001-000000000007
-
-	measure 'Geo Cancellation Rate' =
-			DIVIDE(
-				SUM(FCT_GEO_PERFORMANCE[CANCELED_ORDERS]),
-				SUM(FCT_GEO_PERFORMANCE[TOTAL_ORDERS]),
-				0
-			)
-		formatString: 0.0%
-		displayFolder: 10_Geographic
-		lineageTag: g1000008-0001-0001-0001-000000000008
-
-	/// State's share of total revenue. ALLSELECTED preserves other slicers
-	/// (e.g. a Year/Quarter selection) while still computing the cross-state total.
-	measure 'Revenue % of Total' =
-			DIVIDE(
-				[Geo Revenue],
-				CALCULATE([Geo Revenue], ALLSELECTED(FCT_GEO_PERFORMANCE[STATE]))
-			)
-		formatString: 0.0%
-		displayFolder: 10_Geographic
-		lineageTag: g1000009-0001-0001-0001-000000000009
-
 	/// =============================================
 	/// _Data Visualization Measures
 	/// =============================================
@@ -754,6 +703,7 @@ table _Measures
 			Color.YoYGrowthPct([Revenue YoY %], 0) 
 			
 			```
+		formatString: @
 		displayFolder: 14_Viz Helpers\_Color
 		lineageTag: 836359c6-cea0-476f-ba67-353adb77f623
 
@@ -771,7 +721,9 @@ table _Measures
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Churn Status Color' =
+			
 			VAR ChurnRate = [Churn Rate]
+			
 			RETURN
 				SWITCH(
 					TRUE(),
@@ -782,6 +734,8 @@ table _Measures
 				)
 		displayFolder: 14_Viz Helpers
 		lineageTag: 1434d74d-f4b9-43e8-8488-1728c57b5353
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Retention Heatmap Color' =
 			VAR RetRate = [Retention Rate]
@@ -1102,34 +1056,26 @@ table _Measures
 		displayFolder: 06_Market Basket
 		lineageTag: m1000009-0001-0001-0001-000000000009
 
-	/// Dense rank of state by revenue, respecting outer slicers (ALLSELECTED).
-	measure 'State Revenue Rank' =
-			RANKX(
-				ALLSELECTED(FCT_GEO_PERFORMANCE[STATE]),
-				[Geo Revenue],
-				,
-				DESC,
-				Dense
-			)
-		formatString: 0
-		displayFolder: 10_Geographic
-		lineageTag: a984eace-ced3-49f3-b9f7-5f01320c9227
-
 	measure 'CLV Segment Color' =
-			VAR Segment = SELECTEDVALUE(FCT_CLV_CUSTOMER[CLV_SEGMENT])
+			
+			VAR Segment = SELECTEDVALUE(FCT_CLV_CUSTOMER[CUSTOMER_VALUE_SEGMENT])
 			RETURN
 				SWITCH(
 					Segment,
-					"High", "#1E3A5F",
-					"Medium", "#00897B",
-					"Low", "#90A4AE",
+					"high_value", "#1E3A5F",
+					"medium_value", "#00897B",
+					"low_value", "#90A4AE",
 					"#607D8B"
 				)
 		displayFolder: 14_Viz Helpers
 		lineageTag: 62f1e6d0-57b7-4261-bb89-1d1648ebb2fa
 
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	measure 'Lift Color' =
+			
 			VAR LiftVal = [Avg Lift]
+			
 			RETURN
 				SWITCH(
 					TRUE(),
@@ -1142,16 +1088,19 @@ table _Measures
 		displayFolder: 14_Viz Helpers
 		lineageTag: 58ad47ed-c0e7-4945-a37a-1d3c4355601a
 
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	/// =============================================
 	/// _Metadata - data freshness stamp
 	/// =============================================
 	/// Stamps the report with the timestamp of the most recent model refresh.
 	/// Pin this next to the report title so viewers always know how fresh the data is.
 	measure 'Last Refresh' = "Refreshed: " & FORMAT(NOW(), "ddd mmm dd, yyyy hh:mm")
+		formatString: @
 		displayFolder: 13_Metadata
 		lineageTag: meta0001-0001-0001-0001-000000000001
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"isText":true}
 
 	measure 'Max Selected Metric' = ```
 			
@@ -1159,7 +1108,7 @@ table _Measures
 			
 			VAR __MaxYearly = 
 			    MAXX(
-			        ALLSELECTED(DIM_COHORTS[COHORT_MONTH]),
+			        ALLSELECTED(FCT_COHORT_RETENTION[COHORT_MONTH]),
 			        [Cohort Orders]
 			    )
 			RETURN
@@ -1168,10 +1117,9 @@ table _Measures
 			    )
 			
 			```
+		formatString: 0
 		displayFolder: 14_Viz Helpers
 		lineageTag: c83012e3-e111-47d6-87ed-db1e27c63aa5
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Min Selected Metric' = ```
 			
@@ -1231,10 +1179,11 @@ table _Measures
 			)
 			    
 			```
+		formatString: @
 		displayFolder: 14_Viz Helpers
 		lineageTag: b5818578-0e95-49e6-a0c6-79852dbd08e9
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"isText":true}
 
 	measure 'Min Selected Metric Label' = ```
 			
@@ -1355,6 +1304,7 @@ table _Measures
 			    )
 			
 			```
+		formatString: @
 		displayFolder: 11_Custom Period
 		lineageTag: 9b396797-0bce-44e0-95ec-355c3161eda0
 
@@ -1385,6 +1335,7 @@ table _Measures
 			Color.YoYGrowthPct([Orders YoY %], 0) 
 			
 			```
+		formatString: @
 		displayFolder: 14_Viz Helpers\_Color
 		lineageTag: 43de0e15-f144-4d87-adab-a3ef586edcea
 
@@ -1405,10 +1356,11 @@ table _Measures
 			)
 			
 			```
+		formatString: @
 		displayFolder: 14_Viz Helpers\_Titles\Global
 		lineageTag: f4756d35-9a2f-45fa-8d1a-948dda46ebb7
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"isText":true}
 
 	measure 'Custom Period Title' = ```
 			
@@ -1472,6 +1424,7 @@ table _Measures
 			// Using UDF color function with 90% transparency
 			Color.YoYGrowthPct([Orders YoY %], 90) 
 			```
+		formatString: @
 		displayFolder: 14_Viz Helpers\_Color
 		lineageTag: 13beae78-c811-4df3-b158-b15b67c1ffaa
 
@@ -1483,6 +1436,7 @@ table _Measures
 			// Using UDF color function with 90% transparency
 			Color.YoYGrowthPct([Revenue YoY %], 90) 
 			```
+		formatString: @
 		displayFolder: 14_Viz Helpers\_Color
 		lineageTag: fbb6dae0-7936-4409-a3cf-9dc70c010af3
 
@@ -1507,6 +1461,7 @@ table _Measures
 			Color.YoYGrowthPct([AOV YoY %], 0) 
 			
 			```
+		formatString: @
 		displayFolder: 14_Viz Helpers\_Color
 		lineageTag: 3839f27e-b244-4a3c-8484-7f282b258bbd
 
@@ -1518,6 +1473,7 @@ table _Measures
 			// Using UDF color function with 90% transparency
 			Color.YoYGrowthPct([AOV YoY %], 90) 
 			```
+		formatString: @
 		displayFolder: 14_Viz Helpers\_Color
 		lineageTag: 7c5386a8-6208-4e57-b290-10f50e44462d
 
@@ -1674,10 +1630,9 @@ table _Measures
 			TimeIntelligence.PY([Average Review Score])
 			
 			```
+		formatString: 0.00
 		displayFolder: 08_Time Intelligence\_PY\Fct_Orders
 		lineageTag: ff7f2184-fd44-4b2d-ade4-64532dd40028
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Formatted Avg Review Score Absolute And Relative' =
 			
@@ -1742,6 +1697,7 @@ table _Measures
 			Color.YoYGrowthPct([On Time Delivery YoY %], 0) 
 			
 			```
+		formatString: @
 		displayFolder: 14_Viz Helpers\_Color
 		lineageTag: d60b10be-f498-4643-b335-f72b72436b29
 
@@ -1753,6 +1709,7 @@ table _Measures
 			// Using UDF color function with 90% transparency
 			Color.YoYGrowthPct([On Time Delivery YoY %], 90) 
 			```
+		formatString: @
 		displayFolder: 14_Viz Helpers\_Color
 		lineageTag: e79024f5-f633-4bee-8a39-6811cfdd227d
 
@@ -1845,14 +1802,12 @@ table _Measures
 			    )
 			
 			```
+		formatString: 0
 		displayFolder: 12_Top/Bottom N
 		lineageTag: 04bdcdb9-221d-4a37-8b53-71ec20ebb821
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	measure 'Display Category' = ```
 			
-			VAR __SelectedTopBottomN = SELECTEDVALUE('Top/Bottom Selector'[Top/Bottom N])
 			VAR __Revenue = [Order Items Total Revenue]
 			VAR __ActiveCategories = FILTER(ALLSELECTED(DIM_PRODUCTS[PRODUCT_CATEGORY]), [Order Items Total Revenue] > 0)
 			VAR __TotalCount = COUNTROWS(__ActiveCategories)
@@ -1870,6 +1825,7 @@ table _Measures
 			    )
 			
 			```
+		formatString: @
 		displayFolder: 12_Top/Bottom N
 		lineageTag: 8831e665-ab2f-4240-834a-c982e1110458
 
@@ -2108,10 +2064,11 @@ table _Measures
 			Format.YoYAbsoluteAndRelative([Unique Customers], [Prior Year Customers])
 			 
 			```
+		formatString: @
 		displayFolder: 14_Viz Helpers\_KPI Cards\Fct_Orders
 		lineageTag: 80cf5b2c-83fc-4e03-98e3-52b5fcd7759e
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"isText":true}
 
 	measure 'Unique Customers YoY Font Color' = ```
 			
@@ -2141,7 +2098,6 @@ table _Measures
 			-- ============================================================================
 			VAR __SelectedPeriod = SELECTEDVALUE( 'CG Custom Periods'[Period] )
 			VAR __Space          = REPT( UNICHAR(160), 2 )
-			// VAR __Sep            = __Space & "•" & __Space
 			VAR __LineBreak      = UNICHAR(10)
 			
 			VAR __StartDate      = MIN( DIM_DATES[DATE] )
@@ -2178,7 +2134,7 @@ table _Measures
 			        __Flat
 			    )
 			
-			VAR __Orders        = [Total Orders]
+			--VAR __Orders        = [Total Orders]
 			VAR __OrdersYoY     = [Orders YoY %]
 			VAR __OrdersArrow   =
 			    SWITCH( TRUE(),
@@ -2291,7 +2247,7 @@ table _Measures
 			-- =============================================================================
 			-- Live KPI values
 			-- =============================================================================
-			VAR __Revenue          = [Total Revenue]
+			--VAR __Revenue          = [Total Revenue]
 			VAR __RevenueShort     = [Revenue Format Large]
 			VAR __RevenueYoY       = [Revenue YoY %]
 			
@@ -2462,7 +2418,7 @@ table _Measures
 			-- =============================================================================
 			-- Live KPI values (identical to the dark version) 
 			-- =============================================================================
-			VAR __Revenue          = [Total Revenue]
+			--VAR __Revenue          = [Total Revenue]
 			VAR __RevenueShort     = [Revenue Format Large]
 			VAR __RevenueYoY       = [Revenue YoY %]
 			
@@ -2641,16 +2597,18 @@ table _Measures
 			)
 			
 			```
+		formatString: @
 		displayFolder: 14_Viz Helpers\_Color
 		lineageTag: 923f3adc-e123-411a-9c00-4916c8da7519
 
 		annotation PBI_FormatHint = {"isText":true}
 
 	measure 'RFM Segment Label' = SELECTEDVALUE(FCT_RFM_SEGMENTS[RFM_SEGMENT])
+		formatString: @
 		displayFolder: 01_Segments\RFM
 		lineageTag: ee2b617e-fab7-4a07-9798-a55436647153
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"isText":true}
 
 	measure 'Label Placeholder' = 0
 		formatString: 0
@@ -2758,6 +2716,7 @@ table _Measures
 			"Top and Bottom " & __SelectedTopN & " Products by Revenue"
 			
 			```
+		formatString: @
 		displayFolder: 14_Viz Helpers\_Titles\Global
 		lineageTag: afa28cb6-18ed-4979-a0c6-29023d515313
 
@@ -2858,6 +2817,7 @@ table _Measures
 			    "Showing Cohorts >= " & __SelectedSize,
 			    "Choose Cohort Size"
 			)
+		formatString: @
 		displayFolder: 14_Viz Helpers\_Titles\Cohorts
 		lineageTag: 8b95907a-24bc-4d39-aef4-439cd2297e5e
 
@@ -2909,10 +2869,11 @@ table _Measures
 			)
 			
 			```
+		formatString: 0
 		displayFolder: 14_Viz Helpers\_Titles\Cohorts
 		lineageTag: e91ece7a-8afb-458f-8245-5e963e09ace7
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"isText":true}
 
 	measure 'Cohort Period Subtitle' = ```
 			
@@ -2971,8 +2932,8 @@ table _Measures
 			RETURN
 			CALCULATE( 
 			    AVERAGE(FCT_COHORT_RETENTION[PERIOD_ORDERS]), 
-			    KEEPFILTERS(DIM_COHORTS[COHORT_MONTH] <= __CohortAsOfDate),
-			    KEEPFILTERS(DIM_COHORTS[COHORT_SIZE] >= __CohortSize)
+			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_MONTH] <= __CohortAsOfDate),
+			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_SIZE] >= __CohortSize)
 			)
 			```
 		formatString: #,0
@@ -3093,10 +3054,11 @@ table _Measures
 			"Snapshot month is as of " & FORMAT(__MaxSnapshotDate, "MMM YYYY")
 			
 			```
+		formatString: @
 		displayFolder: 14_Viz Helpers\_Titles\RFM
 		lineageTag: 1ec7f50d-a0fa-4c23-a273-322e6b2d0494
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"isText":true}
 
 	measure 'RFM PY Customers' =
 			
@@ -3227,6 +3189,7 @@ table _Measures
 			Color.YoYGrowthPct([RFM Orders YoY %], 0) 
 			
 			```
+		formatString: @
 		displayFolder: 01_Segments\RFM
 		lineageTag: c65f9968-7ba6-4b5f-942a-5c42689a38a9
 
@@ -3389,10 +3352,11 @@ table _Measures
 		annotation PBI_FormatHint = {"isText":true}
 
 	measure 'Selected Pareto Segment' = SELECTEDVALUE('Pareto Product Segments'[Segment])
+		formatString: @
 		displayFolder: 03_Product
 		lineageTag: 3c7e5a2f-d8f2-4894-a80b-90ab7b4d382c
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"isText":true}
 
 	measure 'Pareto Matrix Color' = ```
 			
@@ -3520,22 +3484,12 @@ table _Measures
 
 	measure 'Time Series PY' = ```
 			
-			-- 1. Detect which metric is currently selected on the page
+			-- Detect which metric is currently selected on the page
 			VAR __IsRevenueActive = ISFILTERED('CG Order Items Metrics'[Orders Metric]) && SELECTEDVALUE('CG Order Items Metrics'[Orders Metric]) = "Revenue"
 			VAR __IsOrdersActive  = ISFILTERED('CG Order Items Metrics'[Orders Metric]) && SELECTEDVALUE('CG Order Items Metrics'[Orders Metric]) = "Orders"
 			VAR __IsAOVActive     = ISFILTERED('CG Order Items Metrics'[Orders Metric]) && SELECTEDVALUE('CG Order Items Metrics'[Orders Metric]) = "AOV"
 			
-			-- 2. Fetch the true current value based on the active selection
-			VAR __CurrentValue = 
-			    SWITCH(
-			        TRUE(),
-			        __IsRevenueActive, [Order Items Total Revenue],
-			        __IsOrdersActive,  [Order Items Total Orders],
-			        __IsAOVActive,     [Order Items AOV],
-			        [Order Items Total Revenue]    -- Default fallback
-			    )
-			
-			-- 3. Calculate the prior year value 
+			-- Calculate the prior year value 
 			VAR __PriorYearValue = 
 			    CALCULATE(
 			        SWITCH(
@@ -3596,10 +3550,11 @@ table _Measures
 			    )
 			RETURN
 			" " & __SelectedYearsText
+		formatString: @
 		displayFolder: 14_Viz Helpers\_Titles\TimeSeries
 		lineageTag: 9cdad35c-c1b7-4b90-af6a-7adeee7c0372
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"isText":true}
 
 	measure 'Time Series Moving Averages Title' =
 			
@@ -3693,6 +3648,7 @@ table _Measures
 			    "Revenue", "Revenue and Revenue (PY)",
 			    "AOV", "AOV and AOV (PY)"
 			)
+		formatString: @
 		displayFolder: 14_Viz Helpers\_Titles\TimeSeries
 		lineageTag: 7f972461-8b69-40c1-8922-73ea1f8dcbb8
 
@@ -3706,6 +3662,7 @@ table _Measures
 			
 			RETURN
 			"Period: " & __Space  & __Current & "  vs  " & __Space & __PY
+		formatString: @
 		displayFolder: 14_Viz Helpers\_Titles\TimeSeries
 		lineageTag: 7f2aefd2-07d1-4dbb-a42f-0f803114e14b
 
@@ -3745,6 +3702,7 @@ table _Measures
 			    "</svg>"
 			
 			```
+		formatString: @
 		displayFolder: 14_Viz Helpers\_Titles\TimeSeries
 		lineageTag: e975d772-1f79-40fb-b600-9f88091e1c49
 		dataCategory: ImageUrl
@@ -3909,10 +3867,11 @@ table _Measures
 			Format.YoYAbsoluteAndRelative([Order Items Total Revenue], [Order Items PY Revenue])
 			
 			```
+		formatString: @
 		displayFolder: 14_Viz Helpers\_KPI Cards\Fct_Order_Items
 		lineageTag: 8174097d-69e3-498f-bab8-07904721541c
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"isText":true}
 
 	measure 'Formatted Order Items Orders Absolute And Relative' = ```
 			
@@ -3920,10 +3879,11 @@ table _Measures
 			Format.YoYAbsoluteAndRelative([Order Items Total Orders], [Order Items PY Orders])
 			 
 			```
+		formatString: @
 		displayFolder: 14_Viz Helpers\_KPI Cards\Fct_Order_Items
 		lineageTag: 4c0865a8-a49b-4b68-b709-c1f1d9ee3bb5
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"isText":true}
 
 	measure 'Formatted Order Items AOV Absolute And Relative' = ```
 			
@@ -3931,10 +3891,11 @@ table _Measures
 			Format.YoYAbsoluteAndRelative([Order Items AOV], [Order Items PY AOV])
 			 
 			```
+		formatString: @
 		displayFolder: 14_Viz Helpers\_KPI Cards\Fct_Order_Items
 		lineageTag: c7883337-f52d-4d5f-bc6c-0d7240ba8fd1
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"isText":true}
 
 	measure 'Pareto Cutoff Marker' = ```
 			
@@ -4015,10 +3976,11 @@ table _Measures
 			    )
 			
 			```
+		formatString: @
 		displayFolder: 03_Product
 		lineageTag: 7cda3bb6-03ec-42b2-824e-abdac550e69c
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"isText":true}
 
 	measure 'RFM Latest Snapshot' = SELECTEDVALUE('Disconnected Calendar'[MONTH_START_DATE])
 		displayFolder: 01_Segments\RFM
@@ -4163,6 +4125,7 @@ table _Measures
 	column Value
 		dataType: int64
 		isHidden
+		isAvailableInMdx: false
 		lineageTag: 00000000-0000-0000-0000-000000000001
 		summarizeBy: none
 		sourceColumn: [Value]

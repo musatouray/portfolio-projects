@@ -275,8 +275,8 @@ table 'CG Custom Periods'
 		dataType: int64
 		formatString: 0
 		lineageTag: a6fac01f-0530-46d5-8264-0bc42561b464
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Ordinal
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 

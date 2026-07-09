@@ -4,7 +4,9 @@ table DIM_PRODUCTS
 	column PRODUCT_KEY
 		dataType: string
 		isHidden
+		isAvailableInMdx: false
 		lineageTag: 56a44d8a-61dd-4c57-9014-0e2efb62dae4
+		isDefaultLabel
 		summarizeBy: none
 		sourceColumn: PRODUCT_KEY
 
@@ -15,6 +17,7 @@ table DIM_PRODUCTS
 	column PRODUCT_ID
 		dataType: string
 		isHidden
+		isAvailableInMdx: false
 		lineageTag: 77bbe0f2-ec29-4a88-923f-424baa1b11a2
 		summarizeBy: none
 		sourceColumn: PRODUCT_ID
@@ -31,100 +34,6 @@ table DIM_PRODUCTS
 
 		annotation SummarizationSetBy = Automatic
 
-	column NAME_LENGTH
-		dataType: double
-		lineageTag: e3c7ecf3-9b53-40be-bb7d-cd9e778d792e
-		summarizeBy: sum
-		sourceColumn: NAME_LENGTH
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column DESCRIPTION_LENGTH
-		dataType: double
-		lineageTag: cb5ce0a8-8c72-4d2b-a4da-ccbbf360e38b
-		summarizeBy: sum
-		sourceColumn: DESCRIPTION_LENGTH
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column PHOTOS_QTY
-		dataType: double
-		lineageTag: b45e2e60-5296-4a4e-9d38-056b94d33585
-		summarizeBy: sum
-		sourceColumn: PHOTOS_QTY
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column WEIGHT_G
-		dataType: double
-		lineageTag: 4d5dd002-afb9-4ea5-896d-030a841b9dc2
-		summarizeBy: sum
-		sourceColumn: WEIGHT_G
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column LENGTH_CM
-		dataType: double
-		lineageTag: 08bf5ad5-6d94-4d78-b905-4cc2ba5c4862
-		summarizeBy: sum
-		sourceColumn: LENGTH_CM
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column HEIGHT_CM
-		dataType: double
-		lineageTag: 645837bc-b0ab-4a41-967c-d1ab90148b1e
-		summarizeBy: sum
-		sourceColumn: HEIGHT_CM
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column WIDTH_CM
-		dataType: double
-		lineageTag: 2e46e63d-7810-41b8-b57e-6e084ee54a35
-		summarizeBy: sum
-		sourceColumn: WIDTH_CM
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column CREATED_AT
-		dataType: dateTime
-		isHidden
-		formatString: General Date
-		lineageTag: be45af8c-fe13-492e-a401-11b093fdcc30
-		summarizeBy: none
-		sourceColumn: CREATED_AT
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
-	column UPDATED_AT
-		dataType: dateTime
-		isHidden
-		formatString: General Date
-		lineageTag: fdfd5789-62d3-4aa2-8f2d-9f2b17a69c15
-		summarizeBy: none
-		sourceColumn: UPDATED_AT
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
 	column PRODUCT_NAME
 		dataType: string
 		lineageTag: e1278c07-67ec-4ddb-9346-6f8421ba6f12
@@ -137,12 +46,16 @@ table DIM_PRODUCTS
 		mode: import
 		source =
 				let
-				    Source = Snowflake.Databases("IFBLGEP-XM39851.snowflakecomputing.com","ECOMMERCE_RETAIL_WH",[Implementation="1.0"]),
-				    ECOMMERCE_RETAIL_DB_PROD_Database = Source{[Name="ECOMMERCE_RETAIL_DB_PROD",Kind="Database"]}[Data],
-				    MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name="MARTS",Kind="Schema"]}[Data],
-				    DIM_PRODUCTS_Table = MARTS_Schema{[Name="DIM_PRODUCTS",Kind="Table"]}[Data]
+					Source = Snowflake.Databases(
+						"IFBLGEP-XM39851.snowflakecomputing.com", "ECOMMERCE_RETAIL_WH", [Implementation = "1.0"]
+					),
+					ECOMMERCE_RETAIL_DB_PROD_Database = Source{[Name = "ECOMMERCE_RETAIL_DB_PROD", Kind = "Database"]}[Data],
+					MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name = "MARTS", Kind = "Schema"]}[Data],
+					DIM_PRODUCTS_Table = MARTS_Schema{[Name = "DIM_PRODUCTS", Kind = "Table"]}[Data],
+					RemoveMetadaColumns = fnRemoveMetadataColumns( DIM_PRODUCTS_Table ),
+				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"PRODUCT_KEY", type text}, {"PRODUCT_ID", type text}, {"PRODUCT_NAME", type text}, {"PRODUCT_CATEGORY", type text}})
 				in
-				    DIM_PRODUCTS_Table
+				    #"Changed Type"
 
 	annotation PBI_NavigationStepName = Navigation
 

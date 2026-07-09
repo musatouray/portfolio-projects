@@ -300,6 +300,26 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "From Segment",
+          "nodeLineageTag": "f2a10001-0001-4001-8001-000000000001",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "To Segment",
+          "nodeLineageTag": "f2a20001-0001-4001-8001-000000000001",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
@@ -327,7 +347,7 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 6,
+          "zIndex": 5,
           "expandedHeight": 300
         },
         {
@@ -341,7 +361,7 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 4,
+          "zIndex": 6,
           "expandedHeight": 300
         },
         {
@@ -383,7 +403,7 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 5,
+          "zIndex": 4,
           "expandedHeight": 300
         },
         {
@@ -426,7 +446,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 1
+          "zIndex": 4
         },
         {
           "location": {
@@ -439,7 +459,7 @@
             "height": 176,
             "width": 234
           },
-          "zIndex": 2,
+          "zIndex": 1,
           "expandedHeight": 300
         },
         {
@@ -453,7 +473,7 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 3,
+          "zIndex": 2,
           "expandedHeight": 272
         },
         {
@@ -466,7 +486,7 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 3
         }
       ],
       "name": "Products",
@@ -494,7 +514,7 @@
             "height": 176,
             "width": 234
           },
-          "zIndex": 0,
+          "zIndex": 1,
           "expandedHeight": 300
         },
         {
@@ -508,7 +528,7 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 0,
+          "zIndex": 2,
           "expandedHeight": 300
         }
       ],
@@ -537,7 +557,7 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 0,
+          "zIndex": 6,
           "expandedHeight": 300
         },
         {
@@ -551,7 +571,7 @@
             "height": 200,
             "width": 234
           },
-          "zIndex": 0,
+          "zIndex": 1,
           "expandedHeight": 300
         },
         {
@@ -565,7 +585,7 @@
             "height": 176,
             "width": 234
           },
-          "zIndex": 0,
+          "zIndex": 2,
           "expandedHeight": 300
         },
         {
@@ -579,7 +599,7 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 0,
+          "zIndex": 3,
           "expandedHeight": 300
         },
         {
@@ -593,7 +613,7 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 0,
+          "zIndex": 4,
           "expandedHeight": 300
         },
         {
@@ -607,7 +627,7 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 0,
+          "zIndex": 5,
           "expandedHeight": 300
         }
       ],
@@ -619,6 +639,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Customers",
+  "selectedDiagram": "Dates",
   "defaultDiagram": "All tables"
 }

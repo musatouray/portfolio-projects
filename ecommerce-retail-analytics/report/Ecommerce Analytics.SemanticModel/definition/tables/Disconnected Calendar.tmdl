@@ -17,7 +17,6 @@ table 'Disconnected Calendar'
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: [Month Year]
-		sortByColumn: MONTH_START_DATE
 
 		annotation SummarizationSetBy = Automatic
 

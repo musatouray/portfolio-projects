@@ -6,14 +6,14 @@ table DIM_DATES
 	dataCategory: Time
 
 	column DATE_KEY
-		dataType: double
+		dataType: int64
 		isHidden
 		formatString: 0
+		isAvailableInMdx: false
 		lineageTag: 0d5e6907-6544-44ed-a468-2be8dda238ef
+		isDefaultLabel
 		summarizeBy: none
 		sourceColumn: DATE_KEY
-
-		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -36,35 +36,7 @@ table DIM_DATES
 		summarizeBy: none
 		sourceColumn: YEAR
 
-		changedProperty = DataType
-
 		annotation SummarizationSetBy = User
-
-	column ISO_YEAR
-		dataType: int64
-		lineageTag: e3ddc542-da5b-49e8-b3e3-7aa7001cbd84
-		summarizeBy: none
-		sourceColumn: ISO_YEAR
-
-		changedProperty = DataType
-
-		annotation SummarizationSetBy = User
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column ISO_YEAR_WEEK
-		dataType: string
-		isHidden
-		lineageTag: de4e005a-e948-48d0-a028-b70d5b953ab5
-		summarizeBy: none
-		sourceColumn: ISO_YEAR_WEEK
-		sortByColumn: WEEK
-
-		changedProperty = SortByColumn
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
 
 	column YEAR_QUARTER
 		dataType: string
@@ -77,8 +49,9 @@ table DIM_DATES
 		annotation SummarizationSetBy = Automatic
 
 	column YEAR_MONTH
-		dataType: string
+		dataType: dateTime
 		isHidden
+		formatString: Long Date
 		lineageTag: 926fce62-b126-4e1d-b4f9-4749ac93f57c
 		summarizeBy: none
 		sourceColumn: YEAR_MONTH
@@ -87,20 +60,18 @@ table DIM_DATES
 
 		annotation SummarizationSetBy = Automatic
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column QUARTER_NUMBER
 		dataType: int64
 		isHidden
+		formatString: 0
+		isAvailableInMdx: false
 		lineageTag: 11605ecf-b884-4eca-a44a-09bdd87829a1
 		summarizeBy: none
 		sourceColumn: QUARTER_NUMBER
 
-		changedProperty = DataType
-
-		changedProperty = IsHidden
-
 		annotation SummarizationSetBy = User
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column QUARTER_NAME
 		dataType: string
@@ -113,17 +84,12 @@ table DIM_DATES
 	column MONTH
 		dataType: int64
 		isHidden
+		formatString: 0
 		lineageTag: 91bcf95c-99aa-4b71-9836-3a270a1c2200
 		summarizeBy: none
 		sourceColumn: MONTH
 
-		changedProperty = DataType
-
-		changedProperty = IsHidden
-
 		annotation SummarizationSetBy = User
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column MONTH_NAME
 		dataType: string
@@ -137,7 +103,8 @@ table DIM_DATES
 		annotation SummarizationSetBy = Automatic
 
 	column MONTH_YEAR
-		dataType: string
+		dataType: dateTime
+		formatString: Long Date
 		lineageTag: 22854fdf-475c-4411-9774-26839f95436d
 		summarizeBy: none
 		sourceColumn: MONTH_YEAR
@@ -147,61 +114,28 @@ table DIM_DATES
 
 		annotation SummarizationSetBy = Automatic
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column WEEK
 		dataType: int64
 		isHidden
+		formatString: 0
 		lineageTag: ce9f366e-5509-453b-baf9-0b4c6c3cf812
 		summarizeBy: none
 		sourceColumn: WEEK
 
-		changedProperty = DataType
-
-		changedProperty = IsHidden
-
 		annotation SummarizationSetBy = User
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column YEAR_WEEK
-		dataType: string
-		isHidden
-		lineageTag: 2c86ba6d-0267-4c90-95ba-9a19c6faa9a8
-		summarizeBy: none
-		sourceColumn: YEAR_WEEK
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
 
 	column DAY
 		dataType: int64
 		isHidden
+		formatString: 0
+		isAvailableInMdx: false
 		lineageTag: 03c000dd-0867-4f66-b710-05c78c5f1ba4
 		summarizeBy: none
 		sourceColumn: DAY
 
-		changedProperty = DataType
-
-		changedProperty = IsHidden
-
 		annotation SummarizationSetBy = User
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column ISO_DAY_OF_WEEK
-		dataType: int64
-		isHidden
-		lineageTag: e2876260-e7f0-448e-a158-891770d8c87e
-		summarizeBy: none
-		sourceColumn: ISO_DAY_OF_WEEK
-
-		changedProperty = DataType
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = User
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column DAY_NAME
 		dataType: string
@@ -214,22 +148,19 @@ table DIM_DATES
 	column DAY_OF_WEEK
 		dataType: int64
 		isHidden
+		formatString: 0
+		isAvailableInMdx: false
 		lineageTag: 3f75fc87-fc1c-4e3b-a184-402f508f5a05
 		summarizeBy: none
 		sourceColumn: DAY_OF_WEEK
 
-		changedProperty = DataType
-
-		changedProperty = IsHidden
-
 		annotation SummarizationSetBy = User
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column IS_WEEKEND
 		dataType: boolean
 		isHidden
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		isAvailableInMdx: false
 		lineageTag: 9ef5f39e-1d91-42d4-a49a-20981baf5f7e
 		summarizeBy: none
 		sourceColumn: IS_WEEKEND
@@ -237,74 +168,6 @@ table DIM_DATES
 		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
-
-	column IS_ISO_WEEKEND
-		dataType: boolean
-		isHidden
-		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 25e5e53e-e65a-451b-9f34-f28712c651f7
-		summarizeBy: none
-		sourceColumn: IS_ISO_WEEKEND
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
-	column YEAR_START_DATE
-		dataType: dateTime
-		isHidden
-		formatString: Short Date
-		lineageTag: d6062289-fb2e-4393-a909-522628e329f4
-		summarizeBy: none
-		sourceColumn: YEAR_START_DATE
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column QUARTER_START_DATE
-		dataType: dateTime
-		isHidden
-		formatString: Short Date
-		lineageTag: 57c5e4bc-46e8-4de3-85ab-3bbccef8e401
-		summarizeBy: none
-		sourceColumn: QUARTER_START_DATE
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column MONTH_START_DATE
-		dataType: dateTime
-		isHidden
-		formatString: Short Date
-		lineageTag: 7e12e9c3-83d9-49c4-89b9-0eab4dd10bf2
-		summarizeBy: none
-		sourceColumn: MONTH_START_DATE
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column WEEK_START_DATE
-		dataType: dateTime
-		isHidden
-		formatString: Short Date
-		lineageTag: 2ce134d5-6173-4b77-a464-8816660fcf80
-		summarizeBy: none
-		sourceColumn: WEEK_START_DATE
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
 
 	column MONTH_INITIAL
 		dataType: string
@@ -317,29 +180,16 @@ table DIM_DATES
 
 		annotation SummarizationSetBy = Automatic
 
-	column CREATED_AT
+	column MONTH_START_DATE
 		dataType: dateTime
-		isHidden
-		formatString: General Date
-		lineageTag: e8315f10-7c0e-4642-9a24-014a4a961572
+		formatString: Long Date
+		lineageTag: 8cd7444a-11fa-4790-add0-ee0152863be9
 		summarizeBy: none
-		sourceColumn: CREATED_AT
-
-		changedProperty = IsHidden
+		sourceColumn: MONTH_START_DATE
 
 		annotation SummarizationSetBy = Automatic
 
-	column UPDATED_AT
-		dataType: dateTime
-		isHidden
-		formatString: General Date
-		lineageTag: b9831404-67e1-42b0-bb89-783ca0c9d2e3
-		summarizeBy: none
-		sourceColumn: UPDATED_AT
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
+		annotation UnderlyingDateTimeDataType = Date
 
 	partition DIM_DATES = m
 		mode: import
@@ -348,9 +198,11 @@ table DIM_DATES
 				    Source = Snowflake.Databases("IFBLGEP-XM39851.snowflakecomputing.com","ECOMMERCE_RETAIL_WH",[Implementation="1.0"]),
 				    ECOMMERCE_RETAIL_DB_PROD_Database = Source{[Name="ECOMMERCE_RETAIL_DB_PROD",Kind="Database"]}[Data],
 				    MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name="MARTS",Kind="Schema"]}[Data],
-				    DIM_DATES_Table = MARTS_Schema{[Name="DIM_DATES",Kind="Table"]}[Data]
+				    DIM_DATES_Table = MARTS_Schema{[Name="DIM_DATES",Kind="Table"]}[Data],
+				    RemoveMetadaColumns = fnRemoveMetadataColumns( DIM_DATES_Table ),
+				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"DATE_KEY", Int64.Type}, {"DATE", type date}, {"YEAR", Int64.Type}, {"YEAR_QUARTER", type text}, {"YEAR_MONTH", type date}, {"QUARTER_NUMBER", Int64.Type}, {"QUARTER_NAME", type text}, {"MONTH", Int64.Type}, {"MONTH_NAME", type text}, {"MONTH_YEAR", type date}, {"MONTH_START_DATE", type date}, {"WEEK", Int64.Type}, {"DAY", Int64.Type}, {"DAY_NAME", type text}, {"DAY_OF_WEEK", Int64.Type}, {"IS_WEEKEND", type logical}, {"MONTH_INITIAL", type text}})
 				in
-				    DIM_DATES_Table
+				    #"Changed Type"
 
 	annotation PBI_NavigationStepName = Navigation
 

@@ -4,6 +4,7 @@ table FCT_CLV_CUSTOMER
 	column CUSTOMER_UNIQUE_ID
 		dataType: string
 		isHidden
+		isAvailableInMdx: false
 		lineageTag: 2d8577ab-79cf-47da-8744-f3e5a0af2561
 		summarizeBy: none
 		sourceColumn: CUSTOMER_UNIQUE_ID
@@ -12,34 +13,12 @@ table FCT_CLV_CUSTOMER
 
 		annotation SummarizationSetBy = Automatic
 
-	column CREATED_AT
-		dataType: dateTime
-		isHidden
-		formatString: General Date
-		lineageTag: 75a39764-8d5a-4461-a455-ced2224ea118
-		summarizeBy: none
-		sourceColumn: CREATED_AT
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
-	column UPDATED_AT
-		dataType: dateTime
-		isHidden
-		formatString: General Date
-		lineageTag: 49d6b9d9-5c77-4548-826b-c8ee2e50576b
-		summarizeBy: none
-		sourceColumn: UPDATED_AT
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
 	column CUSTOMER_KEY
 		dataType: string
 		isHidden
+		isAvailableInMdx: false
 		lineageTag: 50ffa236-d8ca-46d6-abc4-d77af91f09df
+		isDefaultLabel
 		summarizeBy: none
 		sourceColumn: CUSTOMER_KEY
 
@@ -81,64 +60,60 @@ table FCT_CLV_CUSTOMER
 		annotation UnderlyingDateTimeDataType = Date
 
 	column TOTAL_LIFETIME_ORDERS
-		dataType: double
+		dataType: int64
+		formatString: 0
 		lineageTag: 79e297c0-dd8f-4284-8e0e-97673a37df6e
 		summarizeBy: none
 		sourceColumn: TOTAL_LIFETIME_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column TOTAL_LIFETIME_REVENUE
-		dataType: double
+		dataType: decimal
+		formatString: 0.00
 		lineageTag: 08a0e96a-6f8c-40f8-a38e-4c6091e61d77
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: TOTAL_LIFETIME_REVENUE
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column HISTORICAL_AOV
-		dataType: double
+		dataType: decimal
+		formatString: 0.00
 		lineageTag: ba353c5b-92f4-42b9-b26b-f69bf3a3a70b
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: HISTORICAL_AOV
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column CUSTOMER_LIFESPAN_DAYS
-		dataType: double
+		dataType: int64
+		formatString: 0
 		lineageTag: 745cfde4-fd15-476f-8356-f6ec9d007833
 		summarizeBy: none
 		sourceColumn: CUSTOMER_LIFESPAN_DAYS
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column TOTAL_REVIEWS
-		dataType: double
+		dataType: int64
+		formatString: 0
 		lineageTag: 4fb5fc51-2029-4f6a-88f7-f897d31272a6
 		summarizeBy: none
 		sourceColumn: TOTAL_REVIEWS
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column AVERAGE_RATING
-		dataType: double
+		dataType: int64
+		formatString: 0
 		lineageTag: 2aa99691-414d-47a5-9278-d000e875949a
 		summarizeBy: none
 		sourceColumn: AVERAGE_RATING
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = DataType
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation SummarizationSetBy = Automatic
 
 	column CUSTOMER_LIFECYCLE_SEGMENT
 		dataType: string
@@ -165,14 +140,13 @@ table FCT_CLV_CUSTOMER
 		annotation SummarizationSetBy = Automatic
 
 	column PREDICTED_CLV_12M
-		dataType: double
+		dataType: decimal
+		formatString: 0.00
 		lineageTag: a2c05c1f-c156-41b3-9d3b-0e7654480a1c
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: PREDICTED_CLV_12M
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	partition FCT_CLV_CUSTOMER = m
 		mode: import
@@ -181,9 +155,11 @@ table FCT_CLV_CUSTOMER
 				    Source = Snowflake.Databases("IFBLGEP-XM39851.snowflakecomputing.com","ECOMMERCE_RETAIL_WH",[Implementation="1.0"]),
 				    ECOMMERCE_RETAIL_DB_PROD_Database = Source{[Name="ECOMMERCE_RETAIL_DB_PROD",Kind="Database"]}[Data],
 				    MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name="MARTS",Kind="Schema"]}[Data],
-				    FCT_CLV_CUSTOMER_Table = MARTS_Schema{[Name="FCT_CLV_CUSTOMER",Kind="Table"]}[Data]
+				    FCT_CLV_CUSTOMER_Table = MARTS_Schema{[Name="FCT_CLV_CUSTOMER",Kind="Table"]}[Data],
+				    RemoveMetadaColumns = fnRemoveMetadataColumns( FCT_CLV_CUSTOMER_Table ),
+				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"CUSTOMER_KEY", type text}, {"CUSTOMER_UNIQUE_ID", type text}, {"COHORT_MONTH", type date}, {"FIRST_ORDER_DATE", type date}, {"LAST_ORDER_DATE", type date}, {"TOTAL_LIFETIME_ORDERS", Int64.Type}, {"TOTAL_LIFETIME_REVENUE", Currency.Type}, {"HISTORICAL_AOV", Currency.Type}, {"CUSTOMER_LIFESPAN_DAYS", Int64.Type}, {"TOTAL_REVIEWS", Int64.Type}, {"AVERAGE_RATING", type number}, {"CUSTOMER_LIFECYCLE_SEGMENT", type text}, {"CUSTOMER_VALUE_SEGMENT", type text}, {"CUSTOMER_SATISFACTION_SEGMENT", type text}, {"PREDICTED_CLV_12M", Currency.Type}})
 				in
-				    FCT_CLV_CUSTOMER_Table
+				    #"Changed Type"
 
 	annotation PBI_NavigationStepName = Navigation
 

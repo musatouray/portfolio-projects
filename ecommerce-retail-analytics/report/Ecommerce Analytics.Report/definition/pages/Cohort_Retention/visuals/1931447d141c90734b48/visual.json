@@ -65,20 +65,6 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Cohort Avg Order Value"
-                }
-              },
-              "queryRef": "_Measures.Cohort Avg Order Value",
-              "nativeQueryRef": "Cohort Avg Order Value"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
                   "Property": "Cohort Avg Customer Value"
                 }
               },
@@ -112,34 +98,6 @@
               },
               "queryRef": "_Measures.Cohort Churn Rate",
               "nativeQueryRef": "Cohort Churn Rate"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Gross Revenue Retention (GRR) %"
-                }
-              },
-              "queryRef": "_Measures.Gross Revenue Retention (GRR) %",
-              "nativeQueryRef": "Gross Revenue Retention (GRR) %"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Net Revenue Retention (NRR) %"
-                }
-              },
-              "queryRef": "_Measures.Net Revenue Retention (NRR) %",
-              "nativeQueryRef": "Net Revenue Retention (NRR) %"
             }
           ]
         }
@@ -445,20 +403,6 @@
           },
           "selector": {
             "metadata": "_Measures.Cohort Avg Customer Value"
-          }
-        },
-        {
-          "properties": {
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'AOV'"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Measures.Cohort Avg Order Value"
           }
         },
         {
