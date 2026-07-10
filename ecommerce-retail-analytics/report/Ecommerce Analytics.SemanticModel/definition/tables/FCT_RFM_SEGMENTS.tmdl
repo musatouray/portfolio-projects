@@ -2,19 +2,6 @@
 table FCT_RFM_SEGMENTS
 	lineageTag: 5d5cd826-5672-4bef-93ed-7b84e9a2a9ee
 
-	/// Natural customer identifier. Grain: per customer per snapshot month.
-	column CUSTOMER_UNIQUE_ID
-		dataType: string
-		isHidden
-		isAvailableInMdx: false
-		lineageTag: e84fa378-ef57-4fa1-a94c-cb9030cbbb4c
-		summarizeBy: none
-		sourceColumn: CUSTOMER_UNIQUE_ID
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
 	/// Recency score 1-5 (5=most recent) at the snapshot month. Grain: per customer per snapshot month.
 	column R_SCORE
 		dataType: int64
@@ -63,23 +50,11 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Surrogate key of the snapshot row; primary key. Grain: one per customer per snapshot month.
-	column RFM_SNAPSHOT_KEY
-		dataType: string
-		isHidden
-		isAvailableInMdx: false
-		lineageTag: 9af76b7b-0bc9-481b-bb54-71f9cd4cf5ac
-		summarizeBy: none
-		sourceColumn: RFM_SNAPSHOT_KEY
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
 	/// Join to DIM_CUSTOMERS. Grain: per customer per snapshot month.
 	column CUSTOMER_KEY
-		dataType: string
+		dataType: int64
 		isHidden
+		formatString: 0
 		isAvailableInMdx: false
 		lineageTag: c59f50bd-b787-4755-91f0-bc708d81a311
 		summarizeBy: none
@@ -220,7 +195,8 @@ table FCT_RFM_SEGMENTS
 				    MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name="MARTS",Kind="Schema"]}[Data],
 				    FCT_RFM_SEGMENTS_Table = MARTS_Schema{[Name="FCT_RFM_SEGMENTS",Kind="Table"]}[Data],
 				    RemoveMetadaColumns = fnRemoveMetadataColumns( FCT_RFM_SEGMENTS_Table ),
-				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"SNAPSHOT_DATE_KEY", Int64.Type}, {"RECENCY_DAYS", Int64.Type}, {"TOTAL_ORDERS", Int64.Type}, {"AVERAGE_RATING", Int64.Type}, {"R_SCORE", Int64.Type}, {"F_SCORE", Int64.Type}, {"M_SCORE", Int64.Type}, {"RFM_COMBINED_SCORE", Int64.Type}, {"CHURN_RISK_SCORE", Int64.Type}, {"SEGMENT_INDEX", Int64.Type}, {"RFM_SNAPSHOT_KEY", type text}, {"CUSTOMER_KEY", type text}, {"SNAPSHOT_MONTH", type date}, {"CUSTOMER_UNIQUE_ID", type text}, {"TOTAL_REVENUE", Currency.Type}, {"CHURN_STATUS", type text}, {"CUSTOMER_NPS_SEGMENT", type text}, {"CHURN_RISK_SEGMENT", type text}, {"RFM_SEGMENT", type text}})
+				    #"Removed Columns" = Table.RemoveColumns(RemoveMetadaColumns,{"CUSTOMER_UNIQUE_ID"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"RECENCY_DAYS", Int64.Type}, {"TOTAL_ORDERS", Int64.Type}, {"AVERAGE_RATING", Int64.Type}, {"R_SCORE", Int64.Type}, {"F_SCORE", Int64.Type}, {"M_SCORE", Int64.Type}, {"RFM_COMBINED_SCORE", Int64.Type}, {"CHURN_RISK_SCORE", Int64.Type}, {"SEGMENT_INDEX", Int64.Type}, {"CUSTOMER_KEY", Int64.Type}, {"SNAPSHOT_MONTH", type date}, {"TOTAL_REVENUE", Currency.Type}, {"CHURN_STATUS", type text}, {"CUSTOMER_NPS_SEGMENT", type text}, {"CHURN_RISK_SEGMENT", type text}, {"RFM_SEGMENT", type text}, {"SNAPSHOT_DATE_KEY", Int64.Type}})
 				in
 				    #"Changed Type"
 

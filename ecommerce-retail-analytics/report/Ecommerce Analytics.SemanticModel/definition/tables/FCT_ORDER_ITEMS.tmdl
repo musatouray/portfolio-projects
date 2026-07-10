@@ -4,8 +4,9 @@ table FCT_ORDER_ITEMS
 
 	/// Surrogate key of the order line; primary key of this fact. Grain: one per order line.
 	column ORDER_ITEM_KEY
-		dataType: string
+		dataType: int64
 		isHidden
+		formatString: 0
 		isAvailableInMdx: false
 		lineageTag: 4f1830be-1345-4eb1-bcb4-79e0c0b8573b
 		summarizeBy: none
@@ -42,8 +43,9 @@ table FCT_ORDER_ITEMS
 
 	/// Buyer of the line's order; join to DIM_CUSTOMERS. Grain: per order line.
 	column CUSTOMER_KEY
-		dataType: string
+		dataType: int64
 		isHidden
+		formatString: 0
 		isAvailableInMdx: false
 		lineageTag: ee7918b3-d9d1-4fc8-865b-959a0e499954
 		summarizeBy: none
@@ -55,8 +57,9 @@ table FCT_ORDER_ITEMS
 
 	/// Product sold on the line; join to DIM_PRODUCTS. Grain: per order line.
 	column PRODUCT_KEY
-		dataType: string
+		dataType: int64
 		isHidden
+		formatString: 0
 		isAvailableInMdx: false
 		lineageTag: 02f19c43-e4c5-412d-9a21-5399bfab28fb
 		summarizeBy: none
@@ -68,8 +71,9 @@ table FCT_ORDER_ITEMS
 
 	/// Seller fulfilling the line; join to DIM_SELLERS. Grain: per order line.
 	column SELLER_KEY
-		dataType: string
+		dataType: int64
 		isHidden
+		formatString: 0
 		isAvailableInMdx: false
 		lineageTag: 8b14c6d6-4847-4dda-804e-c1a9a3fb0f66
 		summarizeBy: none
@@ -142,32 +146,6 @@ table FCT_ORDER_ITEMS
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Natural product identifier for the line. Grain: per order line.
-	column PRODUCT_ID
-		dataType: string
-		isHidden
-		isAvailableInMdx: false
-		lineageTag: eec05277-a35e-43ac-90c8-75c6192b1edc
-		summarizeBy: none
-		sourceColumn: PRODUCT_ID
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
-	/// Natural seller identifier for the line. Grain: per order line.
-	column SELLER_ID
-		dataType: string
-		isHidden
-		isAvailableInMdx: false
-		lineageTag: 834e5dc3-1365-4670-b7ce-b7252ffc49a3
-		summarizeBy: none
-		sourceColumn: SELLER_ID
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
 	/// Date the order was placed. Grain: per order line.
 	column ORDER_DATE
 		dataType: dateTime
@@ -193,7 +171,7 @@ table FCT_ORDER_ITEMS
 				    MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name="MARTS",Kind="Schema"]}[Data],
 				    FCT_ORDER_ITEMS_Table = MARTS_Schema{[Name="FCT_ORDER_ITEMS",Kind="Table"]}[Data],
 				    RemoveMetadaColumns = fnRemoveMetadataColumns( FCT_ORDER_ITEMS_Table ),
-				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"ORDER_ITEM_KEY", type text}, {"ORDER_ID", type text}, {"ORDER_ITEM_ID", Int64.Type}, {"PRODUCT_ID", type text}, {"SELLER_ID", type text}, {"CUSTOMER_KEY", type text}, {"PRODUCT_KEY", type text}, {"SELLER_KEY", type text}, {"ORDER_DATE_KEY", Int64.Type}, {"DELIVERY_DATE_KEY", Int64.Type}, {"ORDER_DATE", type date}, {"ORDER_STATUS", type text}, {"ITEM_PRICE", Currency.Type}, {"ITEM_FREIGHT", Currency.Type}, {"ITEM_TOTAL", Currency.Type}})
+				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"ORDER_ITEM_KEY", Int64.Type}, {"ORDER_ITEM_ID", Int64.Type}, {"CUSTOMER_KEY", Int64.Type}, {"PRODUCT_KEY", Int64.Type}, {"SELLER_KEY", Int64.Type}, {"ORDER_DATE_KEY", Int64.Type}, {"DELIVERY_DATE_KEY", Int64.Type}, {"ORDER_DATE", type date}, {"ORDER_STATUS", type text}, {"ITEM_PRICE", Currency.Type}, {"ITEM_FREIGHT", Currency.Type}, {"ITEM_TOTAL", Currency.Type}, {"ORDER_ID", type text}})
 				in
 				    #"Changed Type"
 

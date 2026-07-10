@@ -8,7 +8,8 @@ expression fnRemoveMetadataColumns = ```
 		        // Define a list of columns to exclude
 		        ColumnsToExclude = {
 		            "created_at", "updated_at", "year_start_date", "quarter_start_date", "week_start_date", "iso_", "year_week", 
-		            "name_length", "description_length", "photos_qty", "weight_g", "height_cm", "length_cm", "width_cm"
+		            "name_length", "description_length", "photos_qty", "weight_g", "height_cm", "length_cm", "width_cm", 
+		            "product_id", "seller_id", "rfm_snapshot_key"
 		        },
 		        
 		        // Filter out the columns to exclude

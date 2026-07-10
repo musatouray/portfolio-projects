@@ -231,18 +231,6 @@
                 }
               }
             },
-            "value": {
-              "expr": {
-                "Aggregation": {
-                  "Expression": {
-                    "SelectRef": {
-                      "ExpressionName": "_Measures.Retained Customers"
-                    }
-                  },
-                  "Function": 1
-                }
-              }
-            },
             "lineColor": {
               "solid": {
                 "color": {
@@ -338,18 +326,6 @@
               "expr": {
                 "Literal": {
                   "Value": "'Average'"
-                }
-              }
-            },
-            "value": {
-              "expr": {
-                "Aggregation": {
-                  "Expression": {
-                    "SelectRef": {
-                      "ExpressionName": "_Measures.Cohort Revenue"
-                    }
-                  },
-                  "Function": 1
                 }
               }
             },
