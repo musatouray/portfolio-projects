@@ -35,11 +35,11 @@ product_pairs AS (
 final AS (
     SELECT
         -- Primary Key generation for the unique combination pair
-        {{ dbt_utils.generate_surrogate_key(['pp.product_id_a', 'pp.product_id_b']) }} AS basket_pair_key,
+        {{ generate_int_surrogate_key(['pp.product_id_a', 'pp.product_id_b']) }} AS basket_pair_key,
 
         -- Deterministic Star Schema Foreign Keys
-        {{ dbt_utils.generate_surrogate_key(['pp.product_id_a']) }} AS product_key_a,
-        {{ dbt_utils.generate_surrogate_key(['pp.product_id_b']) }} AS product_key_b,
+        {{ generate_int_surrogate_key(['pp.product_id_a']) }} AS product_key_a,
+        {{ generate_int_surrogate_key(['pp.product_id_b']) }} AS product_key_b,
 
         -- Atomic counts required for dynamic semantic computations
         pp.pair_count,

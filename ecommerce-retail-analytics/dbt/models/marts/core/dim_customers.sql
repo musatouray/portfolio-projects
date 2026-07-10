@@ -35,7 +35,7 @@ deduped_customers AS (
 final AS (
     SELECT
         -- Primary Key generation for downstream Star Schema mapping
-        {{ dbt_utils.generate_surrogate_key(['dc.customer_unique_id']) }} AS customer_key,
+        {{ generate_int_surrogate_key(['dc.customer_unique_id']) }} AS customer_key,
         dc.customer_unique_id,
         dc.zip_code,
         dc.city,

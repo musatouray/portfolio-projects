@@ -27,11 +27,11 @@ dim_dates AS (
 final AS (
     SELECT
         -- Primary Key (Grain: Individual payment line item per order)
-        {{ dbt_utils.generate_surrogate_key(['p.order_id', 'p.payment_sequential', 'p.payment_type']) }} AS order_payment_key,
+        {{ generate_int_surrogate_key(['p.order_id', 'p.payment_sequential', 'p.payment_type']) }} AS order_payment_key,
 
         -- Parent Fact Foreign Key Linkages
-        {{ dbt_utils.generate_surrogate_key(['p.order_id']) }}           AS order_key,
-        {{ dbt_utils.generate_surrogate_key(['o.customer_unique_id']) }} AS customer_key,
+        {{ generate_int_surrogate_key(['p.order_id']) }}           AS order_key,
+        {{ generate_int_surrogate_key(['o.customer_unique_id']) }} AS customer_key,
 
         -- Role-Playing Date Dimension Keys
         d_order.date_key AS order_date_key,

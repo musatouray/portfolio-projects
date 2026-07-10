@@ -402,6 +402,55 @@ The generator uses `customer_id` (not `customer_unique_id`) to maintain referent
 
 ---
 
+## Surrogate Key Strategy
+
+### Design Decision
+
+Using Snowflake's native `HASH()` function for surrogate keys instead of `dbt_utils.generate_surrogate_key` for two reasons:
+
+1. **Power BI memory optimization**: 8-byte integers compress significantly better than 32-character hex strings (~70% memory reduction on key columns)
+2. **Snowflake-native**: This project is purpose-built for Snowflake; cross-platform portability isn't a requirement
+
+**Tradeoff accepted**: Platform-specific implementation in exchange for substantial memory reduction in Power BI semantic models.
+
+### Implementation
+
+A custom macro `generate_int_surrogate_key` uses `MD5_NUMBER_LOWER64` for stable, deterministic hashing:
+
+```sql
+-- Usage (identical interface to dbt_utils.generate_surrogate_key)
+{{ generate_int_surrogate_key(['order_id', 'product_id']) }}
+
+-- Compiles to:
+MD5_NUMBER_LOWER64(concat(coalesce(cast(order_id as varchar), ''), '-', coalesce(cast(product_id as varchar), '')))
+```
+
+### Why MD5_NUMBER_LOWER64 over HASH()
+
+Snowflake's `HASH()` is **not guaranteed stable across releases**—the algorithm can change during Snowflake upgrades, silently breaking surrogate keys. `MD5_NUMBER_LOWER64` uses the standardized MD5 algorithm (RFC 1321) which will never change.
+
+### Key Characteristics
+
+| Aspect | Detail |
+|--------|--------|
+| Output type | BIGINT (64-bit signed integer) |
+| Algorithm | MD5 lower 64 bits (standardized, version-stable) |
+| Delimiter | Hyphen (`-`) between fields prevents collision |
+| NULL handling | Coalesces to empty string (matches dbt_utils behavior) |
+| Collision risk | Negligible at < 100M rows (~0.00027% probability) |
+
+### Migration Notes
+
+When deploying this change, run a **full refresh** to regenerate all surrogate keys:
+
+```bash
+dbt build --full-refresh --target prod
+```
+
+Power BI semantic model relationships must be rebuilt after refresh since all key values change.
+
+---
+
 ## Key Commands
 
 ### dbt
