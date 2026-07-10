@@ -66,10 +66,7 @@ aggregated_periods AS (
 
 final AS (
     SELECT
-        {{ dbt_utils.generate_surrogate_key([
-            'a.cohort_month',
-            'a.period'
-        ]) }} AS cohort_retention_key,
+        {{ generate_int_surrogate_key(['a.cohort_month', 'a.period']) }} AS cohort_retention_key,
 
         -- Numeric date key for easier time-series analysis
         TO_NUMERIC(TO_CHAR(a.cohort_month, 'YYYYMMDD')) AS cohort_date_key,

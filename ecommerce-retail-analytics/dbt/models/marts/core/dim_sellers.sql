@@ -30,7 +30,7 @@ seller_primary_category AS (
 final AS (
     SELECT
         -- Primary Key generation for Star Schema mapping
-        {{ dbt_utils.generate_surrogate_key(['s.seller_id']) }} AS seller_key,
+        {{ generate_int_surrogate_key(['s.seller_id']) }} AS seller_key,
 
         -- Natural Key
         s.seller_id,

@@ -9,7 +9,7 @@ WITH products AS (
 final AS (
     SELECT
         -- Primary Key generation for Star Schema integration
-        {{ dbt_utils.generate_surrogate_key(['p.product_id']) }} AS product_key,
+        {{ generate_int_surrogate_key(['p.product_id']) }} AS product_key,
 
         -- Natural Key
         p.product_id,

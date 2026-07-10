@@ -39,7 +39,7 @@ customer_aggregations AS (
 
 final AS (
     SELECT
-        {{ dbt_utils.generate_surrogate_key(['ca.customer_unique_id']) }} AS customer_key,
+        {{ generate_int_surrogate_key(['ca.customer_unique_id']) }} AS customer_key,
         ca.customer_unique_id,
         cc.cohort_month,
         cc.first_order_date,

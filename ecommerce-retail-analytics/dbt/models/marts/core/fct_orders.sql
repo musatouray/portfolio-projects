@@ -27,11 +27,11 @@ dim_dates AS (
 final AS (
     SELECT
         -- Primary Key
-        {{ dbt_utils.generate_surrogate_key(['o.order_id']) }} AS order_key,
+        {{ generate_int_surrogate_key(['o.order_id']) }} AS order_key,
         o.order_id,
 
         -- Deterministic FK Generation (Eliminates the LEFT JOIN to dim_customers)
-        {{ dbt_utils.generate_surrogate_key(['o.customer_unique_id']) }} AS customer_key,
+        {{ generate_int_surrogate_key(['o.customer_unique_id']) }} AS customer_key,
         o.customer_unique_id,
 
         -- Role-playing date dimension keys

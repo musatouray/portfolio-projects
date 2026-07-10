@@ -35,7 +35,7 @@ dim_dates AS (
 final AS (
     SELECT
         -- Primary Key (Composite line grain mapping)
-        {{ dbt_utils.generate_surrogate_key(['oi.order_id', 'oi.order_item_id']) }} AS order_item_key,
+        {{ generate_int_surrogate_key(['oi.order_id', 'oi.order_item_id']) }} AS order_item_key,
 
         -- Natural Keys
         oi.order_id,
@@ -44,9 +44,9 @@ final AS (
         oi.seller_id,
 
         -- Deterministic FK Generation (Eliminates 3 brittle dimension LEFT JOINs)
-        {{ dbt_utils.generate_surrogate_key(['o.customer_unique_id']) }} AS customer_key,
-        {{ dbt_utils.generate_surrogate_key(['oi.product_id']) }} AS product_key,
-        {{ dbt_utils.generate_surrogate_key(['oi.seller_id']) }} AS seller_key,
+        {{ generate_int_surrogate_key(['o.customer_unique_id']) }} AS customer_key,
+        {{ generate_int_surrogate_key(['oi.product_id']) }} AS product_key,
+        {{ generate_int_surrogate_key(['oi.seller_id']) }} AS seller_key,
 
         -- Role-playing date dimension keys
         d_order.date_key AS order_date_key,

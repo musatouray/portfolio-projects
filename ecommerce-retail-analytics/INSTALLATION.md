@@ -398,6 +398,16 @@ From `ECOMMERCE_RETAIL_DB_PROD.MARTS` schema, import:
 
 Connect dimension tables to fact tables using the appropriate keys (customer_key, product_key, etc.).
 
+### Surrogate Key Design
+
+All surrogate keys (`customer_key`, `product_key`, `order_key`, etc.) are **64-bit integers** generated using Snowflake's `MD5_NUMBER_LOWER64()` function. This design choice provides:
+
+- **~70% memory reduction** compared to 32-character string hashes
+- **Better compression** in Power BI's VertiPaq engine
+- **Faster relationship lookups** with integer comparisons
+
+**Important**: After a `dbt build --full-refresh`, all surrogate key values will change. You must refresh the Power BI semantic model to pick up the new keys and rebuild any cached relationships.
+
 ---
 
 ## 13. Microsoft Fabric Git Integration
