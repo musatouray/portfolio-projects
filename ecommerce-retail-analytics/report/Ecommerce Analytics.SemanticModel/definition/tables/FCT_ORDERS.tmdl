@@ -1,6 +1,8 @@
+/// BUSINESS MEANING: Order-header facts - the core sales and operations table capturing revenue, fulfillment timing and review outcome for each order. Primary source for order volume, revenue, AOV, on-time delivery and satisfaction. GRAIN: one row per order. RELATIONSHIPS: joins to DIM_CUSTOMERS (CUSTOMER_KEY) and to DIM_DATES on order date (active); an inactive delivery-date join enables delivery-timing analysis. Not directly related to FCT_ORDER_ITEMS or FCT_ORDER_PAYMENTS (separate facts joined only through shared dimensions).
 table FCT_ORDERS
 	lineageTag: 75a2ace9-4107-4c92-8e4e-a8d4733f9e84
 
+	/// Surrogate key of the order; primary key of this fact. Grain: one per order.
 	column ORDER_KEY
 		dataType: string
 		isHidden
@@ -13,6 +15,7 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Natural order identifier from the source system. Grain: one per order.
 	column ORDER_ID
 		dataType: string
 		isHidden
@@ -25,6 +28,7 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer who placed the order; join to DIM_CUSTOMERS. Grain: per order.
 	column CUSTOMER_KEY
 		dataType: string
 		isHidden
@@ -37,6 +41,7 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Order placement date; active join to DIM_DATES. Grain: per order.
 	column ORDER_DATE_KEY
 		dataType: int64
 		isHidden
@@ -48,6 +53,7 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Order approval date (YYYYMMDD); no active relationship, used for approval-timing measures. Grain: per order.
 	column APPROVAL_DATE_KEY
 		dataType: int64
 		isHidden
@@ -59,6 +65,7 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer delivery date; inactive join to DIM_DATES (activate to analyze by delivery date). Grain: per order.
 	column DELIVERY_DATE_KEY
 		dataType: int64
 		isHidden
@@ -70,6 +77,7 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Promised/estimated delivery date (YYYYMMDD). Grain: per order.
 	column ESTIMATED_DELIVERY_DATE_KEY
 		dataType: int64
 		isHidden
@@ -81,6 +89,7 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Order lifecycle status (delivered, shipped, canceled, invoiced, processing, approved, unavailable). Grain: per order.
 	column ORDER_STATUS
 		dataType: string
 		lineageTag: 6d0bfc68-ae5a-45a5-9522-ec3a01674133
@@ -89,6 +98,7 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Actual days from order placement to delivery; NULL if not delivered. Grain: per order.
 	column DELIVERY_DAYS
 		dataType: int64
 		formatString: 0
@@ -98,6 +108,7 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Days from approval to delivery; NULL if not delivered. Grain: per order.
 	column FULFILLMENT_DAYS
 		dataType: int64
 		formatString: 0
@@ -107,6 +118,7 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Days from carrier pickup to delivery; NULL if not delivered. Grain: per order.
 	column SHIPPING_TRANSIT_DAYS
 		dataType: int64
 		formatString: 0
@@ -116,6 +128,7 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Flag: delivered on or before the estimated date; NULL if not delivered. Grain: per order.
 	column IS_ON_TIME_DELIVERY
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
@@ -125,24 +138,27 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Merchandise value of the order excluding freight (BRL). Grain: per order.
 	column TOTAL_PRICE
 		dataType: decimal
 		formatString: 0.00
 		lineageTag: 98a630fb-5b18-4b60-8428-75c33c7397b0
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_PRICE
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Freight/shipping charged on the order (BRL). Grain: per order.
 	column TOTAL_FREIGHT_VALUE
 		dataType: decimal
 		formatString: 0.00
 		lineageTag: d52982e4-ff6f-436b-898d-eb12b4227580
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_FREIGHT_VALUE
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Order value including freight (price + freight, BRL). Grain: per order.
 	column GROSS_ORDER_VALUE
 		dataType: int64
 		formatString: 0
@@ -154,6 +170,7 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Number of payment installments on the order. Grain: per order.
 	column PAYMENT_COUNT
 		dataType: int64
 		formatString: 0
@@ -163,6 +180,7 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Total amount actually paid for the order (BRL); the primary source of the Total Revenue measure. Grain: per order.
 	column TOTAL_PAYMENT_VALUE
 		dataType: int64
 		formatString: 0
@@ -174,6 +192,7 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Number of reviews submitted for the order. Grain: per order.
 	column REVIEW_COUNT
 		dataType: int64
 		formatString: 0
@@ -183,6 +202,7 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Order's review score, 1-5. Grain: per order.
 	column REVIEW_SCORE
 		dataType: int64
 		formatString: 0
@@ -192,6 +212,7 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Natural identifier of the order's buyer. Grain: per order.
 	column CUSTOMER_UNIQUE_ID
 		dataType: string
 		isHidden
@@ -204,10 +225,12 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Calendar date the order was placed. Grain: per order.
 	column ORDER_DATE
 		dataType: dateTime
 		isHidden
 		formatString: Short Date
+		isAvailableInMdx: false
 		lineageTag: 37cf1984-c8be-430c-a280-9ecd09fdd099
 		summarizeBy: none
 		sourceColumn: ORDER_DATE

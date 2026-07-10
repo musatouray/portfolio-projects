@@ -1,9 +1,8 @@
-/// Disconnected segment dimension for the "from" (prior snapshot) axis of the
-/// RFM segment-migration visuals. Not related to any table; used only by the
-/// transition measures via SELECTEDVALUE.
+/// BUSINESS MEANING: Disconnected helper dimension listing the RFM segments, used as the origin (prior-snapshot) axis of the segment-migration Sankey and heatmap. GRAIN: one row per RFM segment. RELATIONSHIPS: none (disconnected; the Transition measures read it via SELECTEDVALUE).
 table 'From Segment'
 	lineageTag: f2a10001-0001-4001-8001-000000000001
 
+	/// RFM segment acting as the origin (prior-snapshot) segment in migration analysis. Grain: one per RFM segment.
 	column 'From Segment'
 		lineageTag: f2a10001-0001-4001-8001-000000000002
 		summarizeBy: none
@@ -13,6 +12,7 @@ table 'From Segment'
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Sort order of the origin segment. Grain: per segment.
 	column 'From Index'
 		isHidden
 		lineageTag: f2a10001-0001-4001-8001-000000000003

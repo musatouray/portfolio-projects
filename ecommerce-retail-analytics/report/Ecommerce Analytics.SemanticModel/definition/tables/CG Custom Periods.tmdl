@@ -1,3 +1,4 @@
+/// BUSINESS MEANING: Calculation group for time-period selection (preset periods plus a Custom range) that rescopes metrics to the chosen period. GRAIN: one row per period option. RELATIONSHIPS: none (calculation group).
 table 'CG Custom Periods'
 	lineageTag: 4458ecfb-9fdd-49ed-97c6-ed32bb804cf3
 
@@ -262,6 +263,7 @@ table 'CG Custom Periods'
 				    )
 				)
 
+	/// The time period the user selects (a preset period or Custom). Grain: one per period option.
 	column Period
 		dataType: string
 		lineageTag: d934106d-c954-4c33-a7d5-ebeefc7421e3
@@ -271,6 +273,7 @@ table 'CG Custom Periods'
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Display sort order of the period options.
 	column Ordinal
 		dataType: int64
 		formatString: 0

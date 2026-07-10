@@ -475,7 +475,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Feb-2026'"
+                                "Value": "'Jun-2026'"
                               }
                             }
                           ]
@@ -1013,20 +1013,6 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "eb59e635fc8b72b0d522",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Disconnected Calendar"
-              }
-            },
-            "Property": "Month Year"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
         "name": "4d97744731b541c40909",
         "field": {
           "Column": {
@@ -1081,20 +1067,6 @@
         "howCreated": "User",
         "isHiddenInViewMode": true,
         "isLockedInViewMode": true
-      },
-      {
-        "name": "6117309c7d2179ca242f",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "RFM Customers YoY %"
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

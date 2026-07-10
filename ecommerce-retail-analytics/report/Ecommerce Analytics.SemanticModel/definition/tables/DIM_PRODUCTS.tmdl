@@ -1,6 +1,8 @@
+/// BUSINESS MEANING: Product catalog (category and name). GRAIN: one row per product. RELATIONSHIPS: joins on PRODUCT_KEY one-to-many to FCT_ORDER_ITEMS (product sold) and to FCT_MARKET_BASKET (active on product A; inactive on product B). Use it to analyze sales and basket affinity by product or category.
 table DIM_PRODUCTS
 	lineageTag: d13f411b-6e61-4583-af51-62ff5350c900
 
+	/// Surrogate key for a product; primary key and fact join key. Grain: one per product.
 	column PRODUCT_KEY
 		dataType: string
 		isHidden
@@ -14,6 +16,7 @@ table DIM_PRODUCTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Natural product identifier from the source system. Grain: one per product.
 	column PRODUCT_ID
 		dataType: string
 		isHidden
@@ -26,6 +29,7 @@ table DIM_PRODUCTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Product category in English; primary attribute for category-level sales analysis. Grain: per product.
 	column PRODUCT_CATEGORY
 		dataType: string
 		lineageTag: f1f679e5-aa0f-45d7-ae8c-e9c13334b0f9
@@ -34,6 +38,7 @@ table DIM_PRODUCTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Display name of the product. Grain: per product.
 	column PRODUCT_NAME
 		dataType: string
 		lineageTag: e1278c07-67ec-4ddb-9346-6f8421ba6f12

@@ -1,10 +1,13 @@
+/// BUSINESS MEANING: What-if parameter for the minimum cohort size used to filter which cohorts appear. GRAIN: one row per selectable size value. RELATIONSHIPS: none (disconnected).
 table 'Param: Cohort Size'
 	lineageTag: 721f0832-4d15-4752-b4cb-6105debd7e64
 
+	/// [HELPER] Reads the selected minimum cohort-size what-if value (default 1). Not a business metric.
 	measure 'Param: Cohort Size Value' = SELECTEDVALUE('Param: Cohort Size'[Param: Cohort Size], 1)
 		formatString: 0
 		lineageTag: 029bfc2f-f04f-4b2e-bc3e-f006b74b6632
 
+	/// Selectable minimum cohort-size threshold (what-if). Grain: one per value.
 	column 'Param: Cohort Size'
 		formatString: 0
 		lineageTag: d7efe8f9-44d1-4bf9-b1cf-6a4fe5b00d67

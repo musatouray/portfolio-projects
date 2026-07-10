@@ -7,7 +7,7 @@
     "z": 3000,
     "height": 104.68082662506102,
     "width": 240,
-    "tabOrder": 5000
+    "tabOrder": 0
   },
   "visual": {
     "visualType": "textSlicer",
@@ -36,7 +36,44 @@
     "objects": {
       "general": [
         {
-          "properties": {}
+          "properties": {
+            "filter": {
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "p",
+                    "Entity": "Param: Cohort Size",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "Comparison": {
+                        "ComparisonKind": 0,
+                        "Left": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "p"
+                              }
+                            },
+                            "Property": "Param: Cohort Size"
+                          }
+                        },
+                        "Right": {
+                          "Literal": {
+                            "Value": "2000M"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
         }
       ],
       "dropdown": [

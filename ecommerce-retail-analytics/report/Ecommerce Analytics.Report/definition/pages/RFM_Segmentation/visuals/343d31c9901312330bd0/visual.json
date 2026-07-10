@@ -62,7 +62,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "RFM Unique Customers"
+                  "Property": "RFM Lifetime Customers"
                 }
               },
               "queryRef": "_Measures.RFM Unique Customers",
@@ -82,7 +82,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "RFM Unique Customers"
+                "Property": "RFM Lifetime Customers"
               }
             },
             "direction": "Descending"

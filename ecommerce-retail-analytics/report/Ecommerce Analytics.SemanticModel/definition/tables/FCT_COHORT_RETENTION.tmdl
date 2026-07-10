@@ -1,6 +1,8 @@
+/// BUSINESS MEANING: Retention and revenue-retention (GRR/NRR) of acquisition cohorts over their lifetime. GRAIN: one row per acquisition cohort (COHORT_MONTH) per period offset (PERIOD = months since acquisition). RELATIONSHIPS: pre-aggregated; joins only to DIM_DATES on the cohort month (COHORT_DATE_KEY), with no customer- or order-level relationship. Excludes canceled/unavailable orders and the partial current month.
 table FCT_COHORT_RETENTION
 	lineageTag: 202dd212-ce20-40d4-a849-593f800ab56b
 
+	/// Surrogate key of the cohort-period row; primary key. Grain: one per cohort per period.
 	column COHORT_RETENTION_KEY
 		dataType: string
 		isHidden
@@ -13,6 +15,7 @@ table FCT_COHORT_RETENTION
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Acquisition month that defines the cohort. Grain: identifies the cohort.
 	column COHORT_MONTH
 		dataType: dateTime
 		formatString: Short Date
@@ -24,6 +27,7 @@ table FCT_COHORT_RETENTION
 
 		annotation UnderlyingDateTimeDataType = Date
 
+	/// Customers from the cohort who ordered in this period. Grain: per cohort per period.
 	column ACTIVE_CUSTOMERS
 		dataType: int64
 		formatString: 0
@@ -33,6 +37,7 @@ table FCT_COHORT_RETENTION
 
 		annotation SummarizationSetBy = User
 
+	/// Total customers acquired in the cohort; constant across the cohort's periods (retention % denominator). Grain: per cohort.
 	column COHORT_SIZE
 		dataType: int64
 		formatString: #,0
@@ -42,6 +47,7 @@ table FCT_COHORT_RETENTION
 
 		annotation SummarizationSetBy = User
 
+	/// Orders placed by the cohort in this period. Grain: per cohort per period.
 	column PERIOD_ORDERS
 		dataType: int64
 		formatString: #,0
@@ -51,15 +57,17 @@ table FCT_COHORT_RETENTION
 
 		annotation SummarizationSetBy = User
 
+	/// Revenue from the cohort in this period (BRL). Grain: per cohort per period.
 	column PERIOD_REVENUE
 		dataType: decimal
 		formatString: \$#,0.00;-\$#,0.00;\$#,0.00
 		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678901
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: PERIOD_REVENUE
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Months since acquisition (0=acquisition month); the period-offset axis. Grain: defines the period.
 	column PERIOD
 		dataType: int64
 		formatString: 0
@@ -69,36 +77,40 @@ table FCT_COHORT_RETENTION
 
 		annotation SummarizationSetBy = User
 
+	/// GRR numerator, capped at initial revenue (<=100%). Grain: per cohort per period.
 	column GROSS_RETAINED_REVENUE
 		dataType: decimal
 		lineageTag: 1b5773b2-11f4-4a7d-aa78-de10c0822ac7
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: GROSS_RETAINED_REVENUE
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	/// NRR numerator, includes expansion (can exceed 100%). Grain: per cohort per period.
 	column NET_RETAINED_REVENUE
 		dataType: decimal
 		lineageTag: 097592ff-6511-486f-acbc-f65798e88502
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: NET_RETAINED_REVENUE
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	/// Cohort's period-0 revenue; GRR%/NRR% denominator; constant across periods. Grain: per cohort.
 	column COHORT_INITIAL_REVENUE
 		dataType: decimal
 		lineageTag: ca1a625b-7ea1-45d4-aff1-96b27c148da9
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: COHORT_INITIAL_REVENUE
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	/// YYYYMMDD key of the cohort month; join to DIM_DATES. Grain: per cohort per period.
 	column COHORT_DATE_KEY
 		dataType: int64
 		isHidden

@@ -1,6 +1,8 @@
+/// BUSINESS MEANING: Disconnected month calendar used to pick the as-of snapshot month for RFM and cohort views without filtering the fact tables. GRAIN: one row per month. RELATIONSHIPS: intentionally none (disconnected; read via SELECTEDVALUE to drive point-in-time logic).
 table 'Disconnected Calendar'
 	lineageTag: 21d2a943-bd31-4d53-b77d-7455003b47d7
 
+	/// Selectable as-of month (first day) for point-in-time RFM/cohort views. Grain: one per month.
 	column MONTH_START_DATE
 		formatString: Short Date
 		lineageTag: 87b79336-5003-4fe6-be2a-02d108f0234d
@@ -12,11 +14,13 @@ table 'Disconnected Calendar'
 
 		annotation UnderlyingDateTimeDataType = Date
 
+	/// Month-year label for the as-of month slicer.
 	column 'Month Year'
 		lineageTag: ef03d420-82a2-4954-8bca-fb0dcb24f353
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: [Month Year]
+		sortByColumn: MONTH_START_DATE
 
 		annotation SummarizationSetBy = Automatic
 

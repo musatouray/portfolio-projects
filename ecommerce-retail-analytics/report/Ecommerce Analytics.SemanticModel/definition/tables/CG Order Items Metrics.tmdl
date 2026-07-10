@@ -1,3 +1,4 @@
+/// BUSINESS MEANING: Calculation group that switches the order-items metric (Revenue / Orders / AOV) on the Time Series page. GRAIN: one row per metric option. RELATIONSHIPS: none (calculation group).
 table 'CG Order Items Metrics'
 	lineageTag: e1fa6f2d-cf31-4171-8307-46990e4d5130
 
@@ -90,6 +91,7 @@ table 'CG Order Items Metrics'
 					)
 					```
 
+	/// The order-items metric selected on the Time Series page (Revenue, Orders, AOV). Grain: one per option.
 	column 'Orders Metric'
 		dataType: string
 		lineageTag: 84ccd351-2e1b-4921-bd30-ad5156fdc7bd
@@ -99,6 +101,7 @@ table 'CG Order Items Metrics'
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Display sort order of the order-items metric options.
 	column Ordinal
 		dataType: int64
 		formatString: 0

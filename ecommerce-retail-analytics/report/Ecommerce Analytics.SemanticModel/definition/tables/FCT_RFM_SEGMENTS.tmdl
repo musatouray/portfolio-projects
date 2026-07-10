@@ -1,6 +1,8 @@
+/// BUSINESS MEANING: Monthly customer-health snapshots combining RFM scoring with churn-risk metrics; use for segmentation, segment migration over time, and churn analysis. GRAIN: one row per customer per snapshot month; metrics are cumulative to that month-end (not per-period). RELATIONSHIPS: joins to DIM_CUSTOMERS (CUSTOMER_KEY) and to DIM_DATES on the snapshot month (SNAPSHOT_DATE_KEY). Excludes canceled/unavailable orders.
 table FCT_RFM_SEGMENTS
 	lineageTag: 5d5cd826-5672-4bef-93ed-7b84e9a2a9ee
 
+	/// Natural customer identifier. Grain: per customer per snapshot month.
 	column CUSTOMER_UNIQUE_ID
 		dataType: string
 		isHidden
@@ -13,6 +15,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Recency score 1-5 (5=most recent) at the snapshot month. Grain: per customer per snapshot month.
 	column R_SCORE
 		dataType: int64
 		isHidden
@@ -24,6 +27,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Frequency score 1-5 (5=most frequent) at the snapshot month. Grain: per customer per snapshot month.
 	column F_SCORE
 		dataType: int64
 		isHidden
@@ -35,6 +39,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Monetary score 1-5 (5=highest spend) at the snapshot month. Grain: per customer per snapshot month.
 	column M_SCORE
 		dataType: int64
 		isHidden
@@ -46,6 +51,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer's RFM business segment at the snapshot (Champions, New Customers, Loyal Customers, Potential Loyalists, At Risk, Hibernating, Need Attention, Lost). Grain: per customer per snapshot month.
 	column RFM_SEGMENT
 		dataType: string
 		lineageTag: 68d83f58-3e72-429e-9f71-8543c773bfc0
@@ -57,6 +63,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Surrogate key of the snapshot row; primary key. Grain: one per customer per snapshot month.
 	column RFM_SNAPSHOT_KEY
 		dataType: string
 		isHidden
@@ -69,6 +76,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Join to DIM_CUSTOMERS. Grain: per customer per snapshot month.
 	column CUSTOMER_KEY
 		dataType: string
 		isHidden
@@ -81,6 +89,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Month-end as-of date the snapshot describes; defines the time grain. Grain: the snapshot month.
 	column SNAPSHOT_MONTH
 		dataType: dateTime
 		formatString: Short Date
@@ -92,6 +101,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation UnderlyingDateTimeDataType = Date
 
+	/// Days since the customer's last purchase as of the snapshot month-end; lower=more recent. Grain: per customer per snapshot month.
 	column RECENCY_DAYS
 		dataType: int64
 		formatString: 0
@@ -101,6 +111,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Cumulative orders by the customer through the snapshot month (not per-period). Grain: per customer per snapshot month.
 	column TOTAL_ORDERS
 		dataType: int64
 		formatString: 0
@@ -110,15 +121,17 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Cumulative revenue by the customer through the snapshot month, BRL (not per-period). Grain: per customer per snapshot month.
 	column TOTAL_REVENUE
 		dataType: decimal
 		formatString: 0.00
 		lineageTag: c5fbb83a-02c9-4d96-80fa-63c5e0d01f82
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: TOTAL_REVENUE
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Weighted average review score (1-5) through the snapshot month; NULL if no reviews. Grain: per customer per snapshot month.
 	column AVERAGE_RATING
 		dataType: int64
 		formatString: 0
@@ -128,6 +141,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Recency-based churn status at the snapshot (Active, Cooling, At Risk, Churned). Grain: per customer per snapshot month.
 	column CHURN_STATUS
 		dataType: string
 		lineageTag: 8618fdb5-5ece-4580-942d-c9f6cb313bb2
@@ -136,6 +150,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Satisfaction tier from rating (promoter, neutral, detractor, unknown). Grain: per customer per snapshot month.
 	column CUSTOMER_NPS_SEGMENT
 		dataType: string
 		lineageTag: 8195307b-20fc-427a-ac90-4fe8b9be2eb8
@@ -144,6 +159,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Composite churn-risk score 0-100 (higher=more at risk) at the snapshot. Grain: per customer per snapshot month.
 	column CHURN_RISK_SCORE
 		dataType: int64
 		formatString: 0
@@ -153,6 +169,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Risk tier from the churn score (Critical, High, Medium, Low). Grain: per customer per snapshot month.
 	column CHURN_RISK_SEGMENT
 		dataType: string
 		lineageTag: 9c9dfa6d-c0da-4a86-b393-ad2d4db00c2f
@@ -161,6 +178,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// YYYYMMDD key of the snapshot month; join to DIM_DATES. Grain: per customer per snapshot month.
 	column SNAPSHOT_DATE_KEY
 		dataType: int64
 		isHidden
@@ -172,6 +190,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Sort index that orders RFM segments consistently (Champions first). Grain: per segment.
 	column SEGMENT_INDEX
 		dataType: int64
 		isHidden
@@ -182,6 +201,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Sum of R+F+M (3-15); higher=stronger customer at the snapshot. Grain: per customer per snapshot month.
 	column RFM_COMBINED_SCORE
 		dataType: int64
 		formatString: 0

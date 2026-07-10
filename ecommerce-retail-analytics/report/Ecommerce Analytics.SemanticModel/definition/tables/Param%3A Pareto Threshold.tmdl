@@ -1,11 +1,14 @@
+/// BUSINESS MEANING: What-if parameter for the Pareto cumulative-revenue threshold (e.g., 80%). GRAIN: one row per selectable threshold value. RELATIONSHIPS: none (disconnected).
 table 'Param: Pareto Threshold'
 	lineageTag: 7bf6c623-6bd0-4096-a54c-e7e43196b639
 
+	/// [HELPER] Reads the selected Pareto threshold what-if value (default 0.80). Not a business metric.
 	measure 'Param: Pareto Threshold Value' = SELECTEDVALUE('Param: Pareto Threshold'[Param: Pareto Threshold], 0.80)
 		lineageTag: c1289e25-a569-45d0-b6f1-c6c44c9ae536
 
 		formatStringDefinition = "0%"
 
+	/// Selectable Pareto cumulative-revenue threshold (what-if, e.g., 0.80). Grain: one per value.
 	column 'Param: Pareto Threshold'
 		formatString: 0%;-0%;0%
 		lineageTag: 9de70191-aae7-4eb0-8d01-a450628446f6

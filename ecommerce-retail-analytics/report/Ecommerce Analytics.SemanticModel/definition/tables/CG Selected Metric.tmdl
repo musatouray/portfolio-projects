@@ -1,3 +1,4 @@
+/// BUSINESS MEANING: Calculation group that switches the active KPI metric (Orders / Revenue / AOV) shown by generic title and metric measures. GRAIN: one row per selectable metric. RELATIONSHIPS: none (calculation group, not joined).
 table 'CG Selected Metric'
 	lineageTag: 33520064-eee4-49cd-a076-ada596c46d59
 
@@ -75,6 +76,7 @@ table 'CG Selected Metric'
 						"$#,##0.0"
 					)
 
+	/// The KPI metric the user selects to display (Orders, Revenue, AOV). Grain: one per selectable metric.
 	column Metric
 		dataType: string
 		lineageTag: 2dc92d0a-897b-4f2b-9084-987901fd789e
@@ -84,6 +86,7 @@ table 'CG Selected Metric'
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Display sort order of the metric options.
 	column Ordinal
 		dataType: int64
 		formatString: 0
