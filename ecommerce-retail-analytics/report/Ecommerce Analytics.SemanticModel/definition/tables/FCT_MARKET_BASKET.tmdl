@@ -4,8 +4,9 @@ table FCT_MARKET_BASKET
 
 	/// Surrogate key of the product pair; primary key. Grain: one per product pair.
 	column BASKET_PAIR_KEY
-		dataType: string
+		dataType: int64
 		isHidden
+		formatString: 0
 		isAvailableInMdx: false
 		lineageTag: 5f97b91b-50ad-4ea5-af08-d032885afb3e
 		summarizeBy: none
@@ -47,8 +48,9 @@ table FCT_MARKET_BASKET
 
 	/// Product A of the pair; active join to DIM_PRODUCTS. Grain: per product pair.
 	column PRODUCT_KEY_A
-		dataType: string
+		dataType: int64
 		isHidden
+		formatString: 0
 		isAvailableInMdx: false
 		lineageTag: 131c6ec1-cc1d-434e-b228-b26043aecbd8
 		summarizeBy: none
@@ -60,8 +62,9 @@ table FCT_MARKET_BASKET
 
 	/// Product B of the pair; inactive join to DIM_PRODUCTS. Grain: per product pair.
 	column PRODUCT_KEY_B
-		dataType: string
+		dataType: int64
 		isHidden
+		formatString: 0
 		isAvailableInMdx: false
 		lineageTag: d9ff213a-3bba-4fd8-9141-d1f43701d994
 		summarizeBy: none
@@ -80,7 +83,7 @@ table FCT_MARKET_BASKET
 				    MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name="MARTS",Kind="Schema"]}[Data],
 				    FCT_MARKET_BASKET_Table = MARTS_Schema{[Name="FCT_MARKET_BASKET",Kind="Table"]}[Data],
 				    RemoveMetadaColumns = fnRemoveMetadataColumns( FCT_MARKET_BASKET_Table ),
-				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"BASKET_PAIR_KEY", type text}, {"PRODUCT_KEY_A", type text}, {"PRODUCT_KEY_B", type text}, {"PAIR_COUNT", Int64.Type}, {"PRODUCT_A_ORDER_COUNT", Int64.Type}, {"PRODUCT_B_ORDER_COUNT", Int64.Type}})
+				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"BASKET_PAIR_KEY", Int64.Type}, {"PRODUCT_KEY_A", Int64.Type}, {"PRODUCT_KEY_B", Int64.Type}, {"PAIR_COUNT", Int64.Type}, {"PRODUCT_A_ORDER_COUNT", Int64.Type}, {"PRODUCT_B_ORDER_COUNT", Int64.Type}})
 				in
 				    #"Changed Type"
 

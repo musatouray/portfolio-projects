@@ -2,23 +2,11 @@
 table FCT_CLV_CUSTOMER
 	lineageTag: b544e3f2-4033-4220-a741-c0e080343fc5
 
-	/// Natural customer identifier; the table's grain. Grain: one per customer.
-	column CUSTOMER_UNIQUE_ID
-		dataType: string
-		isHidden
-		isAvailableInMdx: false
-		lineageTag: 2d8577ab-79cf-47da-8744-f3e5a0af2561
-		summarizeBy: none
-		sourceColumn: CUSTOMER_UNIQUE_ID
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
 	/// Join to DIM_CUSTOMERS. Grain: one per customer.
 	column CUSTOMER_KEY
-		dataType: string
+		dataType: int64
 		isHidden
+		formatString: 0
 		isAvailableInMdx: false
 		lineageTag: 50ffa236-d8ca-46d6-abc4-d77af91f09df
 		isDefaultLabel
@@ -173,7 +161,8 @@ table FCT_CLV_CUSTOMER
 				    MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name="MARTS",Kind="Schema"]}[Data],
 				    FCT_CLV_CUSTOMER_Table = MARTS_Schema{[Name="FCT_CLV_CUSTOMER",Kind="Table"]}[Data],
 				    RemoveMetadaColumns = fnRemoveMetadataColumns( FCT_CLV_CUSTOMER_Table ),
-				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"CUSTOMER_KEY", type text}, {"CUSTOMER_UNIQUE_ID", type text}, {"COHORT_MONTH", type date}, {"FIRST_ORDER_DATE", type date}, {"LAST_ORDER_DATE", type date}, {"TOTAL_LIFETIME_ORDERS", Int64.Type}, {"TOTAL_LIFETIME_REVENUE", Currency.Type}, {"HISTORICAL_AOV", Currency.Type}, {"CUSTOMER_LIFESPAN_DAYS", Int64.Type}, {"TOTAL_REVIEWS", Int64.Type}, {"AVERAGE_RATING", type number}, {"CUSTOMER_LIFECYCLE_SEGMENT", type text}, {"CUSTOMER_VALUE_SEGMENT", type text}, {"CUSTOMER_SATISFACTION_SEGMENT", type text}, {"PREDICTED_CLV_12M", Currency.Type}})
+				    #"Removed Columns" = Table.RemoveColumns(RemoveMetadaColumns,{"CUSTOMER_UNIQUE_ID"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"CUSTOMER_KEY", Int64.Type}, {"COHORT_MONTH", type date}, {"FIRST_ORDER_DATE", type date}, {"LAST_ORDER_DATE", type date}, {"TOTAL_LIFETIME_ORDERS", Int64.Type}, {"TOTAL_LIFETIME_REVENUE", Currency.Type}, {"HISTORICAL_AOV", Currency.Type}, {"CUSTOMER_LIFESPAN_DAYS", Int64.Type}, {"TOTAL_REVIEWS", Int64.Type}, {"AVERAGE_RATING", type number}, {"CUSTOMER_LIFECYCLE_SEGMENT", type text}, {"CUSTOMER_VALUE_SEGMENT", type text}, {"CUSTOMER_SATISFACTION_SEGMENT", type text}, {"PREDICTED_CLV_12M", Currency.Type}})
 				in
 				    #"Changed Type"
 

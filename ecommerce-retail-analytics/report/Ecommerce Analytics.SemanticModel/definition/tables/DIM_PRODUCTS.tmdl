@@ -4,26 +4,14 @@ table DIM_PRODUCTS
 
 	/// Surrogate key for a product; primary key and fact join key. Grain: one per product.
 	column PRODUCT_KEY
-		dataType: string
+		dataType: int64
 		isHidden
+		formatString: 0
 		isAvailableInMdx: false
 		lineageTag: 56a44d8a-61dd-4c57-9014-0e2efb62dae4
 		isDefaultLabel
 		summarizeBy: none
 		sourceColumn: PRODUCT_KEY
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
-	/// Natural product identifier from the source system. Grain: one per product.
-	column PRODUCT_ID
-		dataType: string
-		isHidden
-		isAvailableInMdx: false
-		lineageTag: 77bbe0f2-ec29-4a88-923f-424baa1b11a2
-		summarizeBy: none
-		sourceColumn: PRODUCT_ID
 
 		changedProperty = IsHidden
 
@@ -58,7 +46,7 @@ table DIM_PRODUCTS
 					MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name = "MARTS", Kind = "Schema"]}[Data],
 					DIM_PRODUCTS_Table = MARTS_Schema{[Name = "DIM_PRODUCTS", Kind = "Table"]}[Data],
 					RemoveMetadaColumns = fnRemoveMetadataColumns( DIM_PRODUCTS_Table ),
-				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"PRODUCT_KEY", type text}, {"PRODUCT_ID", type text}, {"PRODUCT_NAME", type text}, {"PRODUCT_CATEGORY", type text}})
+				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"PRODUCT_KEY", Int64.Type}, {"PRODUCT_NAME", type text}, {"PRODUCT_CATEGORY", type text}})
 				in
 				    #"Changed Type"
 

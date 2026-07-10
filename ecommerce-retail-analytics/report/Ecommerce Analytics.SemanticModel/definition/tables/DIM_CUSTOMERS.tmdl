@@ -4,8 +4,9 @@ table DIM_CUSTOMERS
 
 	/// Surrogate key for a customer; primary key of this dimension and the join key used by the fact tables. Grain: one per customer.
 	column CUSTOMER_KEY
-		dataType: string
+		dataType: int64
 		isHidden
+		formatString: 0
 		isAvailableInMdx: false
 		lineageTag: 6c74aeb3-af8c-4da9-96de-ca68650f6db9
 		isDefaultLabel
@@ -67,7 +68,7 @@ table DIM_CUSTOMERS
 				    DIM_CUSTOMERS_Table = MARTS_Schema{[Name="DIM_CUSTOMERS",Kind="Table"]}[Data],
 				    RemoveMetadaColumns = fnRemoveMetadataColumns( DIM_CUSTOMERS_Table ),
 				    #"Removed Columns" = Table.RemoveColumns(RemoveMetadaColumns,{"FIRST_ORDER_DATE", "COHORT_MONTH"}),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"CUSTOMER_KEY", type text}, {"CUSTOMER_UNIQUE_ID", type text}, {"ZIP_CODE", Int64.Type}, {"CITY", type text}, {"STATE", type text}})
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"CUSTOMER_KEY", Int64.Type}, {"CUSTOMER_UNIQUE_ID", type text}, {"ZIP_CODE", Int64.Type}, {"CITY", type text}, {"STATE", type text}})
 				in
 				    #"Changed Type"
 

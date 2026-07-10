@@ -4,7 +4,7 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 2974.39990234375,
+        "x": 0,
         "y": 0
       },
       "nodes": [
@@ -302,7 +302,10 @@
           "zIndex": 0
         },
         {
-          "location": {},
+          "location": {
+            "x": 6950.2078327898889,
+            "y": 294.20074194252322
+          },
           "nodeIndex": "From Segment",
           "nodeLineageTag": "f2a10001-0001-4001-8001-000000000001",
           "size": {
@@ -312,7 +315,10 @@
           "zIndex": 0
         },
         {
-          "location": {},
+          "location": {
+            "x": 7234.2078327898889,
+            "y": 294.20074194252322
+          },
           "nodeIndex": "To Segment",
           "nodeLineageTag": "f2a20001-0001-4001-8001-000000000001",
           "size": {

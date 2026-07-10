@@ -4,26 +4,14 @@ table DIM_SELLERS
 
 	/// Surrogate key for a seller; primary key and fact join key. Grain: one per seller.
 	column SELLER_KEY
-		dataType: string
+		dataType: int64
 		isHidden
+		formatString: 0
 		isAvailableInMdx: false
 		lineageTag: 5951b6c8-3555-4b50-9cea-9997bcdbcdc0
 		isDefaultLabel
 		summarizeBy: none
 		sourceColumn: SELLER_KEY
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
-	/// Natural seller identifier from the source system. Grain: one per seller.
-	column SELLER_ID
-		dataType: string
-		isHidden
-		isAvailableInMdx: false
-		lineageTag: 72bc7d81-1126-4eb1-84d3-e9c342125d5c
-		summarizeBy: none
-		sourceColumn: SELLER_ID
 
 		changedProperty = IsHidden
 
@@ -97,7 +85,7 @@ table DIM_SELLERS
 				    MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name="MARTS",Kind="Schema"]}[Data],
 				    DIM_SELLERS_Table = MARTS_Schema{[Name="DIM_SELLERS",Kind="Table"]}[Data],
 				    RemoveMetadaColumns = fnRemoveMetadataColumns( DIM_SELLERS_Table ),
-				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"SELLER_KEY", type text}, {"SELLER_ID", type text}, {"ZIP_CODE", Int64.Type}, {"CITY", type text}, {"STATE", type text}, {"LATITUDE", type number}, {"LONGITUDE", type number}, {"PRIMARY_PRODUCT_CATEGORY", type text}})
+				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"SELLER_KEY", Int64.Type}, {"ZIP_CODE", Int64.Type}, {"CITY", type text}, {"STATE", type text}, {"LATITUDE", type number}, {"LONGITUDE", type number}, {"PRIMARY_PRODUCT_CATEGORY", type text}})
 				in
 				    #"Changed Type"
 

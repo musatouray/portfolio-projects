@@ -4,8 +4,9 @@ table FCT_ORDERS
 
 	/// Surrogate key of the order; primary key of this fact. Grain: one per order.
 	column ORDER_KEY
-		dataType: string
+		dataType: int64
 		isHidden
+		formatString: 0
 		isAvailableInMdx: false
 		lineageTag: 7ca1aa79-170c-4aa8-af69-9b157790d237
 		summarizeBy: none
@@ -15,23 +16,11 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Natural order identifier from the source system. Grain: one per order.
-	column ORDER_ID
-		dataType: string
-		isHidden
-		isAvailableInMdx: false
-		lineageTag: 4d9e4274-e1ad-4712-bbaa-67d0f25a2389
-		summarizeBy: none
-		sourceColumn: ORDER_ID
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
 	/// Customer who placed the order; join to DIM_CUSTOMERS. Grain: per order.
 	column CUSTOMER_KEY
-		dataType: string
+		dataType: int64
 		isHidden
+		formatString: 0
 		isAvailableInMdx: false
 		lineageTag: aea5a544-421f-4a41-bef7-d6598bb4263f
 		summarizeBy: none
@@ -212,19 +201,6 @@ table FCT_ORDERS
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Natural identifier of the order's buyer. Grain: per order.
-	column CUSTOMER_UNIQUE_ID
-		dataType: string
-		isHidden
-		isAvailableInMdx: false
-		lineageTag: a5cc8834-b8e5-433c-a6fa-c589f4474d55
-		summarizeBy: none
-		sourceColumn: CUSTOMER_UNIQUE_ID
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
 	/// Calendar date the order was placed. Grain: per order.
 	column ORDER_DATE
 		dataType: dateTime
@@ -250,7 +226,8 @@ table FCT_ORDERS
 				    MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name="MARTS",Kind="Schema"]}[Data],
 				    FCT_ORDERS_Table = MARTS_Schema{[Name="FCT_ORDERS",Kind="Table"]}[Data],
 				    RemoveMetadaColumns = fnRemoveMetadataColumns( FCT_ORDERS_Table ),
-				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"ORDER_KEY", type text}, {"ORDER_ID", type text}, {"CUSTOMER_KEY", type text}, {"CUSTOMER_UNIQUE_ID", type text}, {"ORDER_DATE_KEY", Int64.Type}, {"APPROVAL_DATE_KEY", Int64.Type}, {"DELIVERY_DATE_KEY", Int64.Type}, {"ESTIMATED_DELIVERY_DATE_KEY", Int64.Type}, {"ORDER_DATE", type date}, {"ORDER_STATUS", type text}, {"DELIVERY_DAYS", Int64.Type}, {"FULFILLMENT_DAYS", Int64.Type}, {"SHIPPING_TRANSIT_DAYS", Int64.Type}, {"IS_ON_TIME_DELIVERY", type logical}, {"TOTAL_PRICE", Currency.Type}, {"TOTAL_FREIGHT_VALUE", Currency.Type}, {"GROSS_ORDER_VALUE", Currency.Type}, {"PAYMENT_COUNT", Int64.Type}, {"TOTAL_PAYMENT_VALUE", Currency.Type}, {"REVIEW_COUNT", Int64.Type}, {"REVIEW_SCORE", Int64.Type}})
+				    #"Removed Columns" = Table.RemoveColumns(RemoveMetadaColumns,{"ORDER_ID", "CUSTOMER_UNIQUE_ID"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"ORDER_KEY", Int64.Type}, {"CUSTOMER_KEY", Int64.Type}, {"ORDER_DATE_KEY", Int64.Type}, {"APPROVAL_DATE_KEY", Int64.Type}, {"DELIVERY_DATE_KEY", Int64.Type}, {"ESTIMATED_DELIVERY_DATE_KEY", Int64.Type}, {"ORDER_DATE", type date}, {"ORDER_STATUS", type text}, {"DELIVERY_DAYS", Int64.Type}, {"FULFILLMENT_DAYS", Int64.Type}, {"SHIPPING_TRANSIT_DAYS", Int64.Type}, {"IS_ON_TIME_DELIVERY", type logical}, {"TOTAL_PRICE", Currency.Type}, {"TOTAL_FREIGHT_VALUE", Currency.Type}, {"GROSS_ORDER_VALUE", Currency.Type}, {"PAYMENT_COUNT", Int64.Type}, {"TOTAL_PAYMENT_VALUE", Currency.Type}, {"REVIEW_COUNT", Int64.Type}, {"REVIEW_SCORE", Int64.Type}})
 				in
 				    #"Changed Type"
 

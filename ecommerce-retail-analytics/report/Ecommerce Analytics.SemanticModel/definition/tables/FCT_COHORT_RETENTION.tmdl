@@ -4,8 +4,9 @@ table FCT_COHORT_RETENTION
 
 	/// Surrogate key of the cohort-period row; primary key. Grain: one per cohort per period.
 	column COHORT_RETENTION_KEY
-		dataType: string
+		dataType: int64
 		isHidden
+		formatString: 0
 		isAvailableInMdx: false
 		lineageTag: 7fa257d0-ad3d-43e3-b687-c79e5754ef9b
 		summarizeBy: none
@@ -133,7 +134,7 @@ table FCT_COHORT_RETENTION
 				    MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name="MARTS",Kind="Schema"]}[Data],
 				    FCT_COHORT_RETENTION_Table = MARTS_Schema{[Name="FCT_COHORT_RETENTION",Kind="Table"]}[Data],
 				    RemoveMetadaColumns = fnRemoveMetadataColumns( FCT_COHORT_RETENTION_Table ),
-				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"COHORT_RETENTION_KEY", type text}, {"COHORT_DATE_KEY", Int64.Type}, {"COHORT_MONTH", type date}, {"COHORT_SIZE", Int64.Type}, {"PERIOD", Int64.Type}, {"ACTIVE_CUSTOMERS", Int64.Type}, {"PERIOD_ORDERS", Int64.Type}, {"PERIOD_REVENUE", Currency.Type}, {"GROSS_RETAINED_REVENUE", Currency.Type}, {"NET_RETAINED_REVENUE", Currency.Type}, {"COHORT_INITIAL_REVENUE", Currency.Type}})
+				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"COHORT_RETENTION_KEY", Int64.Type}, {"COHORT_DATE_KEY", Int64.Type}, {"COHORT_MONTH", type date}, {"COHORT_SIZE", Int64.Type}, {"PERIOD", Int64.Type}, {"ACTIVE_CUSTOMERS", Int64.Type}, {"PERIOD_ORDERS", Int64.Type}, {"PERIOD_REVENUE", Currency.Type}, {"GROSS_RETAINED_REVENUE", Currency.Type}, {"NET_RETAINED_REVENUE", Currency.Type}, {"COHORT_INITIAL_REVENUE", Currency.Type}})
 				in
 				    #"Changed Type"
 

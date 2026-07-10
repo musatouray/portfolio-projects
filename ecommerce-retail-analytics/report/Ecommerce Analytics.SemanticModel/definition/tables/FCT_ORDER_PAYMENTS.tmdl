@@ -15,8 +15,9 @@ table FCT_ORDER_PAYMENTS
 
 	/// Surrogate key of the payment transaction; primary key of this fact. Grain: one per payment transaction.
 	column ORDER_PAYMENT_KEY
-		dataType: string
+		dataType: int64
 		isHidden
+		formatString: 0
 		isAvailableInMdx: false
 		lineageTag: 4f7890a1-ddea-433e-ae64-573d1fe33be9
 		summarizeBy: none
@@ -28,8 +29,9 @@ table FCT_ORDER_PAYMENTS
 
 	/// Order this payment belongs to (degenerate reference; no active relationship to FCT_ORDERS). Grain: per payment transaction.
 	column ORDER_KEY
-		dataType: string
+		dataType: int64
 		isHidden
+		formatString: 0
 		isAvailableInMdx: false
 		lineageTag: e3365d0a-4946-483f-854d-5efc96f416c7
 		summarizeBy: none
@@ -41,8 +43,9 @@ table FCT_ORDER_PAYMENTS
 
 	/// Customer who paid; join to DIM_CUSTOMERS. Grain: per payment transaction.
 	column CUSTOMER_KEY
-		dataType: string
+		dataType: int64
 		isHidden
+		formatString: 0
 		isAvailableInMdx: false
 		lineageTag: dab77186-1a03-4898-bc61-1a596af3bf18
 		summarizeBy: none
@@ -61,19 +64,6 @@ table FCT_ORDER_PAYMENTS
 		lineageTag: 79132429-eec4-4fd4-87fa-054f747e4445
 		summarizeBy: none
 		sourceColumn: ORDER_DATE_KEY
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
-	/// Natural order identifier for the payment. Grain: per payment transaction.
-	column ORDER_ID
-		dataType: string
-		isHidden
-		isAvailableInMdx: false
-		lineageTag: 45e909eb-9c56-4195-b3d2-84f628e74c30
-		summarizeBy: none
-		sourceColumn: ORDER_ID
 
 		changedProperty = IsHidden
 
@@ -124,7 +114,8 @@ table FCT_ORDER_PAYMENTS
 				    MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name="MARTS",Kind="Schema"]}[Data],
 				    FCT_PAYMENT_ANALYSIS_Table = MARTS_Schema{[Name="FCT_ORDER_PAYMENTS",Kind="Table"]}[Data],
 				    RemoveMetadaColumns = fnRemoveMetadataColumns( FCT_PAYMENT_ANALYSIS_Table ),
-				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"ORDER_PAYMENT_KEY", type text}, {"ORDER_KEY", type text}, {"CUSTOMER_KEY", type text}, {"ORDER_DATE_KEY", Int64.Type}, {"ORDER_ID", type text}, {"PAYMENT_TYPE", type text}, {"PAYMENT_SEQUENTIAL", Int64.Type}, {"PAYMENT_INSTALLMENTS", Int64.Type}, {"PAYMENT_VALUE", Currency.Type}})
+				    #"Removed Columns" = Table.RemoveColumns(RemoveMetadaColumns,{"ORDER_ID"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"ORDER_PAYMENT_KEY", Int64.Type}, {"ORDER_KEY", Int64.Type}, {"CUSTOMER_KEY", Int64.Type}, {"ORDER_DATE_KEY", Int64.Type}, {"PAYMENT_TYPE", type text}, {"PAYMENT_SEQUENTIAL", Int64.Type}, {"PAYMENT_INSTALLMENTS", Int64.Type}, {"PAYMENT_VALUE", Currency.Type}})
 				in
 				    #"Changed Type"
 
