@@ -1,6 +1,8 @@
+/// BUSINESS MEANING: Product co-purchase counts used to compute support, confidence and lift for cross-sell / affinity analysis. GRAIN: one row per product pair. RELATIONSHIPS: joins to DIM_PRODUCTS on product A (active) and product B (inactive; activate with USERELATIONSHIP to resolve the second product). Excludes canceled/unavailable orders.
 table FCT_MARKET_BASKET
 	lineageTag: a151dc8c-67f0-4c78-a37a-353e565cdc4e
 
+	/// Surrogate key of the product pair; primary key. Grain: one per product pair.
 	column BASKET_PAIR_KEY
 		dataType: string
 		isHidden
@@ -13,6 +15,7 @@ table FCT_MARKET_BASKET
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Number of orders containing both products of the pair (co-occurrence count). Grain: per product pair.
 	column PAIR_COUNT
 		dataType: int64
 		formatString: 0
@@ -22,6 +25,7 @@ table FCT_MARKET_BASKET
 
 		annotation SummarizationSetBy = User
 
+	/// Orders containing product A; denominator for confidence and lift. Grain: per product pair.
 	column PRODUCT_A_ORDER_COUNT
 		dataType: int64
 		formatString: 0
@@ -31,6 +35,7 @@ table FCT_MARKET_BASKET
 
 		annotation SummarizationSetBy = User
 
+	/// Orders containing product B; used for lift. Grain: per product pair.
 	column PRODUCT_B_ORDER_COUNT
 		dataType: int64
 		formatString: 0
@@ -40,6 +45,7 @@ table FCT_MARKET_BASKET
 
 		annotation SummarizationSetBy = User
 
+	/// Product A of the pair; active join to DIM_PRODUCTS. Grain: per product pair.
 	column PRODUCT_KEY_A
 		dataType: string
 		isHidden
@@ -52,6 +58,7 @@ table FCT_MARKET_BASKET
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Product B of the pair; inactive join to DIM_PRODUCTS. Grain: per product pair.
 	column PRODUCT_KEY_B
 		dataType: string
 		isHidden

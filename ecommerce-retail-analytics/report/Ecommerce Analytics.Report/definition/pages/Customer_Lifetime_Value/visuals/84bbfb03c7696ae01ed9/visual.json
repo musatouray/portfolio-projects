@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "2db7ff3e79908e91072e",
+  "name": "84bbfb03c7696ae01ed9",
   "position": {
     "x": 30.363424400628517,
     "y": 207.87267474276447,
-    "z": 5000,
+    "z": 5001,
     "height": 290.78817983678852,
     "width": 1860.3436565462011,
-    "tabOrder": 7000
+    "tabOrder": 6001
   },
   "visual": {
     "visualType": "cardVisual",
@@ -27,7 +27,7 @@
                 }
               },
               "queryRef": "_Measures.RFM Unique Customers",
-              "nativeQueryRef": "RFM Lifetime Customers"
+              "nativeQueryRef": "RFM Unique Customers"
             },
             {
               "field": {
@@ -41,7 +41,7 @@
                 }
               },
               "queryRef": "_Measures.RFM Total Orders",
-              "nativeQueryRef": "RFM Lifetime Orders"
+              "nativeQueryRef": "RFM Total Orders"
             },
             {
               "field": {

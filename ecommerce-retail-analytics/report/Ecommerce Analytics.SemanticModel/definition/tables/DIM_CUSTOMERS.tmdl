@@ -1,6 +1,8 @@
+/// BUSINESS MEANING: Master list of marketplace customers (buyers) and where they are located (US geography). GRAIN: one row per customer. RELATIONSHIPS: the customer dimension of the star schema; joins on CUSTOMER_KEY one-to-many to FCT_ORDERS, FCT_ORDER_ITEMS, FCT_ORDER_PAYMENTS and FCT_RFM_SEGMENTS, and one-to-one (bi-directional) to FCT_CLV_CUSTOMER. Use it to break any customer metric down by state or city.
 table DIM_CUSTOMERS
 	lineageTag: b5f7505e-a37a-47d9-bfd1-99a4d36404b2
 
+	/// Surrogate key for a customer; primary key of this dimension and the join key used by the fact tables. Grain: one per customer.
 	column CUSTOMER_KEY
 		dataType: string
 		isHidden
@@ -14,6 +16,7 @@ table DIM_CUSTOMERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Natural business identifier of the customer from the source system. Grain: one per customer.
 	column CUSTOMER_UNIQUE_ID
 		dataType: string
 		isHidden
@@ -26,15 +29,17 @@ table DIM_CUSTOMERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer's 5-digit zip code (most recent address if the customer has multiple orders). Grain: per customer.
 	column ZIP_CODE
 		dataType: int64
 		formatString: 0
 		lineageTag: 9bb9e855-7ea0-4a7c-b1fa-2921b600fb31
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ZIP_CODE
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer's city, title case (most recent address). Grain: per customer.
 	column CITY
 		dataType: string
 		lineageTag: abc99fc1-9c02-4f35-9935-2a408b5911be
@@ -43,6 +48,7 @@ table DIM_CUSTOMERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer's US state code, 2-letter (most recent address). Grain: per customer.
 	column STATE
 		dataType: string
 		lineageTag: 215d3dd1-6330-4167-9f98-6e42280485da
@@ -50,28 +56,6 @@ table DIM_CUSTOMERS
 		sourceColumn: STATE
 
 		annotation SummarizationSetBy = Automatic
-
-	column FIRST_ORDER_DATE
-		dataType: dateTime
-		formatString: Short Date
-		lineageTag: 3935a727-fefa-4e29-b05d-98643c1e4871
-		summarizeBy: none
-		sourceColumn: FIRST_ORDER_DATE
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column COHORT_MONTH
-		dataType: dateTime
-		formatString: Short Date
-		lineageTag: 7ca32640-500b-40d2-90d4-c9263ea6cae0
-		summarizeBy: none
-		sourceColumn: COHORT_MONTH
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
 
 	partition DIM_CUSTOMERS = m
 		mode: import
@@ -82,7 +66,8 @@ table DIM_CUSTOMERS
 				    MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name="MARTS",Kind="Schema"]}[Data],
 				    DIM_CUSTOMERS_Table = MARTS_Schema{[Name="DIM_CUSTOMERS",Kind="Table"]}[Data],
 				    RemoveMetadaColumns = fnRemoveMetadataColumns( DIM_CUSTOMERS_Table ),
-				    #"Changed Type" = Table.TransformColumnTypes(RemoveMetadaColumns,{{"CUSTOMER_KEY", type text}, {"CUSTOMER_UNIQUE_ID", type text}, {"ZIP_CODE", Int64.Type}, {"CITY", type text}, {"STATE", type text}, {"FIRST_ORDER_DATE", type date}, {"COHORT_MONTH", type date}})
+				    #"Removed Columns" = Table.RemoveColumns(RemoveMetadaColumns,{"FIRST_ORDER_DATE", "COHORT_MONTH"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"CUSTOMER_KEY", type text}, {"CUSTOMER_UNIQUE_ID", type text}, {"ZIP_CODE", Int64.Type}, {"CITY", type text}, {"STATE", type text}})
 				in
 				    #"Changed Type"
 

@@ -1,17 +1,17 @@
+/// BUSINESS MEANING: Field parameter selecting which cohort metric to display (Retention, Active, Revenue, Orders, GRR, NRR) on the cohort heatmap and bar chart. GRAIN: one row per selectable metric. RELATIONSHIPS: none (disconnected field parameter).
 table 'Param: Cohort Retention'
 	lineageTag: 846c9a26-807e-412b-ab47-d9e492d0ad26
 
+	/// The cohort metric the user selects (Retention, Active, Revenue, Orders, GRR, NRR). Grain: one per option.
 	column 'Param: Cohort Retention'
 		lineageTag: a8cd905e-c517-4c99-ae87-5ddec4591b39
 		summarizeBy: none
 		sourceColumn: [Value1]
 		sortByColumn: 'Param: Cohort Retention Order'
 
-		relatedColumnDetails
-			groupByColumn: 'Param: Cohort Retention Fields'
-
 		annotation SummarizationSetBy = Automatic
 
+	/// The measure bound to each cohort-metric option (field-parameter mapping).
 	column 'Param: Cohort Retention Fields'
 		isHidden
 		isAvailableInMdx: false
@@ -28,6 +28,7 @@ table 'Param: Cohort Retention'
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Display sort order of the cohort-metric options.
 	column 'Param: Cohort Retention Order'
 		isHidden
 		formatString: 0

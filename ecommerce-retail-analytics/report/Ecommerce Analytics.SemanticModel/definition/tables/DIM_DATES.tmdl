@@ -1,10 +1,9 @@
-/// Conformed date dimension. MUST be marked as a Date Table in Power BI Desktop
-/// (right-click table -> Mark as Date Table -> DATE column) for time-intelligence
-/// functions (DATESYTD, SAMEPERIODLASTYEAR, DATEADD) to return correct values.
+/// BUSINESS MEANING: Standard calendar for all time-based analysis (year, quarter, month, week, day attributes). GRAIN: one row per calendar date (2016-2028). RELATIONSHIPS: the role-playing date dimension; active joins on DATE_KEY to order date (FCT_ORDERS, FCT_ORDER_ITEMS, FCT_ORDER_PAYMENTS), RFM snapshot month (FCT_RFM_SEGMENTS) and cohort month (FCT_COHORT_RETENTION); an inactive join covers order delivery date (activate with USERELATIONSHIP). FCT_CLV_CUSTOMER and FCT_MARKET_BASKET are not date-related.
 table DIM_DATES
 	lineageTag: b4cf66a4-55c7-458b-be19-6f24ccc2c2e6
 	dataCategory: Time
 
+	/// Integer date key in YYYYMMDD; primary key and the join target for fact date columns. Grain: one per calendar date.
 	column DATE_KEY
 		dataType: int64
 		isHidden
@@ -17,6 +16,7 @@ table DIM_DATES
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Calendar date and default field for time analysis. Grain: one per day.
 	column DATE
 		dataType: dateTime
 		isKey
@@ -29,6 +29,7 @@ table DIM_DATES
 
 		annotation UnderlyingDateTimeDataType = Date
 
+	/// Calendar year of the date.
 	column YEAR
 		dataType: int64
 		formatString: 0
@@ -38,6 +39,7 @@ table DIM_DATES
 
 		annotation SummarizationSetBy = User
 
+	/// Year-quarter label (e.g., 2023-Q4) for quarterly grouping.
 	column YEAR_QUARTER
 		dataType: string
 		lineageTag: b34ebc78-d606-461d-a72b-faedb2de3030
@@ -48,6 +50,7 @@ table DIM_DATES
 
 		annotation SummarizationSetBy = Automatic
 
+	/// First day of the date's month; use for monthly trend grouping.
 	column YEAR_MONTH
 		dataType: dateTime
 		isHidden
@@ -62,6 +65,7 @@ table DIM_DATES
 
 		annotation UnderlyingDateTimeDataType = Date
 
+	/// Quarter number 1-4 within the year.
 	column QUARTER_NUMBER
 		dataType: int64
 		isHidden
@@ -73,6 +77,7 @@ table DIM_DATES
 
 		annotation SummarizationSetBy = User
 
+	/// Quarter label Q1-Q4.
 	column QUARTER_NAME
 		dataType: string
 		lineageTag: 543f59d4-5b7c-4773-b08e-06a3fe077f82
@@ -81,6 +86,7 @@ table DIM_DATES
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Month number 1-12 within the year.
 	column MONTH
 		dataType: int64
 		isHidden
@@ -91,6 +97,7 @@ table DIM_DATES
 
 		annotation SummarizationSetBy = User
 
+	/// Full month name (January-December).
 	column MONTH_NAME
 		dataType: string
 		lineageTag: 399a8a75-96ab-48c7-9d90-3ce2eba60092
@@ -102,6 +109,7 @@ table DIM_DATES
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Month-year display label (e.g., Dec-2023).
 	column MONTH_YEAR
 		dataType: dateTime
 		formatString: Long Date
@@ -116,16 +124,19 @@ table DIM_DATES
 
 		annotation UnderlyingDateTimeDataType = Date
 
+	/// Week number within the year.
 	column WEEK
 		dataType: int64
 		isHidden
 		formatString: 0
+		isAvailableInMdx: false
 		lineageTag: ce9f366e-5509-453b-baf9-0b4c6c3cf812
 		summarizeBy: none
 		sourceColumn: WEEK
 
 		annotation SummarizationSetBy = User
 
+	/// Day of the month, 1-31.
 	column DAY
 		dataType: int64
 		isHidden
@@ -137,6 +148,7 @@ table DIM_DATES
 
 		annotation SummarizationSetBy = User
 
+	/// Abbreviated weekday name (Mon-Sun).
 	column DAY_NAME
 		dataType: string
 		lineageTag: 0861bcbd-3276-4f0a-9b33-94b40aebb58b
@@ -145,6 +157,7 @@ table DIM_DATES
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Weekday number (Snowflake convention: 0=Sunday..6=Saturday).
 	column DAY_OF_WEEK
 		dataType: int64
 		isHidden
@@ -156,6 +169,7 @@ table DIM_DATES
 
 		annotation SummarizationSetBy = User
 
+	/// Flag: TRUE if the date is a weekend (Saturday or Sunday).
 	column IS_WEEKEND
 		dataType: boolean
 		isHidden
@@ -169,6 +183,7 @@ table DIM_DATES
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Single-letter month initial (sort-padded) for compact month axes.
 	column MONTH_INITIAL
 		dataType: string
 		lineageTag: defde0c6-21f1-4de0-839c-e992207cf235
@@ -180,6 +195,7 @@ table DIM_DATES
 
 		annotation SummarizationSetBy = Automatic
 
+	/// First day of the date's month.
 	column MONTH_START_DATE
 		dataType: dateTime
 		formatString: Long Date

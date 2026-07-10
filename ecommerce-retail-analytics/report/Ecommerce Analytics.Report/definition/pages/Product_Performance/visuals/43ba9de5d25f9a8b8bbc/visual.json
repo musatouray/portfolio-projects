@@ -2,12 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "43ba9de5d25f9a8b8bbc",
   "position": {
-    "x": 30,
-    "y": 411,
+    "x": 30.363424400628517,
+    "y": 455.45136600942777,
     "z": 0,
-    "height": 638.87378985250143,
-    "width": 1589.408484971362,
-    "tabOrder": 9027
+    "height": 594.4224238430736,
+    "width": 1860.3436565462011
   },
   "visualGroup": {
     "displayName": "Products Pareto",

@@ -1,3 +1,4 @@
+/// BUSINESS MEANING: Calculation group selecting the metric used in the product Pareto (ABC) analysis. GRAIN: one row per metric option. RELATIONSHIPS: none (calculation group).
 table 'CG Pareto Metric'
 	lineageTag: c82c1bff-b97c-421a-b8ea-86f09bcb0f3c
 
@@ -26,6 +27,7 @@ table 'CG Pareto Metric'
 				
 				```
 
+	/// The metric selected for Pareto analysis. Grain: one per option.
 	column Metric
 		dataType: string
 		lineageTag: b427d1d3-11a5-424f-a196-28246ada8894
@@ -35,6 +37,7 @@ table 'CG Pareto Metric'
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Display sort order of the Pareto metric options.
 	column Ordinal
 		dataType: int64
 		formatString: 0

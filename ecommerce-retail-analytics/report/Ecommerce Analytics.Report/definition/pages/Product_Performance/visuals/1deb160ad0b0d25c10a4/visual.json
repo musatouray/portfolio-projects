@@ -7,10 +7,11 @@
     "z": 4000,
     "height": 1013.6712453748289,
     "width": 269.76734755943028,
-    "tabOrder": 1000
+    "tabOrder": 0
   },
   "visualGroup": {
     "displayName": "Grp Filter Pane",
     "groupMode": "ScaleMode"
-  }
+  },
+  "isHidden": true
 }

@@ -1,6 +1,8 @@
+/// BUSINESS MEANING: What-if field parameter for the number of top and bottom products (N) shown in the ranking table. GRAIN: one row per selectable N. RELATIONSHIPS: none (disconnected; read via SELECTEDVALUE).
 table 'Top/Bottom Selector'
 	lineageTag: 8905bdcb-d9a5-4b50-b4f9-70570b3de45c
 
+	/// The N value chosen for Top/Bottom-N product ranking (what-if). Grain: one per selectable N.
 	column 'Top/Bottom N'
 		formatString: 0
 		lineageTag: 2f3424ff-8e9e-4b94-8302-d009f20bafc4

@@ -1,6 +1,8 @@
+/// BUSINESS MEANING: Payment-transaction facts - one payment on an order, with method, installments and amount. Use for payment-method mix and installment analysis. GRAIN: one row per payment transaction (order x payment sequence x type); excludes canceled/unavailable orders. RELATIONSHIPS: joins to DIM_CUSTOMERS (CUSTOMER_KEY) and DIM_DATES (order date). Not related to FCT_ORDERS - combine only via shared dimensions.
 table FCT_ORDER_PAYMENTS
 	lineageTag: 2f8d2dab-28cb-405d-95b4-44d14e7309b5
 
+	/// Payment method used (credit_card, boleto, voucher, debit_card, not_defined). Grain: per payment transaction.
 	column PAYMENT_TYPE
 		dataType: string
 		lineageTag: 334d0c4f-a11e-4942-ad28-818ad4b4ad94
@@ -11,6 +13,7 @@ table FCT_ORDER_PAYMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Surrogate key of the payment transaction; primary key of this fact. Grain: one per payment transaction.
 	column ORDER_PAYMENT_KEY
 		dataType: string
 		isHidden
@@ -23,6 +26,7 @@ table FCT_ORDER_PAYMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Order this payment belongs to (degenerate reference; no active relationship to FCT_ORDERS). Grain: per payment transaction.
 	column ORDER_KEY
 		dataType: string
 		isHidden
@@ -35,6 +39,7 @@ table FCT_ORDER_PAYMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer who paid; join to DIM_CUSTOMERS. Grain: per payment transaction.
 	column CUSTOMER_KEY
 		dataType: string
 		isHidden
@@ -47,6 +52,7 @@ table FCT_ORDER_PAYMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Order placement date; join to DIM_DATES. Grain: per payment transaction.
 	column ORDER_DATE_KEY
 		dataType: int64
 		isHidden
@@ -60,6 +66,7 @@ table FCT_ORDER_PAYMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Natural order identifier for the payment. Grain: per payment transaction.
 	column ORDER_ID
 		dataType: string
 		isHidden
@@ -72,6 +79,7 @@ table FCT_ORDER_PAYMENTS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Sequence number of the payment within the order. Grain: per payment transaction.
 	column PAYMENT_SEQUENTIAL
 		dataType: int64
 		formatString: 0
@@ -83,6 +91,7 @@ table FCT_ORDER_PAYMENTS
 
 		annotation SummarizationSetBy = User
 
+	/// Number of installments for this payment. Grain: per payment transaction.
 	column PAYMENT_INSTALLMENTS
 		dataType: int64
 		formatString: 0
@@ -94,11 +103,12 @@ table FCT_ORDER_PAYMENTS
 
 		annotation SummarizationSetBy = User
 
+	/// Amount of this payment (BRL). Grain: per payment transaction.
 	column PAYMENT_VALUE
 		dataType: decimal
 		formatString: 0.00
 		lineageTag: f4e10892-2460-4c1e-87c6-0e1e3b05708c
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: PAYMENT_VALUE
 
 		changedProperty = IsHidden

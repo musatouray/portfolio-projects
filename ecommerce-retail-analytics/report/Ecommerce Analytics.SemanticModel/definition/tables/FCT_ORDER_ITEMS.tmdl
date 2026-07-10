@@ -1,6 +1,8 @@
+/// BUSINESS MEANING: Order line-item facts - product/seller-level sales, capturing item price and freight. Use for product, category and seller sales and for basket analysis. GRAIN: one row per order line (order x item). RELATIONSHIPS: joins to DIM_PRODUCTS (PRODUCT_KEY), DIM_SELLERS (SELLER_KEY), DIM_CUSTOMERS (CUSTOMER_KEY) and DIM_DATES (order date).
 table FCT_ORDER_ITEMS
 	lineageTag: 0e4f458f-0dfd-4cf5-bd7e-68cdfbb34b61
 
+	/// Surrogate key of the order line; primary key of this fact. Grain: one per order line.
 	column ORDER_ITEM_KEY
 		dataType: string
 		isHidden
@@ -13,6 +15,7 @@ table FCT_ORDER_ITEMS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Order the line belongs to. Grain: per order line.
 	column ORDER_ID
 		dataType: string
 		isHidden
@@ -25,6 +28,7 @@ table FCT_ORDER_ITEMS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Line sequence number within the order. Grain: per order line.
 	column ORDER_ITEM_ID
 		dataType: int64
 		isHidden
@@ -36,6 +40,7 @@ table FCT_ORDER_ITEMS
 
 		annotation SummarizationSetBy = User
 
+	/// Buyer of the line's order; join to DIM_CUSTOMERS. Grain: per order line.
 	column CUSTOMER_KEY
 		dataType: string
 		isHidden
@@ -48,6 +53,7 @@ table FCT_ORDER_ITEMS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Product sold on the line; join to DIM_PRODUCTS. Grain: per order line.
 	column PRODUCT_KEY
 		dataType: string
 		isHidden
@@ -60,6 +66,7 @@ table FCT_ORDER_ITEMS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Seller fulfilling the line; join to DIM_SELLERS. Grain: per order line.
 	column SELLER_KEY
 		dataType: string
 		isHidden
@@ -72,6 +79,7 @@ table FCT_ORDER_ITEMS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Order placement date; join to DIM_DATES. Grain: per order line.
 	column ORDER_DATE_KEY
 		dataType: int64
 		isHidden
@@ -83,6 +91,7 @@ table FCT_ORDER_ITEMS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Delivery date of the line's order (YYYYMMDD). Grain: per order line.
 	column DELIVERY_DATE_KEY
 		dataType: int64
 		isHidden
@@ -94,6 +103,7 @@ table FCT_ORDER_ITEMS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Status of the parent order. Grain: per order line.
 	column ORDER_STATUS
 		dataType: string
 		lineageTag: 77c9cb4e-f7b0-4752-a9f4-2f938321d477
@@ -102,33 +112,37 @@ table FCT_ORDER_ITEMS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Selling price of the line item (BRL). Grain: per order line.
 	column ITEM_PRICE
 		dataType: decimal
 		formatString: 0.00
 		lineageTag: e2a76e35-c94e-4b92-ba73-8fd8240cbbd0
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ITEM_PRICE
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Freight allocated to the line item (BRL). Grain: per order line.
 	column ITEM_FREIGHT
 		dataType: decimal
 		formatString: 0.00
 		lineageTag: ff9a123d-6527-4b7d-a886-a97eebd9e1da
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ITEM_FREIGHT
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Line value including freight (price + freight, BRL). Grain: per order line.
 	column ITEM_TOTAL
 		dataType: decimal
 		formatString: 0.00
 		lineageTag: 896c1e02-dd3c-4fdc-80a4-bfc52f30dc59
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ITEM_TOTAL
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Natural product identifier for the line. Grain: per order line.
 	column PRODUCT_ID
 		dataType: string
 		isHidden
@@ -141,6 +155,7 @@ table FCT_ORDER_ITEMS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Natural seller identifier for the line. Grain: per order line.
 	column SELLER_ID
 		dataType: string
 		isHidden
@@ -153,6 +168,7 @@ table FCT_ORDER_ITEMS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Date the order was placed. Grain: per order line.
 	column ORDER_DATE
 		dataType: dateTime
 		isHidden

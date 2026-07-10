@@ -11,7 +11,7 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_QueryOrder = ["DIM_CUSTOMERS","DIM_DATES","DIM_PRODUCTS","DIM_SELLERS","FCT_CLV_CUSTOMER","FCT_COHORT_RETENTION","FCT_MARKET_BASKET","FCT_ORDER_ITEMS","FCT_ORDERS","FCT_ORDER_PAYMENTS","FCT_RFM_SEGMENTS","fnRemoveMetadataColumns"]
 
-annotation PBI_ProTooling = ["DevMode","CalcGroup","TMDLView_Desktop","DaxQueryView_Desktop"]
+annotation PBI_ProTooling = ["DevMode","CalcGroup","TMDLView_Desktop","DaxQueryView_Desktop","MCP-PBIModeling"]
 
 ref table DIM_CUSTOMERS
 ref table DIM_DATES

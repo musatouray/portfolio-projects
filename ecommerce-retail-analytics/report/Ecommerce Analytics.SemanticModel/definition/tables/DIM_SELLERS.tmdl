@@ -1,6 +1,8 @@
+/// BUSINESS MEANING: Marketplace sellers (merchants), their location and each seller's primary product category. GRAIN: one row per seller. RELATIONSHIPS: joins on SELLER_KEY one-to-many to FCT_ORDER_ITEMS. Use it to analyze line-item sales by seller or seller geography.
 table DIM_SELLERS
 	lineageTag: 1a7fd715-ad20-46cf-b32d-5e9773ccaed1
 
+	/// Surrogate key for a seller; primary key and fact join key. Grain: one per seller.
 	column SELLER_KEY
 		dataType: string
 		isHidden
@@ -14,6 +16,7 @@ table DIM_SELLERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Natural seller identifier from the source system. Grain: one per seller.
 	column SELLER_ID
 		dataType: string
 		isHidden
@@ -26,6 +29,7 @@ table DIM_SELLERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Seller's 5-digit zip code. Grain: per seller.
 	column ZIP_CODE
 		dataType: int64
 		formatString: 0
@@ -35,6 +39,7 @@ table DIM_SELLERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Seller's city. Grain: per seller.
 	column CITY
 		dataType: string
 		lineageTag: 33fd6afb-ee59-4428-bcb2-9fabbaad863c
@@ -43,6 +48,7 @@ table DIM_SELLERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Seller's US state code. Grain: per seller.
 	column STATE
 		dataType: string
 		lineageTag: 8bc5f99b-d378-491f-9fa4-f2c6fea42195
@@ -51,6 +57,7 @@ table DIM_SELLERS
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Latitude of the seller's location. Grain: per seller.
 	column LATITUDE
 		dataType: double
 		lineageTag: e79f4396-1b1d-4f71-aa11-2b2777e4872b
@@ -61,6 +68,7 @@ table DIM_SELLERS
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	/// Longitude of the seller's location. Grain: per seller.
 	column LONGITUDE
 		dataType: double
 		lineageTag: 073adbe2-9bc3-4f98-8c1a-5bf345116cb3
@@ -71,6 +79,7 @@ table DIM_SELLERS
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	/// The category (English) this seller sells most; 'Unknown' if none. Grain: per seller.
 	column PRIMARY_PRODUCT_CATEGORY
 		dataType: string
 		lineageTag: 492b6422-dfe4-4fec-8997-4463991f50e2

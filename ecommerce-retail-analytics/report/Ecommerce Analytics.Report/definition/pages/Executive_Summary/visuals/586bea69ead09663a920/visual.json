@@ -43,7 +43,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "RFM Unique Customers"
+                  "Property": "RFM Lifetime Customers"
                 }
               },
               "queryRef": "_Measures.RFM Unique Customers",
@@ -103,7 +103,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "RFM Total Orders"
+                  "Property": "RFM Lifetime Orders"
                 }
               },
               "queryRef": "_Measures.RFM Total Orders",
@@ -118,7 +118,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "RFM Total Revenue"
+                  "Property": "RFM Lifetime Revenue"
                 }
               },
               "queryRef": "_Measures.RFM Total Revenue",

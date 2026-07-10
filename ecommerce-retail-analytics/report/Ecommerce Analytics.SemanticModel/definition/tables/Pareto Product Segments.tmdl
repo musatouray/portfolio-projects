@@ -1,6 +1,8 @@
+/// BUSINESS MEANING: Disconnected two-value table holding the Pareto buckets (Best-selling vs Others) used to split and color the product Pareto matrix. GRAIN: one row per Pareto bucket. RELATIONSHIPS: none (disconnected).
 table 'Pareto Product Segments'
 	lineageTag: 1709ab38-b7ef-4fdb-8a2d-dd00cbcabead
 
+	/// Pareto bucket label (Best-selling or Others). Grain: one per bucket.
 	column Segment
 		lineageTag: 67032289-1682-4667-97f6-b06c2aa73807
 		summarizeBy: none
