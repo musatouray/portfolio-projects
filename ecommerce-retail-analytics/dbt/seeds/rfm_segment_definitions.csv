@@ -1,9 +1,10 @@
 rfm_segment,segment_description,recommended_action,priority
-Champions,"Elite customers — recent (R≥4), frequent (F≥4, meaning 4+ orders), and high spenders (M≥4, meaning $300+). Must have 3+ orders to qualify.",Reward with VIP programs and exclusive early access. Maintain relationship with personalized outreach.,1
-New Customers,"Recent first- or second-time buyers (R≥4 with ≤2 total orders). High potential but unproven loyalty.",Welcome series and onboarding campaigns. Focus on driving the critical second and third purchases.,2
-Loyal Customers,"Consistent buyers with solid engagement across all dimensions (R≥3, F≥3, M≥3). Reliable revenue contributors.",Upsell and cross-sell opportunities. Consider loyalty program enrollment to deepen relationship.,3
-Potential Loyalists,"Recent purchasers showing early signs of engagement (R≥4, F≥2). Could become loyal with nurturing.",Targeted campaigns to increase purchase frequency. Offer incentives for repeat purchases.,4
-At Risk,"Previously valuable customers now disengaging (R≤2 but F≥3, M≥3). High recovery potential if acted upon quickly.",Urgent win-back campaigns with personalized offers. Understand why they stopped buying.,5
-Hibernating,"Inactive customers with some purchase history (R≤2, F≥2). May be winnable with the right offer.",Re-engagement campaigns with significant incentives. Test different reactivation strategies.,6
-Need Attention,"Mid-range customers with moderate engagement. Don't fit specific segments but represent opportunity.",Monitor behavior and test engagement strategies. Segment further based on response.,7
-Lost,"Minimal engagement across all dimensions (R=1, F=1). Likely churned permanently.",Sunset from active campaigns to protect sender reputation. Consider one final win-back attempt.,8
+Champions,"Elite repeat customers — recent (R≥4), multiple orders (F≥2), and high spenders (M≥4). Rare in single-purchase datasets.",Reward with VIP programs and exclusive early access. Maintain relationship with personalized outreach.,1
+Potential Loyalists,"Recent repeat buyers (R≥4, F≥2) building loyalty. Key segment for revenue growth.",Targeted campaigns to increase purchase frequency. Offer loyalty incentives and cross-sell opportunities.,2
+High-Value New,"First-time buyers with massive spend (R≥4, 1 order, M≥4). High-potential whales to nurture.",Premium onboarding experience. Personalized follow-up to secure repeat purchase. VIP treatment from day one.,3
+New Customers,"Recent first-time buyers with average spend (R≥4, 1 order). Unproven but winnable.",Welcome series and onboarding campaigns. Focus on driving the critical second purchase.,4
+Slipping Whales,"High spenders starting to drift (R=3, M≥4). Previously valuable, now cooling off.",Urgent win-back campaigns with personalized offers. Understand why engagement dropped.,5
+Need Attention,"Average single-purchasers drifting away (R=3). Could go either way.",Monitor behavior and test re-engagement strategies. Segment further based on response.,6
+High-Value Dormant,"Former big spenders gone cold (R≤2, M≥4). High recovery potential if reactivated.",Aggressive win-back with significant incentives. Worth the investment given historical value.,7
+One-and-Done Lost,"Low-value single order from long ago. Likely churned permanently.",Sunset from active campaigns to protect sender reputation. Low ROI for reactivation efforts.,8
+Dormant,"Reappeared after falling off the 12-month rolling window. Previously inactive, now back.",Welcome-back campaign. Treat as a win-back success and nurture to prevent repeat dormancy.,9
