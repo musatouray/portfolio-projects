@@ -1,4 +1,4 @@
-/// BUSINESS MEANING: Monthly customer-health snapshots combining RFM scoring with churn-risk metrics; use for segmentation, segment migration over time, and churn analysis. GRAIN: one row per customer per snapshot month; metrics are cumulative to that month-end (not per-period). RELATIONSHIPS: joins to DIM_CUSTOMERS (CUSTOMER_KEY) and to DIM_DATES on the snapshot month (SNAPSHOT_DATE_KEY). Excludes canceled/unavailable orders.
+/// BUSINESS MEANING: 12-month rolling customer-health snapshots combining RFM scoring with churn-risk metrics; use for segmentation, Sankey migration visualization, and churn analysis. GRAIN: one row per customer per snapshot month; metrics are based on trailing 12-month window (not lifetime). Segments optimized for single-purchase-heavy datasets. RELATIONSHIPS: joins to DIM_CUSTOMERS (CUSTOMER_KEY) and to DIM_DATES on the snapshot month (SNAPSHOT_DATE_KEY). Excludes canceled/unavailable orders.
 table FCT_RFM_SEGMENTS
 	lineageTag: 5d5cd826-5672-4bef-93ed-7b84e9a2a9ee
 
@@ -38,7 +38,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Customer's RFM business segment at the snapshot (Champions, New Customers, Loyal Customers, Potential Loyalists, At Risk, Hibernating, Need Attention, Lost). Grain: per customer per snapshot month.
+	/// Customer's RFM business segment at the snapshot (Champions, Potential Loyalists, High-Value New, New Customers, Slipping Whales, Need Attention, High-Value Dormant, One-and-Done Lost). Optimized for single-purchase datasets. Grain: per customer per snapshot month.
 	column RFM_SEGMENT
 		dataType: string
 		lineageTag: 68d83f58-3e72-429e-9f71-8543c773bfc0
@@ -86,7 +86,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Cumulative orders by the customer through the snapshot month (not per-period). Grain: per customer per snapshot month.
+	/// Orders by the customer in the trailing 12-month window ending at snapshot month. Grain: per customer per snapshot month.
 	column TOTAL_ORDERS
 		dataType: int64
 		formatString: 0
@@ -96,7 +96,7 @@ table FCT_RFM_SEGMENTS
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Cumulative revenue by the customer through the snapshot month, BRL (not per-period). Grain: per customer per snapshot month.
+	/// Revenue by the customer in the trailing 12-month window ending at snapshot month, BRL. Grain: per customer per snapshot month.
 	column TOTAL_REVENUE
 		dataType: decimal
 		formatString: 0.00

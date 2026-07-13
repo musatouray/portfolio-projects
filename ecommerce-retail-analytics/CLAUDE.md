@@ -72,7 +72,7 @@ Retail businesses generate massive transaction data but struggle to extract acti
 
 | Model | Pattern | Business Value |
 |-------|---------|----------------|
-| **RFM Segmentation** | Monthly snapshots with segment migration tracking | Identify Champions, Loyal Customers, At-Risk, and Churned segments |
+| **RFM Segmentation** | 12-month rolling snapshots with Sankey migration tracking | Identify Champions, High-Value New, Slipping Whales, and One-and-Done Lost segments (optimized for single-purchase datasets) |
 | **Cohort Retention** | Time-based cohort analysis with GRR/NRR metrics | Measure customer retention and revenue retention by acquisition month |
 | **Customer Lifetime Value** | Predictive modeling with behavioral inputs | 12-month CLV projection using purchase frequency and monetary value |
 | **Churn Risk Scoring** | Multi-factor risk assessment | Early warning system based on recency, frequency decline, and value trends |

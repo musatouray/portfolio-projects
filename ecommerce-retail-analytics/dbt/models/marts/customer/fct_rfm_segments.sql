@@ -1,11 +1,13 @@
--- Consolidated RFM and Churn Risk fact table with monthly snapshots
+-- Consolidated RFM and Churn Risk fact table with 12-month rolling snapshots
 -- Combines RFM scoring with churn risk metrics for unified customer health analysis
 -- Uses ABSOLUTE thresholds (not NTILE percentiles) for business-meaningful segments
 --
 -- Key design decisions:
--- 1. Absolute thresholds prevent skewed data from producing meaningless quintiles
--- 2. Segment priority: New Customers checked before Champions to prevent overlap
--- 3. Incremental processing for scalability (only recent months on incremental runs)
+-- 1. 12-month rolling window prevents lifetime volume from masking recent behavioral shifts
+-- 2. Absolute thresholds prevent skewed data from producing meaningless quintiles
+-- 3. Segments optimized for single-purchase-heavy datasets (prioritize monetary over frequency)
+-- 4. LAG columns enable Sankey chart visualization of segment migration journeys
+-- 5. Dormant detection: gaps in consecutive months indicate customers who fell off rolling window
 
 {{ config(
     materialized='incremental',
@@ -45,7 +47,8 @@ customer_first_months AS (
     GROUP BY 1
 ),
 
--- Aggregate customer metrics up to each snapshot month
+-- Aggregate customer metrics within a ROLLING 12-MONTH LOOKBACK for each snapshot month
+-- This prevents lifetime volume from masking recent behavioral shifts
 customer_snapshots AS (
     SELECT
         m.snapshot_month,
@@ -59,7 +62,10 @@ customer_snapshots AS (
     JOIN customer_first_months c ON m.snapshot_month >= c.first_snapshot_month
     LEFT JOIN orders o ON o.customer_unique_id = c.customer_unique_id
         AND o.order_date <= LAST_DAY(m.snapshot_month)
+        -- Rolling 12-month lookback: only include orders within trailing 12 months
+        AND o.order_date > LAST_DAY(m.snapshot_month) - INTERVAL '12 MONTHS'
     GROUP BY 1, 2
+    -- Keep rows only if they had active orders in this specific 12-month rolling window
     HAVING total_orders > 0
 ),
 
@@ -149,7 +155,40 @@ calculated_risk AS (
         ) AS churn_risk_score,
 
         -- Combined RFM score for segment qualification
-        (r_score + f_score + m_score) AS rfm_combined_score
+        (r_score + f_score + m_score) AS rfm_combined_score,
+
+        -- RFM Behavioral Segment (optimized for single-purchase-heavy datasets)
+        -- Segments prioritize monetary value over frequency since most customers order once
+        CASE
+            -- Champions: Rare elite - multiple orders + high spend + recent
+            WHEN r_score >= 4 AND f_score >= 2 AND m_score >= 4 THEN 'Champions'
+            -- Potential Loyalists: Multiple orders recently, building loyalty
+            WHEN r_score >= 4 AND f_score >= 2 THEN 'Potential Loyalists'
+            -- High-Value New: Single order but massive spend, very recent
+            WHEN r_score >= 4 AND total_orders = 1 AND m_score >= 4 THEN 'High-Value New'
+            -- New Customers: Single order, average spend, very recent
+            WHEN r_score >= 4 AND total_orders = 1 THEN 'New Customers'
+            -- Slipping Whales: High spender starting to drift away (r=3)
+            WHEN r_score = 3 AND m_score >= 4 THEN 'Slipping Whales'
+            -- Need Attention: Average single-purchaser drifting away
+            WHEN r_score = 3 THEN 'Need Attention'
+            -- High-Value Dormant: Large historical spend but gone cold (r<=2)
+            WHEN r_score <= 2 AND m_score >= 4 THEN 'High-Value Dormant'
+            -- One-and-Done Lost: Low-value single order from long ago
+            ELSE 'One-and-Done Lost'
+        END AS rfm_segment,
+
+        -- Segment sort index for consistent ordering in reports (1 = highest value)
+        CASE
+            WHEN r_score >= 4 AND f_score >= 2 AND m_score >= 4 THEN 1  -- Champions
+            WHEN r_score >= 4 AND f_score >= 2 THEN 2                   -- Potential Loyalists
+            WHEN r_score >= 4 AND total_orders = 1 AND m_score >= 4 THEN 3  -- High-Value New
+            WHEN r_score >= 4 AND total_orders = 1 THEN 4               -- New Customers
+            WHEN r_score = 3 AND m_score >= 4 THEN 5                    -- Slipping Whales
+            WHEN r_score = 3 THEN 6                                     -- Need Attention
+            WHEN r_score <= 2 AND m_score >= 4 THEN 7                   -- High-Value Dormant
+            ELSE 8                                                       -- One-and-Done Lost
+        END AS segment_index
     FROM rfm_scores
 )
 
@@ -187,44 +226,32 @@ SELECT
         ELSE 'Low'
     END AS churn_risk_segment,
 
-    -- RFM Behavioral Segments 
+    -- RFM Behavioral Segment (from CTE)
+    rfm_segment,
+
+    -- Previous segment for Sankey chart migration visualization
+    -- Only accept LAG if it represents the consecutive prior month.
+    -- NULL = first appearance, Dormant = reappeared after gap in rolling window.
     CASE
-        -- New Customers: Recent but few orders 
-        WHEN r_score >= 4 AND total_orders <= 2 THEN 'New Customers'
+        WHEN LAG(snapshot_month) OVER (
+            PARTITION BY customer_unique_id ORDER BY snapshot_month
+        ) IS NULL
+        THEN NULL  -- First appearance in data
+        WHEN LAG(snapshot_month) OVER (
+            PARTITION BY customer_unique_id ORDER BY snapshot_month
+        ) = snapshot_month - INTERVAL '1 MONTH'
+        THEN LAG(rfm_segment) OVER (
+            PARTITION BY customer_unique_id ORDER BY snapshot_month
+        )
+        ELSE 'Dormant'  -- Reappeared after falling off 12-month window
+    END AS previous_rfm_segment,
 
-        -- Champions: Elite customers - high on ALL three dimensions
-        WHEN r_score >= 4 AND f_score >= 4 AND m_score >= 4 THEN 'Champions'
+    LAG(snapshot_month) OVER (
+        PARTITION BY customer_unique_id ORDER BY snapshot_month
+    ) AS previous_snapshot_month,
 
-        -- Loyal Customers: Strong on recency and frequency, decent monetary
-        WHEN r_score >= 3 AND f_score >= 3 AND m_score >= 3 THEN 'Loyal Customers'
-
-        -- Potential Loyalists: Recent with moderate engagement
-        WHEN r_score >= 4 AND f_score >= 2 THEN 'Potential Loyalists'
-
-        -- At Risk: Were good customers but haven't purchased recently
-        WHEN r_score <= 2 AND f_score >= 3 AND m_score >= 3 THEN 'At Risk'
-
-        -- Hibernating: Low recency, were somewhat engaged
-        WHEN r_score <= 2 AND f_score >= 2 THEN 'Hibernating'
-
-        -- Lost: Very low engagement across the board
-        WHEN r_score = 1 AND f_score = 1 THEN 'Lost'
-
-        -- Need Attention: Everyone else - moderate engagement
-        ELSE 'Need Attention'
-    END AS rfm_segment,
-
-    -- Segment sort index for consistent ordering in reports
-    CASE
-        WHEN r_score >= 4 AND total_orders <= 2 THEN 2                            -- New Customers
-        WHEN r_score >= 4 AND f_score >= 4 AND m_score >= 4 THEN 1                -- Champions
-        WHEN r_score >= 3 AND f_score >= 3 AND m_score >= 3 THEN 3                -- Loyal Customers
-        WHEN r_score >= 4 AND f_score >= 2 THEN 4                                 -- Potential Loyalists
-        WHEN r_score <= 2 AND f_score >= 3 AND m_score >= 3 THEN 5                -- At Risk
-        WHEN r_score <= 2 AND f_score >= 2 THEN 6                                 -- Hibernating
-        WHEN r_score = 1 AND f_score = 1 THEN 8                                   -- Lost
-        ELSE 7                                                                     -- Need Attention
-    END AS segment_index,
+    -- Segment sort index (from CTE)
+    segment_index,
 
     -- Metadata
     CURRENT_TIMESTAMP() AS created_at,
