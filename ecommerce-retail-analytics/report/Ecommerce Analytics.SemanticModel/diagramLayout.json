@@ -560,11 +560,10 @@
           "nodeIndex": "DIM_DATES",
           "nodeLineageTag": "b4cf66a4-55c7-458b-be19-6f24ccc2c2e6",
           "size": {
-            "height": 128,
+            "height": 300,
             "width": 234
           },
-          "zIndex": 6,
-          "expandedHeight": 300
+          "zIndex": 6
         },
         {
           "location": {
@@ -645,6 +644,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Customers",
+  "selectedDiagram": "Dates",
   "defaultDiagram": "All tables"
 }

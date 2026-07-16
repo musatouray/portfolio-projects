@@ -574,6 +574,28 @@
                   }
                 }
               }
+            },
+            "fontColorPrimary": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#607D8B'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontColorSecondary": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#607D8B'"
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -769,6 +791,104 @@
           ]
         },
         "howCreated": "User"
+      },
+      {
+        "name": "a2876be8de9c24ac9fbb",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DIM_PRODUCTS"
+              }
+            },
+            "Property": "PRODUCT_CATEGORY"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "b6aade78b70a9ce83ce0",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Ranking Sort Order"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "129c905d05adf792667f",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Display Category"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "2424ea85d90b7ba2ae25",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Display Rank Number"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "8dc0bc0127615318bfae",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Display Revenue Value"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "449312ee601ecc337ddf",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Display Orders Total"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "452b8fe72408039d98af",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Display % of Grand Total"
+          }
+        },
+        "type": "Advanced"
       }
     ]
   }
