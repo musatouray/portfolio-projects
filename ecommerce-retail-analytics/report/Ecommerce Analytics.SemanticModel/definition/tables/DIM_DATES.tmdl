@@ -54,7 +54,7 @@ table DIM_DATES
 	column YEAR_MONTH
 		dataType: dateTime
 		isHidden
-		formatString: Long Date
+		formatString: Short Date
 		lineageTag: 926fce62-b126-4e1d-b4f9-4749ac93f57c
 		summarizeBy: none
 		sourceColumn: YEAR_MONTH
@@ -112,7 +112,7 @@ table DIM_DATES
 	/// Month-year display label (e.g., Dec-2023).
 	column MONTH_YEAR
 		dataType: dateTime
-		formatString: Long Date
+		formatString: mmm yyyy
 		lineageTag: 22854fdf-475c-4411-9774-26839f95436d
 		summarizeBy: none
 		sourceColumn: MONTH_YEAR
@@ -123,6 +123,8 @@ table DIM_DATES
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isCustom":true}
 
 	/// Week number within the year.
 	column WEEK
@@ -198,7 +200,7 @@ table DIM_DATES
 	/// First day of the date's month.
 	column MONTH_START_DATE
 		dataType: dateTime
-		formatString: Long Date
+		formatString: Short Date
 		lineageTag: 8cd7444a-11fa-4790-add0-ee0152863be9
 		summarizeBy: none
 		sourceColumn: MONTH_START_DATE

@@ -4,17 +4,34 @@
   "position": {
     "x": 1005.4964772669674,
     "y": 529.02427898018152,
-    "z": 5000,
+    "z": 4000,
     "height": 524.35298291854633,
     "width": 885.21060367986217,
     "tabOrder": 5000
   },
   "visual": {
-    "visualType": "multiRowCard",
-    "autoSelectVisualType": true,
+    "visualType": "clusteredBarChart",
     "query": {
       "queryState": {
-        "Values": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FCT_CLV_CUSTOMER"
+                    }
+                  },
+                  "Property": "CUSTOMER_VALUE_SEGMENT"
+                }
+              },
+              "queryRef": "FCT_CLV_CUSTOMER.CUSTOMER_VALUE_SEGMENT",
+              "nativeQueryRef": "CUSTOMER_VALUE_SEGMENT"
+            }
+          ]
+        },
+        "Y": {
           "projections": [
             {
               "field": {
@@ -24,11 +41,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "High Value CLV Revenue %"
+                  "Property": "Total Historical CLV"
                 }
               },
-              "queryRef": "_Measures.High Value CLV Revenue %",
-              "nativeQueryRef": "High Value CLV Revenue %"
+              "queryRef": "_Measures.Total Historical CLV",
+              "nativeQueryRef": "Total Historical CLV"
             },
             {
               "field": {
@@ -38,25 +55,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Medium Value CLV Revenue %"
+                  "Property": "Total Predicted CLV"
                 }
               },
-              "queryRef": "_Measures.Medium Value CLV Revenue %",
-              "nativeQueryRef": "Medium Value CLV Revenue %"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Low Value CLV Revenue %"
-                }
-              },
-              "queryRef": "_Measures.Low Value CLV Revenue %",
-              "nativeQueryRef": "Low Value CLV Revenue %"
+              "queryRef": "_Measures.Total Predicted CLV",
+              "nativeQueryRef": "Total Predicted CLV"
             }
           ]
         }
@@ -71,13 +74,50 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "High Value CLV Revenue %"
+                "Property": "Total Historical CLV"
               }
             },
             "direction": "Descending"
           }
-        ]
+        ],
+        "isDefaultSort": true
       }
+    },
+    "objects": {
+      "valueAxis": [
+        {
+          "properties": {
+            "gridlineShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "roundRange": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "logAxisScale": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "drillFilterOtherVisuals": true
   }

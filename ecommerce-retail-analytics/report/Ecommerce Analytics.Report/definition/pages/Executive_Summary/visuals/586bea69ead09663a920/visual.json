@@ -3,10 +3,10 @@
   "name": "586bea69ead09663a920",
   "position": {
     "x": 0,
-    "y": 2.5952105178959126,
+    "y": 2.7431966545150281,
     "z": 2000,
-    "height": 265.09605149779514,
-    "width": 791.784682447159,
+    "height": 265.39956803455726,
+    "width": 870.26369983424581,
     "tabOrder": 0
   },
   "visual": {
@@ -47,8 +47,8 @@
                 }
               },
               "queryRef": "_Measures.RFM Unique Customers",
-              "nativeQueryRef": "Unique Customers",
-              "displayName": "Unique Customers"
+              "nativeQueryRef": "Current Customers",
+              "displayName": "Current Customers"
             },
             {
               "field": {
@@ -62,8 +62,8 @@
                 }
               },
               "queryRef": "_Measures.Avg Recency (Days)",
-              "nativeQueryRef": "Recency (Days)",
-              "displayName": "Recency (Days)"
+              "nativeQueryRef": "Avg Recency",
+              "displayName": "Avg Recency"
             },
             {
               "field": {
@@ -77,8 +77,8 @@
                 }
               },
               "queryRef": "_Measures.Avg Frequency",
-              "nativeQueryRef": "Frequency",
-              "displayName": "Frequency"
+              "nativeQueryRef": "Avg Frequency",
+              "displayName": "Avg Frequency"
             },
             {
               "field": {
@@ -92,8 +92,8 @@
                 }
               },
               "queryRef": "_Measures.Avg Monetary",
-              "nativeQueryRef": "Monetary",
-              "displayName": "Monetary"
+              "nativeQueryRef": "Avg Monetary",
+              "displayName": "Avg Monetary"
             },
             {
               "field": {
@@ -107,8 +107,8 @@
                 }
               },
               "queryRef": "_Measures.RFM Total Orders",
-              "nativeQueryRef": "Total Orders",
-              "displayName": "Total Orders"
+              "nativeQueryRef": "Lifetime Orders",
+              "displayName": "Lifetime Orders"
             },
             {
               "field": {
@@ -122,8 +122,8 @@
                 }
               },
               "queryRef": "_Measures.RFM Total Revenue",
-              "nativeQueryRef": "Total Revenue",
-              "displayName": "Total Revenue"
+              "nativeQueryRef": "Lifetime Revenue",
+              "displayName": "Lifetime Revenue"
             }
           ]
         }
@@ -138,7 +138,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Total Revenue"
+                "Property": "RFM Lifetime Revenue"
               }
             },
             "direction": "Descending"
@@ -261,6 +261,28 @@
                     "ThemeDataColor": {
                       "ColorId": 0,
                       "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "fontColorPrimary": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#607D8B'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontColorSecondary": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#607D8B'"
                     }
                   }
                 }
@@ -424,7 +446,7 @@
             "labelPrecision": {
               "expr": {
                 "Literal": {
-                  "Value": "0L"
+                  "Value": "2L"
                 }
               }
             }
@@ -446,6 +468,31 @@
             }
           }
         }
+      ],
+      "rowHeaders": [
+        {
+          "properties": {
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.6
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -455,7 +502,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Customer RFM Segmentation and Revenue Contribution by Segment'"
+                  "Value": "'Customer Health Snapshot: RFM Segments & Lifetime Value'"
                 }
               }
             },
@@ -534,13 +581,8 @@
           "properties": {
             "text": {
               "expr": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Custom Period Title"
+                "Literal": {
+                  "Value": "' '"
                 }
               }
             },
@@ -633,7 +675,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -699,7 +741,7 @@
             "spaceBelowSubTitle": {
               "expr": {
                 "Literal": {
-                  "Value": "16D"
+                  "Value": "5D"
                 }
               }
             },
@@ -913,7 +955,21 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "2e747a0f47089cc359b0",
+        "name": "4a52b2e345d35a7da5c7",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FCT_RFM_SEGMENTS"
+              }
+            },
+            "Property": "RFM_SEGMENT"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "43526ed09b7774e7b572",
         "field": {
           "Measure": {
             "Expression": {
@@ -921,45 +977,80 @@
                 "Entity": "_Measures"
               }
             },
-            "Property": "Unique Customers"
+            "Property": "RFM Lifetime Customers"
           }
         },
-        "type": "Advanced",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "_",
-              "Entity": "_Measures",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "Comparison": {
-                  "ComparisonKind": 1,
-                  "Left": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Source": "_"
-                        }
-                      },
-                      "Property": "Unique Customers"
-                    }
-                  },
-                  "Right": {
-                    "Literal": {
-                      "Value": "0L"
-                    }
-                  }
-                }
+        "type": "Advanced"
+      },
+      {
+        "name": "7afe058275ab27097e01",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
               }
-            }
-          ]
+            },
+            "Property": "Avg Recency (Days)"
+          }
         },
-        "howCreated": "User"
+        "type": "Advanced"
+      },
+      {
+        "name": "642f9971f2483177f120",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Avg Frequency"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "3490a614f156562afe4f",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Avg Monetary"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "905a878cbbc4e6628543",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "RFM Lifetime Orders"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d734b8ecda6d0822338a",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "RFM Lifetime Revenue"
+          }
+        },
+        "type": "Advanced"
       }
     ]
   }

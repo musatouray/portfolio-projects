@@ -1,10 +1,10 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "84bbfb03c7696ae01ed9",
+  "name": "2e4f7e97634fb9c0fa6a",
   "position": {
     "x": 30.363424400628517,
     "y": 207.87267474276447,
-    "z": 5001,
+    "z": 4001,
     "height": 290.78817983678852,
     "width": 1860.3436565462011,
     "tabOrder": 6001
@@ -27,7 +27,7 @@
                 }
               },
               "queryRef": "_Measures.RFM Unique Customers",
-              "nativeQueryRef": "RFM Unique Customers"
+              "nativeQueryRef": "RFM Lifetime Customers"
             },
             {
               "field": {
@@ -41,7 +41,7 @@
                 }
               },
               "queryRef": "_Measures.RFM Total Orders",
-              "nativeQueryRef": "RFM Total Orders"
+              "nativeQueryRef": "RFM Lifetime Orders"
             },
             {
               "field": {
@@ -302,9 +302,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#607D8B'"
                     }
                   }
                 }
@@ -330,24 +329,7 @@
           }
         },
         {
-          "properties": {
-            "backgroundColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "_Measures"
-                        }
-                      },
-                      "Property": "RFM Segment Colors"
-                    }
-                  }
-                }
-              }
-            }
-          },
+          "properties": {},
           "selector": {
             "data": [
               {
@@ -2085,7 +2067,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             },
@@ -2103,7 +2085,21 @@
             "position": {
               "expr": {
                 "Literal": {
-                  "Value": "'Left'"
+                  "Value": "'Bottom'"
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "2D"
                 }
               }
             }

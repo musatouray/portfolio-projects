@@ -13,24 +13,6 @@
     "visualType": "listSlicer",
     "query": {
       "queryState": {
-        "Tooltips": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "RFM Customers YoY %"
-                }
-              },
-              "queryRef": "_Measures.RFM Customers YoY %",
-              "nativeQueryRef": "RFM Customers YoY %"
-            }
-          ]
-        },
         "Values": {
           "projections": [
             {
@@ -38,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Disconnected Calendar"
+                      "Entity": "CG Custom Periods"
                     }
                   },
-                  "Property": "Month Year"
+                  "Property": "Period"
                 }
               },
-              "queryRef": "Disconnected Calendar.Month Year",
-              "nativeQueryRef": "Month Year",
+              "queryRef": "CG Custom Periods.Period",
+              "nativeQueryRef": "Period",
               "active": true
             }
           ]
@@ -450,8 +432,8 @@
                 "Version": 2,
                 "From": [
                   {
-                    "Name": "d",
-                    "Entity": "Disconnected Calendar",
+                    "Name": "c",
+                    "Entity": "CG Custom Periods",
                     "Type": 0
                   }
                 ],
@@ -464,10 +446,10 @@
                             "Column": {
                               "Expression": {
                                 "SourceRef": {
-                                  "Source": "d"
+                                  "Source": "c"
                                 }
                               },
-                              "Property": "Month Year"
+                              "Property": "Period"
                             }
                           }
                         ],
@@ -475,7 +457,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Jun-2026'"
+                                "Value": "'Last 6 Months'"
                               }
                             }
                           ]
@@ -1009,65 +991,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "8eb14140071a05b20352",
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "4d97744731b541c40909",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Disconnected Calendar"
-              }
-            },
-            "Property": "MONTH_START_DATE"
-          }
-        },
-        "type": "Advanced",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "d",
-              "Entity": "Disconnected Calendar",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "Comparison": {
-                  "ComparisonKind": 4,
-                  "Left": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Source": "d"
-                        }
-                      },
-                      "Property": "MONTH_START_DATE"
-                    }
-                  },
-                  "Right": {
-                    "DateSpan": {
-                      "Expression": {
-                        "Literal": {
-                          "Value": "datetime'2026-12-31T00:00:00'"
-                        }
-                      },
-                      "TimeUnit": 5
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        },
-        "howCreated": "User",
-        "isHiddenInViewMode": true,
-        "isLockedInViewMode": true
-      }
-    ]
-  }
+  "parentGroupName": "8eb14140071a05b20352"
 }

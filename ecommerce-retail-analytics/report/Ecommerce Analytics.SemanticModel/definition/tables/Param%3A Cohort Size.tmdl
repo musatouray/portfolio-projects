@@ -23,7 +23,7 @@ table 'Param: Cohort Size'
 
 	partition 'Param: Cohort Size' = calculated
 		mode: import
-		source = GENERATESERIES(1, 10000, 1)
+		source = GENERATESERIES(0, 10000, 10)
 
 	annotation PBI_Id = 27c7033e409a41518c9e6d49c19e2191
 

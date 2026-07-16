@@ -213,19 +213,16 @@ table _Measures
 	/// [METRIC] Average days-since-last-purchase across customers at the latest (or slicer-selected) snapshot month in FCT_RFM_SEGMENTS. Lower = more recent.
 	measure 'Avg Recency (Days)' = ```
 			
-			VAR __MaxSnapshotDate = 
-			    CALCULATE(
-			        MAX(DIM_DATES[DATE]), 
-			        ALLSELECTED(DIM_DATES)
+			VAR __LatestSnapshotMonth = MAX(DIM_DATES[MONTH_START_DATE]) 
+			RETURN 
+			    IF(
+			        NOT(ISBLANK(__LatestSnapshotMonth)),
+			        CALCULATE( 
+			            AVERAGE(FCT_RFM_SEGMENTS[RECENCY_DAYS]), 
+			            FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshotMonth,
+			            REMOVEFILTERS(DIM_DATES)
+			        ) 
 			    )
-			VAR __FormattedMaxSnapShotDate = (YEAR(__MaxSnapshotDate) * 10000) +(MONTH(__MaxSnapshotDate) * 100) + 01
-			
-			RETURN
-			CALCULATE(
-				AVERAGE(FCT_RFM_SEGMENTS[RECENCY_DAYS]),
-			    FCT_RFM_SEGMENTS[SNAPSHOT_DATE_KEY] = __FormattedMaxSnapShotDate
-			)
-			
 			```
 		formatString: #,##0
 		displayFolder: 01_Segments\RFM
@@ -234,27 +231,16 @@ table _Measures
 	/// [METRIC] Average lifetime order count per customer at the latest snapshot month.
 	measure 'Avg Frequency' = ```
 			
-			VAR __MaxSnapshotDate = 
-			    CALCULATE(
-			        MAX(DIM_DATES[DATE]), 
-			        ALLSELECTED(DIM_DATES)
+			VAR __LatestSnapshotMonth = MAX(DIM_DATES[MONTH_START_DATE])
+			RETURN 
+			    IF(
+			        NOT(ISBLANK(__LatestSnapshotMonth)),
+			        CALCULATE( 
+			            AVERAGE(FCT_RFM_SEGMENTS[TOTAL_ORDERS]), 
+			            FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshotMonth,
+			            REMOVEFILTERS(DIM_DATES)
+			        ) 
 			    )
-			VAR __FormattedMaxSnapShotDate = (YEAR(__MaxSnapshotDate) * 10000) +(MONTH(__MaxSnapshotDate) * 100) + 01
-			
-			RETURN
-			CALCULATE(
-				AVERAGE(FCT_RFM_SEGMENTS[TOTAL_ORDERS]),
-			    FCT_RFM_SEGMENTS[SNAPSHOT_DATE_KEY] = __FormattedMaxSnapShotDate
-			)
-			
-			// AVERAGEX(
-			// 	KEEPFILTERS(
-			// 		VALUES(FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID])
-			// 	),
-			// 	CALCULATE(
-			// 		MAX(FCT_RFM_SEGMENTS[TOTAL_ORDERS])
-			// 	)
-			// )
 			```
 		formatString: 0.0
 		displayFolder: 01_Segments\RFM
@@ -263,28 +249,16 @@ table _Measures
 	/// [METRIC] Average lifetime revenue per customer at the latest snapshot month (BRL).
 	measure 'Avg Monetary' = ```
 			
-			VAR __MaxSnapshotDate = 
-			    CALCULATE(
-			        MAX(DIM_DATES[DATE]), 
-			        ALLSELECTED(DIM_DATES)
+			VAR __LatestSnapshotMonth = MAX(DIM_DATES[MONTH_START_DATE])
+			RETURN 
+			    IF(
+			        NOT(ISBLANK(__LatestSnapshotMonth)),
+			        CALCULATE( 
+			            AVERAGE(FCT_RFM_SEGMENTS[TOTAL_REVENUE]), 
+			            FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshotMonth,
+			            REMOVEFILTERS(DIM_DATES)
+			        ) 
 			    )
-			VAR __FormattedMaxSnapShotDate = (YEAR(__MaxSnapshotDate) * 10000) +(MONTH(__MaxSnapshotDate) * 100) + 01
-			
-			RETURN
-			CALCULATE(
-				AVERAGE(FCT_RFM_SEGMENTS[TOTAL_REVENUE]),
-			    FCT_RFM_SEGMENTS[SNAPSHOT_DATE_KEY] = __FormattedMaxSnapShotDate
-			)
-			
-			// AVERAGEX(
-			// 	KEEPFILTERS(
-			// 		VALUES(FCT_RFM_SEGMENTS[CUSTOMER_UNIQUE_ID])
-			// 	),
-			// 	CALCULATE(
-			// 		MAX(FCT_RFM_SEGMENTS[TOTAL_REVENUE])
-			// 	)
-			// )
-			
 			
 			```
 		formatString: $#,##0
@@ -2045,7 +2019,7 @@ table _Measures
 			-- ============================================================================
 			VAR __TotalRFMRev   = CALCULATE( [All Segments Revenue], ALL( FCT_RFM_SEGMENTS[RFM_SEGMENT] ) )
 			VAR __ChampionsRev  = CALCULATE( [All Segments Revenue], FCT_RFM_SEGMENTS[RFM_SEGMENT] = "Champions" )
-			VAR __AtRiskRev     = CALCULATE( [All Segments Revenue], FCT_RFM_SEGMENTS[RFM_SEGMENT] IN { "Slipping Whales", "High-Value Dormant" } )
+			VAR __AtRiskRev     = CALCULATE( [All Segments Revenue], FCT_RFM_SEGMENTS[RFM_SEGMENT] IN { "At Risk", "Hibernating" } )
 			VAR __ChampionsPct  = DIVIDE( __ChampionsRev, __TotalRFMRev )
 			VAR __AtRiskPct     = DIVIDE( __AtRiskRev,    __TotalRFMRev )
 			
@@ -2102,7 +2076,7 @@ table _Measures
 			VAR __CustomerLine =
 			    " Champions drive" & __Space & FORMAT( __ChampionsPct, "0%" ) & __Space & "of revenue" &
 			    " and " &
-			    FORMAT( __AtRiskPct, "0%" ) & __Space & "concentrated in Slipping Whales & High-Value Dormant customers." &
+			    FORMAT( __AtRiskPct, "0%" ) & __Space & "concentrated in At Risk & Hibernating customers." &
 			    "The best performing product category is " & __TopCategory & __Space & "(" & __TopCatLabel & ")" &
 			    " while " & __BottomCategory & " is the worst category." 
 			
@@ -2463,24 +2437,21 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isText":true}
 
-	/// [HELPER] Color per RFM segment for visuals. Not a business metric. Optimized for single-purchase dataset segments.
+	/// [HELPER] Color per RFM segment for visuals. Not a business metric. (Note: palette still keyed to the old 5-segment names.)
 	measure 'RFM Segment Colors' = ```
-
+			
 			VAR __Segments = SELECTEDVALUE(FCT_RFM_SEGMENTS[RFM_SEGMENT])
 			RETURN
 			SWITCH(
 			    __Segments,
 			    "Champions", "#1E3A5F",
-			    "Potential Loyalists", "#2E5A8F",
-			    "High-Value New", "#3D7ABF",
+			    "Loyalists", "#4B617F",
 			    "New Customers", "#78899F",
-			    "Slipping Whales", "#E67E22",
-			    "Need Attention", "#A5B0BF",
-			    "High-Value Dormant", "#C0392B",
-			    "One-and-Done Lost", "#7F8C8D",
+			    "At Risk / Hibernating", "#A5B0BF",
+			    "General Pool", "#B7C5DB",
 			    "#1E3A5F"
 			)
-
+			
 			```
 		formatString: @
 		displayFolder: 14_Viz Helpers\_Color
@@ -2849,14 +2820,15 @@ table _Measures
 	/// [METRIC] Customer count at the latest snapshot month (point-in-time RFM population). Grain: latest snapshot.
 	measure 'RFM Lifetime Customers' = ```
 			
-			VAR __LatestSnapshot = [RFM Latest Snapshot]
+			VAR __LatestSnapshot = MAX(DIM_DATES[MONTH_START_DATE])
 			
 			RETURN
 			IF(
 			    NOT(ISBLANK(__LatestSnapshot)),
 			    CALCULATE(
 			        COUNTROWS(FCT_RFM_SEGMENTS),
-			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshot
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshot,
+			        REMOVEFILTERS(DIM_DATES)
 			    )
 			)
 			
@@ -2881,14 +2853,15 @@ table _Measures
 	/// [METRIC] Cumulative orders across customers at the latest snapshot month.
 	measure 'RFM Lifetime Orders' =
 			
-			VAR __LatestSnapshot = [RFM Latest Snapshot]
+			VAR __LatestSnapshot = MAX(DIM_DATES[MONTH_START_DATE])
 			
 			RETURN
 			IF(
 			    NOT(ISBLANK(__LatestSnapshot)),
 			    CALCULATE(
 			        SUM(FCT_RFM_SEGMENTS[TOTAL_ORDERS]),
-			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshot
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshot,
+			        REMOVEFILTERS(DIM_DATES)
 			    )
 			)
 		displayFolder: 01_Segments\RFM
@@ -2911,14 +2884,15 @@ table _Measures
 	/// [METRIC] Cumulative revenue across customers at the latest snapshot month (BRL).
 	measure 'RFM Lifetime Revenue' = ```
 			
-			VAR __LatestSnapshot = [RFM Latest Snapshot]
+			VAR __LatestSnapshot = MAX(DIM_DATES[MONTH_START_DATE])
 			
 			RETURN
 			IF(
 			   NOT(ISBLANK(__LatestSnapshot)),
 			    CALCULATE(
 			        SUM(FCT_RFM_SEGMENTS[TOTAL_REVENUE]),
-			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshot
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshot,
+			        REMOVEFILTERS(DIM_DATES)
 			    )
 			)
 			
@@ -2955,12 +2929,12 @@ table _Measures
 			
 			VAR __MaxSnapshotDate = 
 			    CALCULATE(
-			        MAX('Disconnected Calendar'[MONTH_START_DATE]), 
-			        ALLSELECTED('Disconnected Calendar')
+			        MAX(DIM_DATES[MONTH_START_DATE]), 
+			        ALLSELECTED(DIM_DATES)
 			    )
 			
 			RETURN
-			"Snapshot month is as of " & FORMAT(__MaxSnapshotDate, "MMM YYYY")
+			"As of snapshot month of " & FORMAT(__MaxSnapshotDate, "MMM YYYY")
 			
 			```
 		formatString: @
@@ -2979,7 +2953,8 @@ table _Measures
 			    NOT(ISBLANK(__PYMonth)),
 			    CALCULATE(
 			        COUNTROWS(FCT_RFM_SEGMENTS),
-			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __PYMonth
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __PYMonth,
+			        REMOVEFILTERS(DIM_DATES)
 			    )
 			)
 		displayFolder: 01_Segments\RFM
@@ -3009,7 +2984,8 @@ table _Measures
 			    NOT(ISBLANK(__PYMonth)),
 			    CALCULATE(
 			        SUM(FCT_RFM_SEGMENTS[TOTAL_ORDERS]),
-			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __PYMonth
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __PYMonth,
+			         REMOVEFILTERS(DIM_DATES)
 			    )
 			)
 		displayFolder: 01_Segments\RFM
@@ -3039,7 +3015,8 @@ table _Measures
 			    NOT(ISBLANK(__PYMonth)),
 			    CALCULATE(
 			        SUM(FCT_RFM_SEGMENTS[TOTAL_REVENUE]),
-			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __PYMonth
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __PYMonth,
+			        REMOVEFILTERS(DIM_DATES)
 			    )
 			)
 		displayFolder: 01_Segments\RFM
@@ -3942,7 +3919,7 @@ table _Measures
 		annotation PBI_FormatHint = {"isText":true}
 
 	/// [HELPER] Point-in-time anchor: returns the selected or most-recent snapshot month; used to scope RFM measures. Not a business metric.
-	measure 'RFM Latest Snapshot' = SELECTEDVALUE('Disconnected Calendar'[MONTH_START_DATE])
+	measure 'RFM Latest Snapshot' = MAX(DIM_DATES[MONTH_START_DATE])
 		formatString: General Date
 		displayFolder: 01_Segments\RFM
 		lineageTag: 81640380-77e9-4b8a-a8b4-f884b9f0d7df
@@ -3962,25 +3939,58 @@ table _Measures
 		lineageTag: 33afbc92-c33b-4eea-94a9-c68ff175549e
 
 	/// [METRIC] Cumulative customer revenue at the selected snapshot month (for period-scoped RFM views).
-	measure 'RFM Period Revenue' = ```
+	measure 'RFM Snapshot Month Revenue' = ```
 			
-			VAR __SelectedMonth = [RFM Latest Snapshot]                                   
-			VAR __MonthEnd = EOMONTH(__SelectedMonth, 0)                                                                                       
-			VAR __CustomersInSegment =                                                                                                         
-			    CALCULATETABLE(                                                                                                                
-			        VALUES(FCT_RFM_SEGMENTS[CUSTOMER_KEY]),                                                                                    
-			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __SelectedMonth                                                                         
-			    )                                                                                                                              
-			RETURN                                                                                                                             
-			IF(                                                                                                                                
-			    NOT ISBLANK(__SelectedMonth),                                                                                                  
-			    CALCULATE(                                                                                                                     
-			        SUM(FCT_ORDERS[TOTAL_PAYMENT_VALUE]),                                                                                      
-			        FCT_ORDERS[ORDER_DATE] >= __SelectedMonth,                                                                                 
-			        FCT_ORDERS[ORDER_DATE] <= __MonthEnd,                                                                                      
-			        TREATAS(__CustomersInSegment, FCT_ORDERS[CUSTOMER_KEY])                                                                    
-			    )                                                                                                                              
-			)                     
+			// VAR __SelectedMonth = MAX(DIM_DATES[MONTH_START_DATE])                                   
+			// VAR __MonthEnd = EOMONTH(__SelectedMonth, 0)                                                                                       
+			// VAR __CustomersInSegment =                                                                                                         
+			//     CALCULATETABLE(                                                                                                                
+			//         VALUES(FCT_RFM_SEGMENTS[CUSTOMER_KEY]),                                                                                    
+			//         FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __SelectedMonth                                                                         
+			//     )                                                                                                                              
+			// RETURN                                                                                                                             
+			// IF(                                                                                                                                
+			//     NOT ISBLANK(__SelectedMonth),                                                                                                  
+			//     CALCULATE(                                                                                                                     
+			//         SUM(FCT_ORDERS[TOTAL_PAYMENT_VALUE]),                                                                                      
+			//         FCT_ORDERS[ORDER_DATE] >= __SelectedMonth,                                                                                 
+			//         FCT_ORDERS[ORDER_DATE] <= __MonthEnd,                                                                                      
+			//         TREATAS(__CustomersInSegment, FCT_ORDERS[CUSTOMER_KEY])                                                                    
+			//     )                                                                                                                              
+			// )    
+			
+			
+			 
+			-- 1. Grab all unique month start dates currently active in the report's filter context
+			VAR __SelectedMonths = VALUES(DIM_DATES[MONTH_START_DATE]) 
+			RETURN 
+			    IF( 
+			        NOT(ISBLANK(COUNTROWS(__SelectedMonths))), 
+			        -- 2. Iterate through each month one by one and sum the results
+			        SUMX(
+			            __SelectedMonths,
+			            VAR __CurrentMonth = [MONTH_START_DATE]
+			            VAR __MonthEnd = EOMONTH(__CurrentMonth, 0)
+			            
+			            -- 3. Find the customers who belonged to the segment IN THIS SPECIFIC MONTH
+			            VAR __CustomersInSegment = 
+			                CALCULATETABLE( 
+			                    VALUES(FCT_RFM_SEGMENTS[CUSTOMER_KEY]), 
+			                    FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __CurrentMonth,
+			                    REMOVEFILTERS(DIM_DATES) -- Clear the page-level date filter just for the segment lookup
+			                ) 
+			            RETURN 
+			                -- 4. Calculate orders for those customers inside this specific month's date boundaries
+			                CALCULATE( 
+			                    SUM(FCT_ORDERS[TOTAL_PAYMENT_VALUE]), 
+			                    FCT_ORDERS[ORDER_DATE] >= __CurrentMonth, 
+			                    FCT_ORDERS[ORDER_DATE] <= __MonthEnd, 
+			                    TREATAS(__CustomersInSegment, FCT_ORDERS[CUSTOMER_KEY]),
+			                    REMOVEFILTERS(DIM_DATES) -- Clear the page-level date filter to allow the custom boundaries to work
+			                ) 
+			        )
+			    )
+			
 			```
 		formatString: \$#,0;(\$#,0);\$#,0
 		displayFolder: 01_Segments\RFM
@@ -4075,6 +4085,74 @@ table _Measures
 		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: 01_Segments\CLV
 		lineageTag: 5397585f-eb39-40ec-8578-bf754b59ba13
+
+	measure 'RFM Customer Migration Count' = ```
+			
+			-- 1. Identify the first and last months of the selected time frame (e.g., YTD or Last 6 Months)
+			VAR __MonthsInPeriod = VALUES(DIM_DATES[MONTH_START_DATE])
+			VAR __StartMonth = MINX(__MonthsInPeriod, [MONTH_START_DATE])
+			VAR __EndMonth = MAXX(__MonthsInPeriod, [MONTH_START_DATE])
+			
+			-- 2. Capture the segment selected from our new disconnected table (Matrix Rows)
+			VAR __SelectedStartSegment = SELECTEDVALUE('From Segment'[From Segment])
+			
+			-- 3. Capture the segment selected from the main RFM table (Matrix Columns)
+			VAR __SelectedEndSegment = SELECTEDVALUE(FCT_RFM_SEGMENTS[RFM_SEGMENT])
+			
+			-- 4. Get the list of Customer Keys who were in the Starting Segment at the Start Month
+			VAR __CustomersAtStart = 
+			    CALCULATETABLE(
+			        VALUES(FCT_RFM_SEGMENTS[CUSTOMER_KEY]),
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __StartMonth,
+			        FCT_RFM_SEGMENTS[RFM_SEGMENT] = __SelectedStartSegment,
+			        REMOVEFILTERS(DIM_DATES),
+			        REMOVEFILTERS(FCT_RFM_SEGMENTS)
+			    )
+			
+			-- 5. Out of those starting customers, count how many are in the Ending Segment at the End Month
+			VAR __MigratedCustomersCount = 
+			    CALCULATE(
+			        COUNTROWS(FCT_RFM_SEGMENTS),
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __EndMonth,
+			        FCT_RFM_SEGMENTS[RFM_SEGMENT] = __SelectedEndSegment,
+			        TREATAS(__CustomersAtStart, FCT_RFM_SEGMENTS[CUSTOMER_KEY]),
+			        REMOVEFILTERS(DIM_DATES),
+			        REMOVEFILTERS('From Segment')
+			    )
+			
+			RETURN
+			    -- Safety check: only return data if both row and column segment context exist
+			    IF(
+			        NOT(ISBLANK(__SelectedStartSegment)) && NOT(ISBLANK(__SelectedEndSegment)),
+			        __MigratedCustomersCount
+			    )
+			
+			```
+		formatString: 0
+		displayFolder: 01_Segments\RFM\Transitions
+		lineageTag: eb2ac869-a781-4a1c-8190-cf5be9eed38b
+
+	measure 'Avg Reorder Rate' = ```
+			
+			VAR __LatestSnapshotMonth = MAX(DIM_DATES[MONTH_START_DATE]) 
+			RETURN 
+			    IF(
+			        NOT(ISBLANK(__LatestSnapshotMonth)),
+			        CALCULATE(
+			            -- Divide the number of multi-order customers by the total customer count
+			            DIVIDE(
+			                CALCULATE(COUNTROWS(FCT_RFM_SEGMENTS), FCT_RFM_SEGMENTS[TOTAL_ORDERS] > 1),
+			                COUNTROWS(FCT_RFM_SEGMENTS)
+			            ),
+			            FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshotMonth,
+			            REMOVEFILTERS(DIM_DATES)
+			        )
+			    )
+			
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 01_Segments\RFM
+		lineageTag: 256fe2de-b108-4271-8bf6-da85ca246e36
 
 	/// Unused placeholder column; the measures table has no data rows. Grain: not applicable.
 	column Value
