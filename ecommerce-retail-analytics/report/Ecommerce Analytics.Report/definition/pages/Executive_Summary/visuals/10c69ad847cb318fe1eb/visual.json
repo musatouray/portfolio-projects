@@ -1,10 +1,10 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "10c69ad847cb318fe1eb",
   "position": {
-    "x": 30.363424400628517,
-    "y": 206.70485072735568,
-    "z": 6001,
+    "x": 30,
+    "y": 206,
+    "z": 3000,
     "height": 179.84489837295351,
     "width": 1860.3436565462011,
     "tabOrder": 7001
@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Order Items Total Revenue"
+                  "Property": "Total Revenue"
                 }
               },
-              "queryRef": "_Measures.Total Revenue Order Items",
-              "nativeQueryRef": "Order Items Total Revenue"
+              "queryRef": "_Measures.Total Revenue",
+              "nativeQueryRef": "Total Revenue"
             },
             {
               "field": {
@@ -37,11 +37,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Order Items Total Orders"
+                  "Property": "Total Orders"
                 }
               },
-              "queryRef": "_Measures.Total Order Items",
-              "nativeQueryRef": "Order Items Total Orders"
+              "queryRef": "_Measures.Total Orders",
+              "nativeQueryRef": "Total Orders"
             },
             {
               "field": {
@@ -51,11 +51,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Order Items AOV"
+                  "Property": "Average Order Value"
                 }
               },
-              "queryRef": "_Measures.AOV Order Items",
-              "nativeQueryRef": "Order Items AOV"
+              "queryRef": "_Measures.Average Order Value",
+              "nativeQueryRef": "Average Order Value"
             },
             {
               "field": {
@@ -112,7 +112,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Order Items Total Revenue"
+                "Property": "Total Revenue"
               }
             },
             "direction": "Descending"
@@ -213,9 +213,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": -0.1
+                    "Literal": {
+                      "Value": "'#1E3A5F'"
                     }
                   }
                 }
@@ -1386,9 +1385,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": -0.3
+                    "Literal": {
+                      "Value": "'#607D8B'"
                     }
                   }
                 }
@@ -1742,9 +1740,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": -0.3
+                    "Literal": {
+                      "Value": "'#607D8B'"
                     }
                   }
                 }
@@ -1917,9 +1914,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": -0.1
+                    "Literal": {
+                      "Value": "'#1E3A5F'"
                     }
                   }
                 }
@@ -2272,7 +2268,7 @@
                 "color": {
                   "expr": {
                     "ThemeDataColor": {
-                      "ColorId": 2,
+                      "ColorId": 0,
                       "Percent": 0
                     }
                   }
@@ -2606,6 +2602,34 @@
           },
           "selector": {
             "metadata": "_Measures.Total Customers"
+          }
+        },
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "50D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Average Order Value"
+          }
+        },
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "50D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Orders"
           }
         }
       ],

@@ -11,10 +11,10 @@
       "type": "SharedResources"
     },
     "customTheme": {
-      "name": "E-Commerce Analytics.json",
+      "name": "E-Commerce_Analytics19758097702425503.json",
       "reportVersionAtImport": {
-        "visual": "2.8.0",
-        "report": "3.2.0",
+        "visual": "2.11.0",
+        "report": "3.4.0",
         "page": "2.3.1"
       },
       "type": "RegisteredResources"
@@ -95,8 +95,8 @@
           "type": "Image"
         },
         {
-          "name": "E-Commerce Analytics.json",
-          "path": "E-Commerce Analytics.json",
+          "name": "E-Commerce_Analytics19758097702425503.json",
+          "path": "E-Commerce_Analytics19758097702425503.json",
           "type": "CustomTheme"
         },
         {

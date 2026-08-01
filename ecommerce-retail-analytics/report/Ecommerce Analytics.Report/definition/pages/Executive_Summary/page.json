@@ -91,11 +91,6 @@
     },
     {
       "source": "dc5c13a2dd4b4c2e19b7",
-      "target": "kpi_revenue",
-      "type": "NoFilter"
-    },
-    {
-      "source": "dc5c13a2dd4b4c2e19b7",
       "target": "49c6591de9b28b9848c7",
       "type": "NoFilter"
     },
@@ -187,11 +182,6 @@
     {
       "source": "ff79f8ede68abbf12a7e",
       "target": "586bea69ead09663a920",
-      "type": "NoFilter"
-    },
-    {
-      "source": "ff79f8ede68abbf12a7e",
-      "target": "kpi_revenue",
       "type": "NoFilter"
     },
     {

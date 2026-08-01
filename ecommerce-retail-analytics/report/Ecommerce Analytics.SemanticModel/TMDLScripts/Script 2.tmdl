@@ -1,0 +1,65 @@
+createOrReplace
+
+	function 'Format.YoYAbsoluteAndRelative' = ```
+			(
+					__ActualPeriodMeasure: SCALAR VAL, 
+					__PreviousPeriodMeasure: SCALAR VAL
+				) =>
+				
+			    VAR __GrowthAbsoluteVariance = __ActualPeriodMeasure - __PreviousPeriodMeasure
+				VAR __GrowthPct = DIVIDE(__GrowthAbsoluteVariance, __PreviousPeriodMeasure)
+				
+				VAR __FormatGrowthPct = "+0.0%;-0.0%;0.0%"
+				VAR __FormatGrowthAbsolute = 
+					SWITCH (
+						TRUE (),
+						__GrowthAbsoluteVariance <= 1E3, "+#,0.0;-#,0.0;0",
+						__GrowthAbsoluteVariance <= 1E4, "+#,0,.00K;-#,0,.00K;0",
+						__GrowthAbsoluteVariance <= 1E5, "+#,0,.0K;-#,0,.0K;0",
+						__GrowthAbsoluteVariance <= 1E6, "+#,0,K;-#,0,K;0",
+						__GrowthAbsoluteVariance <= 1E7, "+#,0,,.00M;-#,0,,.00M;0",
+						__GrowthAbsoluteVariance <= 1E8, "+#,0,,.0M;-#,0,,.0M;0",
+						__GrowthAbsoluteVariance <= 1E9, "+#,0,,M;-#,0,,M;0"
+					)
+			
+				VAR FormatLocale = "en-US"
+			
+				VAR __FormattedAbsolute = FORMAT(__GrowthAbsoluteVariance, __FormatGrowthAbsolute, FormatLocale)
+				VAR __FormattedRelative = FORMAT(__GrowthPct, __FormatGrowthPct, FormatLocale)
+				
+				// Unichar Icons
+				VAR __UnicharPositiveIcon = UNICHAR(9650)
+				VAR __UnicharNegativeIcon = UNICHAR(9660)
+				VAR __UnicharNeutralIcon = UNICHAR(9472)
+				
+				// SVG Icons
+				VAR __SVGIconUp =
+			        "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%23018B77' class='bi bi-arrow-up-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z'/></svg>"
+			
+			    VAR __SVGIconDown =
+			        "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%23CC426B' class='bi bi-arrow-down-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z'/></svg>"
+			
+			    VAR __SVGIconNeutral =
+			        "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%23FFFFFF' class='bi bi-arrow-right-circle-fill' viewBox='0 0 16 16'><path d='M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z'/></svg>"
+					
+				VAR __Divider = " | "
+				VAR __Space = REPT(UNICHAR(160), 1)
+				VAR __Icon =
+					__Space &
+					SWITCH(
+						TRUE(),
+						__GrowthAbsoluteVariance > 0, __UnicharPositiveIcon,
+						__GrowthAbsoluteVariance < 0, __UnicharNegativeIcon,
+						__UnicharNeutralIcon
+					) & __Space
+			
+				RETURN
+				SWITCH(
+					TRUE(),
+					__GrowthAbsoluteVariance = 0, __Space & "No change from PY" & __Space,
+					ISBLANK(__GrowthPct), __Space & __FormattedAbsolute & __Icon & __Space,
+					__Space & __FormattedAbsolute & __Divider & __FormattedRelative & __Icon & __Space
+				)
+			```
+		lineageTag: 3b5bb52d-a3ab-43cb-b75a-aa4156e626e9
+

@@ -48,6 +48,22 @@
         "5d0ad419107d7779cf2a",
         "d1227b1ef3fe0130c333"
       ]
+    },
+    {
+      "name": "dcfe5e7b07e89106ee67",
+      "displayName": "Churn Risk",
+      "children": [
+        "0e66ea1eb4565c934c62",
+        "b02af744d1d131860060"
+      ]
+    },
+    {
+      "name": "6d6848be42981e9c44c4",
+      "displayName": "Funnel Analysis",
+      "children": [
+        "feaf40462e834e554025",
+        "2511d15ada6c7169c17b"
+      ]
     }
   ]
 }

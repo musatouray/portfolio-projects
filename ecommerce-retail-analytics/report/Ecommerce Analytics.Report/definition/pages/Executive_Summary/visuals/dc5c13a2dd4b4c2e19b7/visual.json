@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "dc5c13a2dd4b4c2e19b7",
   "position": {
     "x": 915.75000000000023,
@@ -671,5 +671,23 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "09c05aaac582ccaf63f0"
+  "parentGroupName": "09c05aaac582ccaf63f0",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "23f40af5240661bcc4b2",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "CG Selected Metric"
+              }
+            },
+            "Property": "Metric"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
 }

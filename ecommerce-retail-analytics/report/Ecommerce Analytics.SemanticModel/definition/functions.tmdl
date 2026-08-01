@@ -7,7 +7,7 @@ function 'Format.YoYAbsoluteAndRelative' = ```
 		    VAR __GrowthAbsoluteVariance = __ActualPeriodMeasure - __PreviousPeriodMeasure
 			VAR __GrowthPct = DIVIDE(__GrowthAbsoluteVariance, __PreviousPeriodMeasure)
 			
-			VAR __FormatGrowthPct = "+0.0%;-0.0%;0%"
+			VAR __FormatGrowthPct = "+0.0%;-0.0%;0.0%"
 			VAR __FormatGrowthAbsolute = 
 				SWITCH (
 					TRUE (),
@@ -70,8 +70,8 @@ function 'Color.YoYGrowthPct' = ```
 			VAR __BaseColor = 
 			SWITCH( 
 				TRUE(), 
-				__YoYGrowthMeasure > 0.01, [Positive Color], 
-				__YoYGrowthMeasure < -0.01, [Negative Color], 
+				__YoYGrowthMeasure > 0, [Positive Color], 
+				__YoYGrowthMeasure < 0, [Negative Color], 
 				[Neutral Color] 
 			)
 			
