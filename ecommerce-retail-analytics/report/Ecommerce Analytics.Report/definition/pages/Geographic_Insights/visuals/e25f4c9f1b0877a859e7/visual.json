@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "e25f4c9f1b0877a859e7",
   "position": {
     "x": 19.428592519109888,
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Time Trends",
+                    "value": "Customer Geographic Distribution",
                     "textStyle": {
                       "fontFamily": "Segoe (Bold)",
                       "fontSize": "14pt",

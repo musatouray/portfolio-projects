@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "revenue_trend",
   "position": {
     "x": 0,
@@ -242,5 +242,37 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "09c05aaac582ccaf63f0"
+  "parentGroupName": "09c05aaac582ccaf63f0",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "6ce2289000cd777ab7dd",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DIM_DATES"
+              }
+            },
+            "Property": "MONTH_YEAR"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "c4ec6300ac4ed3128c58",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Blank"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "cd13bfe8dc88b559568c",
   "position": {
     "x": 1136.2927669927517,
@@ -236,6 +236,24 @@
           "selector": {
             "metadata": "_Measures.Prior Year Time Series Calculation Group"
           }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0078D4'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Time Series Blank Placeholder"
+          }
         }
       ],
       "legend": [
@@ -255,6 +273,13 @@
         {
           "properties": {
             "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "backgroundMatchColor": {
               "expr": {
                 "Literal": {
                   "Value": "true"

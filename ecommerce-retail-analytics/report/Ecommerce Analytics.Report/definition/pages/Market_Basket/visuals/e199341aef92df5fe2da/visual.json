@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "e199341aef92df5fe2da",
   "position": {
     "x": 19.853008261949412,
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Performance Pulse",
+                    "value": "Market Basket",
                     "textStyle": {
                       "fontFamily": "Segoe (Bold)",
                       "fontSize": "14pt",

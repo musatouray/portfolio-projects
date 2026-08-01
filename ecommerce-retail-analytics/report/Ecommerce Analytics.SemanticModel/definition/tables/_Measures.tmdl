@@ -374,8 +374,8 @@ table _Measures
 		displayFolder: 05_Cohort
 		lineageTag: co100006-0001-0001-0001-000000000006
 
-	/// [HELPER / STUB] Returns 0; reserved funnel placeholder, not implemented. Do not use for analysis.
-	measure 'Orders Placed' = 0
+	/// [METRIC] Total orders placed in filter context. Top of the order lifecycle funnel.
+	measure 'Orders Placed' = [Total Orders]
 		formatString: #,##0
 		displayFolder: 04_Funnel
 		lineageTag: f1000001-0001-0001-0001-000000000001
@@ -769,8 +769,19 @@ table _Measures
 		displayFolder: 01_Segments\CLV
 		lineageTag: e233b5ae-578d-4c21-acae-c2c9289907df
 
-	/// [HELPER / STUB] Returns 0; churn-page placeholder. Do not use for analysis (rebuild from FCT_RFM_SEGMENTS[CHURN_STATUS] when the churn page is completed).
-	measure 'Total Churn Customers' = 0
+	/// [METRIC] Customers with CHURN_STATUS = 'Churned' at the latest (or slicer-selected) snapshot month. Grain: latest snapshot.
+	measure 'Total Churn Customers' =
+			VAR __LatestSnapshot = MAX(DIM_DATES[MONTH_START_DATE])
+			RETURN
+			IF(
+			    NOT ISBLANK(__LatestSnapshot),
+			    CALCULATE(
+			        COUNTROWS(FCT_RFM_SEGMENTS),
+			        FCT_RFM_SEGMENTS[CHURN_STATUS] = "Churned",
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshot,
+			        REMOVEFILTERS(DIM_DATES)
+			    )
+			)
 		formatString: #,##0
 		displayFolder: 01_Segments\Churn
 		lineageTag: ch100010-0001-0001-0001-000000000010
@@ -2077,8 +2088,8 @@ table _Measures
 			    " Champions drive" & __Space & FORMAT( __ChampionsPct, "0%" ) & __Space & "of revenue" &
 			    " and " &
 			    FORMAT( __AtRiskPct, "0%" ) & __Space & "concentrated in At Risk & Hibernating customers." &
-			    "The best performing product category is " & __TopCategory & __Space & "(" & __TopCatLabel & ")" &
-			    " while " & __BottomCategory & " is the worst category." 
+			    "The worst performing product category is " & __TopCategory & __Space & "(" & __TopCatLabel & ")" &
+			    " while " & __BottomCategory & " is the best category." 
 			
 			RETURN
 			    IF(
@@ -2445,11 +2456,13 @@ table _Measures
 			SWITCH(
 			    __Segments,
 			    "Champions", "#1E3A5F",
-			    "Loyalists", "#4B617F",
-			    "New Customers", "#78899F",
-			    "At Risk / Hibernating", "#A5B0BF",
-			    "General Pool", "#B7C5DB",
-			    "#1E3A5F"
+			    "Potential Loyalists", "#78899F",
+			    "High-Value New", "#6E8CB7",
+			    "New Customers", "#B7C5DB",
+			    "Slipping Whales", "#99D0CA",
+			    "Need Attention", "#E7A3BD",
+			    "High Value Dormant", "FFD999",
+			    "One-and-Done Lost", "#CCCCCC"
 			)
 			
 			```
@@ -4153,6 +4166,279 @@ table _Measures
 		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: 01_Segments\RFM
 		lineageTag: 256fe2de-b108-4271-8bf6-da85ca246e36
+
+	/// [METRIC] Customers with CHURN_STATUS = 'Active' at the latest snapshot month (purchased recently, low churn risk).
+	measure 'Customers Active' =
+			VAR __LatestSnapshot = MAX(DIM_DATES[MONTH_START_DATE])
+			RETURN
+			IF(
+			    NOT ISBLANK(__LatestSnapshot),
+			    CALCULATE(
+			        COUNTROWS(FCT_RFM_SEGMENTS),
+			        FCT_RFM_SEGMENTS[CHURN_STATUS] = "Active",
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshot,
+			        REMOVEFILTERS(DIM_DATES)
+			    )
+			)
+		formatString: #,##0
+		displayFolder: 01_Segments\Churn
+		lineageTag: c904ed44-6e9e-4c6b-b67f-38d852aba87d
+
+	/// [METRIC] Customers with CHURN_STATUS = 'Cooling' at the latest snapshot month (purchase frequency declining, early warning).
+	measure 'Customers Cooling' =
+			VAR __LatestSnapshot = MAX(DIM_DATES[MONTH_START_DATE])
+			RETURN
+			IF(
+			    NOT ISBLANK(__LatestSnapshot),
+			    CALCULATE(
+			        COUNTROWS(FCT_RFM_SEGMENTS),
+			        FCT_RFM_SEGMENTS[CHURN_STATUS] = "Cooling",
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshot,
+			        REMOVEFILTERS(DIM_DATES)
+			    )
+			)
+		formatString: #,##0
+		displayFolder: 01_Segments\Churn
+		lineageTag: 1ededa84-b6c1-44a9-a3cb-49bb409466e3
+
+	/// [METRIC] Customers with CHURN_STATUS = 'At Risk' at the latest snapshot month (high recency, likely to churn without intervention).
+	measure 'Customers At Risk' =
+			VAR __LatestSnapshot = MAX(DIM_DATES[MONTH_START_DATE])
+			RETURN
+			IF(
+			    NOT ISBLANK(__LatestSnapshot),
+			    CALCULATE(
+			        COUNTROWS(FCT_RFM_SEGMENTS),
+			        FCT_RFM_SEGMENTS[CHURN_STATUS] = "At Risk",
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshot,
+			        REMOVEFILTERS(DIM_DATES)
+			    )
+			)
+		formatString: #,##0
+		displayFolder: 01_Segments\Churn
+		lineageTag: 49339485-f886-44d2-92f6-9d62a12592bf
+
+	/// [METRIC] Share of customers with CHURN_STATUS = 'Churned' at the latest snapshot, in filter context. Used for Churn Status Color conditional formatting.
+	measure 'Churn Rate' =
+			VAR __LatestSnapshot = MAX(DIM_DATES[MONTH_START_DATE])
+			RETURN
+			IF(
+			    NOT ISBLANK(__LatestSnapshot),
+			    DIVIDE(
+			        CALCULATE(
+			            COUNTROWS(FCT_RFM_SEGMENTS),
+			            FCT_RFM_SEGMENTS[CHURN_STATUS] = "Churned",
+			            FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshot,
+			            REMOVEFILTERS(DIM_DATES)
+			        ),
+			        CALCULATE(
+			            COUNTROWS(FCT_RFM_SEGMENTS),
+			            FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshot,
+			            REMOVEFILTERS(DIM_DATES)
+			        )
+			    )
+			)
+		formatString: 0.0%
+		displayFolder: 01_Segments\Churn
+		lineageTag: f8b6c884-7d7b-4027-bd05-5891c3faadf6
+
+	/// [METRIC] Predicted 12-month CLV of customers currently in 'Cooling' or 'At Risk' churn status. Quantifies the revenue exposure from customers approaching churn.
+	measure 'Revenue At Risk' =
+			VAR __LatestSnapshot = MAX(DIM_DATES[MONTH_START_DATE])
+			VAR __AtRiskKeys =
+			    CALCULATETABLE(
+			        VALUES(FCT_RFM_SEGMENTS[CUSTOMER_KEY]),
+			        FCT_RFM_SEGMENTS[CHURN_STATUS] IN { "Cooling", "At Risk" },
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshot,
+			        REMOVEFILTERS(DIM_DATES)
+			    )
+			RETURN
+			IF(
+			    NOT ISBLANK(__LatestSnapshot) && COUNTROWS(__AtRiskKeys) > 0,
+			    CALCULATE(
+			        SUM(FCT_CLV_CUSTOMER[PREDICTED_CLV_12M]),
+			        TREATAS(__AtRiskKeys, DIM_CUSTOMERS[CUSTOMER_KEY])
+			    )
+			)
+		formatString: $#,##0
+		displayFolder: 01_Segments\Churn
+		lineageTag: d2db208e-77bb-477a-9b22-1cb78ea1dcc9
+
+	/// [METRIC] Average composite churn risk score (0-100) across customers at the latest snapshot month. Higher = more at risk. Use in filter context to compare scores by segment.
+	measure 'Avg Churn Risk Score' =
+			VAR __LatestSnapshot = MAX(DIM_DATES[MONTH_START_DATE])
+			RETURN
+			IF(
+			    NOT ISBLANK(__LatestSnapshot),
+			    CALCULATE(
+			        AVERAGE(FCT_RFM_SEGMENTS[CHURN_RISK_SCORE]),
+			        FCT_RFM_SEGMENTS[SNAPSHOT_MONTH] = __LatestSnapshot,
+			        REMOVEFILTERS(DIM_DATES)
+			    )
+			)
+		formatString: 0.0
+		displayFolder: 01_Segments\Churn
+		lineageTag: 3596cef5-39ea-42ff-92a8-c72e29613c67
+
+	/// [METRIC] Count of customers with CHURN_STATUS = 'Churned' at each snapshot month. Designed for time-series trend visuals where DIM_DATES drives the axis (no snapshot locking).
+	measure 'Churn Trend Churned' =
+			CALCULATE(
+			    COUNTROWS(FCT_RFM_SEGMENTS),
+			    FCT_RFM_SEGMENTS[CHURN_STATUS] = "Churned"
+			)
+		formatString: #,##0
+		displayFolder: 01_Segments\Churn
+		lineageTag: afac00d5-ae31-4ac6-9646-393464013003
+
+	/// [METRIC] Count of customers with CHURN_STATUS = 'At Risk' at each snapshot month. Designed for time-series trend visuals where DIM_DATES drives the axis (no snapshot locking).
+	measure 'Churn Trend At Risk' =
+			CALCULATE(
+			    COUNTROWS(FCT_RFM_SEGMENTS),
+			    FCT_RFM_SEGMENTS[CHURN_STATUS] = "At Risk"
+			)
+		formatString: #,##0
+		displayFolder: 01_Segments\Churn
+		lineageTag: 1d409a42-4d47-4d42-ad36-4bb70d7563aa
+
+	/// [METRIC] Count of orders with ORDER_STATUS = 'delivered'. Bottom of the order lifecycle funnel.
+	measure 'Orders Delivered' = CALCULATE([Total Orders], FCT_ORDERS[ORDER_STATUS] = "delivered")
+		formatString: #,##0
+		displayFolder: 04_Funnel
+		lineageTag: f1000002-0001-0001-0001-000000000002
+
+	/// [METRIC] Count of orders with ORDER_STATUS = 'canceled'.
+	measure 'Orders Canceled' = CALCULATE([Total Orders], FCT_ORDERS[ORDER_STATUS] = "canceled")
+		formatString: #,##0
+		displayFolder: 04_Funnel
+		lineageTag: f1000003-0001-0001-0001-000000000003
+
+	/// [METRIC] Count of orders that have not been canceled or marked unavailable.
+	measure 'Orders Active' = CALCULATE(COUNTROWS(FCT_ORDERS), NOT FCT_ORDERS[ORDER_STATUS] IN {"canceled", "unavailable"})
+		formatString: #,##0
+		displayFolder: 04_Funnel
+		lineageTag: f1000004-0001-0001-0001-000000000004
+
+	/// [METRIC] Count of orders with ORDER_STATUS IN ('shipped', 'delivered').
+	measure 'Orders Shipped' = CALCULATE(COUNTROWS(FCT_ORDERS), FCT_ORDERS[ORDER_STATUS] IN {"shipped", "delivered"})
+		formatString: #,##0
+		displayFolder: 04_Funnel
+		lineageTag: f1000005-0001-0001-0001-000000000005
+
+	/// [METRIC] Count of delivered orders that have at least one review submitted.
+	measure 'Orders Reviewed' = CALCULATE(COUNTROWS(FCT_ORDERS), FCT_ORDERS[REVIEW_COUNT] > 0)
+		formatString: #,##0
+		displayFolder: 04_Funnel
+		lineageTag: f1000006-0001-0001-0001-000000000006
+
+	/// [METRIC] Share of orders that were canceled = Orders Canceled / Orders Placed.
+	measure 'Order Cancellation Rate' =
+			DIVIDE(
+			    CALCULATE(COUNTROWS(FCT_ORDERS), FCT_ORDERS[ORDER_STATUS] = "canceled"),
+			    [Total Orders]
+			)
+		formatString: 0.00%
+		displayFolder: 04_Funnel
+		lineageTag: f1000007-0001-0001-0001-000000000007
+
+	/// [METRIC] Share of delivered orders that have a review.
+	measure 'Order Review Rate' = DIVIDE([Orders Reviewed], [Orders Delivered])
+		formatString: 0.0%
+		displayFolder: 04_Funnel
+		lineageTag: f1000008-0001-0001-0001-000000000008
+
+	/// [METRIC] Average days from order placement to delivery, for delivered orders only.
+	measure 'Avg Delivery Days' = CALCULATE(AVERAGE(FCT_ORDERS[DELIVERY_DAYS]), FCT_ORDERS[ORDER_STATUS] = "delivered")
+		formatString: 0.0
+		displayFolder: 04_Funnel
+		lineageTag: 5835c374-6158-4194-9a0e-5103b529af65
+
+	/// [METRIC] Average days from order approval to delivery (warehouse + transit), for delivered orders.
+	measure 'Avg Fulfillment Days' = CALCULATE(AVERAGE(FCT_ORDERS[FULFILLMENT_DAYS]), FCT_ORDERS[ORDER_STATUS] = "delivered")
+		formatString: 0.0
+		displayFolder: 04_Funnel
+		lineageTag: f1000009-0001-0001-0001-000000000009
+
+	/// [METRIC] Average days from carrier pickup to customer delivery, for delivered orders.
+	measure 'Avg Transit Days' = CALCULATE(AVERAGE(FCT_ORDERS[SHIPPING_TRANSIT_DAYS]), FCT_ORDERS[ORDER_STATUS] = "delivered")
+		formatString: 0.0
+		displayFolder: 04_Funnel
+		lineageTag: f1998e3e-bc2a-4ef9-b0d4-d036cc73106e
+
+	/// [METRIC] Average days from order placement to warehouse approval.
+	measure 'Avg Approval Wait Days' =
+			CALCULATE(
+			    AVERAGEX(
+			        FILTER(FCT_ORDERS,
+			            FCT_ORDERS[ORDER_STATUS] = "delivered"
+			            && NOT ISBLANK(FCT_ORDERS[DELIVERY_DAYS])
+			            && NOT ISBLANK(FCT_ORDERS[FULFILLMENT_DAYS])
+			        ),
+			        FCT_ORDERS[DELIVERY_DAYS] - FCT_ORDERS[FULFILLMENT_DAYS]
+			    )
+			)
+		formatString: 0.0
+		displayFolder: 04_Funnel
+		lineageTag: f1000010-0001-0001-0001-000000000010
+
+	/// [METRIC] Average days from approval to carrier pickup (warehouse pick-pack-dispatch).
+	measure 'Avg Prep Days' =
+			CALCULATE(
+			    AVERAGEX(
+			        FILTER(FCT_ORDERS,
+			            FCT_ORDERS[ORDER_STATUS] = "delivered"
+			            && NOT ISBLANK(FCT_ORDERS[FULFILLMENT_DAYS])
+			            && NOT ISBLANK(FCT_ORDERS[SHIPPING_TRANSIT_DAYS])
+			        ),
+			        FCT_ORDERS[FULFILLMENT_DAYS] - FCT_ORDERS[SHIPPING_TRANSIT_DAYS]
+			    )
+			)
+		formatString: 0.0
+		displayFolder: 04_Funnel
+		lineageTag: 02a5d71a-c435-445a-82e3-8fb1d6df79d8
+
+	/// [METRIC] Average credit card installments per order.
+	measure 'Avg Credit Card Installments' = CALCULATE(AVERAGE(FCT_ORDER_PAYMENTS[PAYMENT_INSTALLMENTS]), FCT_ORDER_PAYMENTS[PAYMENT_TYPE] = "credit_card")
+		formatString: 0.0
+		displayFolder: 04_Funnel
+		lineageTag: f1000011-0001-0001-0001-000000000011
+
+	/// [METRIC] Freight/shipping as a share of total revenue.
+	measure 'Freight as % Revenue' = DIVIDE([Total Freight], [Total Revenue])
+		formatString: 0.0%
+		displayFolder: 04_Funnel
+		lineageTag: f1000012-0001-0001-0001-000000000012
+
+	/// [METRIC] Total payment value from FCT_ORDER_PAYMENTS. Use for payment-type breakdowns by method.
+	measure 'Payment Revenue' = SUM(FCT_ORDER_PAYMENTS[PAYMENT_VALUE])
+		formatString: $#,##0
+		displayFolder: 04_Funnel
+		lineageTag: f1000013-0001-0001-0001-000000000013
+
+	/// [METRIC] Share of delivered orders that arrived after the promised delivery date.
+	measure 'Late Delivery Rate' = 1 - [On-Time Delivery Rate]
+		formatString: 0.0%
+		displayFolder: 04_Funnel
+		lineageTag: f1000014-0001-0001-0001-000000000014
+
+	/// [METRIC] Share of reviewed orders with 1 or 2 star ratings.
+	measure 'Low Rating Rate' =
+			DIVIDE(
+			    CALCULATE([Total Orders], FCT_ORDERS[REVIEW_SCORE] <= 2, NOT ISBLANK(FCT_ORDERS[REVIEW_SCORE])),
+			    CALCULATE([Total Orders], NOT ISBLANK(FCT_ORDERS[REVIEW_SCORE]))
+			)
+		formatString: 0.0%
+		displayFolder: 04_Funnel
+		lineageTag: f1000015-0001-0001-0001-000000000015
+
+	/// [METRIC] Share of reviewed orders with 4 or 5 star ratings.
+	measure 'High Rating Rate' =
+			DIVIDE(
+			    CALCULATE([Total Orders], FCT_ORDERS[REVIEW_SCORE] >= 4, NOT ISBLANK(FCT_ORDERS[REVIEW_SCORE])),
+			    CALCULATE([Total Orders], NOT ISBLANK(FCT_ORDERS[REVIEW_SCORE]))
+			)
+		formatString: 0.0%
+		displayFolder: 04_Funnel
+		lineageTag: f1000016-0001-0001-0001-000000000016
 
 	/// Unused placeholder column; the measures table has no data rows. Grain: not applicable.
 	column Value

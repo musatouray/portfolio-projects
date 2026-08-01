@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "cf813cd09b17658d1a6a",
   "position": {
     "x": 1005.4964772669674,
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "FCT_CLV_CUSTOMER.CUSTOMER_VALUE_SEGMENT",
-              "nativeQueryRef": "CUSTOMER_VALUE_SEGMENT"
+              "nativeQueryRef": "CUSTOMER_VALUE_SEGMENT",
+              "active": true
             }
           ]
         },
