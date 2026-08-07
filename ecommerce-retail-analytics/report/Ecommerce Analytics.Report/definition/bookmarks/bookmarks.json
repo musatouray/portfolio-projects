@@ -54,7 +54,9 @@
       "displayName": "Churn Risk",
       "children": [
         "0e66ea1eb4565c934c62",
-        "b02af744d1d131860060"
+        "b02af744d1d131860060",
+        "54cff3b29bc94829d031",
+        "757276fb90d59e544c99"
       ]
     },
     {
@@ -63,6 +65,14 @@
       "children": [
         "feaf40462e834e554025",
         "2511d15ada6c7169c17b"
+      ]
+    },
+    {
+      "name": "97b3944c8ec114baaac0",
+      "displayName": "Market Basket",
+      "children": [
+        "deb3fb1c89000a057515",
+        "f76f012aeccb107a5c59"
       ]
     }
   ]

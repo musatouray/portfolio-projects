@@ -157,8 +157,8 @@
                 "color": {
                   "expr": {
                     "ThemeDataColor": {
-                      "ColorId": 2,
-                      "Percent": 0.6
+                      "ColorId": 8,
+                      "Percent": 0
                     }
                   }
                 }
@@ -176,7 +176,7 @@
                 "color": {
                   "expr": {
                     "ThemeDataColor": {
-                      "ColorId": 8,
+                      "ColorId": 2,
                       "Percent": 0.6
                     }
                   }
@@ -186,7 +186,7 @@
             "fillTransparency": {
               "expr": {
                 "Literal": {
-                  "Value": "50D"
+                  "Value": "0D"
                 }
               }
             }
@@ -198,7 +198,15 @@
       ],
       "layout": [
         {
-          "properties": {}
+          "properties": {
+            "stackedGapSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
         }
       ],
       "categoryAxis": [
@@ -234,10 +242,48 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             }
+          }
+        },
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Customers Active"
+          }
+        },
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Customers At Risk"
           }
         }
       ]

@@ -1,12 +1,12 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
-  "name": "churn_kpi_strip",
+  "name": "mb_kpi_strip",
   "position": {
     "x": 30,
     "y": 206,
     "z": 4000,
     "height": 179,
-    "width": 1860.3436565462011,
+    "width": 1860,
     "tabOrder": 8000
   },
   "visual": {
@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Customers Active"
+                  "Property": "Total Product Pairs"
                 }
               },
-              "queryRef": "_Measures.Customers Active",
-              "nativeQueryRef": "Customers Active"
+              "queryRef": "_Measures.Total Product Pairs",
+              "nativeQueryRef": "Total Product Pairs"
             },
             {
               "field": {
@@ -37,11 +37,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Customers Cooling"
+                  "Property": "Cross-Sell Opportunities"
                 }
               },
-              "queryRef": "_Measures.Customers Cooling",
-              "nativeQueryRef": "Customers Cooling"
+              "queryRef": "_Measures.Cross-Sell Opportunities",
+              "nativeQueryRef": "Cross-Sell Opportunities"
             },
             {
               "field": {
@@ -51,11 +51,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Customers At Risk"
+                  "Property": "Cross-Sell Opportunity Rate"
                 }
               },
-              "queryRef": "_Measures.Customers At Risk",
-              "nativeQueryRef": "Customers At Risk"
+              "queryRef": "_Measures.Cross-Sell Opportunity Rate",
+              "nativeQueryRef": "Cross-Sell Opportunity Rate"
             },
             {
               "field": {
@@ -65,11 +65,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Churn Customers"
+                  "Property": "High Lift Pairs"
                 }
               },
-              "queryRef": "_Measures.Total Churn Customers",
-              "nativeQueryRef": "Total Churn Customers"
+              "queryRef": "_Measures.High Lift Pairs",
+              "nativeQueryRef": "High Lift Pairs"
             },
             {
               "field": {
@@ -79,46 +79,14 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Revenue At Risk"
+                  "Property": "Avg Lift"
                 }
               },
-              "queryRef": "_Measures.Revenue At Risk",
-              "nativeQueryRef": "Revenue At Risk"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Churn Rate"
-                }
-              },
-              "queryRef": "_Measures.Churn Rate",
-              "nativeQueryRef": "Churn Rate"
+              "queryRef": "_Measures.Avg Lift",
+              "nativeQueryRef": "Avg Lift"
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Measure": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "_Measures"
-                  }
-                },
-                "Property": "Customers Active"
-              }
-            },
-            "direction": "Descending"
-          }
-        ],
-        "isDefaultSort": true
       }
     },
     "objects": {
@@ -289,21 +257,16 @@
         },
         {
           "properties": {
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 6,
-                      "Percent": 0
-                    }
-                  }
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
                 }
               }
             }
           },
           "selector": {
-            "metadata": "_Measures.Total Churn Customers"
+            "metadata": "_Measures.Total Product Pairs"
           }
         }
       ],
@@ -2643,76 +2606,6 @@
           "selector": {
             "metadata": "_Measures.AOV Order Items"
           }
-        },
-        {
-          "properties": {
-            "labelDisplayUnits": {
-              "expr": {
-                "Literal": {
-                  "Value": "1D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Measures.Customers Active"
-          }
-        },
-        {
-          "properties": {
-            "labelDisplayUnits": {
-              "expr": {
-                "Literal": {
-                  "Value": "1D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Measures.Customers Cooling"
-          }
-        },
-        {
-          "properties": {
-            "labelDisplayUnits": {
-              "expr": {
-                "Literal": {
-                  "Value": "1D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Measures.Customers At Risk"
-          }
-        },
-        {
-          "properties": {
-            "labelDisplayUnits": {
-              "expr": {
-                "Literal": {
-                  "Value": "1D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Measures.Total Churn Customers"
-          }
-        },
-        {
-          "properties": {
-            "labelDisplayUnits": {
-              "expr": {
-                "Literal": {
-                  "Value": "1D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Measures.Revenue At Risk"
-          }
         }
       ]
     },
@@ -2784,13 +2677,6 @@
               "expr": {
                 "Literal": {
                   "Value": "'Segoe UI Semibold'"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'KPI Cards'"
                 }
               }
             }

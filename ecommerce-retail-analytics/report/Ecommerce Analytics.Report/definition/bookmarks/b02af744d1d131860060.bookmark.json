@@ -6,7 +6,8 @@
     "applyOnlyToTargetVisuals": true,
     "targetVisualNames": [
       "7403339fef5a5c3240dc",
-      "213dd080630947d8f220",
+      "d4103c845c0356323ccd",
+      "4e912bc30a10baa10680",
       "613978921eb2c711ff79",
       "6237dec924b5caeb999d",
       "9291013669574ba4b604",
@@ -24,7 +25,7 @@
             "filters": {
               "byExpr": [
                 {
-                  "name": "48cc898f70b91791a9ea",
+                  "name": "969656db2a5e90b44074",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -147,6 +148,164 @@
               "objects": {}
             }
           },
+          "4e912bc30a10baa10680": {
+            "filters": {
+              "byName": {
+                "d14575474c642e2150db": {
+                  "name": "d14575474c642e2150db",
+                  "type": "Advanced",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "d",
+                        "Entity": "Disconnected Calendar",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "Comparison": {
+                            "ComparisonKind": 4,
+                            "Left": {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "d"
+                                  }
+                                },
+                                "Property": "MONTH_START_DATE"
+                              }
+                            },
+                            "Right": {
+                              "DateSpan": {
+                                "Expression": {
+                                  "Literal": {
+                                    "Value": "datetime'2026-06-30T00:00:00'"
+                                  }
+                                },
+                                "TimeUnit": 5
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Disconnected Calendar"
+                        }
+                      },
+                      "Property": "MONTH_START_DATE"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              },
+              "byExpr": [
+                {
+                  "name": "da4a61af7e7d95ec2871",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DIM_DATES"
+                        }
+                      },
+                      "Property": "YEAR"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "listSlicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "d",
+                                "Entity": "DIM_DATES",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "d"
+                                            }
+                                          },
+                                          "Property": "YEAR"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "2025L"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DIM_DATES"
+                        }
+                      },
+                      "Property": "YEAR"
+                    }
+                  }
+                ]
+              }
+            }
+          },
           "613978921eb2c711ff79": {
             "singleVisual": {
               "visualType": "shape",
@@ -220,7 +379,7 @@
               },
               "byExpr": [
                 {
-                  "name": "8d1caa6e6cc0e0d166ae",
+                  "name": "8d2e0156a35450544089",
                   "type": "Categorical",
                   "expression": {
                     "Column": {
@@ -333,7 +492,7 @@
             "filters": {
               "byExpr": [
                 {
-                  "name": "b2247210dd627eae2004",
+                  "name": "1ad65e2a75c916908445",
                   "type": "Categorical",
                   "expression": {
                     "Column": {
@@ -348,7 +507,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "0c56b429eb9eed725853",
+                  "name": "da141cdec7ec8b926ac0",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -363,7 +522,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "452280b2b4244049b030",
+                  "name": "8e33eb42708b6800d3c4",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -378,7 +537,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "928e8c68c30dcac934ed",
+                  "name": "ba0e18c5078b60bc7dd0",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -395,19 +554,19 @@
               ]
             },
             "singleVisual": {
-              "visualType": "clusteredBarChart",
+              "visualType": "hundredPercentStackedBarChart",
               "objects": {},
               "orderBy": [
                 {
-                  "Direction": 1,
+                  "Direction": 2,
                   "Expression": {
-                    "Column": {
+                    "Measure": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "FCT_CLV_CUSTOMER"
+                          "Entity": "_Measures"
                         }
                       },
-                      "Property": "CUSTOMER_VALUE_SEGMENT"
+                      "Property": "Customers Active"
                     }
                   }
                 }
@@ -432,7 +591,7 @@
             "filters": {
               "byExpr": [
                 {
-                  "name": "7966df62e072470b542d",
+                  "name": "60f5e250e5b15c1b686b",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -447,7 +606,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "0df4c79b463ecb77646e",
+                  "name": "1343fe6c7bdab0a81538",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -462,7 +621,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "613eadc40249274a4b0a",
+                  "name": "110e652f0a2403b53660",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -477,7 +636,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "21b4862601374798a004",
+                  "name": "21ad59bed09593b44260",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -492,7 +651,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "7b41ca0fe5ed0a6a810a",
+                  "name": "c1d1bf4ed5c471476aa2",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -507,7 +666,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "17827d8ddc949614b06d",
+                  "name": "96b3f665d0a7595038e0",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -980,6 +1139,15 @@
             "singleVisual": {
               "visualType": "shape",
               "objects": {}
+            }
+          },
+          "d4103c845c0356323ccd": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
             }
           }
         },
