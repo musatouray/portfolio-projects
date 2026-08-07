@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "6997d0c898c5b5bc82d3",
   "position": {
     "x": 19.8530082619493,
@@ -316,7 +316,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Last 12 Months'"
+                                "Value": "'Last Year'"
                               }
                             }
                           ]

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "dda0061c9402e6a3b463",
   "position": {
     "x": 30.363424400628517,
@@ -78,7 +78,7 @@
                 "color": {
                   "expr": {
                     "ThemeDataColor": {
-                      "ColorId": 9,
+                      "ColorId": 2,
                       "Percent": 0
                     }
                   }
@@ -287,9 +287,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 9,
-                      "Percent": 0.6
+                    "Literal": {
+                      "Value": "'#A6ACAF'"
                     }
                   }
                 }
@@ -329,9 +328,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 3,
-                      "Percent": 0.4
+                    "Literal": {
+                      "Value": "'#4CA2E1'"
                     }
                   }
                 }
@@ -371,9 +369,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 6,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#D5DBDB'"
                     }
                   }
                 }
@@ -413,9 +410,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 1,
-                      "Percent": 0.6
+                    "Literal": {
+                      "Value": "'#0078D4'"
                     }
                   }
                 }
@@ -455,9 +451,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 4,
-                      "Percent": 0.4
+                    "Literal": {
+                      "Value": "'#7BA4D0'"
                     }
                   }
                 }
@@ -497,9 +492,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 8,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#4A6E99'"
                     }
                   }
                 }
@@ -539,9 +533,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 6,
-                      "Percent": 0.6
+                    "Literal": {
+                      "Value": "'#7F8C8D'"
                     }
                   }
                 }
@@ -1352,7 +1345,7 @@
                 "color": {
                   "expr": {
                     "ThemeDataColor": {
-                      "ColorId": 9,
+                      "ColorId": 2,
                       "Percent": 0
                     }
                   }
@@ -1416,7 +1409,7 @@
                 "color": {
                   "expr": {
                     "ThemeDataColor": {
-                      "ColorId": 9,
+                      "ColorId": 2,
                       "Percent": 0
                     }
                   }
@@ -1480,7 +1473,7 @@
                 "color": {
                   "expr": {
                     "ThemeDataColor": {
-                      "ColorId": 9,
+                      "ColorId": 2,
                       "Percent": 0
                     }
                   }
@@ -1544,7 +1537,7 @@
                 "color": {
                   "expr": {
                     "ThemeDataColor": {
-                      "ColorId": 9,
+                      "ColorId": 2,
                       "Percent": 0
                     }
                   }
@@ -1608,7 +1601,7 @@
                 "color": {
                   "expr": {
                     "ThemeDataColor": {
-                      "ColorId": 9,
+                      "ColorId": 2,
                       "Percent": 0
                     }
                   }
@@ -1672,7 +1665,7 @@
                 "color": {
                   "expr": {
                     "ThemeDataColor": {
-                      "ColorId": 9,
+                      "ColorId": 2,
                       "Percent": 0
                     }
                   }
@@ -1735,9 +1728,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 8,
-                      "Percent": -0.25
+                    "Literal": {
+                      "Value": "'#4A6E99'"
                     }
                   }
                 }
@@ -1799,9 +1791,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 8,
-                      "Percent": -0.25
+                    "Literal": {
+                      "Value": "'#4A6E99'"
                     }
                   }
                 }
@@ -1863,9 +1854,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 4,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#7BA4D0'"
                     }
                   }
                 }
@@ -1927,9 +1917,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 3,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#4CA2E1'"
                     }
                   }
                 }
@@ -1991,9 +1980,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 6,
-                      "Percent": 0.6
+                    "Literal": {
+                      "Value": "'#7F8C8D'"
                     }
                   }
                 }
@@ -2055,9 +2043,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 9,
-                      "Percent": 0.6
+                    "Literal": {
+                      "Value": "'#A6ACAF'"
                     }
                   }
                 }
@@ -2119,9 +2106,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 6,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#D5DBDB'"
                     }
                   }
                 }
@@ -2183,9 +2169,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 6,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#D5DBDB'"
                     }
                   }
                 }
@@ -2247,9 +2232,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 6,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#D5DBDB'"
                     }
                   }
                 }
@@ -2311,9 +2295,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 6,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#D5DBDB'"
                     }
                   }
                 }
@@ -2375,9 +2358,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 6,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#D5DBDB'"
                     }
                   }
                 }
@@ -2439,9 +2421,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 6,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#D5DBDB'"
                     }
                   }
                 }
@@ -2503,9 +2484,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 8,
-                      "Percent": -0.25
+                    "Literal": {
+                      "Value": "'#4A6E99'"
                     }
                   }
                 }
@@ -2567,9 +2547,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 8,
-                      "Percent": -0.25
+                    "Literal": {
+                      "Value": "'#4A6E99'"
                     }
                   }
                 }
@@ -2631,9 +2610,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 8,
-                      "Percent": -0.25
+                    "Literal": {
+                      "Value": "'#4A6E99'"
                     }
                   }
                 }
@@ -2695,9 +2673,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 8,
-                      "Percent": -0.25
+                    "Literal": {
+                      "Value": "'#4A6E99'"
                     }
                   }
                 }
@@ -2759,9 +2736,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 4,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#7BA4D0'"
                     }
                   }
                 }
@@ -2823,9 +2799,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 4,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#7BA4D0'"
                     }
                   }
                 }
@@ -2887,9 +2862,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": -0.5
+                    "Literal": {
+                      "Value": "'#0078D4'"
                     }
                   }
                 }
@@ -2951,9 +2925,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": -0.5
+                    "Literal": {
+                      "Value": "'#0078D4'"
                     }
                   }
                 }
@@ -3015,9 +2988,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": -0.5
+                    "Literal": {
+                      "Value": "'#0078D4'"
                     }
                   }
                 }
@@ -3079,9 +3051,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": -0.5
+                    "Literal": {
+                      "Value": "'#0078D4'"
                     }
                   }
                 }
@@ -3143,9 +3114,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": -0.5
+                    "Literal": {
+                      "Value": "'#0078D4'"
                     }
                   }
                 }
@@ -3207,9 +3177,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": -0.5
+                    "Literal": {
+                      "Value": "'#0078D4'"
                     }
                   }
                 }
@@ -3271,9 +3240,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 3,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#4CA2E1'"
                     }
                   }
                 }
@@ -3335,9 +3303,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 3,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#4CA2E1'"
                     }
                   }
                 }
@@ -3399,9 +3366,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 3,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#4CA2E1'"
                     }
                   }
                 }
@@ -3463,9 +3429,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 3,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#4CA2E1'"
                     }
                   }
                 }
@@ -3527,9 +3492,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 3,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#4CA2E1'"
                     }
                   }
                 }
@@ -3591,9 +3555,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 6,
-                      "Percent": 0.6
+                    "Literal": {
+                      "Value": "'#7F8C8D'"
                     }
                   }
                 }
@@ -3655,9 +3618,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 6,
-                      "Percent": 0.6
+                    "Literal": {
+                      "Value": "'#7F8C8D'"
                     }
                   }
                 }
@@ -3719,9 +3681,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 6,
-                      "Percent": 0.6
+                    "Literal": {
+                      "Value": "'#7F8C8D'"
                     }
                   }
                 }
@@ -3783,9 +3744,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 6,
-                      "Percent": 0.6
+                    "Literal": {
+                      "Value": "'#7F8C8D'"
                     }
                   }
                 }
@@ -3847,9 +3807,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 6,
-                      "Percent": 0.6
+                    "Literal": {
+                      "Value": "'#7F8C8D'"
                     }
                   }
                 }
@@ -3911,9 +3870,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 9,
-                      "Percent": 0.6
+                    "Literal": {
+                      "Value": "'#A6ACAF'"
                     }
                   }
                 }
@@ -3975,9 +3933,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 9,
-                      "Percent": 0.6
+                    "Literal": {
+                      "Value": "'#A6ACAF'"
                     }
                   }
                 }
@@ -4039,9 +3996,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 9,
-                      "Percent": 0.6
+                    "Literal": {
+                      "Value": "'#A6ACAF'"
                     }
                   }
                 }
@@ -4103,9 +4059,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 9,
-                      "Percent": 0.6
+                    "Literal": {
+                      "Value": "'#A6ACAF'"
                     }
                   }
                 }
@@ -4167,9 +4122,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 9,
-                      "Percent": 0.6
+                    "Literal": {
+                      "Value": "'#A6ACAF'"
                     }
                   }
                 }
@@ -4231,9 +4185,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 9,
-                      "Percent": 0.6
+                    "Literal": {
+                      "Value": "'#A6ACAF'"
                     }
                   }
                 }
@@ -4295,9 +4248,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 9,
-                      "Percent": 0.6
+                    "Literal": {
+                      "Value": "'#A6ACAF'"
                     }
                   }
                 }
@@ -4359,9 +4311,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 6,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#D5DBDB'"
                     }
                   }
                 }
@@ -4423,9 +4374,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 6,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#D5DBDB'"
                     }
                   }
                 }

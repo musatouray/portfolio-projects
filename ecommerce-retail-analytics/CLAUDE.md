@@ -16,6 +16,8 @@ For structured development workflows, see **[.claude/AGENTS.md](.claude/AGENTS.m
 | `/check-test-failures` | Diagnose production failures |
 | `/refactor` | Optimize existing models |
 
+> **IMPORTANT FOR CLAUDE:** These are **project-specific skills** stored in `.claude/skills/<skill-name>/SKILL.md`. Do NOT use the `Skill` tool - it will fail with "Unknown skill". Instead, **read the SKILL.md file directly** and follow its instructions. For example, for `/deploy`, read `.claude/skills/deploy/SKILL.md`.
+
 ### References (Load When Needed)
 
 | Reference | Use For |

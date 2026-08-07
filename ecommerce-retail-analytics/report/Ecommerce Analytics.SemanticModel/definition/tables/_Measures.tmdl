@@ -454,30 +454,60 @@ table _Measures
 		displayFolder: 06_Market Basket
 		lineageTag: m1000001-0001-0001-0001-000000000001
 
-	/// Average support - how often a product pair appears together across all orders.
-	measure 'Avg Support %' = AVERAGE(FCT_MARKET_BASKET[SUPPORT_PCT])
+	/// Average support across pairs in context: pair_count / total orders (dataset-wide denominator, date-filter-independent).
+	measure 'Avg Support %' =
+			VAR __TotalOrders = CALCULATE([Total Orders], REMOVEFILTERS(DIM_DATES))
+			RETURN
+				AVERAGEX(
+					FCT_MARKET_BASKET,
+					DIVIDE(FCT_MARKET_BASKET[PAIR_COUNT], __TotalOrders)
+				)
 		formatString: 0.00%
 		displayFolder: 06_Market Basket
 		lineageTag: m1000002-0001-0001-0001-000000000002
 
-	/// Average confidence - likelihood of buying product B given product A.
-	measure 'Avg Confidence %' = AVERAGE(FCT_MARKET_BASKET[CONFIDENCE_A_TO_B_PCT])
+	/// Average confidence across pairs in context: pair_count / product_a_order_count (self-contained in table, no external denominator needed).
+	measure 'Avg Confidence %' =
+			AVERAGEX(
+				FCT_MARKET_BASKET,
+				DIVIDE(
+					FCT_MARKET_BASKET[PAIR_COUNT],
+					FCT_MARKET_BASKET[PRODUCT_A_ORDER_COUNT]
+				)
+			)
 		formatString: 0.0%
 		displayFolder: 06_Market Basket
 		lineageTag: m1000003-0001-0001-0001-000000000003
 
-	/// Average lift - how much more often A and B are bought together than chance (>1 = positive affinity).
-	measure 'Avg Lift' = AVERAGE(FCT_MARKET_BASKET[LIFT])
+	/// Average lift across pairs in context: (pair_count * total_orders) / (count_a * count_b); >1 = positive affinity.
+	measure 'Avg Lift' =
+			
+			VAR __TotalOrders = CALCULATE([Total Orders], REMOVEFILTERS(DIM_DATES))
+			RETURN
+				AVERAGEX(
+					FCT_MARKET_BASKET,
+					DIVIDE(
+						FCT_MARKET_BASKET[PAIR_COUNT] * __TotalOrders,
+						FCT_MARKET_BASKET[PRODUCT_A_ORDER_COUNT] * FCT_MARKET_BASKET[PRODUCT_B_ORDER_COUNT]
+					)
+				)
 		formatString: 0.00
 		displayFolder: 06_Market Basket
 		lineageTag: m1000004-0001-0001-0001-000000000004
 
-	/// Count of product pairs with lift above 1.5 (strong affinity).
+	/// Count of product pairs with lift above 1.5 (strong affinity). Lift computed from atomic counts.
 	measure 'High Lift Pairs' =
-			CALCULATE(
-				COUNTROWS(FCT_MARKET_BASKET),
-				FCT_MARKET_BASKET[LIFT] > 1.5
-			)
+			VAR __TotalOrders = CALCULATE([Total Orders], REMOVEFILTERS(DIM_DATES))
+			RETURN
+				COUNTROWS(
+					FILTER(
+						FCT_MARKET_BASKET,
+						DIVIDE(
+							FCT_MARKET_BASKET[PAIR_COUNT] * __TotalOrders,
+							FCT_MARKET_BASKET[PRODUCT_A_ORDER_COUNT] * FCT_MARKET_BASKET[PRODUCT_B_ORDER_COUNT]
+						) > 1.5
+					)
+				)
 		formatString: #,##0
 		displayFolder: 06_Market Basket
 		lineageTag: m1000005-0001-0001-0001-000000000005
@@ -488,12 +518,24 @@ table _Measures
 		displayFolder: 06_Market Basket
 		lineageTag: m1000006-0001-0001-0001-000000000006
 
-	/// Count of actionable cross-sell pairs (lift > 1 and confidence > 10%).
+	/// Actionable cross-sell pairs: lift > 1 (positive affinity) AND confidence > 10% (reliable recommendation).
 	measure 'Cross-Sell Opportunities' =
-			CALCULATE(
-				COUNTROWS(FCT_MARKET_BASKET),
-				FCT_MARKET_BASKET[LIFT] > 1 && FCT_MARKET_BASKET[CONFIDENCE_A_TO_B_PCT] > 0.1
-			)
+			VAR __TotalOrders = CALCULATE([Total Orders], REMOVEFILTERS(DIM_DATES))
+			RETURN
+				COUNTROWS(
+					FILTER(
+						FCT_MARKET_BASKET,
+						DIVIDE(
+							FCT_MARKET_BASKET[PAIR_COUNT] * __TotalOrders,
+							FCT_MARKET_BASKET[PRODUCT_A_ORDER_COUNT] * FCT_MARKET_BASKET[PRODUCT_B_ORDER_COUNT]
+						) > 1
+						&&
+						DIVIDE(
+							FCT_MARKET_BASKET[PAIR_COUNT],
+							FCT_MARKET_BASKET[PRODUCT_A_ORDER_COUNT]
+						) > 0.1
+					)
+				)
 		formatString: #,##0
 		displayFolder: 06_Market Basket
 		lineageTag: m1000007-0001-0001-0001-000000000007
@@ -771,6 +813,7 @@ table _Measures
 
 	/// [METRIC] Customers with CHURN_STATUS = 'Churned' at the latest (or slicer-selected) snapshot month. Grain: latest snapshot.
 	measure 'Total Churn Customers' =
+			
 			VAR __LatestSnapshot = MAX(DIM_DATES[MONTH_START_DATE])
 			RETURN
 			IF(
@@ -782,9 +825,22 @@ table _Measures
 			        REMOVEFILTERS(DIM_DATES)
 			    )
 			)
-		formatString: #,##0
 		displayFolder: 01_Segments\Churn
 		lineageTag: ch100010-0001-0001-0001-000000000010
+
+		formatStringDefinition =
+				VAR __ChurnedCustomers = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __ChurnedCustomers <= 1E3, "#,0;-#,0;0",
+				        __ChurnedCustomers <= 1E4, "#,0,K;-#,0,K;0",
+				        __ChurnedCustomers <= 1E5, "#,0,K;-#,0,K;0",
+				        __ChurnedCustomers <= 1E6, "#,0,K;-#,0,K;0",
+				        __ChurnedCustomers <= 1E7, "#,0,,M;-#,0,,M;0",
+				        __ChurnedCustomers <= 1E8, "#,0,,M;-#,0,,M;0",
+				        __ChurnedCustomers <= 1E9, "#,0,,M;-#,0,,M;0"
+				    )
 
 	/// [METRIC] Retention Rate at period 1 (first month after acquisition), size-weighted.
 	measure 'P1 Retention Rate' =
@@ -864,14 +920,29 @@ table _Measures
 
 		formatStringDefinition = "0.0%"
 
-	/// Highest lift value among product pairs in context.
-	measure 'Max Lift' = MAX(FCT_MARKET_BASKET[LIFT])
+	/// Highest lift value among product pairs in context, computed from atomic counts.
+	measure 'Max Lift' =
+			VAR __TotalOrders = CALCULATE([Total Orders], REMOVEFILTERS(DIM_DATES))
+			RETURN
+				MAXX(
+					FCT_MARKET_BASKET,
+					DIVIDE(
+						FCT_MARKET_BASKET[PAIR_COUNT] * __TotalOrders,
+						FCT_MARKET_BASKET[PRODUCT_A_ORDER_COUNT] * FCT_MARKET_BASKET[PRODUCT_B_ORDER_COUNT]
+					)
+				)
 		formatString: 0.00
 		displayFolder: 06_Market Basket
 		lineageTag: m1000008-0001-0001-0001-000000000008
 
-	/// Highest support value among product pairs in context.
-	measure 'Max Support %' = MAX(FCT_MARKET_BASKET[SUPPORT_PCT])
+	/// Highest support value among product pairs in context, computed from atomic counts.
+	measure 'Max Support %' =
+			VAR __TotalOrders = CALCULATE([Total Orders], REMOVEFILTERS(DIM_DATES))
+			RETURN
+				MAXX(
+					FCT_MARKET_BASKET,
+					DIVIDE(FCT_MARKET_BASKET[PAIR_COUNT], __TotalOrders)
+				)
 		formatString: 0.00%
 		displayFolder: 06_Market Basket
 		lineageTag: m1000009-0001-0001-0001-000000000009
@@ -2104,179 +2175,6 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isText":true}
 
-	/// [HELPER] Full dark-theme HTML landing page for the HTML-content visual. Presentation only; not a business metric.
-	measure 'Landing Page Dark' =
-			
-			-- =============================================================================
-			-- Live KPI values
-			-- =============================================================================
-			--VAR __Revenue          = [Total Revenue]
-			VAR __RevenueShort     = [Revenue Format Large]
-			VAR __RevenueYoY       = [Revenue YoY %]
-			
-			VAR __Orders           = [Total Orders]
-			VAR __OrdersStr        = FORMAT( __Orders, "#,##0" )
-			VAR __OrdersYoY        = [Orders YoY %]
-			
-			VAR __DeliveryRate     = [On-Time Delivery Rate]
-			VAR __DeliveryRateStr  = FORMAT( __DeliveryRate, "0.0%" )
-			VAR __DeliveryPrior    = CALCULATE( [On-Time Delivery Rate], SAMEPERIODLASTYEAR( DIM_DATES[DATE] ) )
-			VAR __DeliveryChange   = __DeliveryRate - __DeliveryPrior     -- in decimal (e.g. 0.021 = 2.1pp)
-			
-			VAR __ReviewScore      = [Average Review Score]
-			VAR __ReviewScoreStr   = FORMAT( __ReviewScore, "0.0" )
-			VAR __ReviewPrior      = CALCULATE( [Average Review Score], SAMEPERIODLASTYEAR( DIM_DATES[DATE] ) )
-			VAR __ReviewChange     = __ReviewScore - __ReviewPrior
-			
-			-- =============================================================================
-			-- Indicator palette
-			-- =============================================================================
-			VAR __Green = "#4ade80"
-			VAR __Red   = "#F87171"
-			VAR __Grey  = "rgba(255,255,255,0.4)"
-			
-			-- Revenue indicator (% YoY)
-			VAR __RevColor =
-			    SWITCH( TRUE(),
-			        __RevenueYoY >  0.005, __Green,
-			        __RevenueYoY < -0.005, __Red,
-			        __Grey
-			    )
-			VAR __RevArrow =
-			    SWITCH( TRUE(),
-			        __RevenueYoY >  0.005, "&uarr;",
-			        __RevenueYoY < -0.005, "&darr;",
-			        "&rarr;"
-			    )
-			VAR __RevIndicator =
-			    IF( NOT ISBLANK( __RevenueYoY ),
-			        "<span style=""font-size:12px;color:" & __RevColor & ";margin-left:10px;font-weight:500;"">"
-			            & __RevArrow & " " & FORMAT( ABS( __RevenueYoY ), "0.0%" )
-			            & "</span>",
-			        ""
-			    )
-			
-			-- Orders indicator (% YoY)
-			VAR __OrdColor =
-			    SWITCH( TRUE(),
-			        __OrdersYoY >  0.005, __Green,
-			        __OrdersYoY < -0.005, __Red,
-			        __Grey
-			    )
-			VAR __OrdArrow =
-			    SWITCH( TRUE(),
-			        __OrdersYoY >  0.005, "&uarr;",
-			        __OrdersYoY < -0.005, "&darr;",
-			        "&rarr;"
-			    )
-			VAR __OrdIndicator =
-			    IF( NOT ISBLANK( __OrdersYoY ),
-			        "<span style=""font-size:12px;color:" & __OrdColor & ";margin-left:10px;font-weight:500;"">"
-			            & __OrdArrow & " " & FORMAT( ABS( __OrdersYoY ), "0.0%" )
-			            & "</span>",
-			        "<span style=""font-size:12px;color:" & __Grey & ";margin-left:10px;font-weight:500;"">&rarr;</span>"
-			    )
-			
-			-- Delivery indicator (in percentage points)
-			VAR __DelColor =
-			    SWITCH( TRUE(),
-			        __DeliveryChange >  0.005, __Green,
-			        __DeliveryChange < -0.005, __Red,
-			        __Grey
-			    )
-			VAR __DelArrow =
-			    SWITCH( TRUE(),
-			        __DeliveryChange >  0.005, "&uarr;",
-			        __DeliveryChange < -0.005, "&darr;",
-			        "&rarr;"
-			    )
-			VAR __DelIndicator =
-			    IF( NOT ISBLANK( __DeliveryChange ),
-			        "<span style=""font-size:12px;color:" & __DelColor & ";margin-left:10px;font-weight:500;"">"
-			            & __DelArrow & " " & FORMAT( ABS( __DeliveryChange ) * 100, "0.0" ) & "pp"
-			            & "</span>",
-			        ""
-			    )
-			
-			-- Review score indicator (raw delta on 0-5 scale)
-			VAR __RevScColor =
-			    SWITCH( TRUE(),
-			        __ReviewChange >  0.05, __Green,
-			        __ReviewChange < -0.05, __Red,
-			        __Grey
-			    )
-			VAR __RevScArrow =
-			    SWITCH( TRUE(),
-			        __ReviewChange >  0.05, "&uarr;",
-			        __ReviewChange < -0.05, "&darr;",
-			        "&rarr;"
-			    )
-			VAR __RevScIndicator =
-			    IF( NOT ISBLANK( __ReviewChange ),
-			        "<span style=""font-size:12px;color:" & __RevScColor & ";margin-left:10px;font-weight:500;"">"
-			            & __RevScArrow & " " & FORMAT( ABS( __ReviewChange ), "0.0" )
-			            & "</span>",
-			        ""
-			    )
-			
-			RETURN
-			"<div style=""width:1920px;height:1080px;position:relative;overflow:hidden;font-family:'Segoe UI',Inter,sans-serif;background:linear-gradient(180deg,#0e1a2e 0%,#081424 55%,#040912 100%);"">
-			<canvas id=""pp1"" style=""position:absolute;inset:0;width:100%;height:100%""></canvas>
-			<div style=""position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,120,212,0.45),transparent);""></div>
-			<div style=""position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,120,212,0.25),transparent);""></div>
-			<a href=""https://www.linkedin.com/in/your-profile/"" target=""_blank"" rel=""noopener"" style=""position:absolute;top:36px;right:36px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:rgba(0,120,212,0.08);border:1px solid rgba(0,120,212,0.28);border-radius:10px;z-index:5;cursor:pointer;text-decoration:none;box-shadow:0 4px 14px rgba(0,120,212,0.18);opacity:0;animation:ppFade .7s 2.3s forwards;"" title=""Connect on LinkedIn""><svg width=""22"" height=""22"" viewBox=""0 0 24 24"" fill=""#4FA8DF"" aria-hidden=""true""><path d=""M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z""/></svg></a>
-			<div style=""position:absolute;inset:0;z-index:2;display:grid;grid-template-columns:1.1fr 1fr;align-items:center;padding:6rem;gap:4rem;"">
-			<div>
-			<div style=""display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(0,120,212,0.3);border-radius:4px;padding:7px 18px;margin-bottom:28px;opacity:0;animation:ppFade .7s .8s forwards;background:rgba(0,120,212,0.05);""><div style=""width:7px;height:7px;border-radius:50%;background:#0078D4;animation:ppBlink 1.6s infinite;box-shadow:0 0 12px #0078D4;""></div><span style=""font-size:11px;letter-spacing:3.5px;text-transform:uppercase;color:rgba(255,255,255,0.7);font-weight:500;"">E-Commerce Analytics &middot; Performance Pulse</span></div>
-			<div style=""font-size:64px;font-weight:200;color:#fff;line-height:1.08;margin-bottom:20px;opacity:0;animation:ppFade .7s 1.1s forwards;letter-spacing:-1.8px;"">Where <strong style=""font-weight:700;background:linear-gradient(135deg,#4FA8DF,#0078D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"">data</strong><br>tells the story.</div>
-			<div style=""width:0;height:1px;background:linear-gradient(90deg,#0078D4,transparent);margin:28px 0;animation:ppExpand .9s 1.5s forwards;""></div>
-			<div style=""font-size:16px;color:rgba(255,255,255,0.55);line-height:1.9;max-width:580px;opacity:0;animation:ppFade .7s 1.7s forwards;font-weight:300;"">A complete ecommerce marketplace analysis &mdash; from order placement to customer segmentation, cohort &amp; churn, funnel, market basket and customer lifetime value. Engineered on dbt + Snowflake + Docker + AWS S3 + Power BI.</div>
-			<div style=""display:flex;gap:14px;margin-top:3rem;opacity:0;animation:ppFade .7s 2s forwards;"">
-			<div style=""padding:14px 30px;background:linear-gradient(135deg,#0078D4,#106EBE);color:#fff;font-size:13px;font-weight:600;letter-spacing:0.5px;border-radius:6px;cursor:pointer;box-shadow:0 6px 24px rgba(0,120,212,0.4);"">Enter Dashboard &rarr;</div>
-			<div style=""padding:14px 30px;background:transparent;color:rgba(255,255,255,0.7);font-size:13px;font-weight:500;letter-spacing:0.5px;border-radius:6px;border:1px solid rgba(255,255,255,0.2);cursor:pointer;"">View Repository</div>
-			</div></div>
-			<div style=""display:flex;flex-direction:column;gap:14px;opacity:0;animation:ppSlide .8s 1.3s forwards;"">
-			<div style=""display:grid;grid-template-columns:1fr 1fr;gap:14px;"">
-			<div style=""background:rgba(0,120,212,0.06);border:1px solid rgba(0,120,212,0.18);border-radius:8px;padding:22px 24px;""><div style=""font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(79,168,223,0.85);margin-bottom:12px;font-weight:600;"">Total Revenue</div><div style=""font-size:32px;font-weight:600;color:#fff;letter-spacing:-0.5px;"">"
-			    & __RevenueShort & __RevIndicator &
-			"</div></div>
-			<div style=""background:rgba(0,120,212,0.06);border:1px solid rgba(0,120,212,0.18);border-radius:8px;padding:22px 24px;""><div style=""font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(79,168,223,0.85);margin-bottom:12px;font-weight:600;"">Orders Analyzed</div><div style=""font-size:32px;font-weight:600;color:#fff;letter-spacing:-0.5px;"">"
-			    & __OrdersStr & __OrdIndicator &
-			"</div></div>
-			</div>
-			<div style=""display:grid;grid-template-columns:1fr 1fr;gap:14px;"">
-			<div style=""background:rgba(0,120,212,0.06);border:1px solid rgba(0,120,212,0.18);border-radius:8px;padding:22px 24px;""><div style=""font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(79,168,223,0.85);margin-bottom:12px;font-weight:600;"">On-Time Delivery</div><div style=""font-size:32px;font-weight:600;color:#fff;letter-spacing:-0.5px;"">"
-			    & __DeliveryRateStr & __DelIndicator &
-			"</div></div>
-			<div style=""background:rgba(0,120,212,0.06);border:1px solid rgba(0,120,212,0.18);border-radius:8px;padding:22px 24px;""><div style=""font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(79,168,223,0.85);margin-bottom:12px;font-weight:600;"">Avg Review Score</div><div style=""font-size:32px;font-weight:600;color:#fff;letter-spacing:-0.5px;"">"
-			    & __ReviewScoreStr & "<span style=""font-size:15px;color:rgba(255,255,255,0.4);"">/5</span>" & __RevScIndicator &
-			"</div></div>
-			</div>
-			<div style=""background:rgba(0,120,212,0.06);border:1px solid rgba(0,120,212,0.18);border-radius:8px;padding:22px 24px;"">
-			<div style=""display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;""><div style=""font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(79,168,223,0.85);font-weight:600;"">Coverage</div><div style=""font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:0.3px;"">18 Advanced SQL Patterns &middot; 140+ Measures &middot; 22 dbt Models</div></div>
-			<div style=""height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;""><div style=""height:100%;width:0;border-radius:2px;background:linear-gradient(90deg,#0078D4,#4FA8DF);animation:ppProgress 1.6s 2.2s forwards;box-shadow:0 0 10px rgba(0,120,212,0.6);""></div></div>
-			</div></div></div>
-			<style>
-			@keyframes ppFade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-			@keyframes ppSlide{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
-			@keyframes ppExpand{to{width:280px}}
-			@keyframes ppBlink{0%,100%{opacity:1;box-shadow:0 0 12px #0078D4}50%{opacity:.25;box-shadow:0 0 4px #0078D4}}
-			@keyframes ppProgress{to{width:100%}}
-			</style>
-			<script>
-			var pc=document.getElementById('pp1'),px=pc.getContext('2d'),pw,ph,pt=0,curve=[],dots=[];
-			function ppi(){pw=pc.width=pc.parentElement.offsetWidth;ph=pc.height=pc.parentElement.offsetHeight;curve=Array.from({length:96},function(v,i){return{x:pw*(i/95),baseY:ph*0.64+Math.sin(i*0.16)*70+Math.cos(i*0.07)*38};});dots=Array.from({length:24},function(){return{t:Math.random(),v:0.00018+Math.random()*0.00055,r:1.8+Math.random()*2,pulse:Math.random()*Math.PI*2};});}
-			function cY(t,ph){var idx=t*(curve.length-1),i0=Math.floor(idx),i1=Math.min(i0+1,curve.length-1),f=idx-i0;var y0=curve[i0].baseY+Math.sin(i0*0.18+ph*0.018)*12;var y1=curve[i1].baseY+Math.sin(i1*0.18+ph*0.018)*12;return y0+(y1-y0)*f;}
-			function ppd(){px.clearRect(0,0,pw,ph);pt+=0.3;px.beginPath();curve.forEach(function(p,i){var y=p.baseY-180+Math.sin(i*0.14+pt*0.016)*16;i===0?px.moveTo(p.x,y):px.lineTo(p.x,y);});px.strokeStyle='rgba(0,120,212,0.07)';px.lineWidth=1;px.stroke();px.beginPath();curve.forEach(function(p,i){var y=p.baseY+Math.sin(i*0.18+pt*0.018)*12;i===0?px.moveTo(p.x,y):px.lineTo(p.x,y);});px.strokeStyle='rgba(0,120,212,0.2)';px.lineWidth=1.2;px.stroke();dots.forEach(function(d){d.t+=d.v;if(d.t>1)d.t-=1;d.pulse+=0.026;d.x=d.t*pw;d.y=cY(d.t,pt);});dots.forEach(function(a,i){dots.forEach(function(b,j){if(j<=i)return;var ds=Math.hypot(a.x-b.x,a.y-b.y);if(ds<210){px.strokeStyle='rgba(79,168,223,'+(0.2*(1-ds/210))+')';px.lineWidth=0.6;px.beginPath();px.moveTo(a.x,a.y);px.lineTo(b.x,b.y);px.stroke();}});});dots.forEach(function(d){var a=0.55+Math.sin(d.pulse)*0.3;px.fillStyle='rgba(79,168,223,'+(a*0.12)+')';px.beginPath();px.arc(d.x,d.y,d.r*5,0,Math.PI*2);px.fill();px.fillStyle='rgba(79,168,223,'+(a*0.28)+')';px.beginPath();px.arc(d.x,d.y,d.r*2.6,0,Math.PI*2);px.fill();px.fillStyle='rgba(180,220,255,'+(0.85+Math.sin(d.pulse)*0.15)+')';px.beginPath();px.arc(d.x,d.y,d.r,0,Math.PI*2);px.fill();});requestAnimationFrame(ppd);}
-			ppi();ppd();window.addEventListener('resize',ppi);
-			</script>
-			</div>"
-		formatString: @
-		displayFolder: 15_Landing Page
-		lineageTag: af51ab69-a4d8-41ae-b22f-3720101f63cd
-
-		annotation PBI_FormatHint = {"isText":true}
-
 	/// [HELPER] Light-theme variant of the HTML landing page. Presentation only; not a business metric.
 	measure 'Landing Page Light' = ```
 			
@@ -2399,13 +2297,14 @@ table _Measures
 			<div style=""display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(0,120,212,0.28);border-radius:4px;padding:7px 18px;margin-bottom:28px;opacity:0;animation:pplFade .7s .8s forwards;background:rgba(255,255,255,0.65);""><div style=""width:7px;height:7px;border-radius:50%;background:#0078D4;animation:pplBlink 1.6s infinite;box-shadow:0 0 10px rgba(0,120,212,0.6);""></div><span style=""font-size:11px;letter-spacing:3.5px;text-transform:uppercase;color:#0078D4;font-weight:600;"">E-Commerce Analytics &middot; Performance Pulse</span></div>
 			<div style=""font-size:64px;font-weight:300;color:#1A1A1A;line-height:1.08;margin-bottom:20px;opacity:0;animation:pplFade .7s 1.1s forwards;letter-spacing:-1.8px;"">Where <strong style=""font-weight:700;background:linear-gradient(135deg,#0078D4,#003E73);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"">data</strong><br>tells the story.</div>
 			<div style=""width:0;height:1px;background:linear-gradient(90deg,#0078D4,transparent);margin:28px 0;animation:pplExpand .9s 1.5s forwards;""></div>
-			<div style=""font-size:16px;color:#605E5C;line-height:1.9;max-width:580px;opacity:0;animation:pplFade .7s 1.7s forwards;font-weight:400;"">A complete ecommerce marketplace analysis &mdash; from order placement to customer segmentation, cohort &amp; churn, funnel, market basket and customer lifetime value. Engineered on dbt + Snowflake + Docker + AWS S3 + Power BI.</div>
+			<div style=""font-size:18px;color:#605E5C;line-height:1.9;max-width:600px;opacity:0;animation:pplFade .7s 1.7s forwards;font-weight:500;"">A complete ecommerce marketplace analysis &mdash; from order placement to customer segmentation, cohort &amp; churn, funnel, market basket and customer lifetime value. Engineered on dbt + Snowflake + Docker + AWS S3 + Power BI.</div>
 			<div style=""display:flex;gap:14px;margin-top:3rem;opacity:0;animation:pplFade .7s 2s forwards;"">
 			<div style=""padding:14px 30px;background:linear-gradient(135deg,#0078D4,#106EBE);color:#fff;font-size:13px;font-weight:600;letter-spacing:0.5px;border-radius:6px;cursor:pointer;box-shadow:0 6px 20px rgba(0,120,212,0.3);"">View Dashboard &rarr;</div>
 			<div style=""padding:14px 30px;background:#FFFFFF;color:#201F1E;font-size:13px;font-weight:600;letter-spacing:0.5px;border-radius:6px;border:1px solid rgba(0,120,212,0.3);cursor:pointer;box-shadow:0 2px 8px rgba(0,120,212,0.06);"">Visit Repository</div>
 			</div></div>
 			<div style=""display:flex;flex-direction:column;gap:14px;opacity:0;animation:pplSlide .8s 1.3s forwards;"">
 			<div style=""display:grid;grid-template-columns:1fr 1fr;gap:14px;"">
+			<!-- 
 			<div style=""background:#FFFFFF;border:1px solid rgba(0,120,212,0.18);border-radius:8px;padding:22px 24px;box-shadow:0 4px 16px rgba(0,120,212,0.08);""><div style=""font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#0078D4;margin-bottom:12px;font-weight:600;"">Total Revenue</div><div style=""font-size:32px;font-weight:600;color:#201F1E;letter-spacing:-0.5px;"">"
 			    & __RevenueShort & __RevIndicator &
 			"</div></div>
@@ -2425,6 +2324,7 @@ table _Measures
 			<div style=""display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;""><div style=""font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#0078D4;font-weight:600;"">Coverage</div><div style=""font-size:11px;color:#605E5C;letter-spacing:0.3px;"">18 Advanced SQL Patterns &middot; 22 dbt Models</div></div>
 			<div style=""height:3px;background:rgba(0,120,212,0.1);border-radius:2px;overflow:hidden;""><div style=""height:100%;width:0;border-radius:2px;background:linear-gradient(90deg,#0078D4,#4FA8DF);animation:pplProgress 1.6s 2.2s forwards;box-shadow:0 0 8px rgba(0,120,212,0.35);""></div></div>
 			</div></div></div>
+			-->
 			<style>
 			@keyframes pplFade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 			@keyframes pplSlide{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
@@ -2455,14 +2355,27 @@ table _Measures
 			RETURN
 			SWITCH(
 			    __Segments,
-			    "Champions", "#1E3A5F",
-			    "Potential Loyalists", "#78899F",
-			    "High-Value New", "#6E8CB7",
-			    "New Customers", "#B7C5DB",
-			    "Slipping Whales", "#99D0CA",
-			    "Need Attention", "#E7A3BD",
-			    "High Value Dormant", "FFD999",
-			    "One-and-Done Lost", "#CCCCCC"
+			    // --- NAVY SHADES (Core / High-Value) ---
+			    "Champions",          "#1E3A5F", // Theme Deep Navy
+			    "Potential Loyalists", "#4A6E99", // Rich slate navy
+			    "High-Value New",      "#7BA4D0", // Mid-tone navy-blue
+			
+			    // --- ACCENT BUTTON BLUE (Action / New Growth) ---
+			    "New Customers",       "#0078D4", // Your Button Blue
+			    "Slipping Whales",     "#4CA2E1", // Muted button blue variant
+			
+			    // --- NEUTRAL GRAYS (Warning & Lost States) ---
+			    "Need Attention",      "#7F8C8D", // Dark slate gray (Stands out from blues)
+			    "High-Value Dormant",  "#A6ACAF", // Medium cool gray
+			    "One-and-Done Lost",   "#D5DBDB"  // Light minimalist gray
+			    // "Champions", "#1E3A5F",
+			    // "Potential Loyalists", "#78899F",
+			    // "High-Value New", "#6E8CB7",
+			    // "New Customers", "#B7C5DB",
+			    // "Slipping Whales", "#99D0CA",
+			    // "Need Attention", "#E7A3BD",
+			    // "High-Value Dormant", "FFD999",
+			    // "One-and-Done Lost", "#CCCCCC"
 			)
 			
 			```
@@ -4180,12 +4093,26 @@ table _Measures
 			        REMOVEFILTERS(DIM_DATES)
 			    )
 			)
-		formatString: #,##0
 		displayFolder: 01_Segments\Churn
 		lineageTag: c904ed44-6e9e-4c6b-b67f-38d852aba87d
 
+		formatStringDefinition =
+				VAR __ActiveCustomers = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __ActiveCustomers <= 1E3, "#,0;-#,0;0",
+				        __ActiveCustomers <= 1E4, "#,0,K;-#,0,K;0",
+				        __ActiveCustomers <= 1E5, "#,0,K;-#,0,K;0",
+				        __ActiveCustomers <= 1E6, "#,0,K;-#,0,K;0",
+				        __ActiveCustomers <= 1E7, "#,0,,M;-#,0,,M;0",
+				        __ActiveCustomers <= 1E8, "#,0,,M;-#,0,,M;0",
+				        __ActiveCustomers <= 1E9, "#,0,,M;-#,0,,M;0"
+				    )
+
 	/// [METRIC] Customers with CHURN_STATUS = 'Cooling' at the latest snapshot month (purchase frequency declining, early warning).
 	measure 'Customers Cooling' =
+			
 			VAR __LatestSnapshot = MAX(DIM_DATES[MONTH_START_DATE])
 			RETURN
 			IF(
@@ -4197,12 +4124,26 @@ table _Measures
 			        REMOVEFILTERS(DIM_DATES)
 			    )
 			)
-		formatString: #,##0
 		displayFolder: 01_Segments\Churn
 		lineageTag: 1ededa84-b6c1-44a9-a3cb-49bb409466e3
 
+		formatStringDefinition =
+				VAR __CoolingCustomers = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __CoolingCustomers <= 1E3, "#,0;-#,0;0",
+				        __CoolingCustomers <= 1E4, "#,0,K;-#,0,K;0",
+				        __CoolingCustomers <= 1E5, "#,0,K;-#,0,K;0",
+				        __CoolingCustomers <= 1E6, "#,0,K;-#,0,K;0",
+				        __CoolingCustomers <= 1E7, "#,0,,M;-#,0,,M;0",
+				        __CoolingCustomers <= 1E8, "#,0,,M;-#,0,,M;0",
+				        __CoolingCustomers <= 1E9, "#,0,,M;-#,0,,M;0"
+				    )
+
 	/// [METRIC] Customers with CHURN_STATUS = 'At Risk' at the latest snapshot month (high recency, likely to churn without intervention).
 	measure 'Customers At Risk' =
+			
 			VAR __LatestSnapshot = MAX(DIM_DATES[MONTH_START_DATE])
 			RETURN
 			IF(
@@ -4214,9 +4155,22 @@ table _Measures
 			        REMOVEFILTERS(DIM_DATES)
 			    )
 			)
-		formatString: #,##0
 		displayFolder: 01_Segments\Churn
 		lineageTag: 49339485-f886-44d2-92f6-9d62a12592bf
+
+		formatStringDefinition =
+				VAR __AtRiskCustomers = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __AtRiskCustomers <= 1E3, "#,0;-#,0;0",
+				        __AtRiskCustomers <= 1E4, "#,0,K;-#,0,K;0",
+				        __AtRiskCustomers <= 1E5, "#,0,K;-#,0,K;0",
+				        __AtRiskCustomers <= 1E6, "#,0,K;-#,0,K;0",
+				        __AtRiskCustomers <= 1E7, "#,0,,M;-#,0,,M;0",
+				        __AtRiskCustomers <= 1E8, "#,0,,M;-#,0,,M;0",
+				        __AtRiskCustomers <= 1E9, "#,0,,M;-#,0,,M;0"
+				    )
 
 	/// [METRIC] Share of customers with CHURN_STATUS = 'Churned' at the latest snapshot, in filter context. Used for Churn Status Color conditional formatting.
 	measure 'Churn Rate' =
@@ -4244,6 +4198,7 @@ table _Measures
 
 	/// [METRIC] Predicted 12-month CLV of customers currently in 'Cooling' or 'At Risk' churn status. Quantifies the revenue exposure from customers approaching churn.
 	measure 'Revenue At Risk' =
+			
 			VAR __LatestSnapshot = MAX(DIM_DATES[MONTH_START_DATE])
 			VAR __AtRiskKeys =
 			    CALCULATETABLE(
@@ -4260,9 +4215,22 @@ table _Measures
 			        TREATAS(__AtRiskKeys, DIM_CUSTOMERS[CUSTOMER_KEY])
 			    )
 			)
-		formatString: $#,##0
 		displayFolder: 01_Segments\Churn
 		lineageTag: d2db208e-77bb-477a-9b22-1cb78ea1dcc9
+
+		formatStringDefinition =
+				VAR __FormattedAtRiskRevenue = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __FormattedAtRiskRevenue <= 1E3, "$#,0.;-#,0.;0",
+				        __FormattedAtRiskRevenue <= 1E4, "$#,0,.00K;-#,0,.00K;0",
+				        __FormattedAtRiskRevenue <= 1E5, "$#,0,.0K;-#,0,.0K;0",
+				        __FormattedAtRiskRevenue <= 1E6, "$#,0,.K;-#,0,.K;0",
+				        __FormattedAtRiskRevenue <= 1E7, "$#,0,,.00M;-#,0,,.00M;0",
+				        __FormattedAtRiskRevenue <= 1E8, "$#,0,,.0M;-#,0,,.0M;0",
+				        __FormattedAtRiskRevenue <= 1E9, "$#,0,,.M;-#,0,,.M;0"
+				    )
 
 	/// [METRIC] Average composite churn risk score (0-100) across customers at the latest snapshot month. Higher = more at risk. Use in filter context to compare scores by segment.
 	measure 'Avg Churn Risk Score' =
@@ -4439,6 +4407,183 @@ table _Measures
 		formatString: 0.0%
 		displayFolder: 04_Funnel
 		lineageTag: f1000016-0001-0001-0001-000000000016
+
+	measure 'Copy Landing Page Light' = ```
+			
+			-- =============================================================================
+			-- Live KPI values (identical to the dark version) 
+			-- =============================================================================
+			--VAR __Revenue          = [Total Revenue]
+			VAR __RevenueShort     = [Revenue Format Large]
+			VAR __RevenueYoY       = [Revenue YoY %]
+			
+			VAR __Orders           = [Total Orders]
+			VAR __OrdersStr        = FORMAT( __Orders, "#,##0" )
+			VAR __OrdersYoY        = [Orders YoY %]
+			
+			VAR __DeliveryRate     = [On-Time Delivery Rate]
+			VAR __DeliveryRateStr  = FORMAT( __DeliveryRate, "0.0%" )
+			VAR __DeliveryPrior    = [Prior Year On-Time Delivery]
+			VAR __DeliveryChange   = __DeliveryRate - __DeliveryPrior
+			
+			VAR __ReviewScore      = [Average Review Score]
+			VAR __ReviewScoreStr   = FORMAT( __ReviewScore, "0.0" )
+			VAR __ReviewPrior      = [Prior Year Avg Review Score]
+			VAR __ReviewChange     = __ReviewScore - __ReviewPrior
+			
+			-- =============================================================================
+			-- Light-theme indicator palette (Fluent semantic colors)
+			-- =============================================================================
+			VAR __Green = "#107C41"
+			VAR __Red   = "#C42B1C"
+			VAR __Grey  = "#605E5C"
+			
+			VAR __RevColor =
+			    SWITCH( TRUE(),
+			        __RevenueYoY >  0.005, __Green,
+			        __RevenueYoY < -0.005, __Red,
+			        __Grey
+			    )
+			VAR __RevArrow =
+			    SWITCH( TRUE(),
+			        __RevenueYoY >  0.005, "&uarr;",
+			        __RevenueYoY < -0.005, "&darr;",
+			        "&rarr;"
+			    )
+			VAR __RevIndicator =
+			    IF( NOT ISBLANK( __RevenueYoY ),
+			        "<span style=""font-size:12px;color:" & __RevColor & ";margin-left:10px;font-weight:600;"">"
+			            & __RevArrow & " " & FORMAT( ABS( __RevenueYoY ), "0.0%" )
+			            & "</span>",
+			        ""
+			    )
+			
+			VAR __OrdColor =
+			    SWITCH( TRUE(),
+			        __OrdersYoY >  0.005, __Green,
+			        __OrdersYoY < -0.005, __Red,
+			        __Grey
+			    )
+			VAR __OrdArrow =
+			    SWITCH( TRUE(),
+			        __OrdersYoY >  0.005, "&uarr;",
+			        __OrdersYoY < -0.005, "&darr;",
+			        "&rarr;"
+			    )
+			VAR __OrdIndicator =
+			    IF( NOT ISBLANK( __OrdersYoY ),
+			        "<span style=""font-size:12px;color:" & __OrdColor & ";margin-left:10px;font-weight:600;"">"
+			            & __OrdArrow & " " & FORMAT( ABS( __OrdersYoY ), "0.0%" )
+			            & "</span>",
+			        "<span style=""font-size:12px;color:" & __Grey & ";margin-left:10px;font-weight:600;"">&rarr;</span>"
+			    )
+			
+			VAR __DelColor =
+			    SWITCH( TRUE(),
+			        __DeliveryChange >  0.005, __Green,
+			        __DeliveryChange < -0.005, __Red,
+			        __Grey
+			    )
+			VAR __DelArrow =
+			    SWITCH( TRUE(),
+			        __DeliveryChange >  0.005, "&uarr;",
+			        __DeliveryChange < -0.005, "&darr;",
+			        "&rarr;"
+			    )
+			VAR __DelIndicator =
+			    IF( NOT ISBLANK( __DeliveryChange ),
+			        "<span style=""font-size:12px;color:" & __DelColor & ";margin-left:10px;font-weight:600;"">"
+			            & __DelArrow & " " & FORMAT( ABS( __DeliveryChange ) * 100, "0.0" ) & "pp"
+			            & "</span>",
+			        ""
+			    )
+			
+			VAR __RevScColor =
+			    SWITCH( TRUE(),
+			        __ReviewChange >  0.05, __Green,
+			        __ReviewChange < -0.05, __Red,
+			        __Grey
+			    )
+			VAR __RevScArrow =
+			    SWITCH( TRUE(),
+			        __ReviewChange >  0.05, "&uarr;",
+			        __ReviewChange < -0.05, "&darr;",
+			        "&rarr;"
+			    )
+			VAR __RevScIndicator =
+			    IF( NOT ISBLANK( __ReviewChange ),
+			        "<span style=""font-size:12px;color:" & __RevScColor & ";margin-left:10px;font-weight:600;"">"
+			            & __RevScArrow & " " & FORMAT( ABS( __ReviewChange ), "0.0" )
+			            & "</span>",
+			        ""
+			    )
+			
+			RETURN
+			"<div style=""width:1920px;height:1080px;position:relative;overflow:hidden;font-family:'Segoe UI',Inter,sans-serif;background:linear-gradient(180deg,#FFFFFF 0%,#DEE5EE 55%,#B7C5DB 100%);"">
+			<canvas id=""ppl1"" style=""position:absolute;inset:0;width:100%;height:100%""></canvas>
+			<div style=""position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,120,212,0.5),transparent);""></div>
+			<div style=""position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,120,212,0.3),transparent);""></div>
+			<a href=""https://www.linkedin.com/in/musa-touray/"" target=""_blank"" rel=""noopener"" style=""position:absolute;top:96px;right:96px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#FFFFFF;border:1px solid rgba(0,120,212,0.7);border-radius:10px;z-index:5;cursor:pointer;text-decoration:none;box-shadow:0 4px 14px rgba(0,120,212,0.12);opacity:0;animation:pplFade .7s 2.3s forwards,pplLinkedInPulse 1.6s 3s infinite;"" title=""Connect on LinkedIn""><svg width=""22"" height=""22"" viewBox=""0 0 24 24"" fill=""#0078D4"" aria-hidden=""true""><path d=""M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z""/></svg></a>
+			<div style=""position:absolute;inset:0;z-index:2;display:grid;grid-template-columns:1.1fr 1fr;align-items:center;padding:6rem;gap:4rem;"">
+			<div>
+			<div style=""display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(0,120,212,0.28);border-radius:4px;padding:7px 18px;margin-bottom:28px;opacity:0;animation:pplFade .7s .8s forwards;background:rgba(255,255,255,0.65);""><div style=""width:7px;height:7px;border-radius:50%;background:#0078D4;animation:pplBlink 1.6s infinite;box-shadow:0 0 10px rgba(0,120,212,0.6);""></div><span style=""font-size:11px;letter-spacing:3.5px;text-transform:uppercase;color:#0078D4;font-weight:600;"">E-Commerce Analytics &middot; Performance Pulse</span></div>
+			<div style=""font-size:64px;font-weight:300;color:#1A1A1A;line-height:1.08;margin-bottom:20px;opacity:0;animation:pplFade .7s 1.1s forwards;letter-spacing:-1.8px;"">Where <strong style=""font-weight:700;background:linear-gradient(135deg,#0078D4,#003E73);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"">data</strong><br>tells the story.</div>
+			<div style=""width:0;height:1px;background:linear-gradient(90deg,#0078D4,transparent);margin:28px 0;animation:pplExpand .9s 1.5s forwards;""></div>
+			<div style=""font-size:16px;color:#605E5C;line-height:1.9;max-width:580px;opacity:0;animation:pplFade .7s 1.7s forwards;font-weight:400;"">A complete ecommerce marketplace analysis &mdash; from order placement to customer segmentation, cohort &amp; churn, funnel, market basket and customer lifetime value. Engineered on dbt + Snowflake + Docker + AWS S3 + Power BI.</div>
+			<div style=""display:flex;gap:14px;margin-top:3rem;opacity:0;animation:pplFade .7s 2s forwards;"">
+			<div style=""padding:14px 30px;background:linear-gradient(135deg,#0078D4,#106EBE);color:#fff;font-size:13px;font-weight:600;letter-spacing:0.5px;border-radius:6px;cursor:pointer;box-shadow:0 6px 20px rgba(0,120,212,0.3);"">View Dashboard &rarr;</div>
+			<div style=""padding:14px 30px;background:#FFFFFF;color:#201F1E;font-size:13px;font-weight:600;letter-spacing:0.5px;border-radius:6px;border:1px solid rgba(0,120,212,0.3);cursor:pointer;box-shadow:0 2px 8px rgba(0,120,212,0.06);"">Visit Repository</div>
+			</div></div>
+			<div style=""display:flex;flex-direction:column;gap:14px;opacity:0;animation:pplSlide .8s 1.3s forwards;"">
+			<div style=""display:grid;grid-template-columns:1fr 1fr;gap:14px;"">
+			<!-- 
+			<div style=""background:#FFFFFF;border:1px solid rgba(0,120,212,0.18);border-radius:8px;padding:22px 24px;box-shadow:0 4px 16px rgba(0,120,212,0.08);""><div style=""font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#0078D4;margin-bottom:12px;font-weight:600;"">Total Revenue</div><div style=""font-size:32px;font-weight:600;color:#201F1E;letter-spacing:-0.5px;"">"
+			    & __RevenueShort & __RevIndicator &
+			"</div></div>
+			<div style=""background:#FFFFFF;border:1px solid rgba(0,120,212,0.18);border-radius:8px;padding:22px 24px;box-shadow:0 4px 16px rgba(0,120,212,0.08);""><div style=""font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#0078D4;margin-bottom:12px;font-weight:600;"">Orders Analyzed</div><div style=""font-size:32px;font-weight:600;color:#201F1E;letter-spacing:-0.5px;"">"
+			    & __OrdersStr & __OrdIndicator &
+			"</div></div>
+			</div>
+			<div style=""display:grid;grid-template-columns:1fr 1fr;gap:14px;"">
+			<div style=""background:#FFFFFF;border:1px solid rgba(0,120,212,0.18);border-radius:8px;padding:22px 24px;box-shadow:0 4px 16px rgba(0,120,212,0.08);""><div style=""font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#0078D4;margin-bottom:12px;font-weight:600;"">On-Time Delivery</div><div style=""font-size:32px;font-weight:600;color:#201F1E;letter-spacing:-0.5px;"">"
+			    & __DeliveryRateStr & __DelIndicator &
+			"</div></div>
+			<div style=""background:#FFFFFF;border:1px solid rgba(0,120,212,0.18);border-radius:8px;padding:22px 24px;box-shadow:0 4px 16px rgba(0,120,212,0.08);""><div style=""font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#0078D4;margin-bottom:12px;font-weight:600;"">Avg Review Score</div><div style=""font-size:32px;font-weight:600;color:#201F1E;letter-spacing:-0.5px;"">"
+			    & __ReviewScoreStr & "<span style=""font-size:15px;color:#605E5C;"">/5</span>" & __RevScIndicator &
+			"</div></div>
+			</div>
+			<div style=""background:#FFFFFF;border:1px solid rgba(0,120,212,0.18);border-radius:8px;padding:22px 24px;box-shadow:0 4px 16px rgba(0,120,212,0.08);"">
+			<div style=""display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;""><div style=""font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#0078D4;font-weight:600;"">Coverage</div><div style=""font-size:11px;color:#605E5C;letter-spacing:0.3px;"">18 Advanced SQL Patterns &middot; 22 dbt Models</div></div>
+			<div style=""height:3px;background:rgba(0,120,212,0.1);border-radius:2px;overflow:hidden;""><div style=""height:100%;width:0;border-radius:2px;background:linear-gradient(90deg,#0078D4,#4FA8DF);animation:pplProgress 1.6s 2.2s forwards;box-shadow:0 0 8px rgba(0,120,212,0.35);""></div></div>
+			</div></div></div>
+			-->
+			<style>
+			@keyframes pplFade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+			@keyframes pplSlide{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+			@keyframes pplExpand{to{width:280px}}
+			@keyframes pplBlink{0%,100%{opacity:1;box-shadow:0 0 12px rgba(0,120,212,0.6)}50%{opacity:.3;box-shadow:0 0 4px rgba(0,120,212,0.3)}}
+			@keyframes pplProgress{to{width:100%}}
+			@keyframes pplLinkedInPulse{0%,100%{border-color:rgba(0,120,212,0.7);box-shadow:0 4px 14px rgba(0,120,212,0.12),0 0 16px rgba(0,120,212,0.45)}50%{border-color:rgba(0,120,212,0.22);box-shadow:0 4px 14px rgba(0,120,212,0.12),0 0 4px rgba(0,120,212,0.08)}}
+			</style>
+			<script>
+			var lc=document.getElementById('ppl1'),lx=lc.getContext('2d'),lw,lh,lt=0,curve=[],dots=[];
+			function lpi(){lw=lc.width=lc.parentElement.offsetWidth;lh=lc.height=lc.parentElement.offsetHeight;curve=Array.from({length:96},function(v,i){return{x:lw*(i/95),baseY:lh*0.64+Math.sin(i*0.16)*70+Math.cos(i*0.07)*38};});dots=Array.from({length:24},function(){return{t:Math.random(),v:0.00018+Math.random()*0.00055,r:1.8+Math.random()*2,pulse:Math.random()*Math.PI*2};});}
+			function lcY(t,ph){var idx=t*(curve.length-1),i0=Math.floor(idx),i1=Math.min(i0+1,curve.length-1),f=idx-i0;var y0=curve[i0].baseY+Math.sin(i0*0.18+ph*0.018)*12;var y1=curve[i1].baseY+Math.sin(i1*0.18+ph*0.018)*12;return y0+(y1-y0)*f;}
+			function lpd(){lx.clearRect(0,0,lw,lh);lt+=0.3;lx.beginPath();curve.forEach(function(p,i){var y=p.baseY-180+Math.sin(i*0.14+lt*0.016)*16;i===0?lx.moveTo(p.x,y):lx.lineTo(p.x,y);});lx.strokeStyle='rgba(0,120,212,0.12)';lx.lineWidth=1;lx.stroke();lx.beginPath();curve.forEach(function(p,i){var y=p.baseY+Math.sin(i*0.18+lt*0.018)*12;i===0?lx.moveTo(p.x,y):lx.lineTo(p.x,y);});lx.strokeStyle='rgba(0,120,212,0.32)';lx.lineWidth=1.2;lx.stroke();dots.forEach(function(d){d.t+=d.v;if(d.t>1)d.t-=1;d.pulse+=0.026;d.x=d.t*lw;d.y=lcY(d.t,lt);});dots.forEach(function(a,i){dots.forEach(function(b,j){if(j<=i)return;var ds=Math.hypot(a.x-b.x,a.y-b.y);if(ds<210){lx.strokeStyle='rgba(0,120,212,'+(0.3*(1-ds/210))+')';lx.lineWidth=0.6;lx.beginPath();lx.moveTo(a.x,a.y);lx.lineTo(b.x,b.y);lx.stroke();}});});dots.forEach(function(d){var a=0.55+Math.sin(d.pulse)*0.3;lx.fillStyle='rgba(0,120,212,'+(a*0.1)+')';lx.beginPath();lx.arc(d.x,d.y,d.r*4.5,0,Math.PI*2);lx.fill();lx.fillStyle='rgba(0,120,212,'+(a*0.25)+')';lx.beginPath();lx.arc(d.x,d.y,d.r*2.4,0,Math.PI*2);lx.fill();lx.fillStyle='rgba(0,120,212,'+(0.9+Math.sin(d.pulse)*0.1)+')';lx.beginPath();lx.arc(d.x,d.y,d.r,0,Math.PI*2);lx.fill();});requestAnimationFrame(lpd);}
+			lpi();lpd();window.addEventListener('resize',lpi);
+			</script>
+			</div>"
+			```
+		displayFolder: 15_Landing Page
+		lineageTag: 0d3ca596-7521-48a6-aa8d-d21decdd061d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Share of all product pairs that meet the actionable cross-sell threshold (lift > 1, confidence > 10%).
+	measure 'Cross-Sell Opportunity Rate' = DIVIDE([Cross-Sell Opportunities], [Total Product Pairs], 0)
+		formatString: 0.0%
+		displayFolder: 06_Market Basket
+		lineageTag: m1000010-0001-0001-0001-000000000010
 
 	/// Unused placeholder column; the measures table has no data rows. Grain: not applicable.
 	column Value

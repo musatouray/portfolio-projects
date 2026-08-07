@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
-  "displayName": "Hide Churn Filter Pane",
-  "name": "0e66ea1eb4565c934c62",
+  "displayName": "Hide Churn Recommedation",
+  "name": "757276fb90d59e544c99",
   "options": {
     "applyOnlyToTargetVisuals": true,
     "targetVisualNames": [
@@ -25,7 +25,7 @@
             "filters": {
               "byExpr": [
                 {
-                  "name": "f22af26866830a691ce5",
+                  "name": "2b83e9e00101b50c2183",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -208,7 +208,7 @@
               },
               "byExpr": [
                 {
-                  "name": "c14606ff46d387dd2cb8",
+                  "name": "cc9807c9dc20444d3d9c",
                   "type": "Advanced",
                   "expression": {
                     "Column": {
@@ -379,7 +379,7 @@
               },
               "byExpr": [
                 {
-                  "name": "c1fd927ae50ba543c584",
+                  "name": "96738117aa7d22670a65",
                   "type": "Categorical",
                   "expression": {
                     "Column": {
@@ -492,7 +492,7 @@
             "filters": {
               "byExpr": [
                 {
-                  "name": "9eff63c8e4a209508b95",
+                  "name": "e8a01f69bd90e92753b5",
                   "type": "Categorical",
                   "expression": {
                     "Column": {
@@ -507,7 +507,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "0004694e0a8b60c667ae",
+                  "name": "1c8a551abb81d661d70a",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -522,7 +522,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "0644eb6660603a0912d1",
+                  "name": "8e547f3f0c822eb41ac8",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -537,7 +537,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "5fd20176221c79d1d922",
+                  "name": "aaf33a36c60821a260d0",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -591,7 +591,7 @@
             "filters": {
               "byExpr": [
                 {
-                  "name": "2419b8fa475cd1004039",
+                  "name": "50eb87898addb1010b99",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -606,7 +606,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "281d83993b0a516448e4",
+                  "name": "e098d11380851e1e067b",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -621,7 +621,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "e46f5c01140ae2962405",
+                  "name": "5c99d7b00a8338815e35",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -636,7 +636,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "d8bc4008dc4129bad043",
+                  "name": "374d235f87e48a6364a5",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -651,7 +651,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "0d2fe68c7a086d21d80e",
+                  "name": "196282f956e103209e76",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -666,7 +666,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "bec0b43360c85cc5308d",
+                  "name": "0c3b694000d4d0807b78",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {

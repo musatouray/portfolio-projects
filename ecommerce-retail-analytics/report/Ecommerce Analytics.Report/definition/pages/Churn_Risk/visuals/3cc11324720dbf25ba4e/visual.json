@@ -142,7 +142,14 @@
             "tooltip": {
               "expr": {
                 "Literal": {
-                  "Value": "'Notifications'"
+                  "Value": "'Recommendations'"
+                }
+              }
+            },
+            "bookmark": {
+              "expr": {
+                "Literal": {
+                  "Value": "'54cff3b29bc94829d031'"
                 }
               }
             }
