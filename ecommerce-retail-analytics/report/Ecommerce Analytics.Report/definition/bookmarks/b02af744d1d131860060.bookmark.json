@@ -516,7 +516,7 @@
                           "Entity": "_Measures"
                         }
                       },
-                      "Property": "Customers Active"
+                      "Property": "Active Customers"
                     }
                   },
                   "howCreated": 0
@@ -531,7 +531,7 @@
                           "Entity": "_Measures"
                         }
                       },
-                      "Property": "Customers At Risk"
+                      "Property": "At Risk Customers"
                     }
                   },
                   "howCreated": 0
@@ -546,7 +546,7 @@
                           "Entity": "_Measures"
                         }
                       },
-                      "Property": "Total Churn Customers"
+                      "Property": "Churned Customers"
                     }
                   },
                   "howCreated": 0
@@ -566,7 +566,7 @@
                           "Entity": "_Measures"
                         }
                       },
-                      "Property": "Customers Active"
+                      "Property": "Active Customers"
                     }
                   }
                 }
@@ -600,7 +600,7 @@
                           "Entity": "_Measures"
                         }
                       },
-                      "Property": "Customers Active"
+                      "Property": "Active Customers"
                     }
                   },
                   "howCreated": 0
@@ -615,7 +615,7 @@
                           "Entity": "_Measures"
                         }
                       },
-                      "Property": "Customers Cooling"
+                      "Property": "Cooling Customers"
                     }
                   },
                   "howCreated": 0
@@ -630,7 +630,7 @@
                           "Entity": "_Measures"
                         }
                       },
-                      "Property": "Customers At Risk"
+                      "Property": "At Risk Customers"
                     }
                   },
                   "howCreated": 0
@@ -645,7 +645,7 @@
                           "Entity": "_Measures"
                         }
                       },
-                      "Property": "Total Churn Customers"
+                      "Property": "Churned Customers"
                     }
                   },
                   "howCreated": 0
@@ -695,7 +695,7 @@
                           "Entity": "_Measures"
                         }
                       },
-                      "Property": "Customers Active"
+                      "Property": "Active Customers"
                     }
                   }
                 }

@@ -812,7 +812,7 @@ table _Measures
 		lineageTag: e233b5ae-578d-4c21-acae-c2c9289907df
 
 	/// [METRIC] Customers with CHURN_STATUS = 'Churned' at the latest (or slicer-selected) snapshot month. Grain: latest snapshot.
-	measure 'Total Churn Customers' =
+	measure 'Churned Customers' =
 			
 			VAR __LatestSnapshot = MAX(DIM_DATES[MONTH_START_DATE])
 			RETURN
@@ -4081,7 +4081,8 @@ table _Measures
 		lineageTag: 256fe2de-b108-4271-8bf6-da85ca246e36
 
 	/// [METRIC] Customers with CHURN_STATUS = 'Active' at the latest snapshot month (purchased recently, low churn risk).
-	measure 'Customers Active' =
+	measure 'Active Customers' =
+			
 			VAR __LatestSnapshot = MAX(DIM_DATES[MONTH_START_DATE])
 			RETURN
 			IF(
@@ -4111,7 +4112,7 @@ table _Measures
 				    )
 
 	/// [METRIC] Customers with CHURN_STATUS = 'Cooling' at the latest snapshot month (purchase frequency declining, early warning).
-	measure 'Customers Cooling' =
+	measure 'Cooling Customers' =
 			
 			VAR __LatestSnapshot = MAX(DIM_DATES[MONTH_START_DATE])
 			RETURN
@@ -4142,7 +4143,7 @@ table _Measures
 				    )
 
 	/// [METRIC] Customers with CHURN_STATUS = 'At Risk' at the latest snapshot month (high recency, likely to churn without intervention).
-	measure 'Customers At Risk' =
+	measure 'At Risk Customers' =
 			
 			VAR __LatestSnapshot = MAX(DIM_DATES[MONTH_START_DATE])
 			RETURN
@@ -4584,6 +4585,288 @@ table _Measures
 		formatString: 0.0%
 		displayFolder: 06_Market Basket
 		lineageTag: m1000010-0001-0001-0001-000000000010
+
+	/// [METRIC / time-intelligence] Same-period-last-year Active Customers.
+	measure 'Churn: PY Active Customers' = ```
+			
+			// Using UDF function to dynamically calculate SPLY
+			TimeIntelligence.PY([Active Customers])
+			
+			```
+		displayFolder: 08_Time Intelligence\_PY\Churn
+		lineageTag: 091c114c-c4ba-4c7a-bee9-fbd770ecac53
+
+		formatStringDefinition =
+				VAR __FormattedPYActiveCustomers = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __FormattedPYActiveCustomers <= 1E3, "#,0;-#,0;0",
+				        __FormattedPYActiveCustomers <= 1E4, "#,0,K;-#,0,K;0",
+				        __FormattedPYActiveCustomers <= 1E5, "#,0,K;-#,0,K;0",
+				        __FormattedPYActiveCustomers <= 1E6, "#,0,K;-#,0,K;0",
+				        __FormattedPYActiveCustomers <= 1E7, "#,0,,M;-#,0,,M;0",
+				        __FormattedPYActiveCustomers <= 1E8, "#,0,,M;-#,0,,M;0",
+				        __FormattedPYActiveCustomers <= 1E9, "#,0,,M;-#,0,,M;0"
+				    )
+
+	measure 'Formatted Active Customers Absolute And Relative' = ```
+			
+			// Using UDF Function
+			Format.YoYAbsoluteAndRelative([Active Customers], [Churn: PY Active Customers])
+			 
+			```
+		formatString: @
+		displayFolder: 14_Viz Helpers\_KPI Cards\Churn
+		lineageTag: 09e83b9b-dd5f-4714-ace3-2e82a2afc979
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	/// [METRIC / time-intelligence] Same-period-last-year Cooling Customers.
+	measure 'Churn: PY Cooling Customers' = ```
+			
+			// Using UDF function to dynamically calculate SPLY
+			TimeIntelligence.PY([Cooling Customers])
+			
+			```
+		displayFolder: 08_Time Intelligence\_PY\Churn
+		lineageTag: 29d92e60-4472-456e-8fcb-f668c11d1307
+
+		formatStringDefinition =
+				VAR __FormattedPYCoolingCustomers = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __FormattedPYCoolingCustomers <= 1E3, "#,0;-#,0;0",
+				        __FormattedPYCoolingCustomers <= 1E4, "#,0,K;-#,0,K;0",
+				        __FormattedPYCoolingCustomers <= 1E5, "#,0,K;-#,0,K;0",
+				        __FormattedPYCoolingCustomers <= 1E6, "#,0,K;-#,0,K;0",
+				        __FormattedPYCoolingCustomers <= 1E7, "#,0,,M;-#,0,,M;0",
+				        __FormattedPYCoolingCustomers <= 1E8, "#,0,,M;-#,0,,M;0",
+				        __FormattedPYCoolingCustomers <= 1E9, "#,0,,M;-#,0,,M;0"
+				    )
+
+	/// [METRIC / time-intelligence] Same-period-last-year At Risk Customers.
+	measure 'Churn: PY At Risk Customers' = ```
+			
+			// Using UDF function to dynamically calculate SPLY
+			TimeIntelligence.PY([At Risk Customers])
+			
+			```
+		displayFolder: 08_Time Intelligence\_PY\Churn
+		lineageTag: a6bdedc0-0868-401b-9885-881e29b91d2d
+
+		formatStringDefinition =
+				VAR __FormattedPYAtRiskCustomers = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __FormattedPYAtRiskCustomers <= 1E3, "#,0;-#,0;0",
+				        __FormattedPYAtRiskCustomers <= 1E4, "#,0,K;-#,0,K;0",
+				        __FormattedPYAtRiskCustomers <= 1E5, "#,0,K;-#,0,K;0",
+				        __FormattedPYAtRiskCustomers <= 1E6, "#,0,K;-#,0,K;0",
+				        __FormattedPYAtRiskCustomers <= 1E7, "#,0,,M;-#,0,,M;0",
+				        __FormattedPYAtRiskCustomers <= 1E8, "#,0,,M;-#,0,,M;0",
+				        __FormattedPYAtRiskCustomers <= 1E9, "#,0,,M;-#,0,,M;0"
+				    )
+
+	/// [METRIC / time-intelligence] Same-period-last-year Churned Customers.
+	measure 'Churn: PY Churned Customers' = ```
+			
+			// Using UDF function to dynamically calculate SPLY
+			TimeIntelligence.PY([Churned Customers])
+			
+			```
+		displayFolder: 08_Time Intelligence\_PY\Churn
+		lineageTag: d53af925-5a26-454f-9720-db03fe0bd067
+
+		formatStringDefinition =
+				VAR __FormattedPYChurnedCustomers = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __FormattedPYChurnedCustomers <= 1E3, "#,0;-#,0;0",
+				        __FormattedPYChurnedCustomers <= 1E4, "#,0,K;-#,0,K;0",
+				        __FormattedPYChurnedCustomers <= 1E5, "#,0,K;-#,0,K;0",
+				        __FormattedPYChurnedCustomers <= 1E6, "#,0,K;-#,0,K;0",
+				        __FormattedPYChurnedCustomers <= 1E7, "#,0,,M;-#,0,,M;0",
+				        __FormattedPYChurnedCustomers <= 1E8, "#,0,,M;-#,0,,M;0",
+				        __FormattedPYChurnedCustomers <= 1E9, "#,0,,M;-#,0,,M;0"
+				    )
+
+	/// [METRIC / time-intelligence] Same-period-last-year Revenue At Risk of Churn.
+	measure 'Churn: PY Revenue At Risk' = ```
+			
+			// Using UDF function to dynamically calculate SPLY
+			TimeIntelligence.PY([Revenue At Risk])
+			
+			```
+		displayFolder: 08_Time Intelligence\_PY\Churn
+		lineageTag: dae92485-e667-4f09-9f69-9730945c41e1
+
+		formatStringDefinition =
+				VAR __FormattedPYRevenueAtRisk = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        __FormattedPYRevenueAtRisk <= 1E3, "$#,0.;-#,0.;0",
+				        __FormattedPYRevenueAtRisk <= 1E4, "$#,0,.00K;-#,0,.00K;0",
+				        __FormattedPYRevenueAtRisk <= 1E5, "$$#,0,.0K;-#,0,.0K;0",
+				        __FormattedPYRevenueAtRisk <= 1E6, "$#,0,.K;-#,0,.K;0",
+				        __FormattedPYRevenueAtRisk <= 1E7, "$#,0,,.00M;-#,0,,.00M;0",
+				        __FormattedPYRevenueAtRisk <= 1E8, "$#,0,,.0M;-#,0,,.0M;0",
+				        __FormattedPYRevenueAtRisk <= 1E9, "$#,0,,.M;-#,0,,.M;0"
+				    )
+
+	measure 'Formatted Cooling Customers Absolute And Relative' = ```
+			
+			// Using UDF Function
+			Format.YoYAbsoluteAndRelative([Cooling Customers], [Churn: PY Cooling Customers])
+			 
+			```
+		formatString: @
+		displayFolder: 14_Viz Helpers\_KPI Cards\Churn
+		lineageTag: 96bf58ef-3a60-4aa5-885c-41169976b1e0
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Formatted At Risk Customers Absolute And Relative' = ```
+			
+			// Using UDF Function
+			Format.YoYAbsoluteAndRelative([At Risk Customers], [Churn: PY At Risk Customers])
+			 
+			```
+		formatString: @
+		displayFolder: 14_Viz Helpers\_KPI Cards\Churn
+		lineageTag: a1d064a1-255b-4a8f-9390-017fe795dc61
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Formatted Churned Customers Absolute And Relative' = ```
+			
+			// Using UDF Function
+			Format.YoYAbsoluteAndRelative([Churned Customers], [Churn: PY Churned Customers])
+			 
+			```
+		formatString: @
+		displayFolder: 14_Viz Helpers\_KPI Cards\Churn
+		lineageTag: 3087a941-4485-4df0-b484-43f94ece6577
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Formatted Revenue At Risk Absolute And Relative' = ```
+			
+			// Using UDF Function
+			Format.YoYAbsoluteAndRelative([Revenue At Risk], [Churn: PY Revenue At Risk])
+			 
+			```
+		formatString: @
+		displayFolder: 14_Viz Helpers\_KPI Cards\Churn
+		lineageTag: cf1c05e3-ba1a-426c-ac74-649fe160136a
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	/// [METRIC / time-intelligence] Year-over-year % change of Active Customers.
+	measure 'Active Customers YoY %' = ```
+			
+			VAR CurrentPeriod = [Active Customers]
+			VAR PriorYear = [Churn: PY Active Customers]
+			
+			RETURN 
+			DIVIDE(CurrentPeriod - PriorYear, PriorYear, 0)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 08_Time Intelligence\_YoY\Churn
+		lineageTag: bce323b1-782d-495b-a6a5-4a5df8532c70
+
+	/// [METRIC / time-intelligence] Year-over-year % change of Cooling Customers.
+	measure 'Cooling Customers YoY %' = ```
+			
+			VAR CurrentPeriod = [Cooling Customers]
+			VAR PriorYear = [Churn: PY Cooling Customers]
+			
+			RETURN 
+			DIVIDE(CurrentPeriod - PriorYear, PriorYear, 0)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 08_Time Intelligence\_YoY\Churn
+		lineageTag: c8924915-3a74-4bd1-ad64-2db2e54104bf
+
+	/// [METRIC / time-intelligence] Year-over-year % change of At Risk Customers.
+	measure 'At Risk Customers YoY %' = ```
+			
+			VAR CurrentPeriod = [At Risk Customers]
+			VAR PriorYear = [Churn: PY At Risk Customers]
+			
+			RETURN 
+			DIVIDE(CurrentPeriod - PriorYear, PriorYear, 0)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 08_Time Intelligence\_YoY\Churn
+		lineageTag: 87f4376f-cafe-4c76-8f54-4997d8a2bd88
+
+	/// [METRIC / time-intelligence] Year-over-year % change of Churned Customers.
+	measure 'Churned Customers YoY %' = ```
+			
+			VAR CurrentPeriod = [Churned Customers]
+			VAR PriorYear = [Churn: PY Churned Customers]
+			
+			RETURN 
+			DIVIDE(CurrentPeriod - PriorYear, PriorYear, 0)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 08_Time Intelligence\_YoY\Churn
+		lineageTag: eff4ff22-bceb-4012-a1bb-b31afefab827
+
+	/// [METRIC / time-intelligence] Year-over-year % change of Revenue At Risk.
+	measure 'Revenue At Risk YoY %' = ```
+			
+			VAR CurrentPeriod = [Revenue At Risk]
+			VAR PriorYear = [Churn: PY Revenue At Risk]
+			
+			RETURN 
+			DIVIDE(CurrentPeriod - PriorYear, PriorYear, 0)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 08_Time Intelligence\_YoY\Churn
+		lineageTag: d914a5d8-c311-41f0-a4aa-1c2ad8dd57d9
+
+	/// [METRIC / time-intelligence] Same-period-last-year Churn Rate.
+	measure 'Churn: PY Churn Rate' = ```
+			
+			// Using UDF function to dynamically calculate SPLY
+			TimeIntelligence.PY([Churn Rate])
+			
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 08_Time Intelligence\_PY\Churn
+		lineageTag: 7966fc04-f192-42a9-be17-cb403c2066ab
+
+	/// [METRIC / time-intelligence] Year-over-year % change of Churn Rate.
+	measure 'Churn Risk YoY %' = ```
+			
+			VAR CurrentPeriod = [Churn Rate]
+			VAR PriorYear = [Churn: PY Churn Rate]
+			
+			RETURN 
+			DIVIDE(CurrentPeriod - PriorYear, PriorYear, 0)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 08_Time Intelligence\_YoY\Churn
+		lineageTag: 4a87a3fc-642c-4971-bbb4-e92396493704
+
+	/// [HELPER] KPI-card display string for Churn Rate + YoY; formatting only. Not a business metric.
+	measure 'Formatted Churn Rate Absolute And Relative' = ```
+			
+			// Using UDF Function
+			Format.YoYAbsoluteAndRelative([Churn Rate], [Churn: PY Churn Rate])
+			
+			```
+		formatString: @
+		displayFolder: 14_Viz Helpers\_KPI Cards\Churn
+		lineageTag: 652f40f2-a64b-4e43-88cb-097b23a56a55
+
+		annotation PBI_FormatHint = {"isText":true}
 
 	/// Unused placeholder column; the measures table has no data rows. Grain: not applicable.
 	column Value
