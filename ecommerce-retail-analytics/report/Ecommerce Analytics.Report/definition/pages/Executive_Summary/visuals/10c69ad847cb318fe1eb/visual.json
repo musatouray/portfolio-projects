@@ -1348,6 +1348,20 @@
             "metadata": "_Measures.AOV Order Items",
             "id": "field-be67937e-eaae-8346-6d1e-05974c30ffbf"
           }
+        },
+        {
+          "properties": {
+            "detailBold": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Revenue"
+          }
         }
       ],
       "referenceLabelTitle": [

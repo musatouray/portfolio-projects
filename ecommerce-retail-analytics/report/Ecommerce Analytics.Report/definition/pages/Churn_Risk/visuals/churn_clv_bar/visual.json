@@ -42,7 +42,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Customers Active"
+                  "Property": "Active Customers"
                 }
               },
               "queryRef": "_Measures.Customers Active",
@@ -57,7 +57,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Customers At Risk"
+                  "Property": "At Risk Customers"
                 }
               },
               "queryRef": "_Measures.Customers At Risk",
@@ -72,7 +72,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Churn Customers"
+                  "Property": "Churned Customers"
                 }
               },
               "queryRef": "_Measures.Total Churn Customers",
@@ -92,7 +92,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Customers Active"
+                "Property": "Active Customers"
               }
             },
             "direction": "Descending"

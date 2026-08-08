@@ -14232,7 +14232,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Total Churn Customers"
+			          "ConceptualProperty": "Churned Customers"
 			        }
 			      },
 			      "State": "Generated",
@@ -42578,7 +42578,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Customers Active"
+			          "ConceptualProperty": "Active Customers"
 			        }
 			      },
 			      "State": "Generated",
@@ -42650,7 +42650,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Customers Cooling"
+			          "ConceptualProperty": "Cooling Customers"
 			        }
 			      },
 			      "State": "Generated",
@@ -42772,7 +42772,7 @@ cultureInfo en-US
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Customers At Risk"
+			          "ConceptualProperty": "At Risk Customers"
 			        }
 			      },
 			      "State": "Generated",

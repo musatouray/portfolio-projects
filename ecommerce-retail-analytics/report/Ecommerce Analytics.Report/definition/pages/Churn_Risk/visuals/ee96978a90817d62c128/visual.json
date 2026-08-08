@@ -39,7 +39,8 @@
                       "selector": {
                         "id": "ExecutiveSummaryTitle"
                       }
-                    }
+                    },
+                    "textStyle": {}
                   }
                 ]
               }
