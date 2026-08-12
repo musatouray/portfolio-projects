@@ -2,16 +2,16 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
   "themeCollection": {
     "baseTheme": {
-      "name": "Fluent2-CY26SU04",
+      "name": "Fluent2-CY26SU07",
       "reportVersionAtImport": {
-        "visual": "2.8.0",
-        "report": "3.2.0",
+        "visual": "2.11.0",
+        "report": "3.4.0",
         "page": "2.3.1"
       },
       "type": "SharedResources"
     },
     "customTheme": {
-      "name": "E-Commerce_Analytics19758097702425503.json",
+      "name": "E-Commerce_Analytics10822148067441961.json",
       "reportVersionAtImport": {
         "visual": "2.11.0",
         "report": "3.4.0",
@@ -59,8 +59,8 @@
       "type": "SharedResources",
       "items": [
         {
-          "name": "Fluent2-CY26SU04",
-          "path": "BaseThemes/Fluent2-CY26SU04.json",
+          "name": "Fluent2-CY26SU07",
+          "path": "BaseThemes/Fluent2-CY26SU07.json",
           "type": "BaseTheme"
         },
         {
@@ -95,8 +95,8 @@
           "type": "Image"
         },
         {
-          "name": "E-Commerce_Analytics19758097702425503.json",
-          "path": "E-Commerce_Analytics19758097702425503.json",
+          "name": "E-Commerce_Analytics10822148067441961.json",
+          "path": "E-Commerce_Analytics10822148067441961.json",
           "type": "CustomTheme"
         },
         {
@@ -132,6 +132,26 @@
         {
           "name": "Home_Grey6264064519770804.png",
           "path": "Home_Grey6264064519770804.png",
+          "type": "Image"
+        },
+        {
+          "name": "info_blue875777973349394.png",
+          "path": "info_blue875777973349394.png",
+          "type": "Image"
+        },
+        {
+          "name": "info_blue8784856382662973.png",
+          "path": "info_blue8784856382662973.png",
+          "type": "Image"
+        },
+        {
+          "name": "info_grey1602350537964351.png",
+          "path": "info_grey1602350537964351.png",
+          "type": "Image"
+        },
+        {
+          "name": "info_grey8666760608149535.png",
+          "path": "info_grey8666760608149535.png",
           "type": "Image"
         },
         {

@@ -6,12 +6,16 @@
     "applyOnlyToTargetVisuals": true,
     "targetVisualNames": [
       "7403339fef5a5c3240dc",
-      "d4103c845c0356323ccd",
+      "c7724e16048d736e5d6d",
       "4e912bc30a10baa10680",
       "613978921eb2c711ff79",
       "6237dec924b5caeb999d",
       "9291013669574ba4b604",
-      "99bb8c903a2b46fefb3a"
+      "99bb8c903a2b46fefb3a",
+      "d4103c845c0356323ccd",
+      "f946f1cc8c8e19dd2629",
+      "a0189cfec0e367665d00",
+      "c675fafa0b1c6ee7ad59"
     ],
     "suppressData": true
   },
@@ -25,7 +29,7 @@
             "filters": {
               "byExpr": [
                 {
-                  "name": "76ec549fdbc887884413",
+                  "name": "9120caea8481801ee1a4",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -151,41 +155,64 @@
           "4e912bc30a10baa10680": {
             "filters": {
               "byName": {
-                "d14575474c642e2150db": {
-                  "name": "d14575474c642e2150db",
+                "c3f66004408755a0c8d3": {
+                  "name": "c3f66004408755a0c8d3",
                   "type": "Advanced",
                   "filter": {
                     "Version": 2,
                     "From": [
                       {
                         "Name": "d",
-                        "Entity": "Disconnected Calendar",
+                        "Entity": "DIM_DATES",
                         "Type": 0
                       }
                     ],
                     "Where": [
                       {
                         "Condition": {
-                          "Comparison": {
-                            "ComparisonKind": 4,
+                          "And": {
                             "Left": {
-                              "Column": {
+                              "Not": {
                                 "Expression": {
-                                  "SourceRef": {
-                                    "Source": "d"
+                                  "Comparison": {
+                                    "ComparisonKind": 0,
+                                    "Left": {
+                                      "Column": {
+                                        "Expression": {
+                                          "SourceRef": {
+                                            "Source": "d"
+                                          }
+                                        },
+                                        "Property": "YEAR"
+                                      }
+                                    },
+                                    "Right": {
+                                      "Literal": {
+                                        "Value": "null"
+                                      }
+                                    }
                                   }
-                                },
-                                "Property": "MONTH_START_DATE"
+                                }
                               }
                             },
                             "Right": {
-                              "DateSpan": {
-                                "Expression": {
-                                  "Literal": {
-                                    "Value": "datetime'2026-06-30T00:00:00'"
+                              "Comparison": {
+                                "ComparisonKind": 4,
+                                "Left": {
+                                  "Column": {
+                                    "Expression": {
+                                      "SourceRef": {
+                                        "Source": "d"
+                                      }
+                                    },
+                                    "Property": "YEAR"
                                   }
                                 },
-                                "TimeUnit": 5
+                                "Right": {
+                                  "Literal": {
+                                    "Value": "2026L"
+                                  }
+                                }
                               }
                             }
                           }
@@ -193,23 +220,6 @@
                       }
                     ]
                   },
-                  "expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "Disconnected Calendar"
-                        }
-                      },
-                      "Property": "MONTH_START_DATE"
-                    }
-                  },
-                  "howCreated": 1
-                }
-              },
-              "byExpr": [
-                {
-                  "name": "7d983f207a486150077e",
-                  "type": "Advanced",
                   "expression": {
                     "Column": {
                       "Expression": {
@@ -222,7 +232,7 @@
                   },
                   "howCreated": 0
                 }
-              ]
+              }
             },
             "singleVisual": {
               "visualType": "listSlicer",
@@ -379,7 +389,7 @@
               },
               "byExpr": [
                 {
-                  "name": "4d9d71e7a7aa0d50b3be",
+                  "name": "59b6744ea50153a465b3",
                   "type": "Categorical",
                   "expression": {
                     "Column": {
@@ -492,7 +502,7 @@
             "filters": {
               "byExpr": [
                 {
-                  "name": "6765208b638e156780d8",
+                  "name": "985939b7a946b235e1b8",
                   "type": "Categorical",
                   "expression": {
                     "Column": {
@@ -507,7 +517,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "2f7fbdfb43040468bc20",
+                  "name": "ad2c6bc08dd26cc825b5",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -522,7 +532,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "4b53f7baca541a3d10e7",
+                  "name": "6f3387a04e5094969e46",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -537,7 +547,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "51287e8b58e6dc11a09b",
+                  "name": "e597ae57d310ce038a0d",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -591,7 +601,7 @@
             "filters": {
               "byExpr": [
                 {
-                  "name": "07a6575c52412c1a0041",
+                  "name": "2ae3ecf645c017da7e52",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -606,7 +616,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "2f05e6ec02020e0d6e36",
+                  "name": "46bac80752eb34316784",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -621,7 +631,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "744e24e3847bb527aa94",
+                  "name": "f7178caa643b89c1c075",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -636,7 +646,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "e94f5b4f1bc669e78025",
+                  "name": "d4525f15287503e00911",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -651,7 +661,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "6416596965ea117c1652",
+                  "name": "95d3b33424107721d065",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -666,7 +676,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "c760b9ab3d6b9ee55d28",
+                  "name": "c5a7ab54e389e77292cb",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -1123,6 +1133,12 @@
               }
             }
           },
+          "d4103c845c0356323ccd": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
           "ee96978a90817d62c128": {
             "singleVisual": {
               "visualType": "textbox",
@@ -1141,9 +1157,78 @@
               "objects": {}
             }
           },
-          "d4103c845c0356323ccd": {
+          "f946f1cc8c8e19dd2629": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "0e6c0256cc0b80088163",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Churn Analysis Summary"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
             "singleVisual": {
-              "visualType": "shape",
+              "visualType": "htmlContent443BE3AD55E043BF878BED274D3A6855",
+              "objects": {}
+            }
+          },
+          "a0189cfec0e367665d00": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "ee32622a8a160bb29099",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Churn Analysis Findings"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "htmlContent443BE3AD55E043BF878BED274D3A6855",
+              "objects": {}
+            }
+          },
+          "c675fafa0b1c6ee7ad59": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "d9f38d7e7141e905ed39",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Churn Analysis Recommendations"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "htmlContent443BE3AD55E043BF878BED274D3A6855",
               "objects": {}
             }
           }
@@ -1151,6 +1236,9 @@
         "visualContainerGroups": {
           "7403339fef5a5c3240dc": {
             "isHidden": true
+          },
+          "c7724e16048d736e5d6d": {
+            "isHidden": false
           }
         }
       }

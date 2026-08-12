@@ -4868,6 +4868,237 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isText":true}
 
+	measure 'Churn Analysis Summary' = ```
+			
+			[Report Style Sheet] & "
+			<div class='pbi-container'>
+			    <div class='pbi-header'>
+			        <h1>Strategic Churn Analysis & Recommendations</h1>
+			        <p>Data-Driven Retention & Reactivation Playbook • June 2026</p>
+			    </div>
+			
+			    <div style='background-color: #F3F9FD; border-left: 5px solid #0078D4; padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 25px; box-shadow: 0 2px 4px rgba(0,0,0,0.04);'>
+			        <h2 style='margin-top: 0; color: #004578; font-size: 20px; font-weight: 600; border-bottom: 2px solid #E1F5FE; padding-bottom: 8px;'>Executive Summary</h2>
+			        <p style='font-size: 15px; margin-bottom: 15px;'>
+			            <span class='badge-red'>39.4%</span> of the customer base has churned as of June 2026. Only 3 in 10 customers are still actively engaged. The average customer has not purchased in <strong style='color: #C62828;'>93 days</strong>, and the average churn risk score across all customers is <strong style='color: #C62828;'>30.2 / 100</strong>.
+			        </p>
+			        <p style='font-size: 15px; margin-bottom: 0;'>
+			            The root cause is <strong>not dissatisfaction</strong> — average review scores for churned segments are 4.0–4.1 out of 5, nearly identical to active customers. The core structural problem is a <span class='badge-amber'>failure to convert first-time buyers into repeat purchasers</span>: <strong>57.9%</strong> of all customers made exactly one purchase and never returned.
+			        </p>
+			    </div>
+			
+			    <div class='pbi-section-title'>Churn Status Overview</div>
+			    <table class='pbi-table'>
+			        <thead>
+			            <tr><th>Status</th><th>Customers</th><th>Share</th></tr>
+			        </thead>
+			        <tbody>
+			            <tr><td>Active</td><td>10,694</td><td>30.3%</td></tr>
+			            <tr><td>Cooling</td><td>6,350</td><td>18.0%</td></tr>
+			            <tr><td>At Risk</td><td>4,365</td><td>12.4%</td></tr>
+			            <tr class='row-critical'><td>Churned</td><td>13,904</td><td>39.4%</td></tr>
+			        </tbody>
+			    </table>
+			</div>
+			"
+			
+			
+			```
+		displayFolder: 01_Segments\Churn
+		lineageTag: f655448a-22a0-4aa4-90b3-55ff5bcb8549
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Report Style Sheet' = ```
+			
+			"
+			<style>
+			    .pbi-container { font-family: 'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif; font-size: 14px; color: #333333; line-height: 1.6; max-width: 1000px; margin: 0 auto; padding: 10px; }
+			    .pbi-header { background: linear-gradient(90deg, #0078D4, #004578); color: #FFFFFF; padding: 20px; border-radius: 8px 8px 0 0; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+			    .pbi-header h1 { margin: 0; font-size: 24px; font-weight: 600; letter-spacing: 0.5px; }
+			    .pbi-header p { margin: 5px 0 0 0; font-size: 13px; color: #E1F5FE; opacity: 0.9; }
+			    .pbi-section-title { color: #004578; font-size: 18px; font-weight: 600; margin-top: 25px; margin-bottom: 15px; border-bottom: 2px solid #E1F5FE; padding-bottom: 6px; }
+			    .pbi-sub-title { color: #004578; font-size: 16px; font-weight: 600; margin-top: 25px; margin-bottom: 10px; }
+			    .pbi-table { width: 100%; border-collapse: collapse; margin: 15px 0 25px 0; font-size: 14px; box-shadow: 0 2px 3px rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden; }
+			    .pbi-table th { background-color: #004578; color: #FFFFFF; text-align: left; padding: 10px 12px; font-weight: 600; }
+			    .pbi-table td { padding: 10px 12px; border-bottom: 1px solid #E0E0E0; color: #424242; }
+			    .pbi-table tr:nth-child(even) { background-color: #F9F9F9; }
+			    .pbi-table tr:hover { background-color: #F0F7FF; }
+			    .row-critical { background-color: #FFEBEE !important; font-weight: bold; color: #C62828 !important; }
+			    .row-high { background-color: #FFF3E0 !important; }
+			    .row-whale { background-color: #FFFDE7 !important; }
+			    .badge-red { background-color: #FFEBEE; color: #C62828; font-weight: bold; padding: 2px 6px; border-radius: 4px; }
+			    .badge-amber { background-color: #FFF9C4; color: #F57F17; font-weight: bold; padding: 2px 6px; border-radius: 4px; }
+			    .badge-blue { background-color: #E1F5FE; color: #0078D4; font-weight: bold; padding: 2px 6px; border-radius: 4px; }
+			    .callout-box { background-color: #F5F5F5; border-left: 4px solid #757575; padding: 12px 18px; margin: 15px 0; font-style: italic; color: #424242; border-radius: 0 4px 4px 0; }
+			</style>
+			"
+			
+			```
+		displayFolder: 01_Segments\Churn
+		lineageTag: abfa7408-c904-4ada-86ee-a0e43ab2a79e
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Churn Analysis Findings' = ```
+			
+			[Report Style Sheet] & "
+			<div class='pbi-container'>
+			    <h2 style='margin-top: 0; color: #004578; font-size: 22px; border-bottom: 3px solid #0078D4; padding-bottom: 10px; font-weight: 600;'>Findings</h2>
+			    <div class='pbi-section-title'>1 — Churn is a one-time buyer problem, not a satisfaction problem</div>
+			    <p>
+			        <span class='badge-red'>57.9%</span> of customers made exactly one purchase and never returned. Average review scores for churned segments are <strong style='color: #0078D4;'>4.0–4.1 / 5</strong> — nearly identical to active customers. Customers are leaving happy; they simply have no reason to return. This rules out product quality or delivery failure as the root cause. The issue is <strong>conversion to repeat purchase</strong>, not customer experience.
+			    </p>
+			
+			    <div class='pbi-section-title'>2 — Two RFM segments account for 99% of all churned customers</div>
+			    <table class='pbi-table'>
+			        <thead>
+			            <tr><th>Segment</th><th>Customers</th><th>Status</th><th>Avg Recency</th><th>Avg Rating</th></tr>
+			        </thead>
+			        <tbody>
+			            <tr><td style='font-weight:600;'>High-Value Dormant</td><td>8,567</td><td><span class='badge-red'>100% Churned</span></td><td>169 days</td><td>4.0</td></tr>
+			            <tr><td style='font-weight:600;'>One-and-Done Lost</td><td>5,212</td><td><span class='badge-red'>100% Churned</span></td><td>209 days</td><td>4.0</td></tr>
+			        </tbody>
+			    </table>
+			    <p>These two segments account for <strong style='color: #C62828;'>13,779 of the 13,904 churned customers (99%)</strong>.</p>
+			    <ul style='padding-left: 20px;'>
+			        <li style='margin-bottom: 6px;'><strong>High-Value Dormant</strong> — made multiple high-spend purchases in the past but have been completely silent for ~169 days. They are winnable: they already demonstrated willingness to spend.</li>
+			        <li style='margin-bottom: 6px;'><strong>One-and-Done Lost</strong> — bought once, rated the experience well (4.0), and disappeared. They are the hardest to reactivate because no repeat-purchase habit was ever formed.</li>
+			    </ul>
+			
+			    <div class='pbi-section-title'>3 — 3,454 high-value customers are on the edge right now</div>
+			    <p>
+			        The <span class='badge-amber'>Slipping Whales</span> segment: 3,361 are currently At Risk (97.3% of the group), with an average recency of 75 days. These are formerly frequent, high-spend customers who are going quiet. Average rating: 4.1. This is the <strong>highest-ROI retention target</strong>: they spend more, they like the brand, and they have not left yet.
+			    </p>
+			    <table class='pbi-table'>
+			        <thead>
+			            <tr><th>Segment</th><th>Customers</th><th>Churned</th><th>At Risk</th><th>Avg Recency</th><th>Avg Rating</th></tr>
+			        </thead>
+			        <tbody>
+			            <tr><td>High-Value Dormant</td><td>8,567</td><td>8,567</td><td>—</td><td>169 days</td><td>4.0</td></tr>
+			            <tr><td>One-and-Done Lost</td><td>5,212</td><td>5,212</td><td>—</td><td>209 days</td><td>4.0</td></tr>
+			            <tr class='row-whale'><td style='font-weight: 600; color: #F57F17;'>Slipping Whales</td><td>3,454</td><td>93</td><td style='font-weight: bold; color: #F57F17;'>3,361</td><td>75 days</td><td>4.1</td></tr>
+			            <tr><td>Need Attention</td><td>863</td><td>32</td><td>831</td><td>75 days</td><td>4.1</td></tr>
+			            <tr><td>Champions</td><td>14,820</td><td>—</td><td>146</td><td>24 days</td><td>4.0</td></tr>
+			        </tbody>
+			    </table>
+			
+			    <div class='pbi-section-title'>4 — Satisfaction does not protect against churn</div>
+			    <table class='pbi-table'>
+			        <thead>
+			            <tr><th>NPS Tier</th><th>Total</th><th>Churned</th><th>Churn Rate</th></tr>
+			        </thead>
+			        <tbody>
+			            <tr><td>Detractor</td><td>2,864</td><td>1,594</td><td style='color: #C62828; font-weight: bold;'>55.6%</td></tr>
+			            <tr><td>Promoter</td><td>13,863</td><td>6,666</td><td style='color: #C62828; font-weight: bold;'>48.1%</td></tr>
+			            <tr><td>Neutral</td><td>18,470</td><td>5,556</td><td style='color: #0078D4; font-weight: bold;'>30.1%</td></tr>
+			        </tbody>
+			    </table>
+			    <p>
+			        Detractors churn at the highest rate (55.6%), confirming that poor experience accelerates exit. However, <strong style='color: #C62828;'>promoters churn at 48.1%</strong> — almost as high. Delighting customers is necessary but nowhere near sufficient to retain them. The marketplace has a <strong>structural repeat-purchase problem across all satisfaction tiers</strong>.
+			    </p>
+			    <p>Neutrals churn at the lowest rate (30.1%), likely reflecting habitual buyers who are neither emotionally invested nor actively dissatisfied.</p>
+			    <div class='callout-box'>
+			        <strong>Implication:</strong> Retention budget should go to reactivation and habit-forming programmes, not to service recovery initiatives.
+			    </div>
+			
+			    <div class='pbi-section-title'>5 — The Critical and High risk tiers define clear intervention windows</div>
+			    <table class='pbi-table'>
+			        <thead>
+			            <tr><th>Risk Tier</th><th>Customers</th><th>Avg Risk Score</th><th>Avg Days Since Purchase</th></tr>
+			        </thead>
+			        <tbody>
+			            <tr class='row-critical'><td>Critical</td><td>2,570</td><td style='font-weight: 600;'>83.2 / 100</td><td style='font-weight: 600;'>213 days</td></tr>
+			            <tr class='row-high'><td>High</td><td>4,953</td><td>62.2 / 100</td><td>178 days</td></tr>
+			            <tr><td>Medium</td><td>12,392</td><td>36.6 / 100</td><td>121 days</td></tr>
+			            <tr><td>Low</td><td>15,398</td><td>5.8 / 100</td><td>23 days</td></tr>
+			        </tbody>
+			    </table>
+			    <p>
+			        Critical-tier customers have been silent for over <strong style='color: #C62828;'>7 months</strong> and score 83/100 on the composite risk model. High-tier customers average ~6 months of silence. These boundaries define the time windows for reactivation campaigns before recovery probability drops below economic viability.
+			    </p>
+			</div>
+			"
+			
+			
+			```
+		displayFolder: 01_Segments\Churn
+		lineageTag: bd3205d2-263d-4098-886d-38d9a40eae93
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Churn Analysis Recommendations' = ```
+			
+			[Report Style Sheet] & "
+			<div class='pbi-container'>
+			    <div style='padding: 20px; background-color: #FAFAFA; border: 1px solid #E0E0E0; border-radius: 8px;'>
+			        <h2 style='margin-top: 0; color: #004578; font-size: 22px; border-bottom: 3px solid #0078D4; padding-bottom: 10px; font-weight: 600;'>Recommendations</h2>
+			        
+			        <div class='pbi-sub-title'>1 — Launch a Slipping Whales rescue campaign immediately <span class='badge-red'>Highest priority</span></div>
+			        <p style='margin-bottom: 8px;'>Target the <strong>3,361 At-Risk Slipping Whales</strong> before they cross into the Churned pool. They have the highest CLV, are still reachable (75-day recency), and have not left yet. A personalised 'we miss you' message with a category-specific offer should deploy within two weeks.</p>
+			        <ul style='padding-left: 20px; margin-top: 0;'>
+			            <li><strong>Trigger:</strong> Customers in the Slipping Whales RFM segment with CHURN_STATUS = 'At Risk'</li>
+			            <li><strong>Channel:</strong> Email / push — personalised to last purchased category</li>
+			            <li><strong>Target KPI:</strong> Reduce segment's At Risk count by 20% within 60 days</li>
+			        </ul>
+			
+			        <div class='pbi-sub-title'>2 — Build a post-first-purchase nurture sequence <span class='badge-amber'>Structural fix</span></div>
+			        <p style='margin-bottom: 8px;'>57.9% one-time buyers is the underlying structural problem. Every new customer should enter an automated sequence after their first order:</p>
+			        <table class='pbi-table' style='margin: 10px 0;'>
+			            <thead><tr><th style='width: 15%;'>Day</th><th>Action</th></tr></thead>
+			            <tbody>
+			                <tr><td>Day 7</td><td> 'You might also like…' — cross-sell from Market Basket data</td></tr>
+			                <tr><td>Day 30</td><td>Category spotlight based on first purchase</td></tr>
+			                <tr><td>Day 45</td><td>Incentive (free shipping or small discount)</td></tr>
+			                <tr><td>Day 60</td><td>Final re-engagement nudge before entering Cooling status</td></tr>
+			            </tbody>
+			        </table>
+			        <p style='font-size: 13px; font-style: italic; color: #616161;'>This addresses the One-and-Done problem <strong>before</strong> the pattern forms.</p>
+			
+			        <div class='pbi-sub-title'>3 — Run a High-Value Dormant win-back programme <span class='badge-amber'>High value, long tail</span></div>
+			        <p style='margin-bottom: 8px;'>8,567 customers spent well, rated the experience 4.0, and went silent. A tiered win-back campaign personalised to their last purchase category:</p>
+			        <ul style='padding-left: 20px; margin-top: 0;'>
+			            <li><strong>Under 150 days silent:</strong> Standard re-engagement email</li>
+			            <li><strong>150–200 days silent:</strong> Add a meaningful incentive</li>
+			            <li><strong>Over 200 days silent:</strong> High-value offer or write off (below minimum economic threshold)</li>
+			        </ul>
+			        <p style='margin-top: 8px;'>Focus budget on the under-200-day cohort first. Beyond 200 days of silence, reactivation probability drops significantly (One-and-Done Lost average recency is 209 days).</p>
+			
+			        <div class='pbi-sub-title'>4 — Set a universal 75-day recency trigger for automated retention outreach</div>
+			        <p>Slipping Whales and Need Attention segments both average <strong>75 days recency</strong> at the point of entering At Risk status. This should become the operational standard:</p>
+			        <div class='callout-box' style='border-left-color: #0078D4;'>
+			            Any customer with 2+ prior orders who has not purchased in 75 days enters an automated reactivation flow. This prevents the pipeline from feeding the Churned pool.
+			        </div>
+			
+			        <div class='pbi-sub-title'>5 — Monitor the Cooling segment monthly <span class='badge-blue'>Preventive</span></div>
+			        <p>6,350 customers are Cooling — between Active and At Risk. A lightweight nudge at <strong>45-day recency</strong> (before they hit the 75-day At Risk threshold) can slow the rate of deterioration. Monitor the size of this segment month-over-month as a leading indicator of future churn pressure.</p>
+			
+			        <div class='pbi-sub-title'>6 — Do not invest in satisfaction-improvement programmes as a churn fix</div>
+			        <p>Review scores of 4.0–4.1 across churned segments confirm satisfaction is not the driver. Directing retention budget toward NPS improvement, service recovery, or review-boosting programmes will not reduce churn. The problem is behavioural, not experiential.</p>
+			    </div>
+			
+			    <div class='pbi-section-title' style='margin-top: 35px;'>Priority Matrix</div>
+			    <table class='pbi-table'>
+			        <thead>
+			            <tr><th>Action</th><th>Urgency</th><th>Potential Impact</th><th>Effort</th></tr>
+			        </thead>
+			        <tbody>
+			            <tr class='row-critical'><td style='font-weight: 600;'>Slipping Whales rescue campaign</td><td>Immediate</td><td>High — 3,361 at-risk high-value customers</td><td>Low</td></tr>
+			            <tr><td style='font-weight: 600;'>75-day recency trigger automation</td><td>This quarter</td><td>High — prevents future churn structurally</td><td>Medium</td></tr>
+			            <tr><td style='font-weight: 600;'>Post-first-purchase nurture sequence</td><td>This quarter</td><td>Very high — addresses 57.9% one-time buyer rate</td><td>Medium</td></tr>
+			            <tr><td style='font-weight: 600;'>High-Value Dormant win-back</td><td>Next quarter</td><td>Medium — 8,567 customers, lower conversion rate</td><td>Medium</td></tr>
+			            <tr><td style='font-weight: 600;'>Cooling segment monthly monitoring</td><td>Ongoing</td><td>Preventive</td><td>Low</td></tr>
+			        </tbody>
+			    </table>
+			</div>
+			"
+			
+			```
+		displayFolder: 01_Segments\Churn
+		lineageTag: ad3415ed-302b-45fc-8a21-ae51e5f90481
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	/// Unused placeholder column; the measures table has no data rows. Grain: not applicable.
 	column Value
 		dataType: int64
