@@ -1,16 +1,17 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
-  "name": "31ae0430077f451fd640",
+  "name": "c7724e16048d736e5d6d",
   "position": {
     "x": 30.363424400628517,
-    "y": 97,
-    "z": 7000,
-    "height": 80.579857063206447,
-    "width": 1860.3436565462011,
-    "tabOrder": 2000
+    "y": 83,
+    "z": 9000,
+    "height": 966.87378985250143,
+    "width": 1870.5243043235846,
+    "tabOrder": 8608
   },
   "visualGroup": {
-    "displayName": "Grp Page Title",
+    "displayName": "Grp Churn Recommendations",
     "groupMode": "ScaleMode"
-  }
+  },
+  "isHidden": true
 }

@@ -20,7 +20,7 @@
                 "name": {
                   "expr": {
                     "Literal": {
-                      "Value": "'Notification Grey.png'"
+                      "Value": "'info grey.png'"
                     }
                   }
                 },
@@ -29,7 +29,7 @@
                     "ResourcePackageItem": {
                       "PackageName": "RegisteredResources",
                       "PackageType": 1,
-                      "ItemName": "Notification_Grey08685470757856628.png"
+                      "ItemName": "info_grey1602350537964351.png"
                     }
                   }
                 },
@@ -58,7 +58,7 @@
                 "name": {
                   "expr": {
                     "Literal": {
-                      "Value": "'Notification Blue.png'"
+                      "Value": "'info blue.png'"
                     }
                   }
                 },
@@ -67,7 +67,7 @@
                     "ResourcePackageItem": {
                       "PackageName": "RegisteredResources",
                       "PackageType": 1,
-                      "ItemName": "Notification_Blue8202859362174061.png"
+                      "ItemName": "info_blue875777973349394.png"
                     }
                   }
                 },
@@ -92,7 +92,7 @@
                 "name": {
                   "expr": {
                     "Literal": {
-                      "Value": "'Notification.svg'"
+                      "Value": "'info grey.png'"
                     }
                   }
                 },
@@ -101,7 +101,7 @@
                     "ResourcePackageItem": {
                       "PackageName": "RegisteredResources",
                       "PackageType": 1,
-                      "ItemName": "Notification22144491582886972.svg"
+                      "ItemName": "info_grey8666760608149535.png"
                     }
                   }
                 },
@@ -117,6 +117,40 @@
           },
           "selector": {
             "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "sourceFile": {
+              "image": {
+                "name": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'info blue.png'"
+                    }
+                  }
+                },
+                "url": {
+                  "expr": {
+                    "ResourcePackageItem": {
+                      "PackageName": "RegisteredResources",
+                      "PackageType": 1,
+                      "ItemName": "info_blue8784856382662973.png"
+                    }
+                  }
+                },
+                "scaling": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'Normal'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "press"
           }
         }
       ]

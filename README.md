@@ -9,7 +9,7 @@ A collection of production-grade data engineering and analytics projects showcas
 | Project | Description | Tech Stack |
 |---------|-------------|------------|
 | [E-Commerce Retail Analytics](./ecommerce-retail-analytics/) | Production-grade analytics platform with automated pipelines, dimensional modeling, and interactive dashboards. Features RFM segmentation, cohort retention, CLV prediction, and churn risk scoring. | Snowflake, dbt, Airflow, AWS S3, Power BI, GitHub Actions |
-| [Advanced SQL Patterns](./Advanced-SQL-Patterns/) | Advanced T-SQL patterns for business analytics—window functions, time series analysis, customer segmentation, and cohort retention. Includes interactive Jupyter notebooks with visualizations. | SQL Server, Python, Jupyter |
+| [Advanced SQL Patterns](./Advanced-SQL-Patterns/) | Advanced T-SQL patterns for business analytics featuring window functions, time series analysis, customer segmentation, and cohort retention. Includes interactive Jupyter notebooks with visualizations. | SQL Server, Python, Jupyter |
 
 ---
 
