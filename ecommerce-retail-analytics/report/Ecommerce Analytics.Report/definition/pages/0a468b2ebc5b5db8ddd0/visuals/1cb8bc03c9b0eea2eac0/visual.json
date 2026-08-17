@@ -170,23 +170,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "001edfc08ec0de6bd2cc",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Landing Page Light"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

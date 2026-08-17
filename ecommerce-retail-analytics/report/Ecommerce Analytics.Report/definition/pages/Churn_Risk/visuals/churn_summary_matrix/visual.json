@@ -7,7 +7,7 @@
     "z": 4000,
     "height": 301.29859597546761,
     "width": 699.52658522986462,
-    "tabOrder": 8600
+    "tabOrder": 8000
   },
   "visual": {
     "visualType": "pivotTable",
@@ -937,93 +937,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "cde5f4c1d9073b059867",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "FCT_RFM_SEGMENTS"
-              }
-            },
-            "Property": "CHURN_RISK_SEGMENT"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "46e5071301ae9716943a",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "RFM Lifetime Customers"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "719839f67667b3806e04",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Churn Rate"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "775c24d62642d6946b54",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Avg Churn Risk Score"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "120375d6c0022b217956",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Revenue At Risk"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "7295ed91960a4ed2e400",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Avg Recency (Days)"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

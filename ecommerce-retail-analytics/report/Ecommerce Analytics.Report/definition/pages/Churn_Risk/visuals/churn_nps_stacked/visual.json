@@ -7,7 +7,7 @@
     "z": 2000,
     "height": 301,
     "width": 486.98261442546504,
-    "tabOrder": 8500
+    "tabOrder": 7000
   },
   "visual": {
     "visualType": "hundredPercentStackedBarChart",
@@ -599,34 +599,6 @@
             }
           ]
         }
-      },
-      {
-        "name": "d5e8bcb0a450d0074eb0",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "RFM Lifetime Customers"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "433aaa0bb01770e7827b",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "FCT_RFM_SEGMENTS"
-              }
-            },
-            "Property": "CHURN_STATUS"
-          }
-        },
-        "type": "Categorical"
       }
     ]
   }

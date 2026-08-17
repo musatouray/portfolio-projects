@@ -1,11 +1,11 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "3170ff68c40b1e91ed34",
   "position": {
     "x": 449.12965932509678,
     "y": 14.57261849232259,
     "z": 2000,
-    "height": 56.055552739621874,
+    "height": 55,
     "width": 249.91433929748086,
     "tabOrder": 1000
   },
@@ -462,6 +462,13 @@
               "expr": {
                 "Literal": {
                   "Value": "16D"
+                }
+              }
+            },
+            "spaceAbovePlotArea": {
+              "expr": {
+                "Literal": {
+                  "Value": "2D"
                 }
               }
             }

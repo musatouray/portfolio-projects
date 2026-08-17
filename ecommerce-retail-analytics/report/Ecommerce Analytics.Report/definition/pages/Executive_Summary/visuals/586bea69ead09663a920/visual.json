@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "586bea69ead09663a920",
   "position": {
     "x": 0,
@@ -951,107 +951,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "5800d2375e12bd0a896a",
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "4a52b2e345d35a7da5c7",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "FCT_RFM_SEGMENTS"
-              }
-            },
-            "Property": "RFM_SEGMENT"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "43526ed09b7774e7b572",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "RFM Lifetime Customers"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "7afe058275ab27097e01",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Avg Recency (Days)"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "642f9971f2483177f120",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Avg Frequency"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "3490a614f156562afe4f",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Avg Monetary"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "905a878cbbc4e6628543",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "RFM Lifetime Orders"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "d734b8ecda6d0822338a",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "RFM Lifetime Revenue"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
-  }
+  "parentGroupName": "5800d2375e12bd0a896a"
 }

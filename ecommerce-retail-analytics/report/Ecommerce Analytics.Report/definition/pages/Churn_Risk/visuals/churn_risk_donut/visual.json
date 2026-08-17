@@ -7,7 +7,7 @@
     "z": 3000,
     "height": 303,
     "width": 486.98261442546504,
-    "tabOrder": 8100
+    "tabOrder": 4000
   },
   "visual": {
     "visualType": "donutChart",
@@ -436,37 +436,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "1f29bbad34c49d86376d",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "FCT_RFM_SEGMENTS"
-              }
-            },
-            "Property": "CHURN_RISK_SEGMENT"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "76876f4d02d9143cdb52",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "RFM Lifetime Customers"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }
