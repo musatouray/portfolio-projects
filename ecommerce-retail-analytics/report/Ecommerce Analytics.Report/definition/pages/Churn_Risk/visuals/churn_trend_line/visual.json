@@ -7,7 +7,7 @@
     "z": 5000,
     "height": 303,
     "width": 699,
-    "tabOrder": 8300
+    "tabOrder": 5000
   },
   "visual": {
     "visualType": "lineChart",
@@ -398,51 +398,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "2866fbaf01141838711c",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DIM_DATES"
-              }
-            },
-            "Property": "MONTH_YEAR"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "4aa461cd1449c7393550",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Churn Trend Churned"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "2b600107b566703283ea",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Churn Trend At Risk"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

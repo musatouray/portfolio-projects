@@ -671,23 +671,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "09c05aaac582ccaf63f0",
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "23f40af5240661bcc4b2",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "CG Selected Metric"
-              }
-            },
-            "Property": "Metric"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
-  }
+  "parentGroupName": "09c05aaac582ccaf63f0"
 }

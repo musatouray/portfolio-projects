@@ -910,23 +910,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "25a74169106a7f5889af",
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "658b4a77c3e59b9d77d0",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "CG Custom Periods"
-              }
-            },
-            "Property": "Period"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
-  }
+  "parentGroupName": "25a74169106a7f5889af"
 }

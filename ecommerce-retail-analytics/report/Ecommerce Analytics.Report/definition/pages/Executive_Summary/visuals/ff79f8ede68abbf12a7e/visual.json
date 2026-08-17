@@ -1,9 +1,9 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "ff79f8ede68abbf12a7e",
   "position": {
-    "x": 405.23493334684986,
-    "y": 17.517360231131818,
+    "x": 405.2349333468498,
+    "y": 11.678240154087892,
     "z": 1000,
     "height": 64.2303208474834,
     "width": 175.17360231131838,
@@ -143,6 +143,19 @@
                       "Value": "'#FAFCFF'"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Dropdown'"
                 }
               }
             }

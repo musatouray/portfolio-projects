@@ -288,51 +288,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "2011bce83c5cae4a067b",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "On-Time Delivery Rate"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "4069c83076a0a036a50e",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Late Delivery Rate"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "719328227c26d2cbd1b0",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DIM_DATES"
-              }
-            },
-            "Property": "MONTH_YEAR"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }
