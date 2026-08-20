@@ -1,24 +1,49 @@
+# Environment
+.env
+*.env.local
+
+# Data
+data/
+data-raw/*.csv
+data-raw/*.json
+data-raw/*.xlsx
+data-raw/*.xls
+data-raw/*.parquet
+data-raw/*.zip
+data-raw/*.tar.gz
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.uv/
+
+# dbt
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+dbt/profiles.yml
+dbt/package-lock.yml
+airflow/.env
+
 # VS Code settings (contains credentials)
-**/.vscode/
+.vscode/
 
 # Claude Code - ignore local settings, track workflow files
-**/.claude/settings.local.json
-**/.claude/todos.local.json
+.claude/settings.local.json
+.claude/todos.local.json
 
 # Logs
-**/logs/
-
-# dbt artifacts (version-specific lock file)
-**/dbt/package-lock.yml
+logs/
 
 # Windows artifacts
 nul
 
 # Power BI local settings (user-specific)
-**/.pbi/localSettings.json
-**/.pbi/editorSettings.json
-**/.pbi/cache.abf
+.pbi/localSettings.json
+.pbi/editorSettings.json
+.pbi/cache.abf
 
 # Power BI review notes (working documents)
-**/report/POWERBI_REVIEW.md
-**/report/POWERBI_REVIEW_REFACTORS.md
+report/POWERBI_REVIEW.md
+report/POWERBI_REVIEW_REFACTORS.md
