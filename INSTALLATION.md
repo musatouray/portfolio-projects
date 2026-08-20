@@ -41,8 +41,8 @@ This project uses a **2-database medallion architecture** for environment isolat
 ## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/musatouray/portfolio-projects.git
-cd portfolio-projects/ecommerce-retail-analytics
+git clone https://github.com/musatouray/ecommerce-retail-pipeline.git
+cd ecommerce-retail-pipeline
 ```
 
 ## 2. Install Python 3.12 and Dependencies
@@ -427,7 +427,7 @@ The Power BI reports are deployed to Microsoft Fabric via Git integration, enabl
 2. Connect to your GitHub repository
 3. Configure:
    - **Branch**: `fabric-prod`
-   - **Folder**: `ecommerce-retail-analytics/report`
+   - **Folder**: `report`
 4. Choose **"Update from Git"** to sync
 
 Fabric only syncs the `report/` folder—dbt, airflow, and scripts are ignored.

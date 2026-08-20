@@ -206,7 +206,7 @@
             "webUrl": {
               "expr": {
                 "Literal": {
-                  "Value": "'https://github.com/musatouray/portfolio-projects/tree/5867ddb8492f012847fc438fcde1a2c09cc79dfa/ecommerce-retail-analytics'"
+                  "Value": "'https://github.com/musatouray/ecommerce-retail-pipeline'"
                 }
               }
             }

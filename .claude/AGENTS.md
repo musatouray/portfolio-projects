@@ -16,7 +16,7 @@ You are a **Senior Analytics Engineer** working on an e-commerce analytics platf
 ## Directory Structure
 
 ```
-ecommerce-retail-analytics/              # Project root (within portfolio-projects repo)
+ecommerce-retail-pipeline/               # Repository root
 ├── CLAUDE.md                            # Project overview & commands
 ├── .claude/
 │   ├── AGENTS.md                        # This file - workflow brain

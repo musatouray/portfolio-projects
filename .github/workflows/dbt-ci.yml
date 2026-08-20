@@ -15,11 +15,11 @@ on:
     branches: [main]
     types: [opened, synchronize, reopened, closed]
     paths:
-      - 'ecommerce-retail-analytics/dbt/**'
+      - 'dbt/**'
       - '.github/workflows/dbt-ci.yml'
 
 env:
-  DBT_PROJECT_PATH: ecommerce-retail-analytics/dbt
+  DBT_PROJECT_PATH: dbt
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
@@ -69,10 +69,8 @@ jobs:
           echo "Current directory: $(pwd)"
           echo "Listing root:"
           ls -la
-          echo "Listing ecommerce-retail-analytics:"
-          ls -la ecommerce-retail-analytics/ || echo "Directory not found"
           echo "Listing dbt folder:"
-          ls -la ecommerce-retail-analytics/dbt/ || echo "dbt folder not found"
+          ls -la dbt/ || echo "dbt folder not found"
 
       - name: Install dbt
         run: |

@@ -14,7 +14,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'ecommerce-retail-analytics/dbt/**'
+      - 'dbt/**'
       - '.github/workflows/dbt-cd.yml'
 
   # Scheduled refresh: Run daily at 12:00 PM UTC (after Airflow DAG at 11 AM)
@@ -32,7 +32,7 @@ on:
         type: boolean
 
 env:
-  DBT_PROJECT_PATH: ecommerce-retail-analytics/dbt
+  DBT_PROJECT_PATH: dbt
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
