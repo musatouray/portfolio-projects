@@ -18,6 +18,8 @@ This platform answers the critical questions that drive e-commerce profitability
 | *"Who's about to leave?"* | **Churn Risk Scoring** flags at-risk customers based on behavioral signals | Trigger proactive outreach before customers disappear |
 | *"What products sell together?"* | **Market Basket Analysis** identifies co-purchase patterns | Power cross-sell recommendations and bundle offers |
 
+📊 **[View Full Business Analytics Impact Summary →](docs/Business-Analytics-Impact-Summary.md)**
+
 ---
 
 ## What Makes This Production-Grade
@@ -157,7 +159,7 @@ The Power BI layer delivers interactive analytics across multiple domains:
 ## Project Structure
 
 ```
-ecommerce-retail-analytics/
+ecommerce-retail-pipeline/
 ├── airflow/                    # Pipeline orchestration
 │   ├── dags/                   # DAG definitions
 │   │   ├── daily_synthetic_orders.py

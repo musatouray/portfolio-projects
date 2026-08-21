@@ -47,3 +47,14 @@ nul
 # Power BI review notes (working documents)
 report/POWERBI_REVIEW.md
 report/POWERBI_REVIEW_REFACTORS.md
+
+# Internal working documents (keep locally, don't track)
+docs/dashboard-design/
+docs/implementation-logs/
+docs/plans/
+docs/superpowers/
+docs/SQL Analytical Patterns/
+docs/TODO.md
+docs/AGENTIC-RAG-IMPLEMENTATION.md
+docs/synthetic-data-pipeline-design.md
+docs/us-geography-transformation-design.md

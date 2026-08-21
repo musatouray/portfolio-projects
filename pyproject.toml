@@ -1,5 +1,5 @@
 [project]
-name = "ecommerce-retail-analytics"
+name = "ecommerce-retail-pipeline"
 version = "0.1.0"
 description = "End-to-end retail analytics pipeline using dbt and Snowflake"
 requires-python = "==3.12.*"

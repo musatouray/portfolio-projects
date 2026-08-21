@@ -183,7 +183,7 @@ ECOMMERCE_RETAIL_DB_PROD (Gold-Prod Only)
 ## Project Structure
 
 ```
-ecommerce-retail-analytics/
+ecommerce-retail-pipeline/
 ├── CLAUDE.md                        # This file
 ├── README.md                        # Project overview
 ├── INSTALLATION.md                  # Complete setup guide
@@ -338,7 +338,7 @@ feature branch → PR → main → PR/merge → fabric-prod → Fabric auto-sync
 
 **Fabric Settings:**
 - **Branch**: `fabric-prod`
-- **Folder**: `ecommerce-retail-analytics/report`
+- **Folder**: `report`
 - Fabric only syncs the `report/` folder (ignores dbt, airflow, scripts)
 
 ---
