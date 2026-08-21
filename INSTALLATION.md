@@ -12,174 +12,81 @@ Complete setup guide for the E-Commerce Analytics platform.
 - AWS account with S3 access (for data pipeline)
 - Power BI Desktop (for dashboards)
 
-## Snowflake Architecture (Medallion Pattern)
+---
 
-This project uses a **2-database medallion architecture** for environment isolation:
-
-### ECOMMERCE_RETAIL_DB_DEV (Development)
-
-| Schema | Medallion Layer | Purpose |
-|--------|-----------------|---------|
-| `RAW` | Bronze | Source data from Kaggle CSV (immutable) |
-| `STAGING` | Silver | Cleaned, typed, validated views |
-| `INTERMEDIATE` | Gold | Joined and enriched views |
-| `MARTS` | Gold | Fact and dimension tables (Dev) |
-
-### ECOMMERCE_RETAIL_DB_PROD (Production)
-
-| Schema | Medallion Layer | Purpose |
-|--------|-----------------|---------|
-| `INTERMEDIATE` | Gold | Reads from DEV.STAGING |
-| `MARTS` | Gold | Production analytics (BI tools connect here) |
-
-**Key Points:**
-- Bronze + Silver layers exist only in DEV (no data duplication)
-- PROD reads from DEV.STAGING via cross-database reference
-- CI runs in isolated `CI_PR_xxx` schema in DEV database
-- CD deploys Gold layer to PROD on merge to main
-
-## 1. Clone the Repository
+## 1. Clone and Install
 
 ```bash
 git clone https://github.com/musatouray/ecommerce-retail-pipeline.git
 cd ecommerce-retail-pipeline
-```
 
-## 2. Install Python 3.12 and Dependencies
-
-```bash
-# Install Python 3.12 via uv
+# Install Python 3.12 and dependencies
 uv python install 3.12
-
-# Create virtual environment with Python 3.12
 uv venv --python 3.12
-
-# Install dependencies
 uv sync
 ```
 
-## 3. Configure Environment Variables
+---
+
+## 2. Environment Variables
 
 ```bash
-# Copy the example file
 cp .env.example .env
-
 # Edit .env with your credentials
 ```
 
-Required environment variables:
-
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `SNOWFLAKE_ACCOUNT` | Your Snowflake account identifier | `abc123.us-east-1` |
-| `SNOWFLAKE_USER` | Your Snowflake username | `LEAD_DATA_ENGINEER` |
-| `SNOWFLAKE_DATABASE` | Dev database name | `ECOMMERCE_RETAIL_DB_DEV` |
-| `SNOWFLAKE_DATABASE_PROD` | Prod database name | `ECOMMERCE_RETAIL_DB_PROD` |
-| `SNOWFLAKE_WAREHOUSE` | Compute warehouse name | `ECOMMERCE_RETAIL_WH` |
-| `SNOWFLAKE_SCHEMA` | Default schema | `RAW` |
-| `SNOWFLAKE_ROLE` | Your Snowflake role | `LEAD_DATA_ENGINEER_ROLE` |
-| `SNOWFLAKE_PRIVATE_KEY_PASSPHRASE` | Passphrase for private key (if encrypted) | |
-| `KAGGLE_USERNAME` | Your Kaggle username | |
-| `KAGGLE_KEY` | Your Kaggle API key | |
-| `AWS_ACCESS_KEY_ID` | AWS IAM user access key (for S3 uploads) | `AKIA...` |
-| `AWS_SECRET_ACCESS_KEY` | AWS IAM user secret key | |
-| `AWS_REGION` | AWS region for S3 bucket | `us-east-1` |
-| `S3_BUCKET` | S3 bucket name for raw data | `ecommerce-retail-analytics-raw` |
-| `SLACK_WEBHOOK_URL` | Slack webhook for pipeline alerts | `https://hooks.slack.com/...` |
-
-### GitHub Secrets (for CI/CD)
-
-Configure these in your repository settings (Settings > Secrets and variables > Actions):
-
-| Secret | Description |
-|--------|-------------|
-| `SNOWFLAKE_ACCOUNT` | Snowflake account identifier |
-| `SNOWFLAKE_USER` | Service account username |
-| `SNOWFLAKE_ROLE` | Role with appropriate permissions |
-| `SNOWFLAKE_WAREHOUSE` | Compute warehouse |
-| `SNOWFLAKE_DATABASE_DEV` | Dev database (`ECOMMERCE_RETAIL_DB_DEV`) |
+| Variable | Description |
+|----------|-------------|
+| `SNOWFLAKE_ACCOUNT` | Account identifier (e.g., `abc123.us-east-1`) |
+| `SNOWFLAKE_USER` | Username |
+| `SNOWFLAKE_DATABASE` | Dev database (`ECOMMERCE_RETAIL_DB_DEV`) |
 | `SNOWFLAKE_DATABASE_PROD` | Prod database (`ECOMMERCE_RETAIL_DB_PROD`) |
-| `SNOWFLAKE_PRIVATE_KEY` | Private key content (paste full key including headers) |
-| `SNOWFLAKE_PRIVATE_KEY_PASSPHRASE` | Private key passphrase (if encrypted) |
+| `SNOWFLAKE_WAREHOUSE` | Warehouse name |
+| `SNOWFLAKE_SCHEMA` | Default schema (`RAW`) |
+| `SNOWFLAKE_ROLE` | Role name |
+| `SNOWFLAKE_PRIVATE_KEY_PASSPHRASE` | Key passphrase (if encrypted) |
+| `KAGGLE_USERNAME` | Kaggle username |
+| `KAGGLE_KEY` | Kaggle API key |
+| `AWS_ACCESS_KEY_ID` | AWS access key (for S3) |
+| `AWS_SECRET_ACCESS_KEY` | AWS secret key |
+| `AWS_REGION` | AWS region |
+| `S3_BUCKET` | S3 bucket name |
+| `SLACK_WEBHOOK_URL` | Slack webhook (optional) |
 
-## 4. Kaggle API Setup
-
-### Get API Credentials
-
-1. Go to https://www.kaggle.com/settings
-2. Scroll to "API" section
-3. Click "Create New Token"
-4. Download `kaggle.json`
-
-### Place Credentials
-
-```bash
-# Windows
-mkdir %USERPROFILE%\.kaggle
-move kaggle.json %USERPROFILE%\.kaggle\
-
-# macOS/Linux
-mkdir -p ~/.kaggle
-mv kaggle.json ~/.kaggle/
-chmod 600 ~/.kaggle/kaggle.json
-```
-
-### Download Base Dataset
-
-```bash
-uv run python scripts/download_kaggle_data.py
-```
-
-This downloads the base e-commerce dataset to `data/raw/`.
+**GitHub Secrets** (for CI/CD): Add the same Snowflake variables to repository Settings > Secrets > Actions.
 
 ---
 
-## 5. Set Up Snowflake Key-Pair Authentication
-
-Key-pair authentication is more secure than password authentication and bypasses MFA prompts.
-
-### Generate RSA Key Pair
+## 3. Kaggle Dataset
 
 ```bash
-# Create directory for keys
-mkdir ~/.snowflake
-cd ~/.snowflake
-
-# Generate private key (without passphrase)
-openssl genrsa -out rsa_key_temp.pem 2048
-openssl pkcs8 -topk8 -inform PEM -in rsa_key_temp.pem -out rsa_key.p8 -nocrypt
-rm rsa_key_temp.pem
-
-# Or with passphrase (more secure)
-openssl genrsa -out rsa_key_temp.pem 2048
-openssl pkcs8 -topk8 -inform PEM -in rsa_key_temp.pem -out rsa_key.p8 -v2 aes256
-rm rsa_key_temp.pem
-
-# Generate public key
-openssl rsa -in rsa_key.p8 -pubout -out rsa_key.pub
+# Place kaggle.json in ~/.kaggle/ (get from kaggle.com/settings)
+uv run python scripts/download_kaggle_data.py
 ```
 
-### Assign Public Key to Snowflake User
+---
 
-1. View your public key:
-   ```bash
-   cat ~/.snowflake/rsa_key.pub
-   ```
+## 4. Snowflake Key-Pair Authentication
 
-2. Copy the key content (remove `-----BEGIN PUBLIC KEY-----` and `-----END PUBLIC KEY-----`, join into one line)
+```bash
+mkdir ~/.snowflake && cd ~/.snowflake
 
-3. In Snowflake, run:
-   ```sql
-   ALTER USER YOUR_USERNAME SET RSA_PUBLIC_KEY='your_public_key_content_here';
-   ```
+# Generate keys (without passphrase)
+openssl genrsa -out rsa_key_temp.pem 2048
+openssl pkcs8 -topk8 -inform PEM -in rsa_key_temp.pem -out rsa_key.p8 -nocrypt
+openssl rsa -in rsa_key.p8 -pubout -out rsa_key.pub
+rm rsa_key_temp.pem
+```
 
-4. Verify it worked:
-   ```sql
-   DESC USER YOUR_USERNAME;
-   ```
-   Look for `RSA_PUBLIC_KEY_FP` — it should show a fingerprint.
+Assign public key in Snowflake:
+```sql
+-- Copy content of rsa_key.pub (without headers, as one line)
+ALTER USER YOUR_USERNAME SET RSA_PUBLIC_KEY='your_public_key_here';
+```
 
-## 6. Configure dbt Profile
+---
+
+## 5. Configure dbt Profile
 
 Create `~/.dbt/profiles.yml`:
 
@@ -187,7 +94,6 @@ Create `~/.dbt/profiles.yml`:
 ecommerce_retail_analytics:
   target: dev
   outputs:
-    # Development - uses ECOMMERCE_RETAIL_DB_DEV
     dev:
       type: snowflake
       threads: 4
@@ -200,7 +106,6 @@ ecommerce_retail_analytics:
       private_key_path: ~/.snowflake/rsa_key.p8
       private_key_passphrase: "{{ env_var('SNOWFLAKE_PRIVATE_KEY_PASSPHRASE') }}"
 
-    # Production - uses ECOMMERCE_RETAIL_DB_PROD (CD pipeline only)
     prod:
       type: snowflake
       threads: 4
@@ -214,94 +119,30 @@ ecommerce_retail_analytics:
       private_key_passphrase: "{{ env_var('SNOWFLAKE_PRIVATE_KEY_PASSPHRASE') }}"
 ```
 
-**Note:** The staging models are configured to always deploy to DEV database via `dbt_project.yml`, regardless of target. Only Gold layer (intermediate + marts) goes to the target database.
-
-## 7. Verify Connection
-
+Verify connection:
 ```bash
-# Activate virtual environment
-# Windows PowerShell:
-.venv\Scripts\Activate.ps1
-# Linux/Mac:
-source .venv/bin/activate
-
-# Load environment variables and test
-cd dbt
-dbt debug
+cd dbt && dbt debug
 ```
 
-You should see:
-```
-All checks passed!
-```
+---
 
-## 8. Load Initial Data to Snowflake
-
-Load the base dataset from Kaggle into Snowflake:
+## 6. Load Initial Data
 
 ```bash
 uv run python scripts/load_to_snowflake.py
 ```
 
-Verify the data loaded:
-
+Verify in Snowflake:
 ```sql
 USE ECOMMERCE_RETAIL_DB_DEV.RAW;
-
-SELECT 'orders' as table_name, COUNT(*) as rows FROM orders
+SELECT 'orders', COUNT(*) FROM orders
 UNION ALL SELECT 'customers', COUNT(*) FROM customers
-UNION ALL SELECT 'products', COUNT(*) FROM products
-UNION ALL SELECT 'order_items', COUNT(*) FROM order_items
-UNION ALL SELECT 'order_payments', COUNT(*) FROM order_payments;
+UNION ALL SELECT 'products', COUNT(*) FROM products;
 ```
 
 ---
 
-## 9. Airflow Setup (Docker)
-
-The data pipeline runs on Airflow in Docker containers.
-
-### Prerequisites
-- Docker Desktop installed and running
-- `.env` file configured (from Step 3)
-- Snowflake private key at `~/.snowflake/rsa_key.p8`
-
-### Start Airflow
-
-```bash
-cd airflow
-
-# Build the Docker image (includes dbt)
-docker-compose build
-
-# Start services
-docker-compose up -d
-
-# View logs
-docker-compose logs -f airflow-scheduler
-```
-
-### Access Web UI
-
-- **URL**: http://localhost:8080
-- **Username**: airflow
-- **Password**: airflow
-
-### DAGs
-
-| DAG | Purpose | Schedule |
-|-----|---------|----------|
-| `daily_synthetic_orders` | Daily data generation + load + dbt build | 11 AM UTC |
-| `backfill_synthetic_orders` | Historical data backfill | Manual trigger |
-
-### Stop Airflow
-
-```bash
-cd airflow
-docker-compose down
-```
-
-### Rebuild After Changes
+## 7. Airflow Setup (Docker)
 
 ```bash
 cd airflow
@@ -309,207 +150,45 @@ docker-compose build
 docker-compose up -d
 ```
 
----
-
-## 10. Slack Notifications (Optional)
-
-Configure Slack alerts for pipeline monitoring.
-
-### Create Slack Webhook
-
-1. Go to [Slack API](https://api.slack.com/apps) → Create New App → From scratch
-2. Name it (e.g., "Airflow Alerts") and select your workspace
-3. Go to **Incoming Webhooks** → Activate → Add New Webhook to Workspace
-4. Select the channel for alerts → Copy the webhook URL
-
-### Configure
-
-Add to your `.env` file:
+- **Web UI**: http://localhost:8080 (airflow/airflow)
+- **DAGs**: `daily_synthetic_orders` (11 AM UTC), `backfill_synthetic_orders` (manual)
 
 ```bash
-SLACK_WEBHOOK_URL=https://hooks.slack.com/services/YOUR/WEBHOOK/URL
-```
-
-### Notifications
-
-- **Failure alerts**: Automatic on any task failure
-- **Success summary**: Row counts and pipeline duration after successful load
-
----
-
-## 11. AWS S3 Integration (for Data Pipeline)
-
-If you plan to use the incremental data pipeline with Faker-generated data, you need to set up AWS S3 integration.
-
-See **[docs/AWS-SNOWFLAKE-INTEGRATION-SETUP.md](docs/AWS-SNOWFLAKE-INTEGRATION-SETUP.md)** for the complete guide.
-
-### Quick Overview
-
-1. **Create S3 bucket**: `ecommerce-retail-analytics-raw` with folders per table
-2. **Create IAM resources**:
-   - Policy: `ecommerce-s3-pipeline-policy`
-   - User: `snowflake-data-engineer` (for Airflow/Python uploads)
-   - Role: `snowflake-ecommerce-s3-role` (for Snowflake to assume)
-3. **Run Snowflake SQL scripts**:
-   ```bash
-   # In Snowflake worksheet (as ACCOUNTADMIN):
-   snowflake/5-aws-storage-integration.sql
-
-   # Then (as LEAD_DATA_ENGINEER_ROLE):
-   snowflake/6-stage-&-file-format.sql
-   ```
-4. **Configure AWS trust relationship** using values from `DESC INTEGRATION s3_ecommerce_integration`
-
-### Verify Integration
-
-```sql
--- Test the stage connection
-LIST @ECOMMERCE_RETAIL_DB_DEV.RAW.raw_ecommerce_s3_stage;
+docker-compose down      # Stop
+docker-compose logs -f   # View logs
 ```
 
 ---
 
-## 12. Power BI Connection
+## 8. AWS S3 Integration
 
-Connect Power BI to the production Snowflake database.
-
-### Connect to Snowflake
-
-1. Open Power BI Desktop
-2. **Get Data** → **Snowflake**
-3. **Server**: `your_account.snowflakecomputing.com`
-4. **Warehouse**: `ECOMMERCE_RETAIL_WH`
-5. Sign in with your Snowflake credentials
-
-### Import Tables
-
-From `ECOMMERCE_RETAIL_DB_PROD.MARTS` schema, import:
-- dim_customers
-- dim_dates
-- dim_products
-- dim_sellers
-- fct_orders
-- fct_order_items
-- fct_rfm_segments
-- fct_cohort_retention
-- fct_clv_customer
-
-### Create Relationships
-
-Connect dimension tables to fact tables using the appropriate keys (customer_key, product_key, etc.).
-
-### Surrogate Key Design
-
-All surrogate keys (`customer_key`, `product_key`, `order_key`, etc.) are **64-bit integers** generated using Snowflake's `MD5_NUMBER_LOWER64()` function. This design choice provides:
-
-- **~70% memory reduction** compared to 32-character string hashes
-- **Better compression** in Power BI's VertiPaq engine
-- **Faster relationship lookups** with integer comparisons
-
-**Important**: After a `dbt build --full-refresh`, all surrogate key values will change. You must refresh the Power BI semantic model to pick up the new keys and rebuild any cached relationships.
+Required for the incremental data pipeline. See **[docs/AWS-Snowflake-Integration-Guide.md](docs/AWS-Snowflake-Integration-Guide.md)** for the complete guide.
 
 ---
 
-## 13. Microsoft Fabric Git Integration
+## 9. Power BI Connection
 
-The Power BI reports are deployed to Microsoft Fabric via Git integration, enabling version control and CI/CD for dashboards.
+1. **Get Data** > **Snowflake**
+2. **Server**: `your_account.snowflakecomputing.com`
+3. **Warehouse**: `ECOMMERCE_RETAIL_WH`
+4. Import from `ECOMMERCE_RETAIL_DB_PROD.MARTS`:
+   - dim_customers, dim_dates, dim_products, dim_sellers
+   - fct_orders, fct_order_items, fct_rfm_segments, fct_cohort_retention, fct_clv_customer
 
-### Branch Strategy
-
-| Branch | Purpose | Fabric Workspace |
-|--------|---------|------------------|
-| `main` | Development, testing, PR validation | Dev workspace (optional) |
-| `fabric-prod` | Production reports | **Production workspace** |
-
-### Connect Fabric Workspace to Git
-
-1. In your Fabric workspace, go to **Workspace settings** → **Git integration**
-2. Connect to your GitHub repository
-3. Configure:
-   - **Branch**: `fabric-prod`
-   - **Folder**: `report`
-4. Choose **"Update from Git"** to sync
-
-Fabric only syncs the `report/` folder—dbt, airflow, and scripts are ignored.
-
-### Deployment Workflow
-
-```
-feature branch → PR → main (test) → merge to fabric-prod → Fabric auto-syncs
-```
-
-**Promote changes to production:**
-
-```bash
-git checkout fabric-prod
-git merge main
-git push
-# Fabric workspace automatically syncs
-```
-
-### Troubleshooting Fabric Sync
-
-**Conflict errors after workspace recreation:**
-If you delete and recreate a Fabric workspace, the `.platform` files contain stale `logicalId` values. Remove them:
-
-```bash
-# The logicalId fields in these files reference old workspace items
-# Remove logicalId from both .platform files, commit, and push
-# Fabric will assign new IDs on next sync
-```
-
-Files affected:
-- `report/Ecommerce Analytics.Report/.platform`
-- `report/Ecommerce Analytics.SemanticModel/.platform`
+**Note**: Surrogate keys are 64-bit integers. After `dbt build --full-refresh`, refresh the semantic model to pick up new key values.
 
 ---
 
-## Troubleshooting
+## Snowflake Architecture
 
-### Python version errors
-dbt currently supports Python 3.9 - 3.12. If you see import errors, ensure you're using Python 3.12:
-```bash
-uv venv --python 3.12
-uv sync
+```
+ECOMMERCE_RETAIL_DB_DEV          ECOMMERCE_RETAIL_DB_PROD
+├── RAW (Bronze)                 ├── INTERMEDIATE (Gold)
+├── STAGING (Silver)       →     └── MARTS (Gold) ← Power BI
+├── INTERMEDIATE (Gold)
+└── MARTS (Gold)
 ```
 
-### MFA required error
-This means you need to set up key-pair authentication (Step 4) instead of password authentication.
-
-### Environment variables not found
-Make sure to load your `.env` file before running dbt:
-```bash
-# Linux/Mac
-set -a && source .env && set +a
-
-# Windows PowerShell
-Get-Content .env | ForEach-Object {
-  if ($_ -match '^([^#][^=]+)=(.*)$') {
-    [Environment]::SetEnvironmentVariable($matches[1], $matches[2], 'Process')
-  }
-}
-```
-
-### Snowflake connection errors
-- Verify account name format: `account.region` (e.g., `abc123.us-east-1`)
-- Check warehouse is not suspended
-- Verify role has proper permissions
-- For private key auth: use `private_key_file` (not `private_key_path`) in connection extras
-
-### Kaggle API errors
-- Ensure `kaggle.json` is in the correct location (`~/.kaggle/`)
-- Check file permissions: `chmod 600 ~/.kaggle/kaggle.json` (Linux/Mac)
-
-### Docker/Airflow errors
-- Ensure Docker Desktop is running
-- Check logs: `docker-compose logs -f airflow-scheduler`
-- Rebuild after changes: `docker-compose build && docker-compose up -d`
-
-### Power BI connection issues
-- Use the full Snowflake URL: `account.snowflakecomputing.com`
-- Ensure your IP is whitelisted if using network policies
-- Connect to PROD database for dashboards
-
-### AWS S3 integration errors
-- `sts:AssumeRole` error: Update IAM role trust policy with values from `DESC INTEGRATION`
-- See `docs/AWS-SNOWFLAKE-INTEGRATION-SETUP.md` for detailed troubleshooting
+- Bronze + Silver exist only in DEV (no duplication)
+- PROD reads from DEV.STAGING via cross-database reference
+- CI runs in isolated `CI_PR_xxx` schema
