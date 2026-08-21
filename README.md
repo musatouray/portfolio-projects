@@ -1,14 +1,14 @@
 # E-Commerce Retail Analytics Platform
 
-> **Turn raw transaction data into actionable customer insights that drive revenue growth, reduce churn, and optimize marketing spend.**
-
 A production-grade analytics platform demonstrating how modern data teams deliver business value—from automated data pipelines to interactive dashboards that answer the questions executives actually ask.
+
+🔗 **[View Live Dashboard →](https://app.powerbi.com/view?r=eyJrIjoiMWYwMTA1NjMtMmZiYy00YmYzLTgxN2UtMjI3MjFhMzY0MGQ4IiwidCI6ImU3ZmRiMmEyLTUzODAtNDBmMC04MmQ4LWEzYjU0YzFmODE3ZiJ9)**
 
 ---
 
 ## Business Impact
 
-This platform answers the critical questions that drive e-commerce profitability:
+This platform answers the critical questions that businesses care about:
 
 | Business Question | Analytics Solution | Impact |
 |-------------------|-------------------|--------|
@@ -18,13 +18,13 @@ This platform answers the critical questions that drive e-commerce profitability
 | *"Who's about to leave?"* | **Churn Risk Scoring** flags at-risk customers based on behavioral signals | Trigger proactive outreach before customers disappear |
 | *"What products sell together?"* | **Market Basket Analysis** identifies co-purchase patterns | Power cross-sell recommendations and bundle offers |
 
-📊 **[View Full Business Analytics Impact Summary →](docs/Business-Analytics-Impact-Summary.md)**
+📊 **[View Full Business Impact Summary →](docs/Business-Impact.md)**
 
 ---
 
 ## What Makes This Production-Grade
 
-This isn't a Jupyter notebook analysis—it's a **complete data platform** built with the same tools and practices used by data teams at top tech companies:
+This is a **complete data platform** built with the same tools and practices used by data teams at top tech companies:
 
 | Capability | Implementation |
 |------------|----------------|
@@ -131,6 +131,8 @@ ECOMMERCE_RETAIL_DB_DEV                    ECOMMERCE_RETAIL_DB_PROD
 ---
 
 ## Dashboard Highlights
+
+🔗 **[View Live Dashboard →](https://app.powerbi.com/view?r=eyJrIjoiMWYwMTA1NjMtMmZiYy00YmYzLTgxN2UtMjI3MjFhMzY0MGQ4IiwidCI6ImU3ZmRiMmEyLTUzODAtNDBmMC04MmQ4LWEzYjU0YzFmODE3ZiJ9)**
 
 The Power BI layer delivers interactive analytics across multiple domains:
 
