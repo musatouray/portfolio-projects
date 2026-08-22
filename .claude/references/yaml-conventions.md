@@ -142,7 +142,7 @@ sources:
     schema: RAW
     tables:
       - name: orders
-        description: Raw orders from Olist e-commerce platform
+        description: Raw orders from e-commerce platform
         columns:
           - name: order_id
             description: Unique order identifier

@@ -2,7 +2,7 @@
 
 ## E-Commerce Retail Analytics Platform
 
-**Dataset:** Brazilian E-Commerce | 100,000+ Orders | 96,000+ Customers
+**Dataset:** US E-Commerce | 2016-2026 | Synthetic Data with Realistic Retention Patterns
 
 ---
 

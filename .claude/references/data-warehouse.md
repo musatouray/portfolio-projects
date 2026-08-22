@@ -21,7 +21,7 @@
 
 ```
 ECOMMERCE_RETAIL_DB_DEV
-├── RAW              ← Bronze: Source data (Olist CSVs)
+├── RAW              ← Bronze: Source data (S3 ingestion)
 ├── STAGING          ← Silver: Cleaned views
 ├── INTERMEDIATE     ← Gold-Dev: Enriched models
 └── MARTS            ← Gold-Dev: Analytics tables
@@ -193,11 +193,11 @@ FROM <schema>.<table>;
 
 ### Date Range
 
-- Orders: 2016-09-04 to 2018-10-17
-- ~2 years of data
-- Seasonal patterns visible
+- Orders: 2016-09-04 to current month (2026)
+- ~10 years of synthetic data with realistic patterns
+- Seasonal patterns and retention cohorts visible
 
 ### Currency
 
-- All monetary values in BRL (Brazilian Real)
-- No currency conversion needed
+- All monetary values in USD
+- US geographies (50 states, realistic zip codes)

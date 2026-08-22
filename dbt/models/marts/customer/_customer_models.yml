@@ -205,6 +205,88 @@ models:
         data_tests:
           - not_null
 
+  # Customer-level retention fact for granular cohort analysis with dimension filtering
+  - name: fct_customer_retention
+    description: >
+      Customer retention fact table at customer × period grain. Enables cohort retention
+      analysis with filtering by customer dimensions (state, city) via dim_customers relationship.
+      Sparse model containing only periods with customer activity - Power BI calculates
+      retention rates using cohort size from dim_customers. Excludes canceled/unavailable orders.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - customer_key
+              - cohort_period
+    columns:
+      - name: customer_retention_key
+        description: Surrogate key for the customer retention record (customer + period)
+        data_tests:
+          - unique
+          - not_null
+
+      - name: customer_key
+        description: Foreign key to dim_customers for filtering by geography and other attributes
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_key
+
+      - name: cohort_date_key
+        description: Integer date key (YYYYMMDD) for cohort month, joins to dim_dates for date filtering
+        data_tests:
+          - not_null
+
+      - name: period_date_key
+        description: Integer date key (YYYYMMDD) for period month, joins to dim_dates
+        data_tests:
+          - not_null
+
+      - name: cohort_month
+        description: Month of customer's first purchase (acquisition cohort)
+        data_tests:
+          - not_null
+
+      - name: period_month
+        description: Calendar month of customer activity
+        data_tests:
+          - not_null
+
+      - name: cohort_period
+        description: Months since cohort formation (0 = acquisition month, 1 = first month after, etc.)
+        data_tests:
+          - not_null
+
+      - name: is_active
+        description: Always 1 in this sparse model (row exists = customer was active). Used for counting.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1]
+
+      - name: period_orders
+        description: Number of orders placed by this customer in this period
+        data_tests:
+          - not_null
+
+      - name: period_revenue
+        description: Total revenue from this customer in this period (USD)
+        data_tests:
+          - not_null
+
+      - name: created_at
+        description: Timestamp when the record was created
+        data_tests:
+          - not_null
+
+      - name: updated_at
+        description: Timestamp when the record was last updated
+        data_tests:
+          - not_null
+
   # Cohort retention model tracking customer retention by acquisition month and period.
   - name: fct_cohort_retention
     description: >
