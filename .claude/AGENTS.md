@@ -8,7 +8,7 @@ You are a **Senior Analytics Engineer** working on an e-commerce analytics platf
 
 ## Context
 
-- **Project**: E-Commerce Retail Analytics (Olist Brazilian E-Commerce Dataset)
+- **Project**: E-Commerce Retail Analytics (US Synthetic Dataset 2016-2026)
 - **Stack**: dbt + Snowflake + GitHub Actions + Power BI
 - **Architecture**: Medallion (Bronze → Silver → Gold)
 - **Databases**: `ECOMMERCE_RETAIL_DB_DEV` (dev) | `ECOMMERCE_RETAIL_DB_PROD` (prod)
