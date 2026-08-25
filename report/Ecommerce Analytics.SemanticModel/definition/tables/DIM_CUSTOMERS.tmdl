@@ -35,7 +35,7 @@ table DIM_CUSTOMERS
 		dataType: int64
 		formatString: 0
 		lineageTag: 9bb9e855-7ea0-4a7c-b1fa-2921b600fb31
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: ZIP_CODE
 
 		annotation SummarizationSetBy = Automatic
@@ -58,6 +58,19 @@ table DIM_CUSTOMERS
 
 		annotation SummarizationSetBy = Automatic
 
+	column COHORT_MONTH
+		dataType: dateTime
+		formatString: mmm yyyy
+		lineageTag: 031a2ed9-d504-4c19-acd2-eef84521a99e
+		summarizeBy: none
+		sourceColumn: COHORT_MONTH
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
 	partition DIM_CUSTOMERS = m
 		mode: import
 		source =
@@ -67,8 +80,8 @@ table DIM_CUSTOMERS
 				    MARTS_Schema = ECOMMERCE_RETAIL_DB_PROD_Database{[Name="MARTS",Kind="Schema"]}[Data],
 				    DIM_CUSTOMERS_Table = MARTS_Schema{[Name="DIM_CUSTOMERS",Kind="Table"]}[Data],
 				    RemoveMetadaColumns = fnRemoveMetadataColumns( DIM_CUSTOMERS_Table ),
-				    #"Removed Columns" = Table.RemoveColumns(RemoveMetadaColumns,{"FIRST_ORDER_DATE", "COHORT_MONTH"}),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"CUSTOMER_KEY", Int64.Type}, {"CUSTOMER_UNIQUE_ID", type text}, {"ZIP_CODE", Int64.Type}, {"CITY", type text}, {"STATE", type text}})
+				    #"Removed Columns" = Table.RemoveColumns(RemoveMetadaColumns,{"FIRST_ORDER_DATE"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"CUSTOMER_KEY", Int64.Type}, {"CUSTOMER_UNIQUE_ID", type text}, {"ZIP_CODE", Int64.Type}, {"CITY", type text}, {"STATE", type text}, {"COHORT_MONTH", type date}})
 				in
 				    #"Changed Type"
 

@@ -4,7 +4,7 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 0,
+        "x": 441.60000610351563,
         "y": 0
       },
       "nodes": [
@@ -19,7 +19,7 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 2,
+          "zIndex": 15,
           "expandedHeight": 300
         },
         {
@@ -30,10 +30,11 @@
           "nodeIndex": "DIM_DATES",
           "nodeLineageTag": "b4cf66a4-55c7-458b-be19-6f24ccc2c2e6",
           "size": {
-            "height": 300,
+            "height": 104,
             "width": 234
           },
-          "zIndex": 19
+          "zIndex": 25,
+          "expandedHeight": 300
         },
         {
           "location": {
@@ -46,7 +47,7 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 18,
+          "zIndex": 24,
           "expandedHeight": 300
         },
         {
@@ -60,73 +61,78 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 3,
+          "zIndex": 16,
           "expandedHeight": 300
         },
         {
           "location": {
-            "x": 1165.6951718035971,
-            "y": 411.75803656843181
+            "x": 600.69517180359708,
+            "y": 408.75803656843181
           },
           "nodeIndex": "FCT_CLV_CUSTOMER",
           "nodeLineageTag": "b544e3f2-4033-4220-a741-c0e080343fc5",
           "size": {
-            "height": 300,
+            "height": 104,
             "width": 234
           },
-          "zIndex": 6
+          "zIndex": 17,
+          "expandedHeight": 300
         },
         {
           "location": {
-            "x": 1822.2078327898894,
-            "y": 395.0106321410492
+            "x": 986.20783278988938,
+            "y": 413.0106321410492
           },
           "nodeIndex": "FCT_COHORT_RETENTION",
           "nodeLineageTag": "202dd212-ce20-40d4-a849-593f800ab56b",
           "size": {
-            "height": 300,
+            "height": 104,
             "width": 234
           },
-          "zIndex": 7
+          "zIndex": 18,
+          "expandedHeight": 300
         },
         {
           "location": {
-            "x": 2415.2078327898894,
-            "y": 55.20341913513073
+            "x": 1264.2078327898894,
+            "y": 154.20341913513073
           },
           "nodeIndex": "FCT_MARKET_BASKET",
           "nodeLineageTag": "a151dc8c-67f0-4c78-a37a-353e565cdc4e",
           "size": {
-            "height": 300,
+            "height": 128,
             "width": 234
           },
-          "zIndex": 10
+          "zIndex": 19,
+          "expandedHeight": 300
         },
         {
           "location": {
-            "x": 222.28615722981954,
-            "y": 412.26815781940968
+            "x": 0,
+            "y": 409.26815781940968
           },
           "nodeIndex": "FCT_ORDER_ITEMS",
           "nodeLineageTag": "0e4f458f-0dfd-4cf5-bd7e-68cdfbb34b61",
           "size": {
-            "height": 300,
+            "height": 176,
             "width": 234
           },
-          "zIndex": 11
+          "zIndex": 20,
+          "expandedHeight": 300
         },
         {
           "location": {
-            "x": 549.15037116523149,
-            "y": 416.40148388504645
+            "x": 303.15037116523149,
+            "y": 411.40148388504645
           },
           "nodeIndex": "FCT_ORDERS",
           "nodeLineageTag": "75a2ace9-4107-4c92-8e4e-a8d4733f9e84",
           "size": {
-            "height": 300,
+            "height": 152,
             "width": 234
           },
-          "zIndex": 12
+          "zIndex": 21,
+          "expandedHeight": 300
         },
         {
           "location": {
@@ -136,129 +142,242 @@
           "nodeIndex": "FCT_RFM_SEGMENTS",
           "nodeLineageTag": "5d5cd826-5672-4bef-93ed-7b84e9a2a9ee",
           "size": {
-            "height": 300,
+            "height": 128,
             "width": 234
           },
-          "zIndex": 16
+          "zIndex": 22,
+          "expandedHeight": 300
         },
         {
           "location": {
-            "x": 2974.2078327898894,
-            "y": 392.87294536297088
+            "x": 1857.2078327898894,
+            "y": 75.872945362970881
           },
           "nodeIndex": "_Measures",
           "nodeLineageTag": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
           "size": {
-            "height": 300,
+            "height": 72,
             "width": 234
           },
-          "zIndex": 17
+          "zIndex": 23,
+          "expandedHeight": 300
         },
         {
           "location": {
-            "x": 3826.2078327898894,
-            "y": 453.87294536297088
+            "x": 2463.2078327898894,
+            "y": 326.87294536297088
           },
           "nodeIndex": "CG Custom Periods",
+          "nodeLineageTag": "4458ecfb-9fdd-49ed-97c6-ed32bb804cf3",
           "size": {
-            "height": 128,
+            "height": 72,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 1,
+          "expandedHeight": 128
         },
         {
           "location": {
-            "x": 4110.2078327898889,
-            "y": 453.87294536297088
+            "x": 2487.0077595477014,
+            "y": 525.87294536297088
           },
           "nodeIndex": "CG Selected Metric",
+          "nodeLineageTag": "33520064-eee4-49cd-a076-ada596c46d59",
           "size": {
-            "height": 128,
+            "height": 72,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 2,
+          "expandedHeight": 128
         },
         {
           "location": {
-            "x": 4394.2078327898889,
-            "y": 417.87294536297088
+            "x": 2178.0078816180139,
+            "y": 83.872945362970881
           },
           "nodeIndex": "Top/Bottom Selector",
+          "nodeLineageTag": "8905bdcb-d9a5-4b50-b4f9-70570b3de45c",
           "size": {
-            "height": 200,
+            "height": 72,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 3,
+          "expandedHeight": 200
         },
         {
           "location": {
-            "x": 4678.2078327898889,
-            "y": 282.20074194252322
+            "x": 2153.2078327898889,
+            "y": 194.20074194252322
           },
           "nodeIndex": "Param: Cohort Retention",
           "nodeLineageTag": "846c9a26-807e-412b-ab47-d9e492d0ad26",
           "size": {
-            "height": 152,
+            "height": 72,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 4,
+          "expandedHeight": 152
         },
         {
           "location": {
-            "x": 4962.2078327898889,
-            "y": 258.20074194252322
+            "x": 2472.2078327898889,
+            "y": 228.20074194252322
           },
           "nodeIndex": "Disconnected Calendar",
+          "nodeLineageTag": "21d2a943-bd31-4d53-b77d-7455003b47d7",
           "size": {
-            "height": 200,
+            "height": 72,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 5,
+          "expandedHeight": 200
         },
         {
           "location": {
-            "x": 5246.2078327898889,
-            "y": 246.20074194252322
+            "x": 2467.2078327898889,
+            "y": 103.20074194252322
           },
           "nodeIndex": "Param: Cohort Size",
           "nodeLineageTag": "721f0832-4d15-4752-b4cb-6105debd7e64",
           "size": {
-            "height": 224,
+            "height": 72,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 6,
+          "expandedHeight": 224
         },
         {
           "location": {
-            "x": 2555.8076863055144,
-            "y": 409.20341913513073
+            "x": 864.80768630551438,
+            "y": 551.20341913513073
           },
           "nodeIndex": "FCT_ORDER_PAYMENTS",
+          "nodeLineageTag": "2f8d2dab-28cb-405d-95b4-44d14e7309b5",
           "size": {
-            "height": 300,
+            "height": 128,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 7,
+          "expandedHeight": 300
         },
         {
           "location": {
-            "x": 5530.2078327898889,
-            "y": 246.20074194252322
+            "x": 2181.6076130633264,
+            "y": 510.20074194252322
           },
           "nodeIndex": "Param: Pareto Threshold",
           "nodeLineageTag": "7bf6c623-6bd0-4096-a54c-e7e43196b639",
           "size": {
-            "height": 224,
+            "height": 72,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 8,
+          "expandedHeight": 224
         },
         {
           "location": {
-            "x": 5814.2078327898889,
-            "y": 258.20074194252322
+            "x": 2482.0078816180139,
+            "y": 427.20074194252322
           },
           "nodeIndex": "Pareto Product Segments",
+          "nodeLineageTag": "1709ab38-b7ef-4fdb-8a2d-dd00cbcabead",
+          "size": {
+            "height": 72,
+            "width": 234
+          },
+          "zIndex": 9,
+          "expandedHeight": 200
+        },
+        {
+          "location": {
+            "x": 1873.8078694109827,
+            "y": 169.20074194252322
+          },
+          "nodeIndex": "CG Pareto Metric",
+          "nodeLineageTag": "c82c1bff-b97c-421a-b8ea-86f09bcb0f3c",
+          "size": {
+            "height": 72,
+            "width": 234
+          },
+          "zIndex": 10,
+          "expandedHeight": 128
+        },
+        {
+          "location": {
+            "x": 1876.8075642352014,
+            "y": 389.20074194252322
+          },
+          "nodeIndex": "CG Order Items Metrics",
+          "nodeLineageTag": "e1fa6f2d-cf31-4171-8307-46990e4d5130",
+          "size": {
+            "height": 72,
+            "width": 234
+          },
+          "zIndex": 11,
+          "expandedHeight": 128
+        },
+        {
+          "location": {
+            "x": 2173.4079060320764,
+            "y": 397.20074194252322
+          },
+          "nodeIndex": "CG Rolling Averages",
+          "nodeLineageTag": "b6b515c4-930c-46f8-8ea0-5d7d7cc4a1c1",
+          "size": {
+            "height": 72,
+            "width": 234
+          },
+          "zIndex": 12,
+          "expandedHeight": 128
+        },
+        {
+          "location": {
+            "x": 1867.0080036883264,
+            "y": 280.20074194252322
+          },
+          "nodeIndex": "From Segment",
+          "nodeLineageTag": "f2a10001-0001-4001-8001-000000000001",
+          "size": {
+            "height": 72,
+            "width": 234
+          },
+          "zIndex": 13,
+          "expandedHeight": 128
+        },
+        {
+          "location": {
+            "x": 2177.4080281023889,
+            "y": 293.20074194252322
+          },
+          "nodeIndex": "To Segment",
+          "nodeLineageTag": "f2a20001-0001-4001-8001-000000000001",
+          "size": {
+            "height": 72,
+            "width": 234
+          },
+          "zIndex": 14,
+          "expandedHeight": 128
+        },
+        {
+          "location": {
+            "x": 1278.6079792742639,
+            "y": 417.20074194252322
+          },
+          "nodeIndex": "FCT_CUSTOMER_RETENTION",
+          "nodeLineageTag": "1aaa95ac-6c83-4579-a7e3-f60987d30806",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 26,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 2771.0077595477014,
+            "y": 239.60170956756536
+          },
+          "nodeIndex": "Funnel Stages",
           "size": {
             "height": 200,
             "width": 234
@@ -267,62 +386,12 @@
         },
         {
           "location": {
-            "x": 6098.2078327898889,
-            "y": 294.20074194252322
+            "x": 3055.0077595477014,
+            "y": 239.60170956756536
           },
-          "nodeIndex": "CG Pareto Metric",
+          "nodeIndex": "Fulfillment Stages",
           "size": {
-            "height": 128,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 6382.2078327898889,
-            "y": 294.20074194252322
-          },
-          "nodeIndex": "CG Order Items Metrics",
-          "size": {
-            "height": 128,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 6666.2078327898889,
-            "y": 294.20074194252322
-          },
-          "nodeIndex": "CG Rolling Averages",
-          "size": {
-            "height": 128,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 6950.2078327898889,
-            "y": 294.20074194252322
-          },
-          "nodeIndex": "From Segment",
-          "nodeLineageTag": "f2a10001-0001-4001-8001-000000000001",
-          "size": {
-            "height": 128,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 7234.2078327898889,
-            "y": 294.20074194252322
-          },
-          "nodeIndex": "To Segment",
-          "nodeLineageTag": "f2a20001-0001-4001-8001-000000000001",
-          "size": {
-            "height": 128,
+            "height": 200,
             "width": 234
           },
           "zIndex": 0
@@ -644,6 +713,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Products",
+  "selectedDiagram": "Sellers",
   "defaultDiagram": "All tables"
 }

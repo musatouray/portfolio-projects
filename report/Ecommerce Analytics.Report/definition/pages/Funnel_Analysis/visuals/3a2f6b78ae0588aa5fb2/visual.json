@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "3a2f6b78ae0588aa5fb2",
   "position": {
     "x": 30.363424400628517,
     "y": 97,
-    "z": 9125,
+    "z": 6000,
     "height": 80.579857063206447,
     "width": 1860.3436565462011,
-    "tabOrder": 2000
+    "tabOrder": 1000
   },
   "visualGroup": {
     "displayName": "Grp Page Title",

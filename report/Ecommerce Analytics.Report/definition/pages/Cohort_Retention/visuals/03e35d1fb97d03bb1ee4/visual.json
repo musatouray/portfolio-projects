@@ -1,16 +1,16 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "03e35d1fb97d03bb1ee4",
   "position": {
-    "x": 18.527138216780145,
-    "y": 293.63069983496104,
+    "x": 8.01672207810106,
+    "y": 136.31370146884871,
     "z": 1000,
-    "height": 679.67357696791521,
-    "width": 214.8796188352172,
+    "height": 126.12499366414923,
+    "width": 254.58563535911603,
     "tabOrder": 1000
   },
   "visual": {
-    "visualType": "listSlicer",
+    "visualType": "slicer",
     "query": {
       "queryState": {
         "Values": {
@@ -23,11 +23,11 @@
                       "Entity": "Disconnected Calendar"
                     }
                   },
-                  "Property": "Month Year"
+                  "Property": "MONTH_START_DATE"
                 }
               },
-              "queryRef": "Disconnected Calendar.Month Year",
-              "nativeQueryRef": "Month Year",
+              "queryRef": "Disconnected Calendar.MONTH_START_DATE",
+              "nativeQueryRef": "MONTH_START_DATE",
               "active": true
             }
           ]
@@ -40,286 +40,19 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "DIM_COHORTS"
+                    "Entity": "Disconnected Calendar"
                   }
                 },
-                "Property": "COHORT_MONTH_NAME"
+                "Property": "MONTH_START_DATE"
               }
             },
             "direction": "Ascending"
           }
-        ]
+        ],
+        "isDefaultSort": true
       }
     },
     "objects": {
-      "fillCustom": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "fillColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#0078D4'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "selection:selected"
-          }
-        },
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "default"
-          }
-        }
-      ],
-      "outline": [
-        {
-          "properties": {
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "33D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "default"
-          }
-        }
-      ],
-      "value": [
-        {
-          "properties": {
-            "fontFamily": {
-              "expr": {
-                "Literal": {
-                  "Value": "'''Segoe UI Semibold'', wf_segoe-ui_semibold, helvetica, arial, sans-serif'"
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10.5D"
-                }
-              }
-            },
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": 0
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "selection:selected"
-          }
-        },
-        {
-          "properties": {
-            "fontFamily": {
-              "expr": {
-                "Literal": {
-                  "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10.5D"
-                }
-              }
-            },
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#90A4AE'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "interaction:rest"
-          }
-        },
-        {
-          "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10.5D"
-                }
-              }
-            },
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#0078D4'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "interaction:press"
-          }
-        },
-        {
-          "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10.5D"
-                }
-              }
-            },
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": -0.1
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "interaction:hover"
-          }
-        }
-      ],
-      "shapeCustomRectangle": [
-        {
-          "properties": {
-            "tileShape": {
-              "expr": {
-                "Literal": {
-                  "Value": "'rectangleRoundedByPixel'"
-                }
-              }
-            },
-            "rectangleRoundedCurve": {
-              "expr": {
-                "Literal": {
-                  "Value": "5L"
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "selection:selected"
-          }
-        }
-      ],
-      "layout": [
-        {
-          "properties": {
-            "orientation": {
-              "expr": {
-                "Literal": {
-                  "Value": "2D"
-                }
-              }
-            },
-            "maxTiles": {
-              "expr": {
-                "Literal": {
-                  "Value": "8L"
-                }
-              }
-            },
-            "cellPadding": {
-              "expr": {
-                "Literal": {
-                  "Value": "2L"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "overFlow": [
-        {
-          "properties": {
-            "overFlowDirection": {
-              "expr": {
-                "Literal": {
-                  "Value": "1D"
-                }
-              }
-            },
-            "overFlowStyle": {
-              "expr": {
-                "Literal": {
-                  "Value": "1D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "padding": [
-        {
-          "properties": {
-            "leftMargin": {
-              "expr": {
-                "Literal": {
-                  "Value": "10L"
-                }
-              }
-            },
-            "rightMargin": {
-              "expr": {
-                "Literal": {
-                  "Value": "10L"
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "selection:selected"
-          }
-        }
-      ],
       "selection": [
         {
           "properties": {
@@ -333,14 +66,14 @@
             "strictSingleSelect": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
             "singleSelect": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             }
@@ -408,15 +141,7 @@
           }
         },
         {
-          "properties": {
-            "spacing": {
-              "expr": {
-                "Literal": {
-                  "Value": "10L"
-                }
-              }
-            }
-          },
+          "properties": {},
           "selector": {
             "id": "default"
           }
@@ -425,6 +150,13 @@
       "general": [
         {
           "properties": {
+            "responsive": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
             "filter": {
               "filter": {
                 "Version": 2,
@@ -438,32 +170,134 @@
                 "Where": [
                   {
                     "Condition": {
-                      "In": {
-                        "Expressions": [
-                          {
-                            "Column": {
-                              "Expression": {
-                                "SourceRef": {
-                                  "Source": "d"
-                                }
-                              },
-                              "Property": "Month Year"
-                            }
-                          }
-                        ],
-                        "Values": [
-                          [
-                            {
+                      "And": {
+                        "Left": {
+                          "Comparison": {
+                            "ComparisonKind": 2,
+                            "Left": {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "d"
+                                  }
+                                },
+                                "Property": "MONTH_START_DATE"
+                              }
+                            },
+                            "Right": {
                               "Literal": {
-                                "Value": "'Dec-2018'"
+                                "Value": "datetime'2017-08-01T00:00:00'"
                               }
                             }
-                          ]
-                        ]
+                          }
+                        },
+                        "Right": {
+                          "Comparison": {
+                            "ComparisonKind": 3,
+                            "Left": {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "d"
+                                  }
+                                },
+                                "Property": "MONTH_START_DATE"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "datetime'2018-09-01T00:00:00'"
+                              }
+                            }
+                          }
+                        }
                       }
                     }
                   }
                 ]
+              }
+            }
+          }
+        }
+      ],
+      "data": [
+        {
+          "properties": {
+            "startDate": {
+              "expr": {
+                "Literal": {
+                  "Value": "datetime'2017-08-01T00:00:00'"
+                }
+              }
+            },
+            "endDate": {
+              "expr": {
+                "Literal": {
+                  "Value": "datetime'2018-08-31T00:00:00'"
+                }
+              }
+            },
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Between'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "slider": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 8,
+                      "Percent": 0.6
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "date": [
+        {
+          "properties": {
+            "textSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "header": [
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 8,
+                      "Percent": 0.6
+                    }
+                  }
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
               }
             }
           }
@@ -630,7 +464,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -927,65 +761,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "17881cbfcbe00dcc33db",
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "d14575474c642e2150db",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Disconnected Calendar"
-              }
-            },
-            "Property": "MONTH_START_DATE"
-          }
-        },
-        "type": "Advanced",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "d",
-              "Entity": "Disconnected Calendar",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "Comparison": {
-                  "ComparisonKind": 4,
-                  "Left": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Source": "d"
-                        }
-                      },
-                      "Property": "MONTH_START_DATE"
-                    }
-                  },
-                  "Right": {
-                    "DateSpan": {
-                      "Expression": {
-                        "Literal": {
-                          "Value": "datetime'2026-06-30T00:00:00'"
-                        }
-                      },
-                      "TimeUnit": 5
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        },
-        "howCreated": "User",
-        "isHiddenInViewMode": true,
-        "isLockedInViewMode": true
-      }
-    ]
-  }
+  "parentGroupName": "17881cbfcbe00dcc33db"
 }

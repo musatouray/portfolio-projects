@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "funnel_ontime_trend",
   "position": {
     "x": 1019.5103654518729,
     "y": 413.40970145471135,
-    "z": 5000,
+    "z": 1000,
     "height": 300.13077196005878,
     "width": 871.19671549495672,
-    "tabOrder": 8300
+    "tabOrder": 5000
   },
   "visual": {
     "visualType": "lineChart",
@@ -46,7 +46,8 @@
                 }
               },
               "queryRef": "_Measures.On-Time Delivery Rate",
-              "nativeQueryRef": "On-Time Delivery Rate"
+              "nativeQueryRef": "On-Time",
+              "displayName": "On-Time"
             },
             {
               "field": {
@@ -60,7 +61,8 @@
                 }
               },
               "queryRef": "_Measures.Late Delivery Rate",
-              "nativeQueryRef": "Late Delivery Rate"
+              "nativeQueryRef": "Late",
+              "displayName": "Late"
             }
           ]
         }
@@ -80,17 +82,38 @@
             "showMarker": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             },
             "areaShow": {
               "expr": {
                 "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "strokeTransparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "showMarker": {
+              "expr": {
+                "Literal": {
                   "Value": "true"
                 }
               }
             }
+          },
+          "selector": {
+            "metadata": "_Measures.Late Delivery Rate"
           }
         }
       ],
@@ -127,7 +150,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             }
@@ -140,7 +163,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -180,10 +203,84 @@
                 "color": {
                   "expr": {
                     "ThemeDataColor": {
+                      "ColorId": 3,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.On-Time Delivery Rate"
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
                       "ColorId": 2,
                       "Percent": 0.6
                     }
                   }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Late Delivery Rate"
+          }
+        }
+      ],
+      "seriesLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "backgroundMatchColor": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "backgroundMatchColor": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.On-Time Delivery Rate"
+          }
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableBackground": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }
@@ -227,8 +324,13 @@
             },
             "text": {
               "expr": {
-                "Literal": {
-                  "Value": "'Monthly on-time and late delivery rates'"
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Custom Period Title"
                 }
               }
             }

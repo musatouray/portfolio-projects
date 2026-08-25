@@ -1,9 +1,9 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "92f2a9997d4a5c7783d7",
   "position": {
-    "x": 19.8530082619493,
-    "y": 333.43403112169904,
+    "x": 16.864666227380894,
+    "y": 432.67124537482897,
     "z": 1000,
     "height": 485.81479041005628,
     "width": 220.71873891226113,
@@ -316,7 +316,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Last Month'"
+                                "Value": "'YTD'"
                               }
                             }
                           ]

@@ -58,7 +58,7 @@ table FCT_CLV_CUSTOMER
 		dataType: int64
 		formatString: 0
 		lineageTag: 79e297c0-dd8f-4284-8e0e-97673a37df6e
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: TOTAL_LIFETIME_ORDERS
 
 		annotation SummarizationSetBy = Automatic
@@ -68,7 +68,7 @@ table FCT_CLV_CUSTOMER
 		dataType: decimal
 		formatString: 0.00
 		lineageTag: 08a0e96a-6f8c-40f8-a38e-4c6091e61d77
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: TOTAL_LIFETIME_REVENUE
 
 		annotation SummarizationSetBy = Automatic
@@ -78,7 +78,7 @@ table FCT_CLV_CUSTOMER
 		dataType: decimal
 		formatString: 0.00
 		lineageTag: ba353c5b-92f4-42b9-b26b-f69bf3a3a70b
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: HISTORICAL_AOV
 
 		annotation SummarizationSetBy = Automatic
@@ -88,7 +88,7 @@ table FCT_CLV_CUSTOMER
 		dataType: int64
 		formatString: 0
 		lineageTag: 745cfde4-fd15-476f-8356-f6ec9d007833
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: CUSTOMER_LIFESPAN_DAYS
 
 		annotation SummarizationSetBy = Automatic
@@ -98,7 +98,7 @@ table FCT_CLV_CUSTOMER
 		dataType: int64
 		formatString: 0
 		lineageTag: 4fb5fc51-2029-4f6a-88f7-f897d31272a6
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: TOTAL_REVIEWS
 
 		annotation SummarizationSetBy = Automatic
@@ -108,7 +108,7 @@ table FCT_CLV_CUSTOMER
 		dataType: int64
 		formatString: 0
 		lineageTag: 2aa99691-414d-47a5-9278-d000e875949a
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: AVERAGE_RATING
 
 		changedProperty = DataType
@@ -147,7 +147,7 @@ table FCT_CLV_CUSTOMER
 		dataType: decimal
 		formatString: 0.00
 		lineageTag: a2c05c1f-c156-41b3-9d3b-0e7654480a1c
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: PREDICTED_CLV_12M
 
 		annotation SummarizationSetBy = Automatic

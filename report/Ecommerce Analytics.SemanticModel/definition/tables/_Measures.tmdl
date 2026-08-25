@@ -95,12 +95,9 @@ table _Measures
 	/// [METRIC] Share of orders with status 'delivered' among all orders in filter context (percentage).
 	measure 'Delivery Rate' =
 			
-			VAR __TotalOrders = [Total Orders]
-			VAR __DeliveredOrders = CALCULATE([Total Orders], FCT_ORDERS[ORDER_STATUS] = "delivered")
-			RETURN
 			DIVIDE(
-				__DeliveredOrders,
-				__TotalOrders,
+				[Orders Delivered],
+				[Total Orders],
 			    0
 			)
 		formatString: 0.0%
@@ -110,11 +107,7 @@ table _Measures
 	/// [METRIC] Of delivered orders, the share delivered on or before the estimated date, in filter context (percentage).
 	measure 'On-Time Delivery Rate' = ```
 			
-			VAR __TotalOrdersDelivered = 
-			    CALCULATE(
-			        [Total Orders], 
-			        FCT_ORDERS[ORDER_STATUS] = "delivered"
-			    )
+			VAR __TotalOrdersDelivered = [Orders Delivered]
 			
 			VAR _OnTimeOrdersDelivered = 
 			    CALCULATE(
@@ -310,47 +303,42 @@ table _Measures
 		displayFolder: 01_Segments\CLV
 		lineageTag: c1000007-0001-0001-0001-000000000007
 
-	/// [METRIC] Customers in the qualifying acquisition cohorts (respects the cohort-size and as-of-date what-if parameters). Grain: per cohort.
+	/// All customers acquired through selected month
 	measure 'Cohort Size' = ```
 			
-			VAR __CohortSize = [Param: Cohort Size Value] 
-			VAR __CohortAsOfDate = [As on Cohort Date] 
-			RETURN 
-			CALCULATE( 
-			    SUM(FCT_COHORT_RETENTION[COHORT_SIZE]), 
-			   // FCT_COHORT_RETENTION[PERIOD_NUMBER] = 0,
-			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_MONTH] <= __CohortAsOfDate),
-			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_SIZE] >= __CohortSize)
-			)
-			
+			VAR __CohortMinDate = [Min As on Cohort Date]
+			VAR __CohortAsOfDate = [As on Cohort Date]                                                                                             
+			VAR __CohortMonth = SELECTEDVALUE(DIM_CUSTOMERS[COHORT_MONTH])                                                                         
+			RETURN                                                                                                                                 
+			IF(                                                                                                                                    
+			    NOT ISBLANK(__CohortMonth),                                                                                                        
+			    IF(  
+			        -- Matrix logic                                                                                                                             
+			        __CohortMonth >= __CohortMinDate && __CohortMonth <= __CohortAsOfDate,                                                                                             
+			        CALCULATE(                                                                                                                     
+			            DISTINCTCOUNT(FCT_CUSTOMER_RETENTION[CUSTOMER_KEY]),                                                                       
+			            FCT_CUSTOMER_RETENTION[COHORT_PERIOD] = 0                                                                                  
+			        )                                                                                                                              
+			    ), 
+			    -- Card logic                                                                                                                                
+			    CALCULATE(                                                                                                                         
+			        DISTINCTCOUNT(FCT_CUSTOMER_RETENTION[CUSTOMER_KEY]), 
+			        FCT_CUSTOMER_RETENTION[COHORT_MONTH] >= __CohortMinDate,                                                                                                                                                             
+			        FCT_CUSTOMER_RETENTION[COHORT_MONTH] <= __CohortAsOfDate                                                                       
+			    )                                                                                                                                  
+			)  
+			                                                                                                                                     
+			    
 			```
 		formatString: #,0
 		displayFolder: 05_Cohort
 		lineageTag: co100001-0001-0001-0001-000000000001
 
-	/// [METRIC] Active customers from the cohort still purchasing in the period (grain: cohort x period).
-	measure 'Retained Customers' = ```
-			
-			VAR __CohortSize = [Param: Cohort Size Value] 
-			VAR __CohortAsOfDate = [As on Cohort Date] 
-			RETURN 
-			CALCULATE( 
-			    SUM(FCT_COHORT_RETENTION[ACTIVE_CUSTOMERS]), 
-			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_MONTH] <= __CohortAsOfDate),
-			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_SIZE] >= __CohortSize)
-			)
-			
-			```
-		formatString: #,0
-		displayFolder: 05_Cohort
-		lineageTag: co100002-0001-0001-0001-000000000002
-
 	/// [METRIC] Retained Customers / Cohort Size (cohort retention %); size-weighted when sliced across cohorts.
-	measure 'Retention Rate' = ```
+	measure 'Cohort Retention Rate' =
 			
-			DIVIDE([Retained Customers], [Cohort Size], 0)
-			
-			```
+			//DIVIDE([Retained Customers], [Cohort Size], 0)
+			DIVIDE([Cohort Active Customers], [Cohort Size], 0)
 		displayFolder: 05_Cohort
 		lineageTag: co100003-0001-0001-0001-000000000003
 
@@ -363,16 +351,16 @@ table _Measures
 				```
 
 	/// [METRIC] 1 - Retention Rate for the cohort-period.
-	measure 'Cohort Churn Rate' = 1 - [Retention Rate]
+	measure 'Cohort Churn Rate' = ```
+			
+			VAR __RetentionRate = [Cohort Retention Rate]                                                                                                 
+			RETURN                                                                                                                                 
+			IF(NOT ISBLANK(__RetentionRate), 1 - __RetentionRate, BLANK())
+			
+			```
 		formatString: 0.0%
 		displayFolder: 05_Cohort
 		lineageTag: co100005-0001-0001-0001-000000000005
-
-	/// [METRIC] Distinct cohort-period records in filter context.
-	measure 'Total Cohorts' = DISTINCTCOUNT(FCT_COHORT_RETENTION[COHORT_RETENTION_KEY])
-		formatString: #,##0
-		displayFolder: 05_Cohort
-		lineageTag: co100006-0001-0001-0001-000000000006
 
 	/// [METRIC] Total orders placed in filter context. Top of the order lifecycle funnel.
 	measure 'Orders Placed' = [Total Orders]
@@ -543,15 +531,82 @@ table _Measures
 	/// =============================================
 	/// _Geographic Measures
 	/// =============================================
-	measure 'Geo Revenue' = SUM(FCT_GEO_PERFORMANCE[TOTAL_REVENUE])
-		formatString: $#,##0
+	measure 'Geo Revenue Ranking' = ```
+			
+			VAR __Revenue = [Total Revenue]
+			VAR __ActiveStates = FILTER(ALLSELECTED(DIM_CUSTOMERS[STATE]), [Total Revenue] > 0)
+			VAR __TotalCount = COUNTROWS(__ActiveStates)
+			VAR __TopRank = RANKX(__ActiveStates, [Total Revenue], __Revenue, DESC, Dense)
+			
+			-- Define the two middle rows
+			VAR __MiddleRankValue1 = INT(__TotalCount / 2)
+			VAR __MiddleRankValue2 = __MiddleRankValue1 + 1
+			
+			RETURN
+			    IF(
+			        __TopRank = __MiddleRankValue1 || __TopRank = __MiddleRankValue2, 
+			        "⋮", 
+			        __Revenue
+			    )
+			
+			```
 		displayFolder: 10_Geographic
 		lineageTag: g1000001-0001-0001-0001-000000000001
 
-	measure 'Geo Orders' = SUM(FCT_GEO_PERFORMANCE[TOTAL_ORDERS])
-		formatString: #,##0
+		formatStringDefinition = ```
+				VAR __FormattedRevenue = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        ISBLANK(__FormattedRevenue), "⋮",
+				        __FormattedRevenue <= 1E3, "$#,0.;-#,0.;0",
+				        __FormattedRevenue <= 1E4, "$#,0,.00K;-#,0,.00K;0",
+				        __FormattedRevenue <= 1E5, "$#,0,.0K;-#,0,.0K;0",
+				        __FormattedRevenue <= 1E6, "$#,0,.K;-#,0,.K;0",
+				        __FormattedRevenue <= 1E7, "$#,0,,.00M;-#,0,,.00M;0",
+				        __FormattedRevenue <= 1E8, "$#,0,,.0M;-#,0,,.0M;0",
+				        __FormattedRevenue <= 1E9, "$#,0,,.M;-#,0,,.M;0"
+				    )
+				
+				```
+
+	measure 'Geo Orders Ranking' = ```
+			
+			VAR __TotalOrders = [Total Orders]
+			VAR __ActiveStates = FILTER(ALLSELECTED(DIM_CUSTOMERS[STATE]), [Total Orders] > 0)
+			VAR __TotalCount = COUNTROWS(__ActiveStates)
+			VAR __TopRank = RANKX(__ActiveStates, [Total Orders], __TotalOrders, DESC, Dense)
+			
+			-- Define the two middle rows
+			VAR __MiddleRankValue1 = INT(__TotalCount / 2)
+			VAR __MiddleRankValue2 = __MiddleRankValue1 + 1
+			
+			RETURN
+			    IF(
+			        __TopRank = __MiddleRankValue1 || __TopRank = __MiddleRankValue2, 
+			       "⋮", 
+			        __TotalOrders
+			    )
+			```
 		displayFolder: 10_Geographic
 		lineageTag: g1000002-0001-0001-0001-000000000002
+
+		formatStringDefinition = ```
+				VAR __FormattedOrders = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        ISBLANK(__FormattedOrders), "⋮",
+				        __FormattedOrders <= 1E3, "#,0.;-#,0.;0",
+				        __FormattedOrders <= 1E4, "#,0,.00K;-#,0,.00K;0",
+				        __FormattedOrders <= 1E5, "#,0,.0K;-#,0,.0K;0",
+				        __FormattedOrders <= 1E6, "#,0,.K;-#,0,.K;0",
+				        __FormattedOrders <= 1E7, "#,0,,.00M;-#,0,,.00M;0",
+				        __FormattedOrders <= 1E8, "#,0,,.0M;-#,0,,.0M;0",
+				        __FormattedOrders <= 1E9, "#,0,,.M;-#,0,,.M;0"
+				    )
+				
+				```
 
 	/// [HELPER] KPI-card display string combining Total Revenue with its YoY change; formatting only. Not a business metric - use Total Revenue / Revenue YoY %.
 	measure 'Formatted Revenue Absolute and Relative' = ```
@@ -613,7 +668,7 @@ table _Measures
 
 	/// [HELPER] Blue color scale for the cohort retention heatmap. Not a business metric.
 	measure 'Retention Heatmap Color' =
-			VAR RetRate = [Retention Rate]
+			VAR RetRate = [Cohort Retention Rate]
 			RETURN
 				SWITCH(
 					TRUE(),
@@ -841,60 +896,6 @@ table _Measures
 				        __ChurnedCustomers <= 1E8, "#,0,,M;-#,0,,M;0",
 				        __ChurnedCustomers <= 1E9, "#,0,,M;-#,0,,M;0"
 				    )
-
-	/// [METRIC] Retention Rate at period 1 (first month after acquisition), size-weighted.
-	measure 'P1 Retention Rate' =
-			
-			CALCULATE(
-				[Retention Rate],
-				FCT_COHORT_RETENTION[PERIOD] = 1
-			)
-		displayFolder: 05_Cohort
-		lineageTag: 069e8c71-f5f7-4a6c-b6ab-3e1b2263ff83
-
-		formatStringDefinition = "0.00%;-0.00%;0.00%"
-
-	/// [METRIC] Retention Rate at period 3.
-	measure 'P3 Retention Rate' =
-			
-			CALCULATE(
-				[Retention Rate],
-				FCT_COHORT_RETENTION[PERIOD] = 3
-			)
-		formatString: 0.00%;-0.00%;0.00%
-		displayFolder: 05_Cohort
-		lineageTag: 0813a708-7bf6-4947-a8d4-8c15ca50ad71
-
-	/// [METRIC] Retention Rate at period 6.
-	measure 'P6 Retention Rate' =
-			
-			CALCULATE(
-				[Retention Rate],
-				FCT_COHORT_RETENTION[PERIOD] = 6
-			)
-		formatString: 0.00%;-0.00%;0.00%
-		displayFolder: 05_Cohort
-		lineageTag: 53ed4aba-f094-4d40-ab85-287682b3a2c6
-
-	/// [METRIC] Retention decay from period 1 to period 6 (P1 minus P6); early-life churn severity.
-	measure 'Avg P1-P6 Drop' = [P1 Retention Rate] - [P6 Retention Rate]
-		formatString: 0.00%;-0.00%;0.00%
-		displayFolder: 05_Cohort
-		lineageTag: 4bda322f-7e8b-4f1e-bfc6-523971f75037
-
-	/// [METRIC] Size of the most recent cohort at period 0.
-	measure 'Latest Cohort Size' =
-			
-			VAR _LatestCohort = CALCULATE(MAX(FCT_COHORT_RETENTION[COHORT_RETENTION_KEY]), ALLSELECTED(FCT_COHORT_RETENTION))
-			RETURN
-				CALCULATE(
-					SUM(FCT_COHORT_RETENTION[COHORT_SIZE]),
-					KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_RETENTION_KEY] = _LatestCohort),
-					KEEPFILTERS(FCT_COHORT_RETENTION[PERIOD] = 0)
-				)
-		formatString: #,##0
-		displayFolder: 05_Cohort
-		lineageTag: ab0820fd-6338-40f8-92d7-372b90ed9185
 
 	/// [METRIC] A category's order-items revenue as a share of all selected categories.
 	measure 'Product Revenue % of Grand Total' = ```
@@ -1811,7 +1812,7 @@ table _Measures
 		lineageTag: b73d1c37-36be-4357-8ef4-97b96a2228a5
 
 		formatStringDefinition = ```
-				VAR __RankNumber = [Display Rank Number]
+				VAR __RankNumber = SELECTEDMEASURE()
 				RETURN
 				IF(
 				    ISBLANK(__RankNumber),  
@@ -1845,7 +1846,7 @@ table _Measures
 		lineageTag: 7da7cb70-e57f-47e6-aeb5-c1c61fa60e20
 
 		formatStringDefinition = ```
-				VAR __FormattedRevenue = [Display Revenue Value]
+				VAR __FormattedRevenue = SELECTEDMEASURE()
 				RETURN
 				    SWITCH (
 				        TRUE (),
@@ -1935,7 +1936,7 @@ table _Measures
 		lineageTag: f624ace9-587b-45d9-9381-1030ae05392f
 
 		formatStringDefinition =
-				VAR __Orders = [Display Orders Total]
+				VAR __Orders = SELECTEDMEASURE()
 				RETURN
 				IF(
 				    ISBLANK(__Orders),
@@ -1975,7 +1976,7 @@ table _Measures
 		lineageTag: 2ac812b3-3eab-4ee0-b340-0953e3b83dbe
 
 		formatStringDefinition = ```
-				VAR __PercentValue = [Display % of Grand Total]
+				VAR __PercentValue = SELECTEDMEASURE()
 				RETURN 
 				    IF(
 				        ISBLANK(__PercentValue), 
@@ -2510,53 +2511,64 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isText":true}
 
-	/// [METRIC] Period revenue for qualifying cohorts (BRL; grain cohort x period).
+	/// Revenue in selected month
 	measure 'Cohort Revenue' = ```
 			
-			VAR __CohortSize = [Param: Cohort Size Value] 
-			VAR __CohortAsOfDate = [As on Cohort Date] 
-			RETURN 
-			CALCULATE( 
-			    SUM(FCT_COHORT_RETENTION[PERIOD_REVENUE]), 
-			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_MONTH] <= __CohortAsOfDate),
-			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_SIZE] >= __CohortSize)
+			VAR __CohortMinDate = [Min As on Cohort Date]
+			VAR __CohortAsOfDate = [As on Cohort Date]                                                                                             
+			VAR __CohortMonth = SELECTEDVALUE(DIM_CUSTOMERS[COHORT_MONTH])                                                                         
+			VAR __CurrentPeriod = SELECTEDVALUE(FCT_CUSTOMER_RETENTION[COHORT_PERIOD])                                                             
+			VAR __ValidPeriod = DATEDIFF(__CohortMonth, __CohortAsOfDate, MONTH)                                                                   
+			RETURN                                                                                                                                 
+			IF(                                                                                                                                    
+			    NOT ISBLANK(__CohortMonth) && NOT ISBLANK(__CurrentPeriod),   
+			    -- Matrix logic                                                                    
+			    IF(                                                                                                                                  
+			        (__CohortMonth >= __CohortMinDate && __CohortMonth <= __CohortAsOfDate) && __CurrentPeriod <= __ValidPeriod,                                                      
+			        SUM(FCT_CUSTOMER_RETENTION[PERIOD_REVENUE])                                                                                    
+			    ),
+			    -- Card logic                                                                                                                               
+			    CALCULATE(                                                                                                                         
+			        SUM(FCT_CUSTOMER_RETENTION[PERIOD_REVENUE]),                                                                                   
+			        FCT_CUSTOMER_RETENTION[PERIOD_MONTH] = __CohortAsOfDate,
+			        KEEPFILTERS(FCT_CUSTOMER_RETENTION[COHORT_MONTH] >= __CohortMinDate),                                                                                                                                                             
+			        KEEPFILTERS(FCT_CUSTOMER_RETENTION[COHORT_MONTH] <= __CohortAsOfDate )                                                                       
+			    )                                                                                                                                  
 			)
-			
+			             
 			```
 		formatString: \$#,0;(\$#,0);\$#,0
 		displayFolder: 05_Cohort
 		lineageTag: 76d6dc3a-0cda-4527-99b7-2e31806df60b
 
-	/// [METRIC] Period orders for qualifying cohorts (grain cohort x period).
+	/// Orders placed in selected month
 	measure 'Cohort Orders' = ```
 			
-			VAR __CohortSize = [Param: Cohort Size Value] 
-			VAR __CohortAsOfDate = [As on Cohort Date] 
-			RETURN 
-			CALCULATE( 
-			    SUM(FCT_COHORT_RETENTION[PERIOD_ORDERS]), 
-			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_MONTH] <= __CohortAsOfDate),
-			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_SIZE] >= __CohortSize)
-			)
-			
+			VAR __CohortMinDate = [Min As on Cohort Date]
+			VAR __CohortAsOfDate = [As on Cohort Date]                                                                                             
+			VAR __CohortMonth = SELECTEDVALUE(DIM_CUSTOMERS[COHORT_MONTH])                                                                         
+			VAR __CurrentPeriod = SELECTEDVALUE(FCT_CUSTOMER_RETENTION[COHORT_PERIOD])                                                             
+			VAR __ValidPeriod = DATEDIFF(__CohortMonth, __CohortAsOfDate, MONTH)                                                                   
+			RETURN                                                                                                                                 
+			IF(                                                                                                                                    
+			    NOT ISBLANK(__CohortMonth) && NOT ISBLANK(__CurrentPeriod),
+			    -- Matrix logic                                                                        
+			    IF(                                                                                                                                
+			        __CohortMonth >= __CohortMinDate && __CohortMonth <= __CohortAsOfDate && __CurrentPeriod <= __ValidPeriod,                                                         
+			        SUM(FCT_CUSTOMER_RETENTION[PERIOD_ORDERS])                                                                                     
+			    ),   
+			    -- Card logic                                                                                                                              
+			    CALCULATE(                                                                                                                         
+			        SUM(FCT_CUSTOMER_RETENTION[PERIOD_ORDERS]),                                                                                    
+			        FCT_CUSTOMER_RETENTION[PERIOD_MONTH] = __CohortAsOfDate,
+			        KEEPFILTERS(FCT_CUSTOMER_RETENTION[COHORT_MONTH] >= __CohortMinDate),                                                                                                                                                             
+			        KEEPFILTERS(FCT_CUSTOMER_RETENTION[COHORT_MONTH] <= __CohortAsOfDate )                                                                   
+			    )                                                                                                                                  
+			)     
 			```
 		formatString: #,0
 		displayFolder: 05_Cohort
 		lineageTag: f8becc0c-4dfd-48d3-bb33-28da5cfcaf5f
-
-	/// [METRIC] Cohort Revenue / Cohort Orders (BRL).
-	measure 'Cohort Avg Order Value' =
-			
-			DIVIDE(
-			    [Cohort Revenue],
-			    [Cohort Orders],
-			    0
-			)
-		formatString: \$#,0;(\$#,0);\$#,0
-		displayFolder: 05_Cohort
-		lineageTag: 30948eb7-d33f-41b5-ade2-cdda32eb9cfa
-
-		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	/// [METRIC] Cohort Revenue / Cohort Size (revenue per acquired customer, BRL).
 	measure 'Cohort Avg Customer Value' =
@@ -2573,22 +2585,38 @@ table _Measures
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	/// [METRIC] Cohort's period-0 revenue; the baseline (denominator) for revenue-retention ratios (BRL).
-	measure 'Cohort Initial Revenue' = ```
+	measure 'Cohort Retention Metric' = ```
 			
-			VAR __CohortSize = [Param: Cohort Size Value] 
-			VAR __CohortAsOfDate = [As on Cohort Date] 
+			VAR __SelectedMetric = [Param: Selected Cohort Retention Value] 
+			 
 			RETURN 
-			CALCULATE( 
-			    SUM(FCT_COHORT_RETENTION[COHORT_INITIAL_REVENUE]),
-				FCT_COHORT_RETENTION[PERIOD] = 0, 
-			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_MONTH] <= __CohortAsOfDate),
-			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_SIZE] >= __CohortSize)
+			SWITCH(
+			    __SelectedMetric,
+			    "Active Customers", [Cohort Active Customers],
+			    "Retention %", [Cohort Retention Rate],
+			    "Churn %", [Cohort Churn Rate],
+			    "Revenue", [Cohort Revenue],
+			    "Orders", [Cohort Orders],
+			    "GRR", [Gross Revenue Retention (GRR) %],
+			    [Cohort Active Customers]
 			)
 			
 			```
-		formatString: \$#,0;(\$#,0);\$#,0
 		displayFolder: 05_Cohort
 		lineageTag: 8a9b0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d
+
+		formatStringDefinition =
+				VAR __period = SELECTEDVALUE(FCT_CUSTOMER_RETENTION[COHORT_PERIOD])
+				RETURN
+				SWITCH(
+				    [Param: Selected Cohort Retention Value],
+				    "Active Customers", "#,##0",
+				    "Retention %", IF(__period = 0, "0%", "0.00%"),
+				    "Churn %", IF(__period = 0, "0%", "0.0%"),
+				    "Revenue", "$#,##0",
+				    "Orders", "#,##0",
+				    "GRR", IF(__period = 0, "0%", "0.00%")
+				)
 
 	/// [METRIC] Total cohort orders across all periods (period filter removed).
 	measure 'Cohort Lifetime Orders' =
@@ -2617,12 +2645,14 @@ table _Measures
 		annotation PBI_FormatHint = {"isText":true}
 
 	/// [HELPER] Point-in-time anchor: the as-of cohort month selected on the Disconnected Calendar (defaults to latest). Not a business metric.
-	measure 'As on Cohort Date' =
+	measure 'As on Cohort Date' = ```
 			
-			COALESCE(
-			    SELECTEDVALUE('Disconnected Calendar'[MONTH_START_DATE], BLANK()),
-			    MAX('Disconnected Calendar'[MONTH_START_DATE])
-			)
+			 MAX('Disconnected Calendar'[MONTH_START_DATE])
+			// COALESCE(
+			//     SELECTEDVALUE('Disconnected Calendar'[MONTH_START_DATE], BLANK()),
+			//     MAX('Disconnected Calendar'[MONTH_START_DATE])
+			// )
+			```
 		formatString: General Date
 		displayFolder: 14_Viz Helpers
 		lineageTag: 1ebd7f03-cb91-4da5-bc9c-2393f2528ecd
@@ -2655,12 +2685,13 @@ table _Measures
 			    COUNTROWS(__SelectedCohortMetric) = 1,
 			    SWITCH(
 			        __SelectedCohortMetric,
-			        "Retention", "Retention Rate Heatmap (Cohort x Period)",
-			        "Active", "Active Customers Heaptmap (Cohort x Period)",
-			        "Revenue", "Revenue by Cohort Heatmap (Cohort x Period)",
-			        "Orders", "Orders Heatmap (Cohort x Period)",
-			        "GRR", "Gross Retention Rate Heatmap (Cohort x Period)",
-			        "NRR", "Net Retention Rate Heatmap (Cohort x Period)"
+			        "Active Customers", "Active Customers (Cohort x Months after first purchase)",
+			        "Retention %", "Retention Rate (Cohort x Months after first purchase)",
+			        "Churn %", "Churn Rate (Cohort x Months after first purchase)",
+			        "Revenue", "Revenue by Cohort (Cohort x Months after first purchase)",
+			        "Orders", "Orders by Cohort (Cohort x Months after first purchase)",
+			        "GRR", "Gross Retention Rate (Cohort x Months after first purchase)",
+			        "NRR", "Net Retention Rate (Cohort x Months after first purchase)"
 			    )
 			)
 			
@@ -2674,14 +2705,14 @@ table _Measures
 	/// [HELPER] 'Cohort Period: min - max' date-range subtitle. Not a business metric.
 	measure 'Cohort Period Subtitle' = ```
 			
-			VAR __MinCohort = CALCULATE( MIN(FCT_COHORT_RETENTION[COHORT_MONTH]), ALLSELECTED(FCT_COHORT_RETENTION))
-			VAR __MaxCohort = MAX('Disconnected Calendar'[MONTH_START_DATE])
+			VAR __MinCohort = [Min As on Cohort Date]
+			VAR __MaxCohort = [As on Cohort Date]
 			VAR __Space = REPT(UNICHAR(160), 2)
 			VAR __FormattedMinDate = FORMAT(__MinCohort, "MMM, yyyy")
 			VAR __FormattedMaxDate = FORMAT(__MaxCohort, "MMM, yyyy")
 			
 			RETURN
-			"Cohort Period: " & __Space & __Space & __FormattedMinDate & __Space & " - " & __Space & __FormattedMaxDate
+			"Period: " & __Space & __Space & __FormattedMinDate & __Space & " - " & __Space & __FormattedMaxDate
 			
 			```
 		formatString: @
@@ -3043,31 +3074,58 @@ table _Measures
 	/// [METRIC] Gross retained revenue for the cohort-period, capped at initial revenue (excludes expansion; BRL).
 	measure 'Cohort Gross Retained Revenue (GRR)' = ```
 			
-			VAR __CohortSize = [Param: Cohort Size Value] 
-			VAR __CohortAsOfDate = [As on Cohort Date] 
-			RETURN 
-			CALCULATE( 
-			    SUM(FCT_COHORT_RETENTION[GROSS_RETAINED_REVENUE]), 
-			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_MONTH] <= __CohortAsOfDate),
-			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_SIZE] >= __CohortSize)
-			)
+			VAR __CohortMinDate = [Min As on Cohort Date]
+			VAR __CohortAsOfDate = [As on Cohort Date]                                                                                             
+			VAR __CohortMonth = SELECTEDVALUE(DIM_CUSTOMERS[COHORT_MONTH])                                                                         
+			VAR __CurrentPeriod = SELECTEDVALUE(FCT_CUSTOMER_RETENTION[COHORT_PERIOD])                                                             
+			VAR __ValidPeriod = DATEDIFF(__CohortMonth, __CohortAsOfDate, MONTH)                                                                   
+			VAR __CustomerGRR =                                                                                                                    
+			    SUMX(                                                                                                                              
+			        VALUES(FCT_CUSTOMER_RETENTION[CUSTOMER_KEY]),                                                                                  
+			        VAR __CustomerBase =                                                                                                           
+			            CALCULATE(                                                                                                                 
+			                SUM(FCT_CUSTOMER_RETENTION[PERIOD_REVENUE]),                                                                           
+			                FCT_CUSTOMER_RETENTION[COHORT_PERIOD] = 0                                                                              
+			            )                                                                                                                          
+			        VAR __CustomerCurrent = SUM(FCT_CUSTOMER_RETENTION[PERIOD_REVENUE])                                                            
+			        RETURN                                                                                                                         
+			        MIN(__CustomerCurrent, __CustomerBase)                                                                                         
+			    )                                                                                                                                  
+			RETURN                                                                                                                                 
+			IF(                                                                                                                                    
+			    NOT ISBLANK(__CohortMonth) && NOT ISBLANK(__CurrentPeriod),                                                                        
+			    IF(                                                                                                                                
+			        __CohortMonth >= __CohortMinDate && __CohortMonth <= __CohortAsOfDate && __CurrentPeriod <= __ValidPeriod,                                                         
+			        __CustomerGRR                                                                                                                  
+			    ),                                                                                                                                 
+			    CALCULATE(                                                                                                                         
+			        SUMX(                                                                                                                          
+			            VALUES(FCT_CUSTOMER_RETENTION[CUSTOMER_KEY]),                                                                              
+			            VAR __CustomerBase =                                                                                                       
+			                CALCULATE(                                                                                                             
+			                    SUM(FCT_CUSTOMER_RETENTION[PERIOD_REVENUE]),                                                                       
+			                    FCT_CUSTOMER_RETENTION[COHORT_PERIOD] = 0                                                                          
+			                )                                                                                                                      
+			            VAR __CustomerCurrent =                                                                                                    
+			                CALCULATE(                                                                                                             
+			                    SUM(FCT_CUSTOMER_RETENTION[PERIOD_REVENUE]),                                                                       
+			                    FCT_CUSTOMER_RETENTION[PERIOD_MONTH] = __CohortAsOfDate                                                            
+			                )                                                                                                                      
+			            RETURN                                                                                                                     
+			            MIN(__CustomerCurrent, __CustomerBase)                                                                                     
+			        ),                                                                                                                             
+			        FCT_CUSTOMER_RETENTION[COHORT_MONTH] <= __CohortAsOfDate                                                                       
+			    )                                                                                                                                  
+			)                                                                                                                                                                   
 			```
 		formatString: \$#,0;(\$#,0);\$#,0
 		displayFolder: 05_Cohort
 		lineageTag: c5114899-994f-4244-9ed4-18ddd1e12c6b
 
 	/// [METRIC] Net retained revenue for the cohort-period, including expansion/up-sell (BRL).
-	measure 'Cohort Net Retained Revenue (NRR)' = ```
+	measure 'Cohort Net Retained Revenue (NRR)' =
 			
-			VAR __CohortSize = [Param: Cohort Size Value] 
-			VAR __CohortAsOfDate = [As on Cohort Date] 
-			RETURN 
-			CALCULATE( 
-			    SUM(FCT_COHORT_RETENTION[NET_RETAINED_REVENUE]), 
-			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_MONTH] <= __CohortAsOfDate),
-			    KEEPFILTERS(FCT_COHORT_RETENTION[COHORT_SIZE] >= __CohortSize)
-			)
-			```
+			[Cohort Revenue]
 		formatString: \$#,0;(\$#,0);\$#,0
 		displayFolder: 05_Cohort
 		lineageTag: aa4fc36f-2ca4-4536-a7a3-d32586c37c44
@@ -3075,14 +3133,7 @@ table _Measures
 	/// [METRIC] Gross retained revenue / cohort initial revenue (<=100%). SaaS-style logo/revenue retention.
 	measure 'Gross Revenue Retention (GRR) %' = ```
 			
-			VAR __GrossRetained = [Cohort Gross Retained Revenue (GRR)]
-			VAR __InitialRevenue = 
-			    CALCULATE(
-			        [Cohort Initial Revenue],
-			        REMOVEFILTERS('fct_cohort_retention'[period])
-			    )
-			RETURN
-			DIVIDE(__GrossRetained, __InitialRevenue, 0)
+			DIVIDE([Cohort Gross Retained Revenue (GRR)], [Cohort Base Revenue], 0)
 			
 			```
 		displayFolder: 05_Cohort
@@ -3099,14 +3150,7 @@ table _Measures
 	/// [METRIC] Net retained revenue / cohort initial revenue (can exceed 100% when expansion outweighs churn).
 	measure 'Net Revenue Retention (NRR) %' = ```
 			
-			VAR __NetRetained = [Cohort Net Retained Revenue (NRR)]
-			VAR __InitialRevenue = 
-			    CALCULATE(
-			        [Cohort Initial Revenue],
-			        REMOVEFILTERS('fct_cohort_retention'[period])
-			    )
-			RETURN
-			DIVIDE(__NetRetained, __InitialRevenue, 0)
+			DIVIDE([Cohort Net Retained Revenue (NRR)], [Cohort Base Revenue], 0)
 			
 			```
 		displayFolder: 05_Cohort
@@ -4270,39 +4314,70 @@ table _Measures
 		lineageTag: 1d409a42-4d47-4d42-ad36-4bb70d7563aa
 
 	/// [METRIC] Count of orders with ORDER_STATUS = 'delivered'. Bottom of the order lifecycle funnel.
-	measure 'Orders Delivered' = CALCULATE([Total Orders], FCT_ORDERS[ORDER_STATUS] = "delivered")
+	measure 'Orders Delivered' = ```
+			
+			CALCULATE(
+			    [Total Orders], 
+			    FCT_ORDERS[ORDER_STATUS] = "delivered"
+			)
+			```
 		formatString: #,##0
 		displayFolder: 04_Funnel
 		lineageTag: f1000002-0001-0001-0001-000000000002
 
 	/// [METRIC] Count of orders with ORDER_STATUS = 'canceled'.
-	measure 'Orders Canceled' = CALCULATE([Total Orders], FCT_ORDERS[ORDER_STATUS] = "canceled")
+	measure 'Orders Canceled' = ```
+			
+			CALCULATE(
+			    [Total Orders], 
+			    FCT_ORDERS[ORDER_STATUS] = "canceled"
+			)
+			```
 		formatString: #,##0
 		displayFolder: 04_Funnel
 		lineageTag: f1000003-0001-0001-0001-000000000003
 
 	/// [METRIC] Count of orders that have not been canceled or marked unavailable.
-	measure 'Orders Active' = CALCULATE(COUNTROWS(FCT_ORDERS), NOT FCT_ORDERS[ORDER_STATUS] IN {"canceled", "unavailable"})
+	measure 'Orders Active' = ```
+			
+			CALCULATE(
+			    COUNTROWS(FCT_ORDERS), 
+			    NOT FCT_ORDERS[ORDER_STATUS] IN {"canceled", "unavailable"}
+			)
+			```
 		formatString: #,##0
 		displayFolder: 04_Funnel
 		lineageTag: f1000004-0001-0001-0001-000000000004
 
 	/// [METRIC] Count of orders with ORDER_STATUS IN ('shipped', 'delivered').
-	measure 'Orders Shipped' = CALCULATE(COUNTROWS(FCT_ORDERS), FCT_ORDERS[ORDER_STATUS] IN {"shipped", "delivered"})
+	measure 'Orders Shipped' = ```
+			
+			CALCULATE(
+			    COUNTROWS(FCT_ORDERS), 
+			    FCT_ORDERS[ORDER_STATUS] IN {"shipped", "delivered"}
+			)
+			```
 		formatString: #,##0
 		displayFolder: 04_Funnel
 		lineageTag: f1000005-0001-0001-0001-000000000005
 
 	/// [METRIC] Count of delivered orders that have at least one review submitted.
-	measure 'Orders Reviewed' = CALCULATE(COUNTROWS(FCT_ORDERS), FCT_ORDERS[REVIEW_COUNT] > 0)
+	measure 'Orders Reviewed' = ```
+			
+			CALCULATE(
+			    COUNTROWS(FCT_ORDERS), 
+			    FCT_ORDERS[REVIEW_COUNT] > 0
+			)
+			```
 		formatString: #,##0
 		displayFolder: 04_Funnel
 		lineageTag: f1000006-0001-0001-0001-000000000006
 
 	/// [METRIC] Share of orders that were canceled = Orders Canceled / Orders Placed.
 	measure 'Order Cancellation Rate' =
+			
 			DIVIDE(
-			    CALCULATE(COUNTROWS(FCT_ORDERS), FCT_ORDERS[ORDER_STATUS] = "canceled"),
+			    [Orders Canceled],
 			    [Total Orders]
 			)
 		formatString: 0.00%
@@ -4316,13 +4391,25 @@ table _Measures
 		lineageTag: f1000008-0001-0001-0001-000000000008
 
 	/// [METRIC] Average days from order placement to delivery, for delivered orders only.
-	measure 'Avg Delivery Days' = CALCULATE(AVERAGE(FCT_ORDERS[DELIVERY_DAYS]), FCT_ORDERS[ORDER_STATUS] = "delivered")
+	measure 'Avg Delivery Days' = ```
+			
+			CALCULATE(
+			    AVERAGE(FCT_ORDERS[DELIVERY_DAYS]), 
+			    FCT_ORDERS[ORDER_STATUS] = "delivered"
+			)
+			```
 		formatString: 0.0
 		displayFolder: 04_Funnel
 		lineageTag: 5835c374-6158-4194-9a0e-5103b529af65
 
 	/// [METRIC] Average days from order approval to delivery (warehouse + transit), for delivered orders.
-	measure 'Avg Fulfillment Days' = CALCULATE(AVERAGE(FCT_ORDERS[FULFILLMENT_DAYS]), FCT_ORDERS[ORDER_STATUS] = "delivered")
+	measure 'Avg Fulfillment Days' = ```
+			
+			CALCULATE(
+			    AVERAGE(FCT_ORDERS[FULFILLMENT_DAYS]), 
+			    FCT_ORDERS[ORDER_STATUS] = "delivered"
+			)
+			```
 		formatString: 0.0
 		displayFolder: 04_Funnel
 		lineageTag: f1000009-0001-0001-0001-000000000009
@@ -4384,7 +4471,28 @@ table _Measures
 		lineageTag: f1000013-0001-0001-0001-000000000013
 
 	/// [METRIC] Share of delivered orders that arrived after the promised delivery date.
-	measure 'Late Delivery Rate' = 1 - [On-Time Delivery Rate]
+	measure 'Late Delivery Rate' = ```
+			
+			VAR __TotalOrdersDelivered = 
+			    CALCULATE(
+			        [Total Orders], 
+			        FCT_ORDERS[ORDER_STATUS] = "delivered"
+			    )
+			
+			VAR __LateDelivered = 
+			    CALCULATE(
+			        [Total Orders], 
+			        FCT_ORDERS[IS_ON_TIME_DELIVERY] = FALSE(), 
+			        FCT_ORDERS[ORDER_STATUS] = "delivered"
+			    )
+			
+			RETURN
+			DIVIDE(
+				__LateDelivered,
+				__TotalOrdersDelivered
+			)
+			
+			```
 		formatString: 0.0%
 		displayFolder: 04_Funnel
 		lineageTag: f1000014-0001-0001-0001-000000000014
@@ -5098,6 +5206,524 @@ table _Measures
 		lineageTag: ad3415ed-302b-45fc-8a21-ae51e5f90481
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Customers who purchased in selected month
+	measure 'Cohort Active Customers' = ```
+			
+			VAR __CohortMinDate = [Min As on Cohort Date]
+			VAR __CohortAsOfDate = [As on Cohort Date] 
+			VAR __CohortMonth = SELECTEDVALUE(DIM_CUSTOMERS[COHORT_MONTH])
+			VAR __CurrentPeriod = SELECTEDVALUE(FCT_CUSTOMER_RETENTION[COHORT_PERIOD])
+			VAR __ValidPeriod = DATEDIFF(__CohortMonth, __CohortAsOfDate, MONTH)
+			
+			RETURN
+			IF (
+			    NOT ISBLANK(__CohortMonth) && NOT ISBLANK(__CurrentPeriod), 
+			    -- Matrix Logic
+			    IF (
+			        (__CohortMonth >= __CohortMinDate && __CohortMonth <= __CohortAsOfDate) && __CurrentPeriod <= __ValidPeriod,
+			        DISTINCTCOUNT(FCT_CUSTOMER_RETENTION[CUSTOMER_KEY])
+			    ),
+			    -- Card Logic
+			    CALCULATE(
+			        DISTINCTCOUNT(FCT_CUSTOMER_RETENTION[CUSTOMER_KEY]),
+			        FCT_CUSTOMER_RETENTION[PERIOD_MONTH] = __CohortAsOfDate,
+			        KEEPFILTERS(FCT_CUSTOMER_RETENTION[COHORT_MONTH] >= __CohortMinDate),                                                                                                                                                             
+			        KEEPFILTERS(FCT_CUSTOMER_RETENTION[COHORT_MONTH] <= __CohortAsOfDate )
+			    )
+			)
+			
+			```
+		formatString: #,0
+		displayFolder: 05_Cohort
+		lineageTag: 6b582ba7-b54d-4db0-8234-9ce3446619c1
+
+	measure 'Cohort Base Revenue' = ```
+			
+			VAR __CohortMinDate = [Min As on Cohort Date]
+			VAR __CohortAsOfDate = [As on Cohort Date]                                                                                             
+			VAR __CohortMonth = SELECTEDVALUE(DIM_CUSTOMERS[COHORT_MONTH])                                                                         
+			RETURN                                                                                                                                 
+			IF(                                                                                                                                    
+			    NOT ISBLANK(__CohortMonth),                                                                                                        
+			    IF(                                                                                                                                
+			        __CohortMonth >= __CohortMinDate && __CohortMonth <= __CohortAsOfDate,                                                                                             
+			        CALCULATE(                                                                                                                     
+			            SUM(FCT_CUSTOMER_RETENTION[PERIOD_REVENUE]),                                                                               
+			            FCT_CUSTOMER_RETENTION[COHORT_PERIOD] = 0                                                                                  
+			        )                                                                                                                              
+			    ),                                                                                                                                 
+			    CALCULATE(                                                                                                                         
+			        SUM(FCT_CUSTOMER_RETENTION[PERIOD_REVENUE]),                                                                                   
+			        FCT_CUSTOMER_RETENTION[COHORT_PERIOD] = 0, 
+			        FCT_CUSTOMER_RETENTION[COHORT_MONTH] >= __CohortMinDate,                                                                                    
+			        FCT_CUSTOMER_RETENTION[COHORT_MONTH] <= __CohortAsOfDate                                                                       
+			    )                                                                                                                                  
+			)
+			        
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 05_Cohort
+		lineageTag: 41d9e404-f348-4d6e-9a8d-4c5999469650
+
+	measure 'Min As on Cohort Date' = ```
+			
+			COALESCE(
+			    SELECTEDVALUE('Disconnected Calendar'[MONTH_START_DATE], BLANK()),
+			    MIN('Disconnected Calendar'[MONTH_START_DATE])
+			)
+			
+			```
+		formatString: General Date
+		displayFolder: 14_Viz Helpers
+		lineageTag: 8eea9848-7f8a-4da0-8ea8-66345858e30e
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Cohort Acquired Customers' = ```
+			
+			VAR __CohortMinDate = [Min As on Cohort Date]
+			VAR __CohortAsOfDate = [As on Cohort Date] 
+			VAR __CohortMonth = SELECTEDVALUE(DIM_CUSTOMERS[COHORT_MONTH])
+			VAR __CurrentPeriod = SELECTEDVALUE(FCT_CUSTOMER_RETENTION[PERIOD_MONTH])
+			VAR __ValidPeriod = DATEDIFF(__CohortMonth, __CohortAsOfDate, MONTH)
+			
+			RETURN
+			CALCULATE(
+			    DISTINCTCOUNT(FCT_CUSTOMER_RETENTION[CUSTOMER_KEY]),
+			    FCT_CUSTOMER_RETENTION[COHORT_PERIOD] = 0,
+			    KEEPFILTERS(DIM_CUSTOMERS[COHORT_MONTH] >= __CohortMinDate),
+			    KEEPFILTERS(FCT_CUSTOMER_RETENTION[PERIOD_MONTH] <= __CohortAsOfDate)
+			)
+			
+			
+			```
+		formatString: #,0
+		displayFolder: 05_Cohort
+		lineageTag: 57412edf-4a99-4e1c-8786-cc4052b23288
+
+	measure 'Orders Approved' = ```
+			
+			CALCULATE(
+			    COUNTROWS(FCT_ORDERS), 
+			    NOT FCT_ORDERS[ORDER_STATUS] IN {"canceled", "unavailable", "processing"}
+			)
+			```
+		formatString: #,##0
+		displayFolder: 04_Funnel
+		lineageTag: 41eccc69-d9d8-43c7-89fc-e797f0986de6
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Funnel Orders Stages' = ```
+			
+			SWITCH(
+			    SELECTEDVALUE('Funnel Stages'[Stage]),
+			    "Placed", [Total Orders],
+			    "Active", [Orders Active],
+			    "Approved", [Orders Approved],
+			    "Shipped", [Orders Shipped],
+			    "Delivered", [Orders Delivered],
+			    BLANK()
+			)
+			
+			```
+		formatString: #,0
+		displayFolder: 04_Funnel
+		lineageTag: eff02364-cfa6-42b5-acc6-b395348ba58b
+
+	measure 'Funnel Conversion Rate' =
+			
+			VAR __FunnelStage = SELECTEDVALUE('Funnel Stages'[Stage])
+			VAR __TotalOrders = [Total Orders]
+			VAR __ActiveOrders = [Orders Active]
+			VAR __ApprovedOrders = [Orders Approved]
+			VAR __ShippedOrders = [Orders Shipped]
+			VAR __DeliveredOrders = [Orders Delivered]
+			
+			RETURN
+			SWITCH(
+			    __FunnelStage,
+			    "Placed", DIVIDE(__TotalOrders, __TotalOrders),
+			    "Active", DIVIDE(__ActiveOrders, __TotalOrders),
+			    "Approved", DIVIDE(__ApprovedOrders, __ActiveOrders),
+			    "Shipped", DIVIDE(__ShippedOrders, __ApprovedOrders),
+			    "Delivered", DIVIDE(__DeliveredOrders, __ShippedOrders),
+			    BLANK()
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 04_Funnel
+		lineageTag: 9be46ac6-58ec-4a3b-9be5-6837c5d77f66
+
+	measure 'Funnel Gap' = ```
+			
+			VAR __CurrentValue = [Funnel Orders Stages]
+			VAR __MaxValue =
+			    CALCULATE(
+			        MAXX(
+			            'Funnel Stages', 
+			            [Funnel Orders Stages]
+			        ),
+			        ALL('Funnel Stages')
+			    )
+			
+			RETURN
+			    IF(
+			        NOT ISBLANK(__CurrentValue),
+			        __MaxValue - (__CurrentValue * 0.5)
+			    )
+			
+			```
+		formatString: #,0
+		displayFolder: 04_Funnel
+		lineageTag: 32e46759-7802-4f3c-934c-e727f5738352
+
+	measure 'Funnel Fulfillment Stage in Days' = ```
+			
+			SWITCH(
+			    SELECTEDVALUE('Fulfillment Stages'[Stage ID]),
+			    1, [Avg Approval Wait Days],
+			    2, [Avg Prep Days],
+			    3, [Avg Transit Days],
+			    BLANK()
+			)
+			
+			```
+		formatString: 0.0
+		displayFolder: 04_Funnel
+		lineageTag: 2cd9749c-0ebe-4498-a19d-a4e90659d601
+
+	measure 'Delivery Fulfillment Subtitle' =
+			
+			VAR __DaysToDeliver = [Avg Delivery Days]
+			RETURN
+			"Avg days by stage: Approval . Prep · Transit — total ~ " & FORMAT(__DaysToDeliver, "#,0") & " days"
+		displayFolder: 04_Funnel
+		lineageTag: 4f3c78eb-7025-4a39-ad22-5e185f7e5f9b
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Geo States' = ```
+			
+			VAR __Revenue = [Total Revenue]
+			VAR __ActiveStates = FILTER(ALLSELECTED(DIM_CUSTOMERS[STATE]), [Total Revenue] > 0)
+			VAR __TotalCount = COUNTROWS(__ActiveStates)
+			VAR __TopRank = RANKX(__ActiveStates, [Total Revenue], __Revenue, DESC, Dense)
+			
+			-- Define the two middle rows
+			VAR __MiddleRankValue1 = INT(__TotalCount / 2)
+			VAR __MiddleRankValue2 = __MiddleRankValue1 + 1
+			
+			RETURN
+			    IF(
+			        __TopRank = __MiddleRankValue1 || __TopRank = __MiddleRankValue2,
+			        "⋮", 
+			        SELECTEDVALUE(DIM_CUSTOMERS[STATE])
+			    )
+			```
+		displayFolder: 10_Geographic
+		lineageTag: 549c3312-48ba-4afc-ae2f-953eef4f958f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Geo State Rank' = ```
+			
+			VAR __SelectedTopBottomN = SELECTEDVALUE('Top/Bottom Selector'[Top/Bottom N])
+			VAR __CurrentRevenue = [Total Revenue]
+			
+			-- 1. Create a global active table ignoring the local visual row context
+			VAR __GlobalActiveStates = 
+			    CALCULATETABLE(
+			        FILTER(
+			            ALL(DIM_CUSTOMERS[STATE]), 
+			            [Total Revenue] > 0
+			        ),
+			        ALLSELECTED()
+			    )
+			VAR __TotalCount = COUNTROWS(__GlobalActiveStates)
+			
+			-- 2. Compute the exact ranking position in the global context
+			VAR __GlobalTopRank = 
+			    IF(
+			        __CurrentRevenue > 0,
+			        RANKX(
+			            __GlobalActiveStates, 
+			            [Total Revenue], 
+			            __CurrentRevenue, 
+			            DESC, 
+			            Dense
+			        )
+			    )
+			    
+			VAR __GlobalBottomRank = (__TotalCount - __GlobalTopRank + 1)
+			VAR __MiddleRankValue = INT(__TotalCount / 2) + 1
+			
+			RETURN
+			    IF(
+			        ISINSCOPE(DIM_CUSTOMERS[STATE]),
+			        SWITCH(
+			            TRUE(),
+			            -- Top N rows 
+			            __GlobalTopRank <= __SelectedTopBottomN, 
+			            __GlobalTopRank,
+			            
+			            -- Bottom N rows 
+			            __GlobalBottomRank <= __SelectedTopBottomN, 
+			            __GlobalTopRank, 
+			            
+			            -- Middle row stays blank
+			            __GlobalTopRank = __MiddleRankValue, 
+			            "⋮",
+			
+			            "⋮"
+			        )
+			    )
+			
+			```
+		displayFolder: 10_Geographic
+		lineageTag: 060cf041-4c25-454e-ac4c-1884ce3c8bf1
+
+		formatStringDefinition = ```
+				VAR __RankNumber = SELECTEDMEASURE()
+				RETURN
+				IF(
+				    ISBLANK(__RankNumber),  
+				    "⋮", 
+				    "#,#0"
+				)
+				```
+
+	measure 'Geo Ranking Sort Order' = ```
+			
+			VAR __SelectedTopBottomN = SELECTEDVALUE('Top/Bottom Selector'[Top/Bottom N])
+			VAR __CurrentRevenue = [Total Revenue]
+			
+			VAR __GlobalActiveStates = 
+			    CALCULATETABLE(
+			        FILTER(
+			            ALL(DIM_CUSTOMERS[STATE]), 
+			            [Total Revenue] > 0
+			        ),
+			        ALLSELECTED()
+			    )
+			VAR __TotalCount = COUNTROWS(__GlobalActiveStates)
+			
+			VAR __GlobalTopRank = 
+			    IF(
+			        __CurrentRevenue > 0,
+			        RANKX(__GlobalActiveStates, [Total Revenue], __CurrentRevenue, DESC, Dense)
+			    )
+			VAR __GlobalBottomRank = (__TotalCount - __GlobalTopRank + 1)
+			
+			-- Define the two middle rows
+			VAR __MiddleRankValue1 = INT(__TotalCount / 2)
+			VAR __MiddleRankValue2 = __MiddleRankValue1 + 1
+			
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        -- Top N rows
+			        __GlobalTopRank <= __SelectedTopBottomN, __GlobalTopRank,
+			        
+			        -- First separator row slotted right after Top N
+			        __GlobalTopRank = __MiddleRankValue1, __SelectedTopBottomN + 1,
+			        
+			        -- Second separator row slotted right after the first separator
+			        __GlobalTopRank = __MiddleRankValue2, __SelectedTopBottomN + 2,
+			        
+			        -- Bottom N rows follow right after the second separator row
+			        __GlobalBottomRank <= __SelectedTopBottomN, __SelectedTopBottomN + 2 + (__SelectedTopBottomN - __GlobalBottomRank + 1),
+			        
+			        BLANK()
+			    )
+			
+			```
+		formatString: 0
+		displayFolder: 10_Geographic
+		lineageTag: 83cec250-2349-450f-ae96-14fb2a0cde2a
+
+	measure 'Geo Customers Ranking' = ```
+			
+			VAR __UniqueCustomers = [Unique Customers]
+			VAR __ActiveStates = FILTER(ALLSELECTED(DIM_CUSTOMERS[STATE]), [Unique Customers] > 0)
+			VAR __TotalCount = COUNTROWS(__ActiveStates)
+			VAR __TopRank = RANKX(__ActiveStates, [Unique Customers], __UniqueCustomers, DESC, Dense)
+			
+			-- Define the two middle rows
+			VAR __MiddleRankValue1 = INT(__TotalCount / 2)
+			VAR __MiddleRankValue2 = __MiddleRankValue1 + 1
+			
+			RETURN
+			    IF(
+			        __TopRank = __MiddleRankValue1 || __TopRank = __MiddleRankValue2, 
+			       "⋮", 
+			        __UniqueCustomers
+			    )
+			```
+		displayFolder: 10_Geographic
+		lineageTag: c6a1dff7-4410-422f-9760-4dcb65cb23a5
+
+		formatStringDefinition = ```
+				VAR __FormattedCustomers = SELECTEDMEASURE()
+				RETURN
+				    IF(
+				        ISBLANK(__FormattedCustomers), 
+				        "⋮",
+				        "#,##0"   
+				    )
+				
+				```
+
+	measure 'Rank: Geo by Revenue' = ```
+			
+			VAR __SelectedTopBottomN = SELECTEDVALUE('Top/Bottom Selector'[Top/Bottom N])
+			VAR __Revenue = [Total Revenue]
+			
+			-- Create a virtual table of all States where revenue is greatert han 0
+			VAR __ActiveStates = 
+			    FILTER(
+			        ALLSELECTED(DIM_CUSTOMERS[STATE]),
+			        [Total Revenue] > 0
+			    )
+			VAR __TotalCount = COUNTROWS(__ActiveStates)
+			
+			-- Top ranking
+			VAR __TopRank = 
+			    IF(
+			        __Revenue > 0 && ISINSCOPE(DIM_CUSTOMERS[STATE]),
+			        RANKX(__ActiveStates, [Total Revenue], __Revenue, DESC, Dense)
+			    )
+			
+			-- Bottom ranking 
+			VAR __BottomRank = 
+			    IF(
+			        __Revenue > 0 && ISINSCOPE(DIM_CUSTOMERS[STATE]),
+			        RANKX(__ActiveStates, [Total Revenue], __Revenue, ASC, Dense)
+			    )
+			
+			-- Define the two consecutive middle rows
+			VAR __MiddleRankValue1 = INT(__TotalCount / 2)
+			VAR __MiddleRankValue2 = __MiddleRankValue1 + 1
+			
+			VAR __IsMiddleRow = (__TopRank = __MiddleRankValue1 || __TopRank = __MiddleRankValue2)
+			
+			RETURN 
+			    IF(
+			        __Revenue > 0 && 
+			        (__TopRank <= __SelectedTopBottomN || __BottomRank <= __SelectedTopBottomN || __IsMiddleRow), 
+			        1, 
+			        0
+			    )
+			```
+		formatString: 0
+		displayFolder: 10_Geographic
+		lineageTag: a169fdd5-fd0c-410f-b05f-e3427508ad23
+
+	measure 'Geo AOV Ranking' = ```
+			
+			VAR __Revenue = [Total Revenue]
+			VAR __Orders = [Total Orders]
+			
+			-- Figure out the ranks to identify the middle separator rows
+			VAR __ActiveStates = FILTER(ALLSELECTED(DIM_CUSTOMERS[STATE]), [Total Revenue] > 0)
+			VAR __TotalCount = COUNTROWS(__ActiveStates)
+			VAR __TopRank = RANKX(__ActiveStates, [Total Revenue], __Revenue, DESC, Dense)
+			
+			VAR __MiddleRankValue1 = INT(__TotalCount / 2)
+			VAR __MiddleRankValue2 = __MiddleRankValue1 + 1
+			
+			RETURN
+			    IF(
+			        __TopRank = __MiddleRankValue1 || __TopRank = __MiddleRankValue2, 
+			        "⋮", 
+			        DIVIDE(__Revenue, __Orders)
+			    )
+			```
+		displayFolder: 10_Geographic
+		lineageTag: 6c086fe4-8bc0-4718-a6da-efbcac993ed7
+
+		formatStringDefinition = ```
+				VAR __FormattedRevenue = SELECTEDMEASURE()
+				RETURN
+				    SWITCH (
+				        TRUE (),
+				        ISBLANK(__FormattedRevenue), "⋮",
+				        __FormattedRevenue <= 1E3, "$#,0.;-#,0.;0",
+				        __FormattedRevenue <= 1E4, "$#,0,.00K;-#,0,.00K;0",
+				        __FormattedRevenue <= 1E5, "$#,0,.0K;-#,0,.0K;0",
+				        __FormattedRevenue <= 1E6, "$#,0,.K;-#,0,.K;0",
+				        __FormattedRevenue <= 1E7, "$#,0,,.00M;-#,0,,.00M;0",
+				        __FormattedRevenue <= 1E8, "$#,0,,.0M;-#,0,,.0M;0",
+				        __FormattedRevenue <= 1E9, "$#,0,,.M;-#,0,,.M;0"
+				    )
+				
+				```
+
+	measure 'Geo Delivery Rate Ranking' = ```
+			
+			VAR __OrdersDelivered = [Orders Delivered]
+			VAR __TotalOrders = [Total Orders]
+			
+			-- Figure out the ranks to identify the middle separator rows
+			VAR __ActiveStates = FILTER(ALLSELECTED(DIM_CUSTOMERS[STATE]), [Orders Delivered] > 0)
+			VAR __TotalCount = COUNTROWS(__ActiveStates)
+			VAR __TopRank = RANKX(__ActiveStates, [Orders Delivered], __OrdersDelivered, DESC, Dense)
+			
+			VAR __MiddleRankValue1 = INT(__TotalCount / 2)
+			VAR __MiddleRankValue2 = __MiddleRankValue1 + 1
+			
+			RETURN
+			    IF(
+			        __TopRank = __MiddleRankValue1 || __TopRank = __MiddleRankValue2, 
+			        "⋮", 
+			        DIVIDE(__OrdersDelivered, __TotalOrders)
+			    )
+			```
+		displayFolder: 10_Geographic
+		lineageTag: 61e30999-28d3-41dc-9324-8cbc2f684f84
+
+		formatStringDefinition = ```
+				VAR __PercentValue = SELECTEDMEASURE()
+				RETURN 
+				    IF(
+				        ISBLANK(__PercentValue), 
+				        "⋮",
+				        "0.0%"
+				    )
+				```
+
+	measure 'Geo Cancel Rate Ranking' = ```
+			
+			VAR __OrdersCanceled = [Orders Canceled]
+			VAR __TotalOrders = [Total Orders]
+			
+			-- Figure out the ranks to identify the middle separator rows
+			VAR __ActiveStates = FILTER(ALLSELECTED(DIM_CUSTOMERS[STATE]), [Orders Canceled] > 0)
+			VAR __TotalCount = COUNTROWS(__ActiveStates)
+			VAR __TopRank = RANKX(__ActiveStates, [Orders Canceled], __OrdersCanceled, DESC, Dense)
+			
+			VAR __MiddleRankValue1 = INT(__TotalCount / 2)
+			VAR __MiddleRankValue2 = __MiddleRankValue1 + 1
+			
+			RETURN
+			    IF(
+			        __TopRank = __MiddleRankValue1 || __TopRank = __MiddleRankValue2, 
+			        "⋮", 
+			        DIVIDE(__OrdersCanceled, __TotalOrders)
+			    )
+			```
+		displayFolder: 10_Geographic
+		lineageTag: a5bb76af-6f16-4fa5-9469-be01a5b1f374
+
+		formatStringDefinition = ```
+				VAR __PercentValue = SELECTEDMEASURE()
+				RETURN 
+				    IF(
+				        ISBLANK(__PercentValue), 
+				        "⋮",
+				        "0.0%"
+				    )
+				```
 
 	/// Unused placeholder column; the measures table has no data rows. Grain: not applicable.
 	column Value

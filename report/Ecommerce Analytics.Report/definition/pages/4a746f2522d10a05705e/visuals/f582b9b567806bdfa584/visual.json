@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "f582b9b567806bdfa584",
   "position": {
     "x": 30.413235728088797,
@@ -7,7 +7,7 @@
     "z": 2000,
     "height": 638.67795028986473,
     "width": 1076.1606488400651,
-    "tabOrder": 6000
+    "tabOrder": 5000
   },
   "visualGroup": {
     "displayName": "Grp Line Chart Moving Averages",

@@ -1,0 +1,151 @@
+createOrReplace
+
+	ref table _Measures
+
+		/// [METRIC] Order volume: COUNTROWS(FCT_ORDERS) in filter context. One count per order.
+		measure 'Total Orders' = COUNTROWS(FCT_ORDERS)
+			displayFolder: 00_Base\Fct_Orders
+			lineageTag: b1000002-0001-0001-0001-000000000002
+
+			formatStringDefinition =
+					VAR __FormattedOrders = SELECTEDMEASURE()
+					RETURN
+					    SWITCH (
+					        TRUE (),
+					        __FormattedOrders <= 1E3, "#,0;-#,0;0",
+					        __FormattedOrders <= 1E4, "#,0,K;-#,0,K;0",
+					        __FormattedOrders <= 1E5, "#,0,K;-#,0,K;0",
+					        __FormattedOrders <= 1E6, "#,0,K;-#,0,K;0",
+					        __FormattedOrders <= 1E7, "#,0,,M;-#,0,,M;0",
+					        __FormattedOrders <= 1E8, "#,0,,M;-#,0,,M;0",
+					        __FormattedOrders <= 1E9, "#,0,,M;-#,0,,M;0"
+					    )
+
+		
+		/// Average confidence across pairs in context: pair_count / product_a_order_count (self-contained in table, no external denominator needed).
+		measure 'Avg Confidence %' =
+				AVERAGEX(
+					FCT_MARKET_BASKET,
+					DIVIDE(
+						FCT_MARKET_BASKET[PAIR_COUNT],
+						FCT_MARKET_BASKET[PRODUCT_A_ORDER_COUNT]
+					)
+				)
+			formatString: 0.0%
+			displayFolder: 06_Market Basket
+			lineageTag: m1000003-0001-0001-0001-000000000003
+
+		/// Average lift across pairs in context: (pair_count * total_orders) / (count_a * count_b); >1 = positive affinity.
+		measure 'Avg Lift' =
+				
+				VAR __TotalOrders = CALCULATE([Total Orders], REMOVEFILTERS(DIM_DATES))
+				RETURN
+					AVERAGEX(
+						FCT_MARKET_BASKET,
+						DIVIDE(
+							FCT_MARKET_BASKET[PAIR_COUNT] * __TotalOrders,
+							FCT_MARKET_BASKET[PRODUCT_A_ORDER_COUNT] * FCT_MARKET_BASKET[PRODUCT_B_ORDER_COUNT]
+						)
+					)
+			formatString: 0.00
+			displayFolder: 06_Market Basket
+			lineageTag: m1000004-0001-0001-0001-000000000004
+
+		/// Average support across pairs in context: pair_count / total orders (dataset-wide denominator, date-filter-independent).
+		measure 'Avg Support %' =
+				
+				VAR __TotalOrders = CALCULATE([Total Orders], REMOVEFILTERS(DIM_DATES))
+				RETURN
+					AVERAGEX(
+						FCT_MARKET_BASKET,
+						DIVIDE(FCT_MARKET_BASKET[PAIR_COUNT], __TotalOrders)
+					)
+			formatString: 0.00%
+			displayFolder: 06_Market Basket
+			lineageTag: m1000002-0001-0001-0001-000000000002
+
+		/// Actionable cross-sell pairs: lift > 1 (positive affinity) AND confidence > 10% (reliable recommendation).
+		measure 'Cross-Sell Opportunities' =
+				
+				VAR __TotalOrders = CALCULATE([Total Orders], REMOVEFILTERS(DIM_DATES))
+				RETURN
+					COUNTROWS(
+						FILTER(
+							FCT_MARKET_BASKET,
+							DIVIDE(
+								FCT_MARKET_BASKET[PAIR_COUNT] * __TotalOrders,
+								FCT_MARKET_BASKET[PRODUCT_A_ORDER_COUNT] * FCT_MARKET_BASKET[PRODUCT_B_ORDER_COUNT]
+							) > 1
+							&&
+							DIVIDE(
+								FCT_MARKET_BASKET[PAIR_COUNT],
+								FCT_MARKET_BASKET[PRODUCT_A_ORDER_COUNT]
+							) > 0.1
+						)
+					)
+			formatString: #,##0
+			displayFolder: 06_Market Basket
+			lineageTag: m1000007-0001-0001-0001-000000000007
+
+		/// Share of all product pairs that meet the actionable cross-sell threshold (lift > 1, confidence > 10%).
+		measure 'Cross-Sell Opportunity Rate' = DIVIDE([Cross-Sell Opportunities], [Total Product Pairs], 0)
+			formatString: 0.0%
+			displayFolder: 06_Market Basket
+			lineageTag: m1000010-0001-0001-0001-000000000010
+
+		/// Count of product pairs with lift above 1.5 (strong affinity). Lift computed from atomic counts.
+		measure 'High Lift Pairs' =
+				VAR __TotalOrders = CALCULATE([Total Orders], REMOVEFILTERS(DIM_DATES))
+				RETURN
+					COUNTROWS(
+						FILTER(
+							FCT_MARKET_BASKET,
+							DIVIDE(
+								FCT_MARKET_BASKET[PAIR_COUNT] * __TotalOrders,
+								FCT_MARKET_BASKET[PRODUCT_A_ORDER_COUNT] * FCT_MARKET_BASKET[PRODUCT_B_ORDER_COUNT]
+							) > 1.5
+						)
+					)
+			formatString: #,##0
+			displayFolder: 06_Market Basket
+			lineageTag: m1000005-0001-0001-0001-000000000005
+
+		/// Highest lift value among product pairs in context, computed from atomic counts.
+		measure 'Max Lift' =
+				VAR __TotalOrders = CALCULATE([Total Orders], REMOVEFILTERS(DIM_DATES))
+				RETURN
+					MAXX(
+						FCT_MARKET_BASKET,
+						DIVIDE(
+							FCT_MARKET_BASKET[PAIR_COUNT] * __TotalOrders,
+							FCT_MARKET_BASKET[PRODUCT_A_ORDER_COUNT] * FCT_MARKET_BASKET[PRODUCT_B_ORDER_COUNT]
+						)
+					)
+			formatString: 0.00
+			displayFolder: 06_Market Basket
+			lineageTag: m1000008-0001-0001-0001-000000000008
+
+		/// Highest support value among product pairs in context, computed from atomic counts.
+		measure 'Max Support %' =
+				VAR __TotalOrders = CALCULATE([Total Orders], REMOVEFILTERS(DIM_DATES))
+				RETURN
+					MAXX(
+						FCT_MARKET_BASKET,
+						DIVIDE(FCT_MARKET_BASKET[PAIR_COUNT], __TotalOrders)
+					)
+			formatString: 0.00%
+			displayFolder: 06_Market Basket
+			lineageTag: m1000009-0001-0001-0001-000000000009
+
+		/// [METRIC] Total co-purchase occurrences = SUM(FCT_MARKET_BASKET[PAIR_COUNT]) in filter context.
+		measure 'Total Pair Occurrences' = SUM(FCT_MARKET_BASKET[PAIR_COUNT])
+			formatString: #,##0
+			displayFolder: 06_Market Basket
+			lineageTag: m1000006-0001-0001-0001-000000000006
+
+		/// [METRIC] Count of product pairs (COUNTROWS FCT_MARKET_BASKET) in filter context.
+		measure 'Total Product Pairs' = COUNTROWS(FCT_MARKET_BASKET)
+			formatString: #,##0
+			displayFolder: 06_Market Basket
+			lineageTag: m1000001-0001-0001-0001-000000000001
+

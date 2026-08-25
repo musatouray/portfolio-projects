@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "44458a2749059e2d5d27",
   "position": {
     "x": 1179.4698176511508,
@@ -10,7 +10,7 @@
     "tabOrder": 6003
   },
   "visual": {
-    "visualType": "clusteredColumnChart",
+    "visualType": "lineChart",
     "query": {
       "queryState": {
         "Category": {
@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FCT_COHORT_RETENTION"
+                      "Entity": "DIM_CUSTOMERS"
                     }
                   },
                   "Property": "COHORT_MONTH"
                 }
               },
-              "queryRef": "FCT_COHORT_RETENTION.COHORT_MONTH",
+              "queryRef": "DIM_CUSTOMERS.COHORT_MONTH",
               "nativeQueryRef": "COHORT_MONTH",
               "active": true
             }
@@ -42,28 +42,12 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Gross Revenue Retention (GRR) %"
+                  "Property": "Cohort Acquired Customers"
                 }
               },
-              "queryRef": "_Measures.Gross Revenue Retention (GRR) %",
-              "nativeQueryRef": "GRR",
-              "displayName": "GRR"
-            }
-          ],
-          "fieldParameters": [
-            {
-              "parameterExpr": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Param: Cohort Retention"
-                    }
-                  },
-                  "Property": "Param: Cohort Retention"
-                }
-              },
-              "index": 0,
-              "length": 1
+              "queryRef": "_Measures.Cohort Acquired Customers",
+              "nativeQueryRef": "Acquired Customers",
+              "displayName": "Acquired Customers"
             }
           ]
         }
@@ -75,7 +59,7 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "FCT_COHORT_RETENTION"
+                    "Entity": "DIM_CUSTOMERS"
                   }
                 },
                 "Property": "COHORT_MONTH"
@@ -91,24 +75,10 @@
       "dataPoint": [
         {
           "properties": {
-            "fillTransparency": {
+            "transparency": {
               "expr": {
                 "Literal": {
-                  "Value": "50D"
-                }
-              }
-            },
-            "borderShow": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "borderTransparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "50D"
+                  "Value": "85D"
                 }
               }
             }
@@ -205,6 +175,13 @@
               }
             },
             "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "roundRange": {
               "expr": {
                 "Literal": {
                   "Value": "false"
@@ -431,18 +408,6 @@
               "expr": {
                 "Literal": {
                   "Value": "'Average'"
-                }
-              }
-            },
-            "value": {
-              "expr": {
-                "Aggregation": {
-                  "Expression": {
-                    "SelectRef": {
-                      "ExpressionName": "_Measures.Cohort Orders"
-                    }
-                  },
-                  "Function": 1
                 }
               }
             },
@@ -811,6 +776,103 @@
                   "Value": "0L"
                 }
               }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "lineStyles": [
+        {
+          "properties": {
+            "areaShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "showMarker": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "markerSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "3D"
+                }
+              }
+            },
+            "lineChartType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'smooth'"
+                }
+              }
+            },
+            "markerColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "areaMatchStrokeColor": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "areaColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 8,
+                      "Percent": 0.4
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "markers": [
+        {
+          "properties": {
+            "borderShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "borderColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -923,13 +985,8 @@
             },
             "text": {
               "expr": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Cohort Barchart Title"
+                "Literal": {
+                  "Value": "'Acquired customers by cohort'"
                 }
               }
             }

@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "funnel_review_score",
   "position": {
     "x": 509.17127071823205,
     "y": 743.90389781539864,
-    "z": 8000,
+    "z": 4000,
     "height": 305.96989203710274,
     "width": 479.97567033301232,
-    "tabOrder": 8500
+    "tabOrder": 7000
   },
   "visual": {
     "visualType": "clusteredColumnChart",
