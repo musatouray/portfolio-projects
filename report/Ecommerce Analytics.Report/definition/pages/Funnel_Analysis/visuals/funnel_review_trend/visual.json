@@ -1,19 +1,19 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "funnel_review_trend",
   "position": {
     "x": 1019.5103654518729,
     "y": 743.90389781539864,
-    "z": 9000,
+    "z": 5000,
     "height": 305.96989203710274,
     "width": 871.19671549495672,
-    "tabOrder": 8600
+    "tabOrder": 8000
   },
   "visual": {
-    "visualType": "lineChart",
+    "visualType": "pivotTable",
     "query": {
       "queryState": {
-        "Category": {
+        "Rows": {
           "projections": [
             {
               "field": {
@@ -27,12 +27,13 @@
                 }
               },
               "queryRef": "DIM_DATES.MONTH_YEAR",
-              "nativeQueryRef": "MONTH_YEAR",
-              "active": true
+              "nativeQueryRef": "Month",
+              "active": true,
+              "displayName": "Month"
             }
           ]
         },
-        "Y": {
+        "Values": {
           "projections": [
             {
               "field": {
@@ -42,11 +43,12 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Average Review Score"
+                  "Property": "Orders Placed"
                 }
               },
-              "queryRef": "_Measures.Average Review Score",
-              "nativeQueryRef": "Average Review Score"
+              "queryRef": "_Measures.Orders Placed",
+              "nativeQueryRef": "Placed",
+              "displayName": "Placed"
             },
             {
               "field": {
@@ -56,123 +58,212 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Late Delivery Rate"
+                  "Property": "Orders Canceled"
                 }
               },
-              "queryRef": "_Measures.Late Delivery Rate",
-              "nativeQueryRef": "Late Delivery Rate"
+              "queryRef": "_Measures.Orders Canceled",
+              "nativeQueryRef": "Canceled",
+              "displayName": "Canceled"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Orders Shipped"
+                }
+              },
+              "queryRef": "_Measures.Orders Shipped",
+              "nativeQueryRef": "Shipped",
+              "displayName": "Shipped"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Orders Delivered"
+                }
+              },
+              "queryRef": "_Measures.Orders Delivered",
+              "nativeQueryRef": "Delivered",
+              "displayName": "Delivered"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Delivery Rate"
+                }
+              },
+              "queryRef": "_Measures.Delivery Rate",
+              "nativeQueryRef": "Delivery Rate"
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "DIM_DATES"
-                  }
-                },
-                "Property": "MONTH_YEAR"
-              }
-            },
-            "direction": "Ascending"
-          }
-        ],
-        "isDefaultSort": true
       }
     },
     "objects": {
-      "categoryAxis": [
+      "columnHeaders": [
         {
           "properties": {
-            "axisType": {
+            "columnAdjustment": {
               "expr": {
                 "Literal": {
-                  "Value": "'Scalar'"
+                  "Value": "'growToFit'"
                 }
               }
             },
-            "fontSize": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "outlineStyle": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "4D"
+                }
+              }
+            },
+            "outlineWeight": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            },
+            "outlineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 8,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Right'"
+                }
+              }
+            },
+            "titleAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Left'"
                 }
               }
             }
           }
         }
       ],
-      "valueAxis": [
+      "general": [
         {
           "properties": {
-            "show": {
+            "layout": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "gridlineShow": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
+                  "Value": "'Compact'"
                 }
               }
             }
           }
         }
       ],
-      "lineStyles": [
+      "rowHeaders": [
         {
           "properties": {
-            "areaShow": {
+            "outlineStyle": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "0D"
                 }
               }
             },
-            "lineChartType": {
+            "fontFamily": {
               "expr": {
                 "Literal": {
-                  "Value": "'linear'"
-                }
-              }
-            },
-            "showMarker": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
+                  "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
                 }
               }
             }
           }
         }
       ],
-      "legend": [
+      "grid": [
         {
           "properties": {
-            "position": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Bottom'"
+            "gridHorizontalColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "fontColorPrimary": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#607D8B'"
+                    }
+                  }
                 }
               }
             },
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
+            "fontColorSecondary": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#607D8B'"
+                    }
+                  }
                 }
               }
             }
@@ -186,8 +277,13 @@
           "properties": {
             "text": {
               "expr": {
-                "Literal": {
-                  "Value": "'Avg review score and late delivery rate by month'"
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Custom Period Title"
                 }
               }
             },
@@ -258,7 +354,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Satisfaction vs Late Delivery Trend'"
+                  "Value": "'Monthly Funnel Detail'"
                 }
               }
             },

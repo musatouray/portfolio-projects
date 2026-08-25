@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "562b1e60a473a40ee968",
   "position": {
     "x": 19.853008261949412,
@@ -37,7 +37,7 @@
                         "propertyName": "expr"
                       },
                       "selector": {
-                        "id": "ExecutiveSummaryTitle"
+                        "id": "CohortPeriodSubtitle"
                       }
                     }
                   }
@@ -102,6 +102,62 @@
           },
           "selector": {
             "id": "ExecutiveSummaryTitle"
+          }
+        },
+        {
+          "properties": {
+            "expr": {
+              "expr": {
+                "Min": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "Subquery": {
+                          "Query": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "_",
+                                "Entity": "_Measures",
+                                "Type": 0
+                              }
+                            ],
+                            "Select": [
+                              {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "_"
+                                    }
+                                  },
+                                  "Property": "Cohort Period Subtitle"
+                                },
+                                "Name": "_Measures.Cohort Period Subtitle"
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "Property": "_Measures.Cohort Period Subtitle"
+                    }
+                  },
+                  "IncludeAllTypes": 1
+                },
+                "Annotations": {
+                  "NaturalLanguage": {
+                    "version": 1,
+                    "kind": "NaturalLanguage",
+                    "annotation": {
+                      "name": "CohortPeriodSubtitle",
+                      "utterance": "cohort period subtitle"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "CohortPeriodSubtitle"
           }
         }
       ]

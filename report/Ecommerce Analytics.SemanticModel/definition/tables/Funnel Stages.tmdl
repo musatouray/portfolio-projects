@@ -1,0 +1,41 @@
+table 'Funnel Stages'
+	lineageTag: 264b39c4-abad-469a-bf8c-120d966d242c
+
+	column Stage
+		lineageTag: 015680e3-05f3-4192-81fb-79c4b0aea496
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Stage]
+		sortByColumn: 'Sort Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort Order'
+		formatString: 0
+		lineageTag: 33e9551f-f4aa-41c5-891a-2fbb70f0d74f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Sort Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Funnel Stages' = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE(
+				    "Stage", STRING,
+				    "Sort Order", INTEGER,
+				    {
+				        {"Placed", 1},
+				        {"Active", 2},
+				        {"Approved", 3},
+				        {"Shipped", 4},
+				        {"Delivered", 5}
+				    }
+				)
+				
+				```
+
+	annotation PBI_Id = 82a1c9aa171942cb9e77f81a8f02242e
+

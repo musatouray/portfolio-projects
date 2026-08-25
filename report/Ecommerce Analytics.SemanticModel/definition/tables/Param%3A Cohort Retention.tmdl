@@ -2,6 +2,11 @@
 table 'Param: Cohort Retention'
 	lineageTag: 846c9a26-807e-412b-ab47-d9e492d0ad26
 
+	measure 'Param: Selected Cohort Retention Value' = SELECTEDVALUE('Param: Cohort Retention'[Param: Cohort Retention])
+		lineageTag: be39ef6d-0675-4b47-b47c-589e0d391f68
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	/// The cohort metric the user selects (Retention, Active, Revenue, Orders, GRR, NRR). Grain: one per option.
 	column 'Param: Cohort Retention'
 		lineageTag: a8cd905e-c517-4c99-ae87-5ddec4591b39
@@ -42,12 +47,13 @@ table 'Param: Cohort Retention'
 		mode: import
 		source =
 				{
-				    // ("Retention", NAMEOF('_Measures'[Retention Rate]), 0),
-				    // ("Active", NAMEOF('_Measures'[Retained Customers]), 1),
-				    // ("Revenue", NAMEOF('_Measures'[Cohort Revenue]), 2),
-				    // ("Orders", NAMEOF('_Measures'[Cohort Orders]), 3),
-				    ("GRR", NAMEOF('_Measures'[Gross Revenue Retention (GRR) %]), 4),
-				    ("NRR", NAMEOF('_Measures'[Net Revenue Retention (NRR) %]), 5)
+				    ("Active Customers", NAMEOF('_Measures'[Cohort Active Customers]), 0),
+				    ("Retention %", NAMEOF('_Measures'[Cohort Retention Rate]), 1),
+				    ("Churn %", NAMEOF('_Measures'[Cohort Churn Rate]), 2),
+				    ("Revenue", NAMEOF('_Measures'[Cohort Revenue]), 3),
+				    ("Orders", NAMEOF('_Measures'[Cohort Orders]), 4),
+				    ("GRR", NAMEOF('_Measures'[Gross Revenue Retention (GRR) %]), 5)
+				 //   ("NRR", NAMEOF('_Measures'[Net Revenue Retention (NRR) %]), 6)
 				}
 
 	annotation PBI_Id = 48e378e417f3459f8f427a98e26f7811

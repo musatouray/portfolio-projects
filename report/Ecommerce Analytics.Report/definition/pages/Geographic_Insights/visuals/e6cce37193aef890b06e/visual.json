@@ -1,16 +1,16 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "a82c91fcc5e9e0c3dd7a",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "e6cce37193aef890b06e",
   "position": {
-    "x": 1015.9722236301891,
-    "y": 21.400401605900925,
-    "z": 3000,
-    "height": 31.274801955523508,
-    "width": 113.37115708877272,
-    "tabOrder": 0
+    "x": 1688.6735262811089,
+    "y": 539.53469511886055,
+    "z": 5500,
+    "height": 64.2303208474834,
+    "width": 175.17360231131838,
+    "tabOrder": 6000
   },
   "visual": {
-    "visualType": "advancedSlicerVisual",
+    "visualType": "slicer",
     "query": {
       "queryState": {
         "Values": {
@@ -20,150 +20,38 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Param: Cohort Retention"
+                      "Entity": "Top/Bottom Selector"
                     }
                   },
-                  "Property": "Param: Cohort Retention"
+                  "Property": "Top/Bottom N"
                 }
               },
-              "queryRef": "Param: Cohort Retention.Param: Cohort Retention",
-              "nativeQueryRef": "Param: Cohort Retention"
+              "queryRef": "Top/Bottom Selector.Top/Bottom N",
+              "nativeQueryRef": "Top/Bottom N1",
+              "active": true
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Top/Bottom Selector"
+                  }
+                },
+                "Property": "Top/Bottom N"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
       }
     },
     "objects": {
-      "fillCustom": [
-        {
-          "properties": {
-            "fillColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#0078D4'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "selection:selected"
-          }
-        }
-      ],
-      "outline": [
-        {
-          "properties": {
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "33D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "default"
-          }
-        }
-      ],
-      "value": [
-        {
-          "properties": {
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": 0
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "selection:selected"
-          }
-        },
-        {
-          "properties": {
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 2,
-                      "Percent": 0.4
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "interaction:rest"
-          }
-        },
-        {
-          "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
-                }
-              }
-            },
-            "fontFamily": {
-              "expr": {
-                "Literal": {
-                  "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "default"
-          }
-        }
-      ],
-      "layout": [
-        {
-          "properties": {
-            "orientation": {
-              "expr": {
-                "Literal": {
-                  "Value": "2D"
-                }
-              }
-            },
-            "maxTiles": {
-              "expr": {
-                "Literal": {
-                  "Value": "6L"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "overFlow": [
-        {
-          "properties": {
-            "overFlowDirection": {
-              "expr": {
-                "Literal": {
-                  "Value": "1D"
-                }
-              }
-            }
-          }
-        }
-      ],
       "selection": [
         {
           "properties": {
@@ -185,8 +73,8 @@
                 "Version": 2,
                 "From": [
                   {
-                    "Name": "p",
-                    "Entity": "Param: Cohort Retention",
+                    "Name": "t",
+                    "Entity": "Top/Bottom Selector",
                     "Type": 0
                   }
                 ],
@@ -199,10 +87,10 @@
                             "Column": {
                               "Expression": {
                                 "SourceRef": {
-                                  "Source": "p"
+                                  "Source": "t"
                                 }
                               },
-                              "Property": "Param: Cohort Retention"
+                              "Property": "Top/Bottom N"
                             }
                           }
                         ],
@@ -210,7 +98,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'GRR'"
+                                "Value": "5L"
                               }
                             }
                           ]
@@ -219,6 +107,101 @@
                     }
                   }
                 ]
+              }
+            }
+          }
+        }
+      ],
+      "header": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Choose Top'"
+                }
+              }
+            },
+            "textSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "items": [
+        {
+          "properties": {
+            "background": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FAFCFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "textSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Dropdown'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropdown": [
+        {
+          "properties": {
+            "borderRadius": {
+              "expr": {
+                "Literal": {
+                  "Value": "5L"
+                }
+              }
+            },
+            "accentBarShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "selectionIcon": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0
+                    }
+                  }
+                }
               }
             }
           }
@@ -667,6 +650,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "parentGroupName": "01bdd60043472a446dd6"
+  }
 }

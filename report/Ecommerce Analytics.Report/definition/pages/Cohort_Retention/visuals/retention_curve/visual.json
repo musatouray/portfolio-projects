@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "retention_curve",
   "position": {
-    "x": 1175.9987835166507,
-    "y": 339.83678848395766,
+    "x": 1178.9722236301891,
+    "y": 340.33016438584991,
     "z": 0,
     "height": 297.79512392924124,
-    "width": 686.680521060368,
+    "width": 683,
     "tabOrder": 3000
   },
   "visual": {
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FCT_COHORT_RETENTION"
+                      "Entity": "FCT_CUSTOMER_RETENTION"
                     }
                   },
-                  "Property": "PERIOD"
+                  "Property": "COHORT_PERIOD"
                 }
               },
-              "queryRef": "FCT_COHORT_RETENTION.PERIOD",
-              "nativeQueryRef": "PERIOD",
+              "queryRef": "FCT_CUSTOMER_RETENTION.COHORT_PERIOD",
+              "nativeQueryRef": "COHORT_PERIOD",
               "active": true
             }
           ]
@@ -42,11 +42,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Retention Rate"
+                  "Property": "Cohort Retention Rate"
                 }
               },
               "queryRef": "_Measures.Retention Rate",
-              "nativeQueryRef": "Retention Rate"
+              "nativeQueryRef": "Cohort Retention Rate"
             }
           ]
         }
@@ -61,7 +61,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Retention Rate"
+                "Property": "Cohort Retention Rate"
               }
             },
             "direction": "Descending"
@@ -69,6 +69,99 @@
         ],
         "isDefaultSort": true
       }
+    },
+    "objects": {
+      "lineStyles": [
+        {
+          "properties": {
+            "markerSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "2D"
+                }
+              }
+            },
+            "areaShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "areaMatchStrokeColor": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "areaColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 8,
+                      "Percent": 0.4
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "markers": [
+        {
+          "properties": {
+            "borderShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dataPoint": [
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "85D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "gridlineShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "visualContainerObjects": {
       "title": [
@@ -84,7 +177,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Retention Curve'"
+                  "Value": "'Customer retention curve'"
                 }
               }
             }

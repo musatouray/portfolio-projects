@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "funnel_payment_mix",
   "position": {
     "x": 30.363424400628517,
     "y": 743.90389781539864,
-    "z": 7000,
+    "z": 3000,
     "height": 305.96989203710274,
     "width": 448.444421916975,
-    "tabOrder": 8400
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "donutChart",

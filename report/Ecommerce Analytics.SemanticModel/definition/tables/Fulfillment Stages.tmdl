@@ -1,0 +1,39 @@
+table 'Fulfillment Stages'
+	lineageTag: 734725ad-e0d9-4534-9792-d8b4153b206d
+
+	column 'Stage ID'
+		formatString: 0
+		lineageTag: e89ebda5-184c-4cda-8bdd-a54614590f98
+		summarizeBy: count
+		isNameInferred
+		sourceColumn: [Stage ID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Stage Name'
+		lineageTag: 4b8e25bb-7515-405b-84e0-bd9ffd2882e9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Stage Name]
+		sortByColumn: 'Stage ID'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fulfillment Stages' = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE(
+				    "Stage ID", INTEGER,
+				    "Stage Name", STRING,
+				    {
+				        {1, "Approval Wait Days"},
+				        {2, "Prep Days"},
+				        {3, "Transit Days"}
+				    }
+				)
+				
+				```
+
+	annotation PBI_Id = 5427281c5f8441e99ca6a97910984d3c
+

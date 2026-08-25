@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "f6735ad350884ecbc73c",
   "position": {
-    "x": 1017.1747174210553,
-    "y": 363.19326879213344,
+    "x": 30.363424400628517,
+    "y": 207.87267474276447,
     "z": 0,
-    "height": 691.35181712200313,
+    "height": 537.199047088043,
     "width": 868.86106746413907,
-    "tabOrder": 8001
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "shapeMap",
@@ -41,11 +41,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Order Items Total Revenue"
+                  "Property": "Order Items Total Orders"
                 }
               },
-              "queryRef": "_Measures.Total Revenue Order Items",
-              "nativeQueryRef": "Total Revenue Order Items"
+              "queryRef": "_Measures.Order Items Total Orders",
+              "nativeQueryRef": "Total Order Items"
             }
           ]
         },
@@ -59,11 +59,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Order Items Total Orders"
+                  "Property": "Order Items Total Revenue"
                 }
               },
-              "queryRef": "_Measures.Total Order Items",
-              "nativeQueryRef": "Total Order Items"
+              "queryRef": "_Measures.Order Items Total Revenue",
+              "nativeQueryRef": "Total Revenue Order Items"
             }
           ]
         }
@@ -197,6 +197,19 @@
               "expr": {
                 "Literal": {
                   "Value": "'State Detail'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "keepLayerOrder": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

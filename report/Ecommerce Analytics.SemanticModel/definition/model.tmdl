@@ -9,7 +9,7 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBI_QueryOrder = ["DIM_CUSTOMERS","DIM_DATES","DIM_PRODUCTS","DIM_SELLERS","FCT_CLV_CUSTOMER","FCT_COHORT_RETENTION","FCT_MARKET_BASKET","FCT_ORDER_ITEMS","FCT_ORDERS","FCT_ORDER_PAYMENTS","FCT_RFM_SEGMENTS","fnRemoveMetadataColumns"]
+annotation PBI_QueryOrder = ["DIM_CUSTOMERS","DIM_DATES","DIM_PRODUCTS","DIM_SELLERS","FCT_CLV_CUSTOMER","FCT_COHORT_RETENTION","FCT_MARKET_BASKET","FCT_ORDER_ITEMS","FCT_ORDERS","FCT_ORDER_PAYMENTS","FCT_RFM_SEGMENTS","fnRemoveMetadataColumns","FCT_CUSTOMER_RETENTION"]
 
 annotation PBI_ProTooling = ["DevMode","CalcGroup","TMDLView_Desktop","DaxQueryView_Desktop","MCP-PBIModeling"]
 
@@ -38,6 +38,9 @@ ref table 'CG Order Items Metrics'
 ref table 'CG Rolling Averages'
 ref table 'From Segment'
 ref table 'To Segment'
+ref table FCT_CUSTOMER_RETENTION
+ref table 'Funnel Stages'
+ref table 'Fulfillment Stages'
 
 ref cultureInfo en-US
 
